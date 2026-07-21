@@ -42,7 +42,6 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 90
     permissions:
-      contents: write
       issues: write
       pull-requests: write
 
@@ -394,16 +393,7 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           echo "✅ SSH 密钥已设置"
 
-      # ---------- 17. 打包产物 ----------
-      - name: 打包产物
-        if: steps.deploy-condition.outputs.should_deploy == 'true'
-        run: |
-          BUILD_ID="${{ steps.vars.outputs.build_id }}"
-          tar -czf "build-${BUILD_ID}.tar.gz" ${{ env.BUILD_PATH }}/
-          echo "压缩包: build-${BUILD_ID}.tar.gz"
-          echo "压缩包大小: $(du -h build-${BUILD_ID}.tar.gz | awk '{print $1}')"
-
-      # ---------- 18. 显示部署信息 ----------
+      # ---------- 17. 显示部署信息 ----------
       - name: 显示部署信息
         if: steps.deploy-condition.outputs.should_deploy == 'true'
         run: |
@@ -419,7 +409,7 @@ jobs:
           echo "触发者: ${{ github.actor }}"
           echo "========================================"
 
-      # ---------- 19. 部署到服务器 ----------
+      # ---------- 18. 部署到服务器 ----------
       - name: 部署到服务器
         if: steps.deploy-condition.outputs.should_deploy == 'true'
         id: rsync-deploy
@@ -433,7 +423,7 @@ jobs:
           TARGET: ${{ secrets.SERVER_TARGET_PATH }}
           EXCLUDE: "/.git/, /.env, /.meta/"
 
-      # ---------- 20. 部署后验证 ----------
+      # ---------- 19. 部署后验证 ----------
       - name: 部署后验证
         if: steps.deploy-condition.outputs.should_deploy == 'true'
         run: |
@@ -472,7 +462,7 @@ jobs:
 
           echo "========================================"
 
-      # ---------- 21. 健康检查 ----------
+      # ---------- 20. 健康检查 ----------
       - name: 健康检查
         if: steps.deploy-condition.outputs.should_deploy == 'true'
         run: |
@@ -497,53 +487,7 @@ jobs:
           echo "⚠️ 健康检查未返回200/301/302，请手动确认服务状态"
           exit 0
 
-      # ---------- 22. 创建 Release ----------
-      - name: 创建 Release
-        if: steps.deploy-condition.outputs.should_deploy == 'true'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          BUILD_ID="${{ steps.vars.outputs.build_id }}"
-          COMMIT_MSG=$(git log -1 --pretty=%B | head -1)
-          COMMIT_URL="https://github.com/${{ github.repository }}/commit/${{ steps.vars.outputs.commit_hash }}"
-
-          if gh release view "$BUILD_ID" --repo "${{ github.repository }}" 2>/dev/null; then
-            echo "⚠️ Release $BUILD_ID 已存在，删除旧版本..."
-            gh release delete "$BUILD_ID" --repo "${{ github.repository }}" -y 2>/dev/null || true
-          fi
-
-          gh release create \
-            "$BUILD_ID" \
-            "build-${BUILD_ID}.tar.gz" \
-            --repo "${{ github.repository }}" \
-            --title "Build $BUILD_ID" \
-            --notes "## 🚀 自动部署 Release
-
-            ### 📦 构建信息
-            | 项目 | 详情 |
-            |------|------|
-            | 构建ID | \`$BUILD_ID\` |
-            | 提交 | [\`${{ steps.vars.outputs.short_hash }}\`]($COMMIT_URL) |
-            | 提交信息 | $COMMIT_MSG |
-            | 耗时 | ${{ steps.build.outputs.duration }}秒 |
-            | 产物大小 | ${{ steps.build.outputs.size }} |
-            | 触发者 | @${{ github.actor }} |
-            | 触发方式 | ${{ github.event_name }} |
-
-            ### 🌐 部署信息
-            | 项目 | 详情 |
-            |------|------|
-            | 服务器 | ${{ secrets.SERVER_HOST }} |
-            | 路径 | ${{ secrets.SERVER_TARGET_PATH }} |
-            | 状态 | ✅ 部署成功 |
-
-            ---
-            > 🔗 [查看部署记录](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-
-          echo "✅ Release 已创建"
-
-      # ---------- 23. 生成部署报告 ----------
+      # ---------- 21. 生成部署报告 ----------
       - name: 生成部署报告
         if: always()
         run: |
@@ -578,7 +522,7 @@ jobs:
             echo "> ❌ 构建失败，请查看日志" >> $GITHUB_STEP_SUMMARY
           fi
 
-      # ---------- 24. 清理 Docker ----------
+      # ---------- 22. 清理 Docker ----------
       - name: 清理 Docker
         if: always()
         run: |
