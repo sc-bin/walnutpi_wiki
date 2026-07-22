@@ -76,7 +76,7 @@ In this experiment, we use a button to toggle the relay — press once to turn o
 
 ```mermaid
 graph TD
-    Import digitalio-related modules --> Construct relay and key objects --> Button pressed --> Turn on relay --> Button pressed again --> Turn off relay --> Button pressed;
+    Import-digitalio-related-modules --> Construct-relay-and-key-objects --> Button-pressed --> Turn-on-relay --> Button-pressed-again --> Turn-off-relay --> Button-pressed;
 ```
 
 ## Reference Code

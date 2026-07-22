@@ -35,7 +35,7 @@ Read the image, convert it to a grayscale image, and then perform circle detecti
 
 ```mermaid
 graph TD
-    Read image-->Convert to grayscale-->Circle detection-->Display image;
+    Read-image --> Convert-to-grayscale --> Circle-detection --> Display-image;
 ```
 
 <br></br>

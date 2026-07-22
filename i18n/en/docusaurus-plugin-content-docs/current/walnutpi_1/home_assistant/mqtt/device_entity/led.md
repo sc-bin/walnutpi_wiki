@@ -71,7 +71,7 @@ The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    Import Related Modules-->Build LED Object-->Connect MQTT Server-->Register LED Entity and Device-->Receive MQTT Information-->Control LED On/Off-->Receive MQTT Information;
+    Import-Related-Modules --> Build-LED-Object --> Connect-MQTT-Server --> Register-LED-Entity-and-Device --> Receive-MQTT-Information --> Control-LED-On/Off --> Receive-MQTT-Information;
 ```
 
 ## Implementation Based on WalnutPi 1B

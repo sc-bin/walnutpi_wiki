@@ -7,65 +7,62 @@ sidebar_position: 1
 
 ![directory](./img/directory/directory1.png)
 
-- **核桃派PicoW介绍**
+### **WalnutPi PicoW Introduction**
 
-    - [核桃派PicoW](./intro/wpi_picow.md)
-    - [资料下载](./intro/download.md)
+- [WalnutPi PicoW](./intro/wpi_picow.md)
+- [Downloads](./intro/download.md)
 
-- [**Python3基础知识**](./python_learn.md)
+### [**Python3 Basics**](./python_learn.md)
 
-- **开发环境搭建**
+### **Development Environment Setup**
 
-    - [Thonny IDE开发软件安装](./getting_start/thonny_ide.md)
-    - [串口驱动安装](./getting_start/driver.md)
-    - [REPL串口交互](./getting_start/repl.md)
-    - [文件系统](./getting_start/file_system.md)
-    - [例程测试](./getting_start/demo.md)
-    - [代码离线运行](./getting_start/run_offline.md)
-    - [固件更新](./getting_start/firmware_update.md)
+- [Thonny IDE Installation](./getting_start/thonny_ide.md)
+- [Serial Driver Installation](./getting_start/driver.md)
+- [REPL Serial Interaction](./getting_start/repl.md)
+- [File System](./getting_start/file_system.md)
+- [Example Testing](./getting_start/demo.md)
+- [Offline Code Execution](./getting_start/run_offline.md)
+- [Firmware Update](./getting_start/firmware_update.md)
 
-- **基础实验**
+### **Basic Experiments**
 
-    - [点亮第1个LED](./basic_examples/led.md) 
-    - [按键](./basic_examples/key.md) 
-    - [外部中断](./basic_examples/exti.md) 
-    - [定时器](./basic_examples/timer.md) 
-    - [ADC（电压测量）](./basic_examples/adc.md) 
-    - [PWM（蜂鸣器）](./basic_examples/pwm_beep.md) 
-    - [UART（串口通讯）](./basic_examples/uart.md) 
-    - [thread（线程）](./basic_examples/thread.md) 
-    - [看门狗](./basic_examples/watchdog.md) 
-    - [文件读写](./basic_examples/file.md) 
+- [Lighting Up the First LED](./basic_examples/led.md)
+- [Button](./basic_examples/key.md)
+- [External Interrupt](./basic_examples/exti.md)
+- [Timer](./basic_examples/timer.md)
+- [ADC (Voltage Measurement)](./basic_examples/adc.md)
+- [PWM (Buzzer)](./basic_examples/pwm_beep.md)
+- [UART (Serial Communication)](./basic_examples/uart.md)
+- [Thread](./basic_examples/thread.md)
+- [Watchdog](./basic_examples/watchdog.md)
+- [File Read/Write](./basic_examples/file.md)
 
-- **WiFi应用**
+### **WiFi Applications**
 
-    - [连接无线路由器](./wifi/connect_wifi.md) 
-    - [Socket通讯](./wifi/socket.md) 
-    - [MQTT通讯](./wifi/mqtt.md) 
+- [Connecting to Wireless Router](./wifi/connect_wifi.md)
+- [Socket Communication](./wifi/socket.md)
+- [MQTT Communication](./wifi/mqtt.md)
 
-- **蓝牙应用**
+### **Bluetooth Applications**
 
-    - [蓝牙广播](./bluetooth/broadcast.md) 
-    - [蓝牙从机（数据收发）](./bluetooth/peripheral.md) 
+- [Bluetooth Broadcasting](./bluetooth/broadcast.md)
+- [Bluetooth Peripheral (Data Transceiver)](./bluetooth/peripheral.md)
 
-- **传感器**
+### **Sensors**
 
-    - [温度传感器（DS18B20）](./sensor/ds18b20.md) 
-    - [温湿度传感器（DHT11）](./sensor/dht11.md) 
-    - [人体感应传感器](./sensor/human_induction.md) 
-    - [光敏传感器](./sensor/photosensitive.md) 
-    - [超声波测距（HC-SR04）](./sensor/hcsr04.md) 
-    - [大气压强传感器（BMP280）](./sensor/bmp280.md) 
-    - [六轴加速度计（MPU6050）](./sensor/mpu6050.md) 
-    - [红外测温（MLX90614）](./sensor/mlx90614.md) 
+- [Temperature Sensor (DS18B20)](./sensor/ds18b20.md)
+- [Temperature & Humidity Sensor (DHT11)](./sensor/dht11.md)
+- [Human Body Induction Sensor](./sensor/human_induction.md)
+- [Photosensitive Sensor](./sensor/photosensitive.md)
+- [Ultrasonic Distance Measurement (HC-SR04)](./sensor/hcsr04.md)
+- [Atmospheric Pressure Sensor (BMP280)](./sensor/bmp280.md)
+- [6-Axis Accelerometer (MPU6050)](./sensor/mpu6050.md)
+- [Infrared Temperature Measurement (MLX90614)](./sensor/mlx90614.md)
 
-- **拓展模块**
+### **Expansion Modules**
 
-    - [继电器](./module/relay.md) 
-    - [舵机](./module/servo.md) 
-    - [Neopixel彩灯](./module/neopixel.md) 
+- [Relay](./module/relay.md)
+- [Servo](./module/servo.md)
+- [Neopixel LED](./module/neopixel.md)
 
-
-- [**更新说明**](./update.md)
-
-
+### [**Update Notes**](./update.md)

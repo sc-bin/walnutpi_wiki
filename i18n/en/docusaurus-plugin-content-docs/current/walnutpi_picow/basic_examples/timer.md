@@ -2,72 +2,72 @@
 sidebar_position: 4
 ---
 
-# 定时器
+# Timer
 
-## 前言
-定时器，顾名思义就是用来计时的，我们常常会设定计时或闹钟，然后时间到了就告诉我们要做什么了。单片机也是这样，通过定时器可以完成各种预设好的任务。
+## Introduction
+A timer, as the name suggests, is used for timing. We often set timers or alarms, and when the time is up, we're told what to do. The same goes for MCUs — timers can complete various preset tasks.
 
-## 实验目的
-通过定时器让LED蓝灯周期性每秒闪烁1次。
+## Objective
+Use a timer to make the blue LED blink once per second periodically.
 
-## 实验讲解
+## Experiment Explanation
 
-定时器是在machine的Timer模块。通过MicroPython可以轻松编程使用。我们也是只需要了解其构造对象函数和使用方法即可！
+The timer is in the machine module's Timer class. It can be easily programmed using MicroPython. We just need to understand its constructor and usage methods!
 
-## Timer对象
+## Timer Object
 
-### 构造函数
+### Constructor
 ```python
 tim = machine.Timer(id)
 ```
-定时器对象Timer位于machine模块下。
+The Timer object is located under the machine module.
 
-- `id` ：定时器编号。0~3共4个定时器。
+- `id` : Timer number. 0~3, for a total of 4 timers.
 
-### 使用方法
+### Usage
 ```python
 tim.init(mode, freq, period, callback)
 ```
-定时器初始化。
-- `mode` ：定时模式。
-    - `Timer.ONE_SHOT` ：只执行一次。 
-    - `Timer.PERIODIC` ：周期性执行。  
+Timer initialization.
+- `mode` : Timer mode.
+    - `Timer.ONE_SHOT` : Execute only once.
+    - `Timer.PERIODIC` : Execute periodically.
 
-- `freq` ：定时器频率，单位Hz，上限取决于IO口，当freq和period同时给出时freq有更高优先级，period会被屏蔽。
+- `freq` : Timer frequency, in Hz. The upper limit depends on the IO pin. When both freq and period are provided, freq has higher priority and period is ignored.
 
-- `period` ：定时器周期，单位ms。
+- `period` : Timer period, in ms.
 
-- `callback` ：定时器中断后回调函数。
+- `callback` : Callback function after timer interrupt.
 
 <br></br>
 
 ```python
 Timer.deinit()
 ```
-注销定时器。
+Deregister the timer.
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/machine.Timer.html#machine-timer
 
 <br></br>
 
-定时器到了预设指定时间后，也会产生中断，因此跟外部中断的编程方式类似，代码编程流程图如下：
+When the timer reaches the preset time, it also generates an interrupt, so the programming approach is similar to external interrupts. The code flow chart is as follows:
 
 
 ```mermaid
 graph TD
-    导入Pin,Timer相关模块 --> 定义回调函数和配置定时器中断方式 --> 当定时器产生中断时候自动执行回调函数;
+    Import-Pin-and-Timer-modules --> Define-callback-function-and-configure-timer-interrupt-mode --> Auto-execute-callback-when-timer-interrupt-occurs;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：定时器
-版本：v1.0
-日期：2022.4
-作者：01Studio
-说明：通过定时器让LED周期性每秒闪烁1次
+Experiment Name: Timer
+Version: v1.0
+Date: 2022.4
+Author: 01Studio
+Description: Use a timer to make the LED blink once per second periodically
 '''
 from machine import Pin,Timer
 
@@ -82,19 +82,19 @@ def fun(tim):
     print(Counter)
     LED.value(Counter%2)
 
-#使用定时器1
+#Use Timer 1
 tim = Timer(1)
-tim.init(period=1000, mode=Timer.PERIODIC,callback=fun) #周期为1000ms
+tim.init(period=1000, mode=Timer.PERIODIC,callback=fun) #Period is 1000ms
 ```
 
-## 实验结果
+## Experimental Results
 
-在Thonny IDE运行代码：
+Run the code in Thonny IDE:
 
 ![timer](./img/timer/timer1.png)
 
-可以看到LED蓝灯每隔1秒闪烁1次。
+You can see the blue LED blinking once per second.
 
 ![timer](./img/timer/timer2.png)
 
-本节实验介绍了定时器的使用方式，有用户可能会认为使用延时函数也可以实现这个功能，但相比于延时函数，定时器的好处就是不占用过多的CPU资源。有兴趣的用户也可以多定义几个定时器对象tim2,tim3，通过不同的参数配置实现多任务的操作。
+This experiment introduced the usage of timers. Some users might think using a delay function could achieve the same result, but compared to delay functions, the advantage of timers is that they don't consume excessive CPU resources. Interested users can also define more timer objects like `tim2`, `tim3`, configured with different parameters to implement multi-tasking operations.

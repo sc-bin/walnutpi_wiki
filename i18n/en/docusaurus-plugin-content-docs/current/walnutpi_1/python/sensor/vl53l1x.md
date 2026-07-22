@@ -94,7 +94,7 @@ After understanding the VL53L1X sensor principles and object usage, we can organ
 
 ```mermaid
 graph TD
-    Import related modules --> Construct VL53L1X object --> Configure parameters --> Start measurement --> Get distance and print --> Get distance and print;
+    Import-related-modules --> Construct-VL53L1X-object --> Configure-parameters --> Start-measurement --> Get-distance-and-print --> Get-distance-and-print;
 ```
 
 ## Reference Code

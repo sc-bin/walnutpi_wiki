@@ -71,7 +71,7 @@ KEY, like the LED in the previous section, also uses the digitalio object, excep
 
 ```mermaid
 graph TD
-    Import digitalio-related modules --> Construct key and led objects --> Detect if button is pressed --> Light up LED if pressed, otherwise turn off --> Detect if button is pressed;
+    Import-digitalio-related-modules --> Construct-key-and-led-objects --> Detect-if-button-is-pressed --> Light-up-LED-if-pressed,-otherwise-turn-off --> Detect-if-button-is-pressed;
 ```
 
 ## Reference Code

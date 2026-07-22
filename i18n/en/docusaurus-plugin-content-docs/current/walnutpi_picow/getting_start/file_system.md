@@ -2,31 +2,29 @@
 sidebar_position: 4
 ---
 
-# 文件系统
+# File System
 
-核桃派PicoW内置了文件系统，可以简单理解成上电后运行的Python脚本文件，这个可以通过Thonny IDE的文件功能非常方便地浏览或读写。
+The WalnutPi PicoW has a built-in file system, which can be simply understood as Python script files that run after power-on. This can be easily browsed, read, and written using Thonny IDE's file functionality.
 
-选择 视图 -- 文件 ：
+Select View — Files:
 
 ![file_system](./img/file_system/file_system1.png)
 
-可以看到左边出现本地和开发板的实时文件浏览窗口：
+You can see real-time file browsing windows for both local and development board files on the left:
 
 ![file_system](./img/file_system/file_system2.png)
 
-点击MicroPython设备右侧拓展栏，选择存储空间，可以看到开发板总空间和剩余空间，这是用来放代码、图片等其它文件。**（核桃派PicoW带8M字节Flash，前2M用于存放固件，所以剩余6M左右空间）**
+Click the expand bar on the right side of the MicroPython device, select storage space, and you can see the total and remaining space on the development board. This space is used to store code, images, and other files. **(The WalnutPi PicoW has 8MB of Flash; the first 2MB is used for firmware, leaving approximately 6MB of space)**
 
 ![file_system](./img/file_system/file_system3.png)
 
 ![file_system](./img/file_system/file_system4.png)
 
-在本地文件点击右键—上传到即可将相关文件发送到开发板，也可以将开发板上的文件下载到本地，非常方便。
+Right-click a local file — Upload to / to send the file to the development board. You can also download files from the development board to your local machine, which is very convenient.
 
 ![file_system](./img/file_system/file_system5.png)
 
- 
-:::tip 提示
-micropython默认上电先执行boot.py再执行main.py，一般将主函数代码放在main.py这样更符合MicroPython使用习惯！
-:::
 
-
+::::tip Note
+By default, MicroPython runs `boot.py` first, then `main.py` at power-on. Generally, placing the main program code in `main.py` better conforms to MicroPython usage conventions!
+::::

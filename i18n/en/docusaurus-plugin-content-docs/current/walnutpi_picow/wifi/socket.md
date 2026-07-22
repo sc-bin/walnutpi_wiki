@@ -2,176 +2,176 @@
 sidebar_position: 2
 ---
 
-# Socket通讯
+# Socket Communication
 
-## 前言
-上一节我们学习了如何通过MicroPython编程实现核桃派PicoW连接到无线路由器。这一节我们则来学习一下Socket通信实验。Socket几乎是整个互联网通信的基础。
+## Introduction
+In the previous section, we learned how to program the WalnutPi PicoW to connect to a wireless router using MicroPython. In this section, we'll learn about Socket communication. Socket is essentially the foundation of all internet communication.
 
-## 实验目的
-通过Socket编程实现核桃派PicoW与电脑服务器助手建立连接，相互收发数据。
+## Objective
+Use Socket programming to establish a connection between the WalnutPi PicoW and a PC server assistant, allowing bidirectional data transmission.
 
-## 实验讲解
-Socket我们听得非常多了，但由于网络工程是一门系统工程，涉及的知识非常广，概念也很多，任何一个知识点都能找出一堆厚厚的的书，因此我们经常会混淆。在这里，我们尝试以最容易理解的方式来讲述Socket，如果需要全面了解，可以自行查阅相关资料学习。
+## Experiment Explanation
+We've heard a lot about Socket, but since network engineering is a systematic discipline involving a broad scope of knowledge and many concepts — each knowledge point could fill a thick book — we often get confused. Here, we'll try to explain Socket in the most understandable way possible. For a comprehensive understanding, feel free to research further on your own.
 
-我们先来看看网络层级模型图，这是构成网络通信的基础：
+Let's first look at the network layer model diagram, which forms the basis of network communication:
 
 ![socket1](./img/socket/socket1.jpg)
 
-我们看看TCP/IP模型的传输层和应用层，传输层比较熟悉的概念是TCP和UDP，UDP协议基本就没有对IP层的数据进行任何的处理了。而TCP协议还加入了更加复杂的传输控制，比如滑动的数据发送窗口（Slice Window），以及接收确认和重发机制，以达到数据的可靠传送。应用层中网页常用的则是HTTP。那么我们先来解析一下这TCP和HTTP两者的关系。
+Let's look at the transport layer and application layer of the TCP/IP model. More familiar concepts at the transport layer are TCP and UDP. The UDP protocol basically does no additional processing on IP layer data. The TCP protocol adds more complex transmission control, such as sliding data transmission windows (Slice Window), as well as acknowledgment and retransmission mechanisms to achieve reliable data delivery. At the application layer, HTTP is commonly used for web pages. So let's first analyze the relationship between TCP and HTTP.
 
-我们知道网络通信是最基础是依赖于IP和端口的，HTTP一般情况下默认使用端口80。举个简单的例子：我们逛淘宝，浏览器会向淘宝网的网址（本质是IP）和端口发起请求，而淘宝网收到请求后响应，向我们手机返回相关网页数据信息，实现了网页交互的过程。而这里就会引出一个多人连接的问题，很多人访问淘宝网，实际上接收到网页信息后就断开连接，否则淘宝网的服务器是无法支撑这么多人长时间的连接的，哪怕能支持，也非常占资源。
+We know that network communication fundamentally depends on IP and ports. HTTP typically uses port 80 by default. A simple example: when we browse Taobao, the browser sends a request to Taobao's URL (essentially an IP) and port. When Taobao receives the request, it responds by sending related webpage data information back to our phone, completing the web interaction process. This raises the issue of multi-user connections — many people visit Taobao, and in practice, they disconnect after receiving the webpage information. Otherwise, Taobao's servers couldn't support so many people staying connected for extended periods, and even if they could, it would consume enormous resources.
 
-也就是应用层的HTTP通过传输层进行数据通信时，TCP会遇到同时为多个应用程序进程提供并发服务的问题。多个TCP连接或多个应用程序进程可能需要通过同一个 TCP协议端口传输数据。为了区别不同的应用程序进程和连接，许多计算机操作系统为应用程序与TCP／IP协议交互提供了套接字(Socket)接口。应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。
+In other words, when application-layer HTTP communicates data through the transport layer, TCP encounters the problem of providing concurrent services to multiple application processes simultaneously. Multiple TCP connections or application processes may need to transmit data through the same TCP protocol port. To distinguish between different application processes and connections, many computer operating systems provide the Socket interface for applications to interact with the TCP/IP protocol. The application layer can communicate with the transport layer through the Socket interface, distinguishing communications from different application processes or network connections, thus enabling concurrent data transmission services.
 
-简单来说，Socket抽象层介于传输层和应用层之间，跟TCP/IP并没有必然的联系。Socket编程接口在设计的时候，就希望也能适应其他的网络协议。
+Simply put, the Socket abstraction layer sits between the transport layer and application layer and has no necessary connection with TCP/IP. When the Socket programming interface was designed, it was intended to adapt to other network protocols as well.
 
 ![socket2](./img/socket/socket2.jpg)
 
-套接字（socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。它是网络通信过程中端点的抽象表示，包含进行网络通信必须的五种信息：**连接使用的协议（通常是TCP或UDP），本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。**
+A socket is the cornerstone of communication and the basic operational unit supporting TCP/IP protocol network communication. It is an abstract representation of endpoints in the network communication process, containing the five essential pieces of information for network communication: **the protocol used (typically TCP or UDP), local host IP address, local process protocol port, remote host IP address, and remote process protocol port.**
 
-所以，socket的出现只是可以更方便的使用TCP/IP协议栈而已，简单理解就是其对TCP/IP进行了抽象，形成了几个最基本的函数接口。比如**create，listen，accept，connect，read和write**等等。以下是通讯流程：
+So, the emergence of socket simply makes it more convenient to use the TCP/IP protocol stack. Simply understood, it abstracts TCP/IP into a few basic function interfaces such as **create, listen, accept, connect, read, write**, etc. The communication flow is as follows:
 
 ![socket3](./img/socket/socket3.jpg)
 
-从上图可以看到，建了Socket通信需要一个服务器端和一个客户端，以本实验为例，核桃派PicoW作为客户端，电脑使用网络调试助手作为服务器端，双方使用TCP协议传输。对于客户端，则需要知道电脑端的IP和端口即可建立连接。（端口可以自定义，范围在0~65535，注意不占用常用的80等端口即可。）
+From the diagram above, Socket communication requires a server and a client. In this experiment, the WalnutPi PicoW acts as the client, and the computer uses a network debugging assistant as the server, with both using TCP for transmission. For the client, it only needs to know the computer's IP and port to establish a connection. (Ports can be customized in the range 0~65535 — just avoid commonly used ports like 80.)
 
-以上的内容，简单来说就是如果用户面向应用来说，那么核桃派只需要知道**通讯协议是TCP或UDP、服务器的IP和端口号**这3个信息，即可向服务器发起连接和发送信息。就这么简单。
+In summary, if the user is application-oriented, the WalnutPi only needs to know these 3 pieces of information: **communication protocol (TCP or UDP), server IP address, and port number** — to initiate a connection and send messages. It's that simple.
 
-MicroPython已经封装好相关模块socket,对象如下介绍：
+MicroPython has already encapsulated the relevant socket module. The object is described as follows:
 
-## socket对象
+## socket Object
 
-### 构造函数
+### Constructor
 ```python
-s=usocket.socekt(af=AF_INET, type=SOCK_STREAM,proto=IPPROTO_TCP)
+s=usocket.socket(af=AF_INET, type=SOCK_STREAM,proto=IPPROTO_TCP)
 ```
-构建socket对象。
-- `af`: IPV类型
-    - `AF_INET`: IPV4；
-    - `AF_INET6`: IPV6；
+Build a socket object.
+- `af`: IP version type
+    - `AF_INET`: IPv4;
+    - `AF_INET6`: IPv6;
 
-- `type`: 
-    - `SCOK_STREAM`: TCP；
+- `type`:
+    - `SOCK_STREAM`: TCP;
     - `SOCK_DGRAM`: UDP;
 
-- `proto`:  
-    - `IPPROTO_TCP`: TCP协议;
-    - `IPPROTO_UDP`: UDP协议;
+- `proto`:
+    - `IPPROTO_TCP`: TCP protocol;
+    - `IPPROTO_UDP`: UDP protocol;
 
-（如果要构建TCP连接，可以使用默认参数配置，即不输入任何参数。）
+(To build a TCP connection, you can use the default parameter configuration, i.e., no arguments needed.)
 
-### 使用方法
+### Usage
 ```python
 addr=usocket.getaddrinfo('https://www.walnutpi.com', 80)[0][-1]
 ```
-获取Socket通信格式地址。返回：('106.52.127.213', 80)
+Get Socket communication format address. Returns: ('106.52.127.213', 80)
 <br></br>
 
 ```python
 s.connect(address)
 ```
-创建连接。
-- `address` :地址格式为IP+端口。例：('192.168.1.115',10000)    
+Create a connection.
+- `address`: Address format is IP + port. Example: ('192.168.1.115',10000)
 
 <br></br>
 
 ```python
 s.send(bytes)
 ```
-发送数据。
-- `bytes`：发送内容格式为字节。
+Send data.
+- `bytes`: Content to send in bytes format.
 
 <br></br>
 
 ```python
 s.recv(bufsize)
 ```
-接收数据。
-- `bufsize`：单次最大接收字节个数。
+Receive data.
+- `bufsize`: Maximum number of bytes to receive at once.
 
 <br></br>
 
 ```python
 s.bind(address)
 ```
-绑定，用于服务器角色。
+Bind, used for server role.
 
 <br></br>
 
 ```python
 s.listen([backlog])
 ```
-监听，用于服务器角色。
-- `backlog`: 允许连接个数，必须大于0。
+Listen, used for server role.
+- `backlog`: Number of allowed connections, must be greater than 0.
 
 <br></br>
 
 ```python
 s.accept()
 ```
-接受连接，用于服务器角色。
+Accept connection, used for server role.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/socket.html#module-socket
 
-本实验中核桃派PicoW属于客户端，因此只用到客户端的函数即可。实验代码编写流程如下：
+In this experiment, the WalnutPi PicoW is the client, so we only need the client-side functions. The code flow is as follows:
 
 ```mermaid
 graph TD
-    导入相关模块-->初始化相关模块-->判断WiFi是否连接成功--是-->建立socket连接-->判断Socket是否连接成功--是-->相互收发数据;
-    判断WiFi是否连接成功--否-->结束;
-    判断Socket是否连接成功--否-->结束;
+    Import-related-modules --> Initialize-related-modules --> Check-if-WiFi-connected----Yes --> Establish-socket-connection --> Check-if-Socket-connected----Yes --> Bidirectional-data-exchange;
+    Check-if-WiFi-connected----No --> End;
+    Check-if-Socket-connected----No --> End;
 ```
 
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：Socket通讯
-版本：v1.0
-作者：WalnutPi
-平台：核桃派PicoW
-说明：通过Socket编程实现核桃派PicoW与电脑服务器助手建立TCP连接，相互收发数据。
+Experiment Name: Socket Communication
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: Use Socket programming to establish a TCP connection between WalnutPi PicoW and a PC server assistant, exchanging data bidirectionally.
 '''
 
-#导入相关模块
+#Import related modules
 import network,usocket,time
 from machine import Pin,Timer
 
-#WIFI连接函数
+#WiFi connection function
 def WIFI_Connect():
 
-    WIFI_LED=Pin(46, Pin.OUT) #初始化WIFI指示灯
+    WIFI_LED=Pin(46, Pin.OUT) #Initialize WiFi indicator LED
 
-    wlan = network.WLAN(network.STA_IF) #STA模式
-    wlan.active(True)                   #激活接口
-    start_time=time.time()              #记录时间做超时判断
+    wlan = network.WLAN(network.STA_IF) #STA mode
+    wlan.active(True)                   #Activate interface
+    start_time=time.time()              #Record time for timeout judgment
 
     if not wlan.isconnected():
         print('Connecting to network...')
-        wlan.connect('01Studio', '88888888') #输入WIFI账号密码
+        wlan.connect('01Studio', '88888888') #Enter WiFi SSID and password
 
         while not wlan.isconnected():
 
-            #LED闪烁提示
+            #LED blinking prompt
             WIFI_LED.value(1)
             time.sleep_ms(300)
             WIFI_LED.value(0)
             time.sleep_ms(300)
 
-            #超时判断,15秒没连接成功判定为超时
+            #Timeout judgment, 15 seconds without connection = timeout
             if time.time()-start_time > 15 :
                 print('WIFI Connected Timeout!')
                 break
 
     if wlan.isconnected():
-        #LED点亮
+        #LED stays on
         WIFI_LED.value(1)
 
-        #串口打印信息
+        #Serial print info
         print('network information:', wlan.ifconfig())
 
         return True
@@ -180,64 +180,64 @@ def WIFI_Connect():
         return False
 
 
-#判断WIFI是否连接成功
+#Check if WiFi is connected
 if WIFI_Connect():
 
-    #创建socket连接TCP类似，连接成功后发送“Hello WalnutPi！”给服务器。
+    #Create socket TCP connection, send "Hello WalnutPi!" to server after connecting.
     s=usocket.socket()
-    addr=('192.168.2.118',10000) #服务器IP和端口
+    addr=('192.168.2.118',10000) #Server IP and port
     s.connect(addr)
     s.send('Hello WalnutPi!')
 
 
 while True:
-    
-    text=s.recv(128) #单次最多接收128字节
+
+    text=s.recv(128) #Maximum 128 bytes per receive
     if text == '':
         pass
 
-    else: #打印接收到的信息为字节，可以通过decode('utf-8')转成字符串
+    else: #Print received info as bytes, can convert to string via decode('utf-8')
         print(text)
         s.send('I got:'+text.decode('utf-8'))
-    
+
     time.sleep_ms(300)
 ```
 
-WIFI连接代码在上一节已经讲解，这里不再重复，程序在连接成功后建了Socket连接，连接成功发送‘Hello WalnutPi!’信息到服务器。另外代码设定了每300ms处理从服务器接收到的数据。将接收到数据通过串口打印和重新发送给服务器。
+The WiFi connection code was explained in the previous section and won't be repeated here. After connecting, the program establishes a Socket connection and sends the message 'Hello WalnutPi!' to the server upon successful connection. Additionally, the code is set to process data received from the server every 300ms, printing received data via the serial port and sending it back to the server.
 
-## 实验结果
+## Experimental Results
 
-保证电脑和核桃派PicoW在同一个网段下（通常是指连接在同一个路由器），同时最好关闭电脑防火墙。
+Ensure the computer and WalnutPi PicoW are on the same network segment (typically connected to the same router), and it's best to disable the computer's firewall.
 
-在电脑端打开网络调试助手并建立服务器，软件在 <u>核桃派PicoW配套资料\01-开发工具\网络调试助手</u> 下的 NetAssist.exe ，直接双击打开即可！
+On the computer, open the network debugging assistant and set up a server. The software is at <u>WalnutPi PicoW Resources\01-Development Tools\Network Debugging Assistant</u> — NetAssist.exe. Just double-click to open!
 
-电脑打开网络调试助手：
+Open the network debugging assistant on the computer:
 
 ![socket4](./img/socket/socket4.png)
 
-以下是新建服务器的方法，打开网络调试助手后在左上角协议类型选择 TCP Server；中间的本地IP地址是自动识别的，不要修改，这个就是服务器的IP地址。然后端口写10000（0-65535都可以。），点击连接，成功后红点亮。如下图：
+Here's how to set up a new server: After opening the network debugging assistant, select protocol type as TCP Server in the top left corner; the local IP address in the middle is auto-detected — don't modify it, as this is the server IP address. Then set the port to 10000 (any value from 0-65535 works). Click connect, and the red light turns on after success. As shown below:
 
 ![socket5](./img/socket/socket5.png)
 
-这时候服务器已经在监听状态！用户需要根据自己的实际情况自己输入WIFI信息和服务器IP地址+端口。即修改上面的代码以下部分内容。（服务器IP和端口可以在网络调试助手找到。）
+The server is now in listening mode! Users need to enter their own WiFi information and server IP address + port based on their actual situation. That is, modify the following parts of the code above. (The server IP and port can be found in the network debugging assistant.)
 
-**WiFi网络改成自己的无线路由器账号密码，只支持2.4G信号。不支持5G或者2.4G&5G混合信号。**
+**Change the WiFi network to your own wireless router's SSID and password. Only 2.4G signals are supported. 5G or 2.4G&5G mixed signals are not supported.**
 
 ```python
-wlan.connect('01Studio', '88888888') #输入WIFI账号密码
+wlan.connect('01Studio', '88888888') #Enter WiFi SSID and password
 ```
 
-**服务器IP和地址根据网络助手修改：**
+**Modify server IP and port according to the network assistant:**
 ```python
-addr=('192.168.2.128',10000) #服务器IP和端口
+addr=('192.168.2.128',10000) #Server IP and port
 ```
 
-运行程序，开发板成功连接WIFI后，发起了socket连接，连接成功可以可以看到网络调试助手收到了开发板发来的信息。在下方列表多了一个连接对象，点击选中：
+Run the program. After the development board successfully connects to WiFi, it initiates a socket connection. Once connected, you can see the network debugging assistant has received the message from the development board. An extra connection object appears in the list below — click to select it:
 
 ![socket6](./img/socket/socket6.png)
 
-选中后我们在发送框输入信息 **https://www.walnutpi.com** , 点击发送，可以看到开发板的串行终端打印出来该信息，类型为字节数据。
+After selecting, enter the message **https://www.walnutpi.com** in the send box, click send, and you can see the development board's serial terminal prints that information as byte data.
 
 ![socket](./img/socket/socket7.png)
 
-通过本节学习，我们了解了socket通信原理以及使用MicroPython进行socket编程并且通信的实验。得益于优秀的封装，让我们可以直接面向socket对象编程就可以快速实现socket通信，从而开发更多的网络应用，例如将前面采集到的传感器数据发送到服务器。
+Through this section, we learned the principles of socket communication and conducted experiments using MicroPython for socket programming and communication. Thanks to excellent encapsulation, we can directly program against socket objects to quickly implement socket communication and develop more network applications, such as sending previously collected sensor data to a server.

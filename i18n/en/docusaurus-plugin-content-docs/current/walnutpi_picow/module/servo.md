@@ -2,99 +2,99 @@
 sidebar_position: 2
 ---
 
-# 舵机
+# Servo
 
-## 前言
-舵机又叫伺服电机，是一个可以旋转特定角度的电机，可转动角度通常是90°、180°和360°（360°可以连续旋转）。我们看到的机器人身上就有非常多的舵机，它们抬手或者摇头的动作往往是通过舵机完成，因此机器人身上的舵机越多，意味着动作越灵活。
+## Introduction
+A servo motor, also called a servo, is a motor that can rotate to specific angles, typically 90°, 180°, and 360° (360° can rotate continuously). You can see many servos on robots — arm-raising or head-shaking movements are often done by servos. Therefore, the more servos a robot has, the more flexible its movements.
 
-## 实验目的
-通过编程实现对SG90舵机的控制。
+## Objective
+Program control of the SG90 servo.
 
-## 实验讲解
+## Experiment Explanation
 
-伺服电机对象通过3线（一般舵机的线序为信号，电源，地）控制，本节实验用到的是性价比较高的SG90舵机。通常情况下：黑色表示GND，红色表示VCC，橙色表示信号线。
+Servo motors are controlled via 3 wires (typically in the order: signal, power, ground). This experiment uses the cost-effective SG90 servo. Typically: black is GND, red is VCC, orange is the signal wire.
 
 ![servo](./img/servo/servo1.png)
 
-180°舵机的控制一般需要一个20ms左右的时基脉冲，该脉冲的高电平部分一般为0.5ms-2.5ms范围内的角度控制脉冲部分，总间隔为2ms。以180度角度伺服为例，在MicroPython编程对应的控制关系是从-90°至90°，示例图如下：
+Controlling a 180° servo typically requires a ~20ms time-base pulse. The high-level portion of this pulse, generally 0.5ms-2.5ms, is the angle control pulse, with a total interval of 2ms. For a 180° servo, the corresponding control relationship in MicroPython is from -90° to 90°. The illustration is as follows:
 
 ![servo](./img/servo/servo2.jpg)
 
-而对于360°连续旋转舵机，上面的脉冲表则对应从正向最大速度旋转到反向最大速度旋转的过程。
+For a 360° continuous rotation servo, the pulse table above corresponds to the process from maximum forward speed to maximum reverse speed.
 
-本实验中使用GPIO13产生PWM控制舵机，注意SG90舵机的供电为**供电为5V**，引线顺序不要接错。
+In this experiment, GPIO13 generates PWM to control the servo. Note that the SG90 servo's **power supply is 5V**. Make sure not to reverse the wire order.
 
 ![servo](./img/servo/servo3.png)
 
-核桃派PicoW的MicroPython固件并没有集成Servo模块，但从上面可以看到上面是通过PWM来控制的，我们可以直接写PWM函数驱动即可。PWM教程可以参考： [PWM](../basic_examples/pwm_beep.md) 章节内容。
+The WalnutPi PicoW's MicroPython firmware doesn't integrate a Servo module, but from the above we can see it's controlled via PWM, so we can directly write PWM functions to drive it. For PWM tutorial, refer to: [PWM](../basic_examples/pwm_beep.md) chapter.
 
-代码编程流程图如下：
+The code flow chart is as follows:
 
 
 
 
 ```mermaid
 graph TD
-    导入PWM模块 --> 初始化相关模块 --> 定义舵机驱动函数 --> 控制舵机旋转至不同角度;
+    Import-PWM-module --> Initialize-related-modules --> Define-servo-drive-function --> Control-servo-rotation-to-different-angles;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：舵机控制
-版本：v1.0
-作者：WalnutPi
-实验平台：核桃派PicoW
-说明：通过编程控制舵机旋转到不同角度
+Experiment Name: Servo Control
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: Program control of servo rotation to different angles
 '''
 
 from machine import Pin, PWM
 import time
 
-S1 = PWM(Pin(13), freq=50, duty=0) # Servo1的引脚是0
+S1 = PWM(Pin(13), freq=50, duty=0) # Servo1 pin is 13
 
 '''
-说明：舵机控制函数
-功能：180度舵机：angle:-90至90 表示相应的角度
-     360连续旋转度舵机：angle:-90至90 旋转方向和速度值。
+Description: Servo control function
+Function: 180° servo: angle:-90 to 90 represents corresponding angle
+    360° continuous rotation servo: angle:-90 to 90 represents rotation direction and speed.
 '''
 def Servo(servo,angle):
     servo.duty(int(((angle+90)*2/180+0.5)/20*1023))
 
-#-90度
+#-90 degrees
 Servo(S1,-90)
 time.sleep(1)
 
-#45度
+#-45 degrees
 Servo(S1,-45)
 time.sleep(1)
 
-#0度
+#0 degrees
 Servo(S1,0)
 time.sleep(1)
 
-#45度
+#45 degrees
 Servo(S1,45)
 time.sleep(1)
 
-#90度
+#90 degrees
 Servo(S1,90)
 time.sleep(1)
 ```
 
-## 实验结果
+## Experimental Results
 
-运行程序。可以看到舵机依次旋转至不同角度。
+Run the program. You can see the servo rotates to different angles sequentially.
 
 ![servo](./img/servo/servo4.png)
 
-## 360度连续旋转舵机
+## 360° Continuous Rotation Servo
 
-我们刚刚实现了180°舵机的角度控制，现在来做一下360°连续旋转舵机的实验，360°连续旋转舵机可以实现直流减速电机功能，用在小车或者航模上。
+We just implemented angle control for a 180° servo. Now let's experiment with a 360° continuous rotation servo. A 360° continuous rotation servo can function as a DC geared motor, used in small cars or model aircraft.
 
-实验的代码不变，参数【-90至90】代表旋转方向和速度值大小。插上360°连续旋转舵机。可以看到舵机的旋转速度和方向逐渐变变化。
+The code remains the same; the parameter [-90 to 90] represents rotation direction and speed magnitude. Plug in the 360° continuous rotation servo and you can see the servo's speed and direction gradually change.
 
 ![servo](./img/servo/servo5.png)
 
-通过本节我们学会了使用不同类型的舵机，通过多路电机的组合使用，可以实现模型、航模、小车、机器人的实验。
+Through this section, we learned how to use different types of servos. By combining multiple motors, you can create experiments with models, model aircraft, small cars, and robots.

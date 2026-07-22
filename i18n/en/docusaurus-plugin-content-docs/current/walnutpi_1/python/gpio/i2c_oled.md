@@ -186,7 +186,7 @@ After learning the I2C and OLED object usage, let's organize the approach with a
 
 ```mermaid
 graph TD
-    Import I2C and OLED modules --> Construct I2C and OLED objects --> Draw points, lines, rectangles, circles, characters;
+    Import-I2C-and-OLED-modules --> Construct-I2C-and-OLED-objects --> Draw-points,-lines,-rectangles,-circles,-characters;
 ```
 
 ## Reference Code

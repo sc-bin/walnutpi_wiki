@@ -55,7 +55,7 @@ Here we can draw a filled circle and a filled rectangle, then binarize the image
 
 ```mermaid
 graph TD
-    Create a new image canvas-->Draw a filled circle and rectangle-->Convert to grayscale image-->Binarize the image-->Find and draw contours-->Display the image;
+    Create-a-new-image-canvas --> Draw-a-filled-circle-and-rectangle --> Convert-to-grayscale-image --> Binarize-the-image --> Find-and-draw-contours --> Display-the-image;
 ```
 
 <br></br>

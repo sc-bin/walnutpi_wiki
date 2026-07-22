@@ -2,62 +2,62 @@
 sidebar_position: 12
 ---
 
-# 文件读写
+# File Read/Write
 
-## 前言
-在嵌入式编程中我们经常会遇到需要将某些数据实现掉电保存功能，而往往会用到EEPROM、flash等一些储存方式。而MicroPython自带文件系统，我们只需要将数据直接用文件方式保存即可。
+## Introduction
+In embedded programming, we often need to save certain data persistently (power-off retention), typically using storage methods like EEPROM or flash. However, MicroPython has its own file system, so we can simply save data as files.
 
-## 实验目的
-编程实现文件读写操作。
+## Objective
+Program file read/write operations.
 
-## 实验讲解
+## Experiment Explanation
 
-micropython的文件操作大部分指令兼容CPython。因此我们可以直接使用Python编程来实现文件读写。
+Most file operation commands in MicroPython are compatible with CPython. Therefore we can directly use Python programming to implement file read/write.
 
-编程流程如下：
+The programming flow is as follows:
 
 ```mermaid
 graph TD
-    新建1个文件并写入数据 -->  读取刚刚保存文件的内容 ;
+    Create-a-new-file-and-write-data --> Read-the-content-of-the-file-just-saved;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：文件读写
-版本： v1.0
-作者：WalnutPi
-实验平台：核桃派PicoW
-说明：文件读写，将WalnutPi写入文件后再读取出来。
+Experiment Name: File Read/Write
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: File read/write — write "WalnutPi" to a file, then read it back.
 '''
 
 ###########
-## 写文件
+## Write file
 ###########
-f = open('1.txt', 'w') #以写的方式打开一个文件，没有该文件就自动新建
-f.write('WalnutPi') #写入数据
-f.close() #每次操作完记得关闭文件
+f = open('1.txt', 'w') #Open a file in write mode; if the file doesn't exist, create it
+f.write('WalnutPi') #Write data
+f.close() #Remember to close the file after each operation
 
 ###########
-## 读文件
+## Read file
 ###########
-f = open('1.txt', 'r') #以读方式打开一个文件
+f = open('1.txt', 'r') #Open a file in read mode
 text = f.read()
-print(text) #读取数据并在终端打印
-f.close() #每次操作完记得关闭文件
+print(text) #Read data and print it in the terminal
+f.close() #Remember to close the file after each operation
 ```
 
-## 实验结果
+## Experimental Results
 
-运行代码，可以看到串口终端打印了文件内容。
+Run the code and you can see the serial terminal prints the file content.
 
 ![file](./img/file/file1.png)
 
-点击IDE开发板文件系统右侧**菜单栏--刷新**，可以看到刚刚保存的文件（或复位开发板重新连接）。
+Click **Menu Bar — Refresh** on the right side of the IDE's development board file system to see the file just saved (or reset the development board and reconnect).
 
 ![file](./img/file/file2.png)
 
 ![file](./img/file/file3.png)
 
-更多文件操作使用方法可以网上搜索Pyhton或MicroPython文件读写。
+For more file operation usage, search online for Python or MicroPython file read/write.

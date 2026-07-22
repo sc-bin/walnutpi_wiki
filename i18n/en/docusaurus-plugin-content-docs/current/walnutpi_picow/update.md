@@ -6,4 +6,4 @@ sidebar_position: 10
 
 ## 2024-2-27
 
-- The first version released.
+- First official release

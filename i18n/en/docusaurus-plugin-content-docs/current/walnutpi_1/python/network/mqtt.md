@@ -103,8 +103,8 @@ Since the client can be either a publisher or a subscriber, for better understan
 
 ```mermaid
 graph TD
-    Import related modules --> Initialize related modules --> Establish MQTT connection --> Check if connected -- Yes --> Loop publishing data;
-    Check if connected -- No --> End;
+    Import-related-modules --> Initialize-related-modules --> Establish-MQTT-connection --> Check-if-connected----Yes --> Loop-publishing-data;
+    Check-if-connected----No --> End;
 ```
 <br></br>
 
@@ -112,8 +112,8 @@ graph TD
 
 ```mermaid
 graph TD
-    Import related modules --> Initialize related modules --> Establish MQTT connection --> Check if connected -- Yes --> Loop processing received data;
-    Check if connected -- No --> End;
+    Import-related-modules --> Initialize-related-modules --> Establish-MQTT-connection --> Check-if-connected----Yes --> Loop-processing-received-data;
+    Check-if-connected----No --> End;
 ```
 
 ## Reference Code

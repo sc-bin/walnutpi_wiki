@@ -2,93 +2,94 @@
 sidebar_position: 5
 ---
 
-# RTC实时时钟
+# RTC Real-Time Clock
 
-## 前言
-时钟可以说我们日常最常用的东西了，手表、电脑、手机等等无时无刻不显示当前的时间。可以说每一个电子爱好者心中都希望拥有属于自己制作的一个电子时钟，接下来我们就用MicroPython开发板来制作一个属于自己的电子时钟。
+## Introduction
+Clocks are perhaps the most commonly used thing in our daily lives — watches, computers, phones, all display the current time constantly. Every electronics enthusiast likely dreams of making their own electronic clock. Next, we'll use a MicroPython development board to create our own electronic clock.
 
 ![rtc](./img/rtc/rtc1.png)
 
 
-## 实验目的
-学习RTC编程。
+## Objective
+Learn RTC programming.
 
-## 实验讲解
+## Experiment Explanation
 
-实验的原理是读取RTC数据。毫无疑问，强大的MicroPython已经集成了内置时钟函数模块。位于machine的RTC模块中，具体介绍如下：
+The principle of this experiment is to read RTC data. Unsurprisingly, the powerful MicroPython already integrates built-in clock functions in the machine module's RTC class. The details are as follows:
 
-## RTC对象
+## RTC Object
 
-### 构造函数
+### Constructor
 ```python
 rtc = machine.RTC()
 ```
-构建RTC对象，RTC对象位于machine模块下。
+Build an RTC object. The RTC object is located under the machine module.
 
-### 使用方法
+### Usage
 ```python
 rtc.datetime((2024, 1, 1, 0, 0, 0, 0, 0))
 ```
-设置RTC日期和时间。(2024, 1, 1, 0, 0, 0, 0, 0)按顺序分别表示（年，月，日，星期，时，分，秒，微妙），其中星期使用0-6表示星期一到星期日。
+Set RTC date and time. (2024, 1, 1, 0, 0, 0, 0, 0) represents (year, month, day, weekday, hour, minute, second, microsecond) respectively, where weekday uses 0-6 to represent Monday through Sunday.
 
 <br></br>
 
 ```python
 rtc.datetime()
 ```
-获取当前RTC时间。返回元组：（年，月，日，星期，时，分，秒，微妙），其中星期使用0-6表示星期一到星期日。
+Get the current RTC time. Returns a tuple: (year, month, day, weekday, hour, minute, second, microsecond), where weekday uses 0-6 to represent Monday through Sunday.
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/machine.RTC.html#machine-rtc
 
 <br></br>
 
-熟悉RTC使用方法后，我们通过代码实现首次上电如果检测到未设置时间可以先设置时间，然后周期打印获取的时间信息，代码编程流程图如下：
+After familiarizing with RTC usage, we'll implement code that sets the time on first power-up if no time is set, then periodically prints the obtained time information. The code flow chart is as follows:
 
 
 ```mermaid
 graph TD
-    导入RTC相关模块 --> 首次时间设置 --> 周期性打印当前RTC时间;
+    Import-RTC-related-modules --> First-time-time-setting --> Periodically-print-current-RTC-time;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：RTC实时时钟
-版本：v1.0
-作者：WalnutPi
-说明：使用Thonny连接开发板会自动更新RTC时间
+Experiment Name: RTC Real-Time Clock
+Version: v1.0
+Author: WalnutPi
+Description: Connecting to the development board with Thonny automatically updates the RTC time
 '''
 
-# 导入相关模块
+# Import related modules
 from machine import Pin, SoftI2C, RTC
 import time
 
-# 构建RTC对象
+# Build RTC object
 rtc = RTC()
 
-# 首次上电配置时间，按顺序分别是：年，月，日，星期，时，分，秒，次秒级；这里做了
-# 一个简单的判断，检查到当前年份不对就修改当前时间，开发者可以根据自己实际情况来
-# 修改。（使用Thonny IDE连接开发板会自动同步RTC时间。）
+# Configure time on first power-up. The order is: year, month, day, weekday, hour, minute, second, sub-second.
+# A simple check is done here — if the current year is incorrect, update the current time.
+# Developers can modify this based on their actual situation.
+# (Using Thonny IDE to connect to the development board will automatically sync the RTC time.)
 if rtc.datetime()[0] != 2024:
     rtc.datetime((2024, 1, 1, 0, 0, 0, 0, 0))
 
 while True:
-    
-    print(rtc.datetime()) #打印时间
-    
-    time.sleep(1) #延时1秒
+
+    print(rtc.datetime()) #Print time
+
+    time.sleep(1) #Delay 1 second
 ```
 
-## 实验结果
+## Experimental Results
 
-在Thonny IDE运行代码：
+Run the code in Thonny IDE:
 
 ![rtc](./img/rtc/rtc2.png)
 
-可以看到终端打印当前RTC时间信息。
+You can see the terminal prints the current RTC time information.
 
 ![rtc](./img/rtc/rtc3.png)
 
-细心的用户或许已经发现运行程序后RTC时间自动更新，那是因为thonny每次连接MicroPython开发板会自动更新开发板的RTC时间。RTC时间是断电丢失的，要想RTC时间连续运行需要保持对开发板供电，用户可以使用RTC功能打造自己的电子时钟。
+Observant users may have noticed that the RTC time updates automatically when running the program. This is because Thonny automatically updates the development board's RTC time each time it connects to a MicroPython development board. RTC time is lost when power is removed; to keep the RTC time running continuously, the development board must remain powered. Users can use the RTC function to build their own electronic clock.

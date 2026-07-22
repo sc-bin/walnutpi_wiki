@@ -2,80 +2,78 @@
 sidebar_position: 3
 ---
 
-# 人体感应传感器
+# Human Body Induction Sensor
 
-## 前言
-人体感应传感器，在室内安防应用非常普遍，其原理是由探测元件将探测到人体的红外辐射转变成微弱的电压信号，经过放大后输出。为了提高探测器的探测灵敏度以增大探测距离，一般在探测器的前方装设一个塑料的菲涅尔透镜，它和放大电路相配合，可将信号放大 70dB 以上，这样就可以测出 5~10 米范围内人的行动。
+## Introduction
+Human body induction sensors are very common in indoor security applications. Their principle is that the detection element converts detected human body infrared radiation into a weak voltage signal, which is then output after amplification. To improve detection sensitivity and increase detection distance, a plastic Fresnel lens is typically installed in front of the detector. Combined with the amplifier circuit, it can amplify the signal by over 70dB, enabling detection of human movement within a 5-10 meter range.
 
-## 实验目的
-通过python编程来检测人体感应模块，当有人出现时候串口打印“Get People!！！”提示，蓝色指示灯点亮（没人时候熄灭）。
+## Objective
+Use Python programming to detect the human body induction module. When a person is detected, the serial terminal prints "Get People!!!" and the blue indicator LED lights up (turns off when no one is present).
 
-## 实验讲解
+## Experiment Explanation
 
-下图是一款常用的人体感应传感器模块，主要有供电引脚和信号输出引脚（供电电压一般为3.3V，具体以厂家参数为准）。
+Below is a commonly used human body induction sensor module, primarily with power pins and a signal output pin (supply voltage is typically 3.3V, depending on the manufacturer's specifications).
 
-![human_induction1](./img/human_induction/human_induction1.png) 
+![human_induction1](./img/human_induction/human_induction1.png)
 
-这款模块通电后，当检测到有人时候，传感器信号输出引脚输出高电平并持续3-5秒。
+When this module is powered on and a person is detected, the sensor's signal output pin outputs a high level that lasts for 3-5 seconds.
 
-![human_induction2](./img/human_induction/human_induction2.png) 
+![human_induction2](./img/human_induction/human_induction2.png)
 
-由此可见，可以使用外部中断结合上升沿的触发方式来编程实现相关功能。外部中断参考 [**外部中断**](../basic_examples/exti.md) 章节内容，这里不再重复。
+As can be seen, we can use external interrupts with rising edge trigger to program the related functionality. For external interrupts, refer to the [**External Interrupt**](../basic_examples/exti.md) chapter; it won't be repeated here.
 
-本例程使用GPIO10来连接，接线图如下:
+This example uses GPIO10 for connection. The wiring diagram is as follows:
 
-![human_induction3](./img/human_induction/human_induction3.png) 
+![human_induction3](./img/human_induction/human_induction3.png)
 
 
-代码编写流程如下：
+The code flow is as follows:
 
 ```mermaid
 graph TD
-    导入相关模块-->构建人体感应和LED对象-->产生中断后执行回调函数:串口打印提示信息,点亮LED-->产生中断后执行回调函数:串口打印提示信息,点亮LED;
+    Import-related-modules --> Build-human-induction-and-LED-objects --> Execute-callback-after-interrupt:-serial-print-info,-light-LED --> Execute-callback-after-interrupt:-serial-print-info,-light-LED;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：人体感应传感器
-版本：v1.0
-作者：WalnutPi
-实验平台：核桃派PicoW
-说明：人体红外感应传感器应用
+Experiment Name: Human Body Induction Sensor
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: Human body infrared induction sensor application
 '''
 
 import time
-from machine import Pin   #从machine模块导入I2C、Pin子模块
+from machine import Pin   #Import I2C and Pin submodules from machine module
 
-Human=Pin(10,Pin.IN,Pin.PULL_UP) #构建人体红外对象
-LED=Pin(46,Pin.OUT) #构建led对象，GPIO46,输出
+Human=Pin(10,Pin.IN,Pin.PULL_UP) #Build human infrared object
+LED=Pin(46,Pin.OUT) #Build LED object, GPIO46, output
 
-def fun(Human): #Get People闪烁5次效果！
+def fun(Human): #Get People blinking 5 times effect!
+    print("Get People!!!")  # Indicate someone detected
+    LED.value(1)  # Light LED
 
-    print("Get People!!!")  # 提示有人
-    LED.value(1)  # 点亮LED
-    
-    #等待传感器高电平结束
+    #Wait for sensor high level to end
     while Human.value():
         pass
-    
-    LED.value(0)  # 熄灭LED
 
-Human.irq(fun,Pin.IRQ_RISING) #定义中断，上升沿触发
+    LED.value(0)  # Turn off LED
+
+Human.irq(fun,Pin.IRQ_RISING) #Define interrupt, rising edge trigger
 ```
 
-## 实验结果
+## Experimental Results
 
-使用Thonny IDE运行代码，当传感器检测到有人时候，蓝灯亮。
+Run the code in Thonny IDE. When the sensor detects a person, the blue LED lights up.
 
-![human_induction5](./img/human_induction/human_induction4.png) 
+![human_induction5](./img/human_induction/human_induction4.png)
 
-终端打印提示信息"Get People!!!" ：
+The terminal prints the prompt message "Get People!!!":
 
-![human_induction5](./img/human_induction/human_induction5.png) 
+![human_induction5](./img/human_induction/human_induction5.png)
 
-没人时候蓝灯熄灭。
+When no one is present, the blue LED turns off.
 
-![human_induction6](./img/human_induction/human_induction6.png) 
-
+![human_induction6](./img/human_induction/human_induction6.png)

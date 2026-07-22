@@ -2,55 +2,55 @@
 sidebar_position: 2
 ---
 
-# 资料下载
+# Downloads
 
-核桃派PicoW教程配套软件、源代码、原理图、芯片手册等。
+Supporting software, source code, schematics, chip manuals, etc. for the WalnutPi PicoW tutorial series.
 
-## 下载方式
+## Download Methods
 
-### 百度网盘下载
+### Baidu Netdisk Download
 
-- 百度网盘链接：https://pan.baidu.com/s/1zShpnKu_Nnm6CSix_XlGXA?pwd=WPKJ 
-- 提取码：**WPKJ**
+- Baidu Netdisk link: https://pan.baidu.com/s/1zShpnKu_Nnm6CSix_XlGXA?pwd=WPKJ
+- Extraction code: **WPKJ**
 
-### QQ群文件下载
+### QQ Group File Download
 
-核桃派开源互助群:  **677173708**
+WalnutPi Open Source Support Group: **677173708**
 
-:::tip 提示
-在Q群将群文件转发给自己设备或其它QQ即可高速下载。
-:::
+::::tip Note
+Forward group files to your own device or another QQ account in the group for high-speed download.
+::::
 
-## 资料介绍
+## Resource Introduction
 
 ![download](./img/download/download1.png)
 
-### 开发工具
+### Development Tools
 
-开发软件、相关驱动。
+Development software and related drivers.
 
 ![download](./img/download/download2.png)
 
-### 例程源码
+### Example Source Code
 
-本在线教程所有源代码。
+All source code for this online tutorial.
 
 ![download](./img/download/download3.png)
 
-### 相关固件
+### Firmware
 
-开发板固件，用于升级和重烧。
+Development board firmware for upgrading and reflashing.
 
 ![download](./img/download/download4.png)
 
-### 原理图和功能图
+### Schematics and Diagrams
 
-开发板原理图和接口说明图片。
+Development board schematics and interface documentation images.
 
 ![download](./img/download/download5.png)
 
-### 芯片手册
+### Chip Manuals
 
-主要IC手册。
+Main IC manuals.
 
 ![download](./img/download/download6.png)

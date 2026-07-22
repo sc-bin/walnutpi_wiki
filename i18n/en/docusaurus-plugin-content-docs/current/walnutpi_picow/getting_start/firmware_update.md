@@ -2,51 +2,51 @@
 sidebar_position: 7
 ---
 
-# 固件更新
+# Firmware Update
 
-核桃派PicoW开发板出厂已经烧录好了固件，固件更新是指重新烧写开发板的出厂文件或者是升级固件。
+The WalnutPi PicoW development board comes with firmware pre-programmed at the factory. Firmware update refers to reprogramming the factory file onto the development board or upgrading the firmware.
 
-核桃派PicoW进入下载模式：
-按着开发板KEY按键不放，插入Type-C线，即可进入下载模式:
+Entering download mode on the WalnutPi PicoW:
+Press and hold the KEY button on the development board while plugging in the Type-C cable to enter download mode:
 
 ![firmware_update](./img/firmware_update/firmware_update0.png)
 
-这时候设备管理器会弹出一个新COM号，通常情况下和开发过程的COM号码不一样：
+At this point, Device Manager will show a new COM port number, which is usually different from the COM port number used during development:
 
 ![firmware_update](./img/firmware_update/firmware_update0_1.png)
 
-使用上海乐鑫提供的官方软件烧录, 找到路径：**核桃派PicoW（ESP32-S3）资料下载\01-开发工具\固件更新工具\flash_download_tools_v3.9.2 下的flash_download_tools_v3.9.2.exe软件**，双击打开。
+Use the official software provided by Espressif for programming. Navigate to: **WalnutPi PicoW (ESP32-S3) Resources Download\01-Development Tools\Firmware Update Tool\flash_download_tools_v3.9.2\flash_download_tools_v3.9.2.exe** and double-click to open.
 
 ![firmware_update1](./img/firmware_update/firmware_update1.png)
 
-芯片选择**ESP32-S3，develop开发者模式，USB模式**然后点击OK :
+Select the chip as **ESP32-S3, develop developer mode, USB mode** then click OK:
 
 ![firmware_update2](./img/firmware_update/firmware_update2.png)
 
-在箭头所示位置选择固件，固件位于**资料包--相关固件**文件夹下：
+Select the firmware at the position indicated by the arrow. The firmware is located in **Resources Package--Relevant Firmware** folder:
 
 ![firmware_update2](./img/firmware_update/firmware_update3.png)
 
 ![firmware_update2](./img/firmware_update/firmware_update4.png)
 
-下载配置参考下图，下面几项是注意的地方：
+Refer to the image below for download configuration. Note the following items:
 
-1、务必勾选，未勾选也能下载但无法使用；
+1. Must be checked — downloading without checking will not work properly;
 
-2、地址：0x000 ;
+2. Address: 0x000;
 
-3、按图配置；
+3. Configure as shown in the image;
 
-4、选择下载模式下自己电脑的COM号。
+4. Select your computer's COM port number in download mode.
 
 ![firmware_update2](./img/firmware_update/firmware_update5.png)
 
-配置好后，先点击“ERASE”按钮刷除模块里面内容。点击软件下方“ERASE”按钮，刷除成功后，左边绿色框出现完成字样。
+After configuration, first click the "ERASE" button to erase the module's content. Click the "ERASE" button at the bottom of the software. After successful erasure, the green box on the left will show "完成" (Complete).
 
 ![firmware_update2](./img/firmware_update/firmware_update6.png)
 
-刷除成功后，点击“START”按钮开始烧录，烧录完成有左边绿色框出现“完成”字样。完成后记得点”stop”按钮或者关闭软件释放串口。
+After successful erasure, click the "START" button to begin programming. When programming is complete, the green box on the left will show "完成" (Complete). Remember to click the "stop" button or close the software to release the serial port afterward.
 
 ![firmware_update2](./img/firmware_update/firmware_update7.png)
 
-烧写完成后复位开发板生效。
+After programming, reset the development board for the changes to take effect.

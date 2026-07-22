@@ -2,134 +2,134 @@
 sidebar_position: 2
 ---
 
-# 按键
+# Button
 
-## 前言
-按键是最简单也最常见的输入设备，很多产品都离不开按键，包括早期的iphone，今天我们就来学习一下如何使用MicroPython来编写按键程序。有了按键输入功能，我们就可以做很多好玩的东西了。
+## Introduction
+The button is the simplest and most common input device. Many products rely on buttons, including early iPhones. Today we'll learn how to write a button program using MicroPython. With button input functionality, we can create many interesting things.
 
-## 实验目的
-使用按键功能，通过检测按键被按下后，改变LED（蓝灯）的亮灭状态。
+## Objective
+Use the button function to change the on/off state of the LED (blue LED) when the button is pressed.
 
-## 实验讲解
+## Experiment Explanation
 
-核桃派PicoW开发板上有2个按键，RST和KEY，RST顾名思义是复位用的，所以真正自带可以用的就只有1个按键KEY。
+The WalnutPi PicoW development board has 2 buttons: RST and KEY. RST, as the name suggests, is for reset. So the only button we can actually use is KEY.
 
-功能按键KEY位于开发板下图所示位置：
+The function button KEY is located on the development board as shown below:
 
 ![key](./img/key/key1.png)
 
-我们先来看看原理图，找到按键对应的IO引脚。
+Let's first look at the schematic to find the IO pin corresponding to the button.
 
 ![key](./img/key/key2.png)
 
-从原理图可以看到，按键KEY的一端连接到ESP32-S3的引脚0，另一端连接到GND。所以按键在没按下时候输入高电平（1），按下时候输入低电平（0）。
+From the schematic, one end of the KEY button is connected to ESP32-S3 pin 0, and the other end is connected to GND. So when the button is not pressed, it inputs high level (1); when pressed, it inputs low level (0).
 
-和前面LED一样，按键的输入检测也是用到Pin对象模块，具体如下：
+Like the LED earlier, button input detection also uses the Pin object module. Details are as follows:
 
-## Pin对象
+## Pin Object
 
-Pin引脚对象。
+Pin is a pin object.
 
-### 构造函数
+### Constructor
 ```python
 KEY = machine.Pin(id, mode, pull)
 ```
 
-Pin位于machine模块下:
+Pin is located under the machine module:
 
-- `id` ：芯片引脚编号。如：0、2、46。
-- `mode` ：输入/输出模式。
-    - `Pin.IN` : 输入模式；
-    - `Pin.OUT` : 输出模式；   
-- `pull`: 上下拉电阻配置。
-    - `None` : 无上下拉电阻；
-    - `Pin.PULL_UP` : 上拉电阻启用；
-    - `Pin.PULL_DOWN` : 下拉电阻启用。
+- `id` : Chip pin number, e.g., 0, 2, 46.
+- `mode` : Input/output mode.
+    - `Pin.IN` : Input mode;
+    - `Pin.OUT` : Output mode;
+- `pull`: Pull-up/pull-down resistor configuration.
+    - `None` : No pull-up/pull-down resistor;
+    - `Pin.PULL_UP` : Pull-up resistor enabled;
+    - `Pin.PULL_DOWN` : Pull-down resistor enabled.
 
 
 
-### 使用方法
+### Usage
 ```python
 KEY.value([X])
 ```
-配置引脚电平值：
-- `输出模式` ：输出电平值。
-    - `0` : 输出低电平；
-    - `1` : 输出高电平。
-- `输入模式` ：无需参数，获取当前引脚输入电平值。
+Configure pin level:
+- `Output mode` : Output level value.
+    - `0` : Output low level;
+    - `1` : Output high level.
+- `Input mode` : No parameters needed, gets the current pin input level.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/machine.Pin.html#machine-pin
 
 <br></br>
 
-按键被按下时候可能会发生抖动，抖动如下图，有可能造成误判，因此我们需要使用延时函数来进行消抖：
+When a button is pressed, bouncing may occur as shown below, which could cause false detection. Therefore we need to use a delay function for debouncing:
 
 ![key](./img/key/key3.png)
 
-常用的方法就是当检测按键值为0时，延时一段时间，大约10ms，再判断按键引脚值仍然是0，是的话说明按键被按下。延时使用time模块，使用方法如下：
+A common method is: when the button value is detected as 0, delay for about 10ms, then check again. If the button pin value is still 0, the button is confirmed as pressed. The delay uses the time module as follows:
 ```python
 import time
 
-time.sleep(1)           # 睡眠1秒
-time.sleep_ms(500)      # 睡眠500毫秒
-time.sleep_us(10)       # 睡眠10微妙
-start = time.ticks_ms() # 获取毫秒计时器开始值
+time.sleep(1)           # Sleep for 1 second
+time.sleep_ms(500)      # Sleep for 500 milliseconds
+time.sleep_us(10)       # Sleep for 10 microseconds
+start = time.ticks_ms() # Get the millisecond counter start value
 
-delta = time.ticks_diff(time.ticks_ms(), start) # 计算从上电开始到当前时间的差值
+delta = time.ticks_diff(time.ticks_ms(), start) # Calculate the difference from power-on to current time
 ```
 
-我们将按键引脚0配置成输入，实现当检测到按键被按下时候点亮LED蓝灯，松开时关闭LED蓝灯来做指示。代码编写流程如下：
+We configure button pin 0 as input to light up the blue LED when the button is pressed and turn it off when released. The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    导入Pin和time模块 --> 构建KEY和LED对象 --> 检测按键是否被按下 --> 按下执行LED状态翻转--> 检测按键是否被按下;
+    Import-Pin-and-time-modules --> Build-KEY-and-LED-objects --> Detect-if-button-is-pressed --> On-press,-toggle-LED-state --> Detect-if-button-is-pressed;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：按键
-版本：v1.0
-说明：通过按键改变LED的亮灭状态
+Experiment Name: Button
+Version: v1.0
+Description: Change LED on/off state via button
 '''
 from machine import Pin
 import time
 
-LED=Pin(46,Pin.OUT) #构建LED对象,开始熄灭
-KEY=Pin(0,Pin.IN,Pin.PULL_UP) #构建KEY对象
-state=0 #LED引脚状态
+LED=Pin(46,Pin.OUT) #Build LED object, initially off
+KEY=Pin(0,Pin.IN,Pin.PULL_UP) #Build KEY object
+state=0 #LED pin state
 
 while True:
-    
-    if KEY.value()==0:   #按键被按下
-        time.sleep_ms(10) #消除抖动
-        if KEY.value()==0: #确认按键被按下
-            
-            state=not state  #使用not语句而非~语句
-            LED.value(state) #LED状态翻转
+
+    if KEY.value()==0:   #Button is pressed
+        time.sleep_ms(10) #Debounce
+        if KEY.value()==0: #Confirm button is pressed
+
+            state=not state  #Use 'not' statement, not '~'
+            LED.value(state) #Toggle LED state
             print('KEY')
-            
-            while not KEY.value(): #检测按键是否松开
+
+            while not KEY.value(): #Check if button is released
                 pass
 ```
 
-从上面代码可以看到，初始化各个对象后，进入循环，当检测到KEY的值为0（按键被按下）时候，先做了10ms的延时，再次判断；
+From the code above, after initializing each object, it enters a loop. When KEY value is detected as 0 (button pressed), a 10ms delay is applied before checking again;
 
-state为LED状态的值，每次按键按下后通过使用not来改变。这里注意的是在python里使用**not**而不是**~**的方式。not返回的是True和False，即0,1。而~ 是取反操作，会导致出错。
+`state` is the value of the LED state, which toggles using `not` each time the button is pressed. Note that in Python, use **not** instead of **~**. `not` returns True and False, i.e., 0 and 1. Using `~` is a bitwise negation and would cause an error.
 
 
-## 实验结果
+## Experimental Results
 
-Thonny IDE中运行代码：
+Run the code in Thonny IDE:
 
 ![key](./img/key/key4.png)
 
-可以看到当按键KEY每次被按下时候，LED蓝灯亮灭状态发生翻转。
+You can see that each time the KEY button is pressed, the blue LED toggles on and off.
 
 ![key](./img/key/key5.png)
 
-GPIO是非常通用的功能，学会了GPIO，就可以把开发板所有的引脚为自己所用，灵活性很强。
+GPIO is a very versatile feature. Once you master GPIO, you can use all the pins on the development board for your own purposes, offering great flexibility.

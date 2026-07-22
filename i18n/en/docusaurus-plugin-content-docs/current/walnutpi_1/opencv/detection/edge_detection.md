@@ -31,7 +31,7 @@ From the above, we can see that the Canny method is very simple to use. We just 
 
 ```mermaid
 graph TD
-    Read image-->Perform edge detection with two sets of thresholds-->Display images;
+    Read-image --> Perform-edge-detection-with-two-sets-of-thresholds --> Display-images;
 ```
 
 <br></br>

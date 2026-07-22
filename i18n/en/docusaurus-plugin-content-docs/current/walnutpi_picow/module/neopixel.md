@@ -2,113 +2,113 @@
 sidebar_position: 3
 ---
 
-# Neopixel彩灯
+# Neopixel LED Strip
 
-## 前言
-RGB灯带是彩灯的一种，我们看到长长的灯带以及LED彩色显示屏，都是采用一个个灯珠组合而成。在本章节我们将通过编程实现RGB灯带的控制，可以应用到家居布置、节日气氛的场景中去。
+## Introduction
+RGB LED strips are a type of colorful lighting. The long LED strips and LED color displays we see are all composed of individual LED beads. In this chapter, we'll program the control of an RGB LED strip, which can be used for home decoration and festive atmosphere scenarios.
 
-## 实验目的
-通过编程实现灯带循环显示红色（RED）、绿色（GREEN）、蓝色（BLUE）和混合（红、绿、蓝）。
+## Objective
+Program the LED strip to cyclically display red (RED), green (GREEN), blue (BLUE), and a mix (red, green, blue).
 
-## 实验讲解
+## Experiment Explanation
 
-先来介绍一下本实验用到的RGB灯带。
+First, let's introduce the RGB LED strip used in this experiment.
 
 ![neopixel](./img/neopixel/neopixel1.png)
 
-该灯带为3线接口，长1米，有30颗灯珠，每个灯珠里面都有一个驱动IC，型号是WS2812B，单总线驱动。每个灯珠首尾相连。灯带末端预留了接口可以串联更多的灯带。也就是说在电源充足情况下只需要通过1个GPIO口就可以控制了数十上百的灯珠了。
+This LED strip has a 3-wire interface, is 1 meter long, and has 30 LED beads. Each bead has a built-in driver IC, model WS2812B, driven by a single bus. Each bead is connected end to end. The strip has a reserved connector at the end for daisy-chaining more strips. This means that, with sufficient power, you can control dozens or even hundreds of beads using just one GPIO pin.
 
 ![neopixel](./img/neopixel/neopixel2.png)
 
-本实验实验核桃派PicoW引脚10控制灯带，供电使用3.3V或5V，推荐使用5V，会更亮一点。**（市面上大部分灯珠能5V供电然后使用3.3V电平的IO控制）**
+In this experiment, WalnutPi PicoW pin 10 controls the LED strip. Power uses 3.3V or 5V — 5V is recommended for slightly brighter output. **(Most LED beads on the market can be powered by 5V while using 3.3V level IO for control)**
 
 ![neopixel](./img/neopixel/neopixel3.png)
 
-在了解了接线方式后，我们知道颜色是由最基本的三种颜色的不同亮度混合出新颜色。这3个最基本的颜色顺序分别是红，绿，蓝（RGB）。这里每个颜色的亮度级别从0-255,0表示没有，255表示最亮。如(255,0,0)则表示红色最亮。GPIO口就是将这些数据逐一发送给灯带。
+After understanding the wiring, we know that colors are created by mixing different brightness levels of the three basic colors. These three basic colors, in order, are Red, Green, and Blue (RGB). Each color's brightness level ranges from 0-255, where 0 means off and 255 means brightest. For example, (255,0,0) represents red at full brightness. The GPIO port sends this data to the LED strip bead by bead.
 
-核桃派PicoW的MicroPython固件集成了彩灯驱动模块（NeoPixel），适用于WS2812B驱动的灯珠。因此我们可以直接使用。对象说明如下：
+The WalnutPi PicoW's MicroPython firmware integrates the NeoPixel LED driver module, suitable for WS2812B-driven LED beads. So we can use it directly. The object description is as follows:
 
 
-## NeoPixel对象
+## NeoPixel Object
 
-### 构造函数
+### Constructor
 ```python
 np = neopixel.NeoPixel(pin, n, bpp=3, timing=1)
 ```
-构建NeoPixel对象。
+Build a NeoPixel object.
 
-- `pin`: 控制引脚；需要使用machine.Pin接口。
-- `num`: 灯珠数量。
-- `bpp`: 灯珠类型。
-    - `3`: RGB LEDs。   
-    - `4`: RGBW LEDs。内部多一个白光灯珠。
-- `timing`: 灯珠类型。
-    - `0`: 400KHz。   
-    - `1`: 800KHz（大部分灯珠使用这个频率）
+- `pin`: Control pin; requires the machine.Pin interface.
+- `num`: Number of LED beads.
+- `bpp`: LED bead type.
+    - `3`: RGB LEDs.
+    - `4`: RGBW LEDs. Has an additional white LED bead inside.
+- `timing`: LED bead type.
+    - `0`: 400KHz.
+    - `1`: 800KHz (most LED beads use this frequency)
 
 
-### 使用方法
+### Usage
 ```python
 np.fill(pixel)
 ```
-设置所有灯珠为指定颜色。
-- `pixel`: 颜色值，例：(255,0,0)表示红色。
+Set all LED beads to a specified color.
+- `pixel`: Color value, e.g., (255,0,0) for red.
 
 <br></br>
 
 ```python
 np[i] = pixel
 ```
-设置某个灯珠的颜色。
-- `pixel`: 颜色值，例：np[0] =(255,0,0) 表示第一个灯珠设置成红色。
+Set the color of a specific LED bead.
+- `pixel`: Color value, e.g., np[0] = (255,0,0) sets the first bead to red.
 
 <br></br>
 
 ```python
 np.write()
 ```
-将数据写入灯珠。前面配置完颜色后务必执行这个语句灯珠才会显示相应颜色。
+Write data to the LED beads. After configuring colors, you must execute this statement for the beads to display the corresponding colors.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/neopixel.html#module-neopixel
 
-代码编程流程图如下：
+The code flow chart is as follows:
 
 
 ```mermaid
 graph TD
-    导入NeoPixel模块 --> 构建NeoPixel对象 --> 灯带显示指定颜色 --> 延时 --> 灯带显示指定颜色;
+    Import-NeoPixel-module --> Build-NeoPixel-object --> LED-strip-displays-specified-color --> Delay --> LED-strip-displays-specified-color;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：RGB彩灯控制
-版本：v1.0
-作者：WalnutPi
-说明：通过编程实现灯带不同颜色的变化。
+Experiment Name: RGB LED Strip Control
+Version: v1.0
+Author: WalnutPi
+Description: Program different color changes on the LED strip.
 '''
 import time
 from machine import Pin,Timer
 from neopixel import NeoPixel
 
-#定义红、绿、蓝三种颜色
+#Define red, green, blue colors
 RED=(255,0,0)
 GREEN=(0,255,0)
 BLUE=(0,0,255)
 
-#22引脚连接灯带，灯珠数量30
+#Pin 22 connects to LED strip, 30 beads
 pin = Pin(10, Pin.OUT)
 np = NeoPixel(pin, 30)
 
-#设置灯珠RGB颜色，本实验供30个灯珠
+#Set LED bead RGB colors, this experiment has 30 beads
 def rgb():
-    
+
     global RED,GREEN,BLUE
-    
+
     for i in range(30):
         if i < 10:
             np[i]=RED
@@ -119,27 +119,27 @@ def rgb():
 
 while True:
 
-    np.fill(RED) #红色
-    np.write()     # 写入数据
+    np.fill(RED) #Red
+    np.write()     # Write data
     time.sleep(1)
 
-    np.fill(GREEN) #红色
-    np.write()     # 写入数据
+    np.fill(GREEN) #Green
+    np.write()     # Write data
     time.sleep(1)
 
-    np.fill(BLUE) #红色
-    np.write()     # 写入数据
+    np.fill(BLUE) #Blue
+    np.write()     # Write data
     time.sleep(1)
-    
-    #RGB彩色模式
+
+    #RGB color mode
     rgb()
     np.write()
     time.sleep(1)
 ```
 
-## 实验结果
+## Experimental Results
 
-运行代码，可以看到灯带的颜色在红、绿、蓝和混合4钟色中循环变化。
+Run the code and you can see the LED strip colors cycling through red, green, blue, and mixed modes.
 
 ![neopixel](./img/neopixel/neopixel4.jpg)
 
@@ -149,4 +149,4 @@ while True:
 
 ![neopixel](./img/neopixel/neopixel7.jpg)
 
-RGB灯带的单总线特点使得我们可以轻易的增加和减少灯带的数量而无需过多的修改程序。但需要注意的是如果灯带数量过多，那么需要外接电源供电，否则会因为电流不足而影响使用。
+The single-bus nature of RGB LED strips makes it easy to add or reduce the number of beads without much code modification. However, note that if the number of beads is large, an external power supply is needed; otherwise, insufficient current will affect performance.

@@ -2,153 +2,153 @@
 sidebar_position: 8
 ---
 
-# UART（串口通讯）
+# UART (Serial Communication)
 
-## 前言
-串口是非常常用的通信接口，有很多工控产品、无线透传模块都是使用串口来收发指令和传输数据，以及和其它开发板如树莓派，核桃派，STM32，Arduio等带串口的开发板通讯，这样用户就可以在无须考虑底层实现原理的前提下将各类串口功能模块灵活应用起来。
+## Introduction
+UART is a very commonly used communication interface. Many industrial control products and wireless transparent transmission modules use UART to send and receive commands and transfer data, and to communicate with other development boards such as Raspberry Pi, WalnutPi, STM32, Arduino, etc. This allows users to flexibly utilize various serial function modules without worrying about the underlying implementation principles.
 
-## 实验目的
-编程实现串口收发数据。
+## Objective
+Program serial data transmission and reception.
 
-## 实验讲解
+## Experiment Explanation
 
-核桃派PicoW一共有3个串口，编号0-2，如下表：其中uart0为调试串口不能使用，实验可以使用uart1或uart2。
+The WalnutPi PicoW has a total of 3 UART ports, numbered 0-2, as shown in the table below. uart0 is the debug serial port and cannot be used; experiments can use uart1 or uart2.
 
 ![uart](./img/uart/uart0.png)
 
-我们来了解一下串口对象的构造函数和使用方法：
+Let's learn about the UART object's constructor and usage methods:
 
-## UART对象
+## UART Object
 
-### 构造函数
+### Constructor
 ```python
 uart = machine.UART(id,baudrate,tx=None,rx=None bits=8, parity=None, stop=1,…)
 ```
-创建UART对象。
+Create a UART object.
 
-- `id` ：串口编号，共2个可用, 1或2。
+- `id` : UART port number, 2 available: 1 or 2.
 
-- `baudrate`：波特率，常用115200、9600;
+- `baudrate`: Baud rate, commonly 115200, 9600;
 
-- `tx` ：核桃派PicoW发送引脚，可自定义IO，例：tx = 12。
+- `tx` : WalnutPi PicoW transmit pin, customizable IO, e.g.: tx = 12.
 
-- `rx` ：核桃派PicoW接收引脚，可自定义IO，例：rx = 11。
+- `rx` : WalnutPi PicoW receive pin, customizable IO, e.g.: rx = 11.
 
-- `bits` ：数据位，默认8;
+- `bits` : Data bits, default 8;
 
-- `parity` ：奇偶校验，默认None;
-    - `0`: 偶校验；
-    - `1`: 奇校验；
+- `parity` : Parity check, default None;
+    - `0`: Even parity;
+    - `1`: Odd parity;
 
-- `stop`: 停止位，支持 1， 1.5, 2， 默认 1 。
+- `stop`: Stop bits, supports 1, 1.5, 2, default 1.
 
-### 使用方法
+### Usage
 
 ```python
 uart.any()
 ```
-返回等待读取的字节数据，0表示没有，用于判断是否有接收到数据。
+Returns the number of bytes waiting to be read. 0 means none, used to check if data has been received.
 
 <br></br>
 
 ```python
 uart.read([nbytes])
 ```
-读取字符。
-- `nbytes`: 读取字节数量。
+Read characters.
+- `nbytes`: Number of bytes to read.
 
 <br></br>
 
 ```python
 uart.readline()
 ```
-读行。
+Read a line.
 
 <br></br>
 
 ```python
 UART.write(buf)
 ```
-发送数据。
-- `buf`: 需要发送的数据。
+Send data.
+- `buf`: Data to send.
 
 <br></br>
 
 ```python
 UART.deinit()
 ```
-注销串口。
+Deregister the UART port.
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.01studio.cc/library/machine.UART.html#machine-uart
 
 <br></br>
 
-我们可以用一个USB转TTL工具，配合电脑上位机串口助手来跟核桃派PicoW开发板进行通信测试。
+We can use a USB-to-TTL tool along with a PC serial assistant to communicate with the WalnutPi PicoW development board.
 
 ![uart1](./img/uart/uart1.png)
 
-注意要使用3.3V电平的USB转串口TTL工具，本实验我们让核桃派PicoW的rx=12 , tx = 11 接线示意图如下（交叉接线）：
+Note that you must use a 3.3V level USB-to-UART TTL tool. In this experiment, we configure the WalnutPi PicoW with rx=12, tx=11. The wiring diagram is as follows (cross-wired):
 
 ![uart2](./img/uart/uart2.png)
 
 
-在本实验中我们可以先初始化串口，然后给串口发去一条信息，这样PC机的串口助手就会在接收区显示出来，然后进入循环，当检测到有数据可以接收时候就将数据接收并打印，并通过REPL打印显示。代码编写流程图如下：
+In this experiment, we first initialize the UART port, then send a message to it. The PC's serial assistant will display the message in the receive area. Then we enter a loop where, when data is detected as available to receive, it is received and printed through the REPL. The code flow chart is as follows:
 
 
 ```mermaid
 graph TD
-    导入UART相关模块 --> 构建UART对象 --> 串口发送信息 --> 判断是否有信息--是-->接收并在终端打印-->判断是否有信息;
-    判断是否有信息--否-->判断是否有信息;
+    Import-UART-related-modules --> Build-UART-object --> Send-message-via-UART --> Check-if-data-is-available----Yes --> Receive-and-print-in-terminal --> Check-if-data-is-available;
+    Check-if-data-is-available----No --> Check-if-data-is-available;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：串口通信
-版本：v1.0
-作者：WalnutPi
-实验平台：核桃派PicoW
-说明：通过编程实现串口通信，跟电脑串口助手实现数据收发。
+Experiment Name: Serial Communication
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: Implement serial communication through programming, exchanging data with the PC serial assistant.
 '''
 
-#导入串口模块
+#Import serial module
 from machine import UART
 
-uart=UART(1,115200,rx=12,tx=11) #设置串口号1和波特率
+uart=UART(1,115200,rx=12,tx=11) #Set UART port 1 and baud rate
 
-uart.write('Hello 01Studio!')#发送一条数据
+uart.write('Hello 01Studio!')#Send a piece of data
 
 while True:
 
-    #判断有无收到信息
+    #Check if data has been received
     if uart.any():
 
-        text=uart.read(128) #接收128个字符
-        print(text) #通过REPL打印串口3接收的数据
+        text=uart.read(128) #Receive 128 characters
+        print(text) #Print data received on UART via REPL
 ```
 
-## 实验结果
+## Experimental Results
 
-我们按照上述方式将USB转TTL的TX接到核桃派PicoW引脚12，RX接到核桃派PicoW引脚11。GND接一起，3.3V可以选择接或不接。
+Connect the USB-to-TTL TX to WalnutPi PicoW pin 12, RX to WalnutPi PicoW pin 11, GND together as described above. 3.3V can be connected or left disconnected.
 
 ![uart4](./img/uart/uart4.png)
 
-这时候打开电脑的设备管理器，能看到2个COM。写着CH340的是串口工具，另外一个则是核桃派PicoW的串口。**如果CH340驱动没安装，则需要手动安装，驱动在：<u>配套资料包\开发工具\串口终端\CH340文件夹</u> 下。**
+Open the PC's Device Manager, and you should see 2 COM ports. The one labeled CH340 is the serial tool, and the other is the WalnutPi PicoW's serial port. **If the CH340 driver is not installed, you need to manually install it. The driver is located in: <u>配套资料包\开发工具\串口终端\CH340 folder</u>.**
 
 ![uart5](./img/uart/uart5.png)
 
-本实验要用到串口助手，打开配套资料包\开发工具\串口终端工具下的【UartAssist.exe】软件。
+This experiment requires a serial assistant. Open the [UartAssist.exe] software located in 配套资料包\开发工具\串口终端工具.
 
 ![uart6](./img/uart/uart6.png)
 
-根据上图将串口工具配置成COM22（根据自己电脑的串口号调整）。波特率115200。然后打开。
+Configure the serial tool as COM22 according to the image above (adjust based on your computer's COM port number). Baud rate 115200. Then open it.
 
-运行程序，可以看到一开始串口助手收到核桃派PicoW上电发来的信息“Hello WalnutPi!”。我们在串口助手的发送端输入“https://www.walnutpi.com”， 点击发送，可以看到核桃派PicoW在接收到该信息后在REPL里面打印了出来。如下图所示：
+Run the program. You should see the serial assistant receives the message "Hello WalnutPi!" sent by the WalnutPi PicoW at startup. Enter "https://www.walnutpi.com" in the serial assistant's send field, click send, and you can see the WalnutPi PicoW prints the received message in the REPL. As shown below:
 
 ![uart7](./img/uart/uart7.png)
 
-## 跟其它开发板或串口模块通讯
+## Communicating with Other Development Boards or Serial Modules
 
-只需要将本实验中的串口TTL工具接线换成开发板的即可。接线方式是交叉接线，接核桃派PicoW的TX，RX分别连接其它开发板的RX，TX ，GND连接一起。注意其它开发板的IO电平也是3.3V即可。
+Simply replace the serial TTL tool wiring in this experiment with the development board's wiring. The wiring method is cross-connected: connect the WalnutPi PicoW TX and RX to the other board's RX and TX respectively, and connect GND together. Ensure the other development board's IO level is also 3.3V.

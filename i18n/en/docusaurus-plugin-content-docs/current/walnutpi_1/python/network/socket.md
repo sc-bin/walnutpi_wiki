@@ -116,8 +116,8 @@ In this experiment, the WalnutPi acts as the client, so we only need the client-
 
 ```mermaid
 graph TD
-    Import related modules --> Initialize related modules --> Establish socket connection --> Check if connected -- Yes --> Exchange data;
-    Check if connected -- No --> End;
+    Import-related-modules --> Initialize-related-modules --> Establish-socket-connection --> Check-if-connected----Yes --> Exchange-data;
+    Check-if-connected----No --> End;
 ```
 
 

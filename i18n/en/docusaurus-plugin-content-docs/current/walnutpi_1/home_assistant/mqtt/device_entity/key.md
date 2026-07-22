@@ -73,7 +73,7 @@ The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    Import Related Modules-->Build KEY Object-->Connect MQTT Server-->Register KEY Entity and Device-->Detect Button State-->MQTT Send State Information-->Detect Button State;
+    Import-Related-Modules --> Build-KEY-Object --> Connect-MQTT-Server --> Register-KEY-Entity-and-Device --> Detect-Button-State --> MQTT-Send-State-Information --> Detect-Button-State;
 ```
 
 ## Implementation Based on WalnutPi 1B

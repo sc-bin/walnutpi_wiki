@@ -67,7 +67,7 @@ The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    Import digitalio-related modules --> Construct PIR and LED objects --> Detect signal input level --> HIGH lights LED, LOW turns off LED --> Detect signal input level;
+    Import-digitalio-related-modules --> Construct-PIR-and-LED-objects --> Detect-signal-input-level --> HIGH-lights-LED,-LOW-turns-off-LED --> Detect-signal-input-level;
 ```
 
 ## Reference Code

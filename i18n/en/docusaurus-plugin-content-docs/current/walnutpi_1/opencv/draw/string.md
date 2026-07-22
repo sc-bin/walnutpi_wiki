@@ -43,7 +43,7 @@ After becoming familiar with the text writing method, let's write a string on an
 
 ```mermaid
 graph TD
-    Create a new image canvas-->Write text-->Display the image;
+    Create-a-new-image-canvas --> Write-text --> Display-the-image;
 ```
 
 <br></br>

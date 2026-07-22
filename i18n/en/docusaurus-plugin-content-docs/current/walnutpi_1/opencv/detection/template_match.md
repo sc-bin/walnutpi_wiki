@@ -68,7 +68,7 @@ The single-target matching code flow is as follows:
 
 ```mermaid
 graph TD
-    Read original image-->Read template image-->Perform single-target matching-->Display result image;
+    Read-original-image --> Read-template-image --> Perform-single-target-matching --> Display-result-image;
 ```
 
 <br></br>
@@ -133,7 +133,7 @@ Here, we use `cv2.TM_CCORR_NORMED` normalized correlation matching: the larger t
 
 ```mermaid
 graph TD
-    Read original image-->Read template image-->Perform multi-target matching-->Display result image;
+    Read-original-image --> Read-template-image --> Perform-multi-target-matching --> Display-result-image;
 ```
 
 <br></br>

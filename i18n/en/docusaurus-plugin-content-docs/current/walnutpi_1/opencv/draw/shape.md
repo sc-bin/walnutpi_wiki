@@ -79,7 +79,7 @@ After becoming familiar with the common drawing methods, we will use code to cre
 
 ```mermaid
 graph TD
-    Create a new image canvas-->Draw a line segment-->Draw a rectangle-->Draw a circle-->Draw an arbitrary polygon-->Display the image;
+    Create-a-new-image-canvas --> Draw-a-line-segment --> Draw-a-rectangle --> Draw-a-circle --> Draw-an-arbitrary-polygon --> Display-the-image;
 ```
 
 <br></br>

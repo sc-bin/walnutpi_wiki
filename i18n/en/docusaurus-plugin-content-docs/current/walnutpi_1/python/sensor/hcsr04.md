@@ -71,7 +71,7 @@ After constructing the object, we can loop to continuously obtain ultrasonic dis
 
 ```mermaid
 graph TD
-    Import related modules --> Construct ultrasonic sensor object --> Measure distance and print --> Measure distance and print;
+    Import-related-modules --> Construct-ultrasonic-sensor-object --> Measure-distance-and-print --> Measure-distance-and-print;
 ```
 
 ## Reference Code

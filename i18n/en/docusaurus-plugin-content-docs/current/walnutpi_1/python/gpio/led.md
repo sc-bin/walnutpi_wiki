@@ -90,8 +90,8 @@ Above, we've explained the CircuitPython DigitalInOut object in detail. `digital
 
 ```mermaid
 graph TD
-    Import digitalio-related modules --> Construct LED object;
-    Construct LED object --> Light up LED;
+    Import-digitalio-related-modules --> Construct-LED-object;
+    Construct-LED-object --> Light-up-LED;
 ```
 
 ## Reference Code

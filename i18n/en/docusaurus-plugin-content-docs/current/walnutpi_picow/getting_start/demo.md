@@ -2,32 +2,32 @@
 sidebar_position: 5
 ---
 
-# 例程测试
+# Example Testing
 
-前面我们已经安装好了Thonny IDE，接下来我们使用最简单的方式来做一个点亮LED蓝灯的实验，大家暂时先不用理解代码意思，后面章节会有解释。这里主要是为了让大家了解一下MicroPython编程软件Thonny的使用方法和原理。具体如下：
+We have already installed Thonny IDE. Now let's use the simplest approach to do an experiment lighting up the blue LED. Don't worry about understanding the code yet — later chapters will explain it. The main goal here is to familiarize you with how to use the MicroPython programming software Thonny and understand its principles. Here's the procedure:
 
-连接开发板，在thonny左上角本地文件区域找到 **核桃派PicoW（ESP32-S3）资料下载\02-示例程序\1.基础实验\1.点亮第1个LED** 下的main.py文件，双击打开后看到右边编程区出现相关代码。
+Connect the development board. In the local file area at the top left of Thonny, locate the `main.py` file under **WalnutPi PicoW (ESP32-S3) Resources Download\02-Example Programs\1.Basic Experiments\1.Light Up the First LED**. Double-click to open it and you'll see the relevant code appear in the programming area on the right.
 
 ![demo](./img/demo/demo1.png)
 
 
 ```python
 '''
-实验名称：点亮LED蓝灯
-版本：v1.0
+Experiment Name: Light Up the Blue LED
+Version: v1.0
 '''
 
-from machine import Pin #导入Pin模块
+from machine import Pin #Import Pin module
 
-led=Pin(46,Pin.OUT) #构建led对象，GPIO46,输出
-led.value(1) #点亮LED，也可以使用led.on()
+led=Pin(46,Pin.OUT) #Build led object, GPIO46, output
+led.value(1) #Light up LED, or use led.on()
 
 ```
 
-点击 **运行—运行当前脚本** 或者直接点绿色按钮：
+Click **Run — Run Current Script** or directly click the green button:
 
 ![demo](./img/demo/demo2.png)
 
-可以看到核桃派PicoW开发板上的蓝灯被点亮：
+You can see the blue LED on the WalnutPi PicoW development board light up:
 
 ![demo](./img/demo/demo3.png)

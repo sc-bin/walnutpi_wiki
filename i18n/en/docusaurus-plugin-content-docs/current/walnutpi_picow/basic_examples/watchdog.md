@@ -2,82 +2,82 @@
 sidebar_position: 11
 ---
 
-# 看门狗
+# Watchdog
 
-## 前言
-任何代码在运行过程中都可能出现崩溃的情况，这时候就可以加入看门狗代码。看门狗的用途是在应用程序崩溃并最终进入不可恢复状态时自动重新启动系统。一旦启动，就无法以任何方式停止或重新配置。启用后，应用程序必须定期“喂食”看门狗，以防止其过期并重置系统。
+## Introduction
+Any code can crash during execution. This is where watchdog code comes in. A watchdog is used to automatically restart the system when an application crashes and enters an unrecoverable state. Once started, it cannot be stopped or reconfigured in any way. After enabling, the application must periodically "feed" the watchdog to prevent it from expiring and resetting the system.
 
-## 实验目的
-测试看门狗自动复位功能。
+## Objective
+Test the watchdog auto-reset function.
 
-## 实验讲解
+## Experiment Explanation
 
-核桃派PicoW的MicroPython固件已经集成了看门狗WDT模块。我们直接调用即可。
+The WalnutPi PicoW's MicroPython firmware already integrates the WDT (Watchdog Timer) module. We can use it directly.
 
-## WTD对象
+## WDT Object
 
-### 构造函数
+### Constructor
 ```python
 wdt = WDT(timeout=5000)
 ```
-创建看门狗对象。
+Create a watchdog object.
 
-- `timeout` ：看门狗喂食周期时间，单位ms。默认5000ms。
+- `timeout` : Watchdog feeding period, in ms. Default 5000ms.
 
-### 使用方法
+### Usage
 
 ```python
 wdt.feed()
 ```
-喂狗。需要在构建看门狗对象时指定的时间内执行该指令。
+Feed the watchdog. This instruction must be executed within the time specified when building the watchdog object.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/machine.WDT.html
 
-编程流程如下：
+The programming flow is as follows:
 
 ```mermaid
 graph TD
-    导入看门狗模块 --> 初始化看门狗对象 --> 喂狗 --> 停止喂狗模拟死机系统自动重启;
+    Import-watchdog-module --> Initialize-watchdog-object --> Feed-the-watchdog --> Stop-feeding-to-simulate-system-freeze,-auto-restart;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：线程
-版本： v1.0
-作者：WalnutPi
-实验平台：核桃派PicoW
-说明：看门狗测试。
+Experiment Name: Watchdog
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: Watchdog test.
 '''
 
-from machine import WDT #导入线程模块
+from machine import WDT #Import watchdog module
 import time
 
-#构建看门狗对象，喂狗周期2秒内。
+#Build watchdog object, feeding period within 2 seconds.
 wdt = WDT(timeout=2000)
 
 
-#每隔1秒喂一次狗，执行3次。
+#Feed the watchdog every 1 second, execute 3 times.
 for i in range(3):
-    
+
     time.sleep(1)
     print(i)
-    
-    wdt.feed() #喂狗
 
-#停止喂狗，系统会重启。
+    wdt.feed() #Feed the watchdog
+
+#Stop feeding, system will restart.
 while True:
     pass
 ```
 
-## 实验结果
+## Experimental Results
 
-运行代码，可以看到串口终端打印了3次信息后自动重启。
+Run the code and you can see the serial terminal prints 3 messages, then automatically restarts.
 
 ![watchdog](./img/watchdog/watchdog1.png)
 
-有了看门狗，当开发板死机时候就可以自动重启了。
+With a watchdog, the development board can automatically restart when it freezes.

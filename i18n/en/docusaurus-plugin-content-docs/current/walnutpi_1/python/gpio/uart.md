@@ -67,8 +67,8 @@ In this experiment, we first initialize the serial port, then send a message via
 
 ```mermaid
 graph TD
-    Import Serial module --> Construct serial object --> Send message --> Check for data -- Yes --> Receive and print in terminal --> Check for data;
-    Check for data -- No --> Check for data;
+    Import-Serial-module --> Construct-serial-object --> Send-message --> Check-for-data----Yes --> Receive-and-print-in-terminal --> Check-for-data;
+    Check-for-data----No --> Check-for-data;
 ```
 
 ## Reference Code

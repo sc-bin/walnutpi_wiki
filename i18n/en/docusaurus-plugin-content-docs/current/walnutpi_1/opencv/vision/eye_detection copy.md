@@ -18,7 +18,7 @@ Using the cascade classifier method introduced earlier, this section uses the ey
 
 ```mermaid
 graph TD
-    Read image-->Load cascade classifier-->Classifier recognizes the specified target-->Draw boxes-->Display image;
+    Read-image --> Load-cascade-classifier --> Classifier-recognizes-the-specified-target --> Draw-boxes --> Display-image;
 ```
 
 <br></br>

@@ -2,25 +2,25 @@
 sidebar_position: 6
 ---
 
-# 代码离线运行
+# Offline Code Execution
 
-上一节直接在IDE里面运行功能代码是保存在开发板的RAM（内存）里面，方便调试，但断电后丢失，那么如何实现开发板上电运行我们的代码呢？方法如下：
+In the previous section, running functional code directly in the IDE saves it to the development board's RAM (memory), which is convenient for debugging but is lost when power is removed. So how do we make the development board run our code on power-up? Here's the method:
 
-Micropython机制是上电默认先运行名字为boot.py文件，然后在运行main.py文件，如果没有boot.py那么直接运行main.py。
+The MicroPython mechanism is: on power-up, it first runs a file named `boot.py` by default, then runs `main.py`. If there is no `boot.py`, it directly runs `main.py`.
 
 
-**boot.py: 一般用于配置初始化参数（可以不需要）；**
+**boot.py: Generally used for configuring initialization parameters (optional);**
 
-**main.py：主程序。**
+**main.py: Main program.**
 
-也就是我们只需要将代码以main.py文件发送到开发板，那么开发板就可以实现上电运行相关程序。
+That means we just need to send the code as a `main.py` file to the development board, and the board will run the program automatically on power-up.
 
-我们将LED例程的main.py发送到开发板:
+Send the LED example's `main.py` to the development board:
 
 ![run_offline](./img/run_offline/run_offline1.png)
 
-然后关闭IDE，按下核桃派PicoW复位键，可以看到核桃派PicoW开发板每次复位后的蓝灯被点亮。代码实现了离线运行：
+Then close the IDE and press the WalnutPi PicoW's reset button. You can see the blue LED on the WalnutPi PicoW lights up after each reset. The code is now running offline:
 
 ![run_offline](./img/run_offline/run_offline2.png)
 
-我们只需要将编写好的代码改成main.py发送到开发板，即可实现离线上电自动运行。
+Simply rename your code to `main.py` and send it to the development board to achieve automatic offline execution on power-up.

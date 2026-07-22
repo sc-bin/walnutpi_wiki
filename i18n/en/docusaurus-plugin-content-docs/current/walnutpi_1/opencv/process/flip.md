@@ -33,7 +33,7 @@ In this section, we will apply all three flip modes to an image and display the 
 
 ```mermaid
 graph TD
-    Open image-->Flip image-->Display images;
+    Open-image --> Flip-image --> Display-images;
 ```
 
 <br></br>

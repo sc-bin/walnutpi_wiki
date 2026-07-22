@@ -2,231 +2,232 @@
 sidebar_position: 3
 ---
 
-# MQTT通讯
+# MQTT Communication
 
-## 前言
-上一节，我们学习了Socket通信，当服务器和客户端建立起连接时，就可以相互通信了。在互联网应用大多使用WebSocket接口来传输数据。而在物联网应用中，常常出现这样的情况：海量的传感器，需要时刻保持在线，传输数据量非常低，有着大量用户使用。如果仍然使用socket作为通信，那么服务器的压力和通讯框架的设计随着数量的上升将变得异常复杂！
+## Introduction
+In the previous section, we learned about Socket communication. When a server and client establish a connection, they can communicate with each other. In internet applications, WebSocket interfaces are mostly used for data transmission. However, in IoT applications, a common scenario occurs: massive numbers of sensors need to stay online continuously, transmitting very small amounts of data, with a large number of users. If we still use socket for communication, the server load and communication framework design would become extremely complex as the number increases!
 
-那么有无一个框架协议来解决这个问题呢，答案是有的。那就是MQTT(消息队列遥测传输)。
+So, is there a framework protocol to solve this problem? The answer is yes — MQTT (Message Queuing Telemetry Transport).
 
 
-## 实验目的
-通过编程让核桃派PicoW实现MQTT协议信息的发布和订阅（接收）。
+## Objective
+Program the WalnutPi PicoW to implement MQTT protocol message publishing and subscribing (receiving).
 
-## 实验讲解
-MQTT是IBM于1999年提出的，和HTTP一样属于应用层，它工作在 TCP/IP协议族上，通常还会调用socket接口。是一个基于客户端-服务器的消息发布/订阅传输协议。其特点是协议是轻量、简单、开放和易于实现的，这些特点使它适用范围非常广泛。在很多情况下，包括受限的环境中，如：机器与机器（M2M）通信和物联网（IoT）。其在，通过卫星链路通信传感器、偶尔拨号的医疗设备、智能家居、及一些小型化设备中已广泛使用。
-总结下来MQTT有如下特性/优势：
-- 异步消息协议
-- 面向长连接
-- 双向数据传输
-- 协议轻量级
-- 被动数据获取
+## Experiment Explanation
+MQTT was proposed by IBM in 1999. Like HTTP, it belongs to the application layer and operates on the TCP/IP protocol stack, typically calling the socket interface. It is a client-server based publish/subscribe messaging transport protocol. Its characteristics are that the protocol is lightweight, simple, open, and easy to implement, making it suitable for a very wide range of applications. In many cases, including constrained environments such as Machine-to-Machine (M2M) communication and the Internet of Things (IoT), it has been widely used in sensors communicating via satellite links, occasionally dialing medical devices, smart homes, and various miniaturized devices.
+
+In summary, MQTT has the following features/advantages:
+- Asynchronous messaging protocol
+- Oriented toward persistent connections
+- Bidirectional data transmission
+- Lightweight protocol
+- Passive data acquisition
 
 
 ![mqtt1](./img/mqtt/mqtt1.jpg)
 
-从上图可以看到，MQTT通信的角色有两个，分别是服务器和客户端。服务器只负责中转数据，不做存储；客户端可以是信息发送者或订阅者，也可以同时是两者。具体如下图：
+From the diagram above, we can see that MQTT communication has two roles: server and client. The server only relays data and does not store it; the client can be an information publisher or subscriber, or both simultaneously. As shown in detail below:
 
 ![mqtt2](./img/mqtt/mqtt2.png)
 
-确定了角色后是如何传输数据呢？下表示MQTT最基本的数据帧格式，例如温度传感器发布主题“Temperature”编号,消息是“25”（表示温度）。那么所有订阅了这个主题编号的客户端（手机应用）就会收到相关信息，从而实现通信。如下表所示：
+Once roles are determined, how is data transmitted? The table below shows the most basic MQTT data frame format. For example, a temperature sensor publishes the topic "Temperature" with the message "25" (representing temperature). Then all clients (phone apps) that have subscribed to this topic will receive the relevant information, thus achieving communication. As shown in the table below:
 
 ![mqtt3](./img/mqtt/mqtt3.png)
 
-由于特殊的发布/订阅机制，服务器不需要存储数据（当然也可以在服务器的设备上建立一个客户端来订阅保存信息），因此非常适合海量设备的传输。
+Due to the special publish/subscribe mechanism, the server doesn't need to store data (though you can set up a client on the server device to subscribe and save information). This makes it very suitable for massive device transmission.
 
-人生苦短，而MicroPython已经封装好了MQTT客户端的库文件。让我们的应用变得简单美妙。MQTT模块文件为例程文件夹里面的 simple.py 文件。使用方法如下：
+Life is short, and MicroPython has already encapsulated the MQTT client library files, making our applications simple and elegant. The MQTT module file is the `simple.py` file in the example folder. Usage is as follows:
 
-## MQTTClient对象
+## MQTTClient Object
 
-### 构造函数
+### Constructor
 ```python
 client=mqtt.MQTTClient(client_id, server, port)
 ```
-导入MQTT库和构建client客户端对象。
+Import the MQTT library and build a client object.
 
-参数说明：
-- `client_id` : 客户端ID，具有唯一性；
-- `server` : MQTT服务器地址，可以是IP或者网址；
-- `port` : MQTT服务器端口。（取决于MQTT服务器厂家）
+Parameters:
+- `client_id`: Client ID, must be unique;
+- `server`: MQTT server address, can be IP or URL;
+- `port`: MQTT server port (depends on the MQTT server provider).
 
-### 使用方法
+### Usage
 ```python
 client.connect()
 ```
-连接到MQTT服务器。
+Connect to the MQTT server.
 
 <br></br>
 
 ```python
 client.publish(topic,message)
 ```
-发布信息。
-- `topic` : 主题名称；
-- `message` : 信息内容，例：'Hello WalnutPi!'
+Publish a message.
+- `topic`: Topic name;
+- `message`: Message content, e.g., 'Hello WalnutPi!'
 
 <br></br>
 
 ```python
 client.subscribe(topic)
 ```
-订阅;
-- `topic` : 主题名称。
+Subscribe.
+- `topic`: Topic name.
 
 <br></br>
 
 ```python
 client.set_callback(callback)
 ```
-设置回调函数。
-- `callback` : 订阅后如果接收到信息，就执行项应名称的回调函数。
+Set a callback function.
+- `callback`: When a message is received after subscribing, execute the callback function with the corresponding name.
 
 <br></br>
 
 ```python
 client.check_msg()
 ```
-检查订阅信息。如收到信息就执行设置过的回调函数callback。
+Check for subscription messages. If a message is received, execute the configured callback function.
 
 <br></br>
 
-由于客户端分为发布者和订阅者角色，因此为了方便大家更好理解，本实验分开两个案例来编程，分别为发布者(publish)和订阅者(subscribe)。再结合MQTT网络调试助手来测试。代表编写流程图如下：
+Since the client can act as both publisher and subscriber, and to help everyone better understand, this experiment is split into two examples: publisher and subscriber. Combined with an MQTT network debugging assistant for testing. The code flow charts are as follows:
 
-**发布者(publish)代码流程：**
+**Publisher code flow:**
 
 ```mermaid
 graph TD
-    导入相关模块-->初始化相关模块-->判断WiFi是否连接成功-->建立mqtt连接-->判断是否连接成功--是-->循环发布数据;
-    判断WiFi是否连接成功--否-->结束;
-    判断是否连接成功--否-->结束;
+    Import-related-modules --> Initialize-related-modules --> Check-if-WiFi-connected --> Establish-MQTT-connection --> Check-if-connected----Yes --> Loop-publish-data;
+    Check-if-WiFi-connected----No --> End;
+    Check-if-connected----No --> End;
 ```
 <br></br>
 
-**订阅者(subscribe)代码流程：**
+**Subscriber code flow:**
 
 ```mermaid
 graph TD
-    导入相关模块-->初始化相关模块-->判断WiFi是否连接成功-->建立mqtt连接-->判断是否连接成功--是-->循环处理接收到的数据;
-    判断WiFi是否连接成功--否-->结束;
-    判断是否连接成功--否-->结束;
+    Import-related-modules --> Initialize-related-modules --> Check-if-WiFi-connected --> Establish-MQTT-connection --> Check-if-connected----Yes --> Loop-process-received-data;
+    Check-if-WiFi-connected----No --> End;
+    Check-if-connected----No --> End;
 ```
 
-## 参考代码
+## Reference Code
 
-### 发布者 publish
+### Publisher
 
 ```python
 '''
-实验名称：MQTT通信(发布者)
-版本：v1.0
-作者：WalnutPi
-说明：编程实现MQTT通信，实现发布数据。
+Experiment Name: MQTT Communication (Publisher)
+Version: v1.0
+Author: WalnutPi
+Description: Program MQTT communication to publish data.
 '''
 import network,time
-from simple import MQTTClient #导入MQTT板块
+from simple import MQTTClient #Import MQTT module
 from machine import Pin,Timer
 
-#WIFI连接函数
+#WiFi connection function
 def WIFI_Connect():
 
-    WIFI_LED=Pin(46, Pin.OUT) #初始化WIFI指示灯
+    WIFI_LED=Pin(46, Pin.OUT) #Initialize WiFi indicator LED
 
-    wlan = network.WLAN(network.STA_IF) #STA模式
-    wlan.active(True)                   #激活接口
-    start_time=time.time()              #记录时间做超时判断
+    wlan = network.WLAN(network.STA_IF) #STA mode
+    wlan.active(True)                   #Activate interface
+    start_time=time.time()              #Record time for timeout judgment
 
     if not wlan.isconnected():
         print('connecting to network...')
-        wlan.connect('01Studio', '88888888') #输入WIFI账号密码
+        wlan.connect('01Studio', '88888888') #Enter WiFi SSID and password
 
         while not wlan.isconnected():
 
-            #LED闪烁提示
+            #LED blinking prompt
             WIFI_LED.value(1)
             time.sleep_ms(300)
             WIFI_LED.value(0)
             time.sleep_ms(300)
 
-            #超时判断,15秒没连接成功判定为超时
+            #Timeout judgment, 15 seconds without connection = timeout
             if time.time()-start_time > 15 :
                 print('WIFI Connected Timeout!')
                 break
 
     if wlan.isconnected():
-        #LED点亮
+        #LED stays on
         WIFI_LED.value(1)
 
-        #串口打印信息
+        #Serial print info
         print('network information:', wlan.ifconfig())
-        
+
         return True
 
     else:
         return False
 
-#发布数据任务
+#Publish data task
 def MQTT_Send(tim):
     client.publish(TOPIC, 'Hello WalnutPi!')
 
-#执行WIFI连接函数并判断是否已经连接成功
+#Execute WiFi connection function and check if connected
 if WIFI_Connect():
 
     SERVER = 'mq.tongxinmao.com'
     PORT = 18830
-    CLIENT_ID = 'WalnutPi-PicoW' # 客户端ID
-    TOPIC = '/public/walnutpi/1' # TOPIC名称
+    CLIENT_ID = 'WalnutPi-PicoW' # Client ID
+    TOPIC = '/public/walnutpi/1' # TOPIC name
     client = MQTTClient(CLIENT_ID, SERVER, PORT)
     client.connect()
 
-    #开启RTOS定时器，编号为-1,周期1000ms，执行socket通信接收任务
+    #Start RTOS timer, number -1, period 1000ms, execute MQTT send task
     tim = Timer(-1)
     tim.init(period=1000, mode=Timer.PERIODIC,callback=MQTT_Send)
 ```
 
-### 订阅者 subscribe
+### Subscriber
 
 ```python
 '''
-实验名称：MQTT通信（订阅者）
-版本：v1.0
-作者：WalnutPi
-说明：编程实现MQTT通信，实现订阅（接收）数据。
+Experiment Name: MQTT Communication (Subscriber)
+Version: v1.0
+Author: WalnutPi
+Description: Program MQTT communication to subscribe (receive) data.
 '''
 import network,time
-from simple import MQTTClient #导入MQTT板块
+from simple import MQTTClient #Import MQTT module
 from machine import Pin,Timer
 
-#WIFI连接函数
+#WiFi connection function
 def WIFI_Connect():
 
-    WIFI_LED=Pin(46, Pin.OUT) #初始化WIFI指示灯
+    WIFI_LED=Pin(46, Pin.OUT) #Initialize WiFi indicator LED
 
-    wlan = network.WLAN(network.STA_IF) #STA模式
-    wlan.active(True)                   #激活接口
-    start_time=time.time()              #记录时间做超时判断
+    wlan = network.WLAN(network.STA_IF) #STA mode
+    wlan.active(True)                   #Activate interface
+    start_time=time.time()              #Record time for timeout judgment
 
     if not wlan.isconnected():
         print('connecting to network...')
-        wlan.connect('01Studio', '88888888') #输入WIFI账号密码
+        wlan.connect('01Studio', '88888888') #Enter WiFi SSID and password
 
         while not wlan.isconnected():
 
-            #LED闪烁提示
+            #LED blinking prompt
             WIFI_LED.value(1)
             time.sleep_ms(300)
             WIFI_LED.value(0)
             time.sleep_ms(300)
 
-            #超时判断,15秒没连接成功判定为超时
+            #Timeout judgment, 15 seconds without connection = timeout
             if time.time()-start_time > 15 :
                 print('WIFI Connected Timeout!')
                 break
 
     if wlan.isconnected():
-        #LED点亮
+        #LED stays on
         WIFI_LED.value(1)
 
-        #串口打印信息
+        #Serial print info
         print('network information:', wlan.ifconfig())
 
         return True
@@ -235,79 +236,79 @@ def WIFI_Connect():
         return False
 
 
-#设置MQTT回调函数,有信息时候执行
+#Set MQTT callback function, executes when a message is received
 def MQTT_callback(topic, msg):
     print('topic: {}'.format(topic))
     print('msg: {}'.format(msg))
 
-#接收数据任务
+#Receive data task
 def MQTT_Rev(tim):
     client.check_msg()
 
-#执行WIFI连接函数并判断是否已经连接成功
+#Execute WiFi connection function and check if connected
 if WIFI_Connect():
 
     SERVER = 'mq.tongxinmao.com'
     PORT = 18830
-    CLIENT_ID = 'WalnutPi-PicoW' # 客户端ID
-    TOPIC = '/public/walnutpi/2' # TOPIC名称
+    CLIENT_ID = 'WalnutPi-PicoW' # Client ID
+    TOPIC = '/public/walnutpi/2' # TOPIC name
 
-    client = MQTTClient(CLIENT_ID, SERVER, PORT) #建立客户端对象
-    client.set_callback(MQTT_callback)  #配置回调函数
+    client = MQTTClient(CLIENT_ID, SERVER, PORT) #Build client object
+    client.set_callback(MQTT_callback)  #Configure callback function
     client.connect()
-    client.subscribe(TOPIC) #订阅主题
+    client.subscribe(TOPIC) #Subscribe to topic
 
-    #开启RTOS定时器，编号为1,周期300ms，执行socket通信接收任务
+    #Start RTOS timer, number 1, period 300ms, execute socket communication receive task
     tim = Timer(1)
     tim.init(period=300, mode=Timer.PERIODIC,callback=MQTT_Rev)
 ```
 
-## 实验结果
+## Experimental Results
 
-### 发布者测试
+### Publisher Test
 
-电脑打开 **核桃派PicoW资料包/01-开发工具/通讯猫MQTT助手** 下的通讯猫软件，保证电脑是连接到互联网的：
+On your computer, open the software from **WalnutPi PicoW Resources/01-Development Tools/MQTT Assistant**. Ensure the computer is connected to the internet:
 
 ![mqtt5](./img/mqtt/mqtt5.png)
 
-接下来是配置MQTT助手，按下图配置。
+Next, configure the MQTT assistant as shown below.
 
-1、点击网络；
+1. Click Network;
 
-2、点击MQTT;
+2. Click MQTT;
 
-3、点击启动；
- 
-4、输入订阅主题，这里 填发送者的主题 “/public/walnutpi/1”;
+3. Click Start;
 
-5、点击订阅主题按钮，等待接收信息；
+4. Enter the subscription topic — here enter the publisher's topic "/public/walnutpi/1";
 
-6、订阅成功后左边提示订阅成功。
+5. Click the Subscribe Topic button and wait for messages;
+
+6. After successful subscription, the left side will show "subscription successful".
 
 ![mqtt](./img/mqtt/mqtt6.png)
 
-**MQTT例程依赖于mqtt库，位于例程文件夹下的simple.py文件，运行实验前需要先将simple.py文件通过Thonny IDE上传到开发板：**
+**The MQTT example depends on the MQTT library file `simple.py` in the example folder. Before running the experiment, you need to upload the `simple.py` file to the development board via Thonny IDE:**
 
 ![mqtt](./img/mqtt/mqtt7.png)
 
-Thonny IDE运行MQTT通讯发布者代码，运行成功后可以看到MQTT网络助手接收到开发板发来的信息：
+Run the MQTT publisher code in Thonny IDE. After successful execution, you can see the MQTT network assistant receiving messages sent by the development board:
 
 ![mqtt](./img/mqtt/mqtt8.png)
 
 
-### 订阅者测试
+### Subscriber Test
 
 
-订阅者”代码测试方法跟“发布者”相反。在MQTT助手中发布主题修改为：'/public/walnutpi/2'。
+The subscriber code testing method is the opposite of the publisher. In the MQTT assistant, change the published topic to: '/public/walnutpi/2'.
 
 ![mqtt](./img/mqtt/mqtt9.png)
 
-运行订阅者代码，可以看到Thonny IDE下方终端打印接收到的数据（实际是树莓派PicoW开发板接收到的数据）。
+Run the subscriber code. You can see the terminal at the bottom of Thonny IDE printing the received data (which is actually the data received by the WalnutPi PicoW development board).
 
 ![mqtt](./img/mqtt/mqtt10.png)
 
-当然你也可以在同一个MQTT在线助手下测试发布和订阅功能来做一些测试，只需要将订阅主题和发布主题设置一致即可，如下图所示：
+You can also test both publish and subscribe functionality within the same MQTT online assistant by setting the subscription topic and publish topic to be the same, as shown below:
 
 ![mqtt](./img/mqtt/mqtt11.png)
 
-通过本节我们了解了MQTT通信原理以及成功实现通信。这个实验的MQTT是连接到通讯猫服务器的，所以是支持远程数据传输的。目前市面上大部分物联网云平台支持MQTT，原理大同小异。大家可以基于不同平台协议来开发，实现自己的物联网设备远程连接。
+Through this section, we learned the principles of MQTT communication and successfully implemented communication. This experiment's MQTT connects to the tongxinmao server, which supports remote data transmission. Currently, most IoT cloud platforms on the market support MQTT with similar principles. You can develop based on different platform protocols to achieve remote connection for your own IoT devices.

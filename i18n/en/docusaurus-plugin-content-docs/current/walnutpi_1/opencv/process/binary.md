@@ -39,7 +39,7 @@ The code flow is as follows:
 
 ```mermaid
 graph TD
-    Open image-->Binarize image-->Display image;
+    Open-image --> Binarize-image --> Display-image;
 ```
 
 <br></br>

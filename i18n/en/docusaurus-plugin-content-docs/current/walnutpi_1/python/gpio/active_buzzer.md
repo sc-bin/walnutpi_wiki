@@ -68,7 +68,7 @@ The active buzzer, like the LED, uses the digitalio object in output mode. We ca
 
 ```mermaid
 graph TD
-    Import digitalio-related modules --> Construct active_buzzer object --> Turn on buzzer --> Delay 0.5s --> Turn off buzzer --> Delay 0.5s --> Turn on buzzer;
+    Import-digitalio-related-modules --> Construct-active_buzzer-object --> Turn-on-buzzer --> Delay-0.5s --> Turn-off-buzzer --> Delay-0.5s --> Turn-on-buzzer;
 ```
 
 ## Reference Code

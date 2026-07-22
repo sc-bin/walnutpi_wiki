@@ -33,7 +33,7 @@ Read the image, convert it to a binary grayscale image, and then perform line se
 
 ```mermaid
 graph TD
-    Read image-->Binarize image-->Line segment detection-->Display image;
+    Read-image --> Binarize-image --> Line-segment-detection --> Display-image;
 ```
 
 <br></br>

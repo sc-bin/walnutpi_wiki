@@ -2,64 +2,64 @@
 sidebar_position: 1
 ---
 
-# 点亮第1个LED
+# Lighting Up the First LED
 
-## 前言
-相信大部分人开始学习嵌入式单片机编程都会从点亮LED开始，基于核桃派PicoW平台的MicroPython的学习也不例外，通过点亮第一个LED能让你对编译环境和程序架构有一定的认识，为以后的学习和更大型的程序打下基础，增加信心。
+## Introduction
+Most people start learning embedded MCU programming by lighting up an LED. Learning MicroPython on the WalnutPi PicoW is no exception. Lighting up your first LED helps you understand the development environment and program architecture, building a strong foundation for future learning and larger projects while boosting your confidence.
 
-## 实验目的
-学习LED的点亮，点亮LED（蓝灯）。
+## Objective
+Learn to light up an LED (blue LED).
 
-## 实验讲解
+## Experiment Explanation
 
-核桃派PicoW有一个跟GPIO连接可控制的LED灯。
+The WalnutPi PicoW has an LED connected to a GPIO that can be controlled.
 
 ![led](./img/led/led1.png)
 
-从原理图可以看到LED蓝灯对应芯片的IO为46，从电路可以看到当IO46为高电平时，蓝灯被点亮。
+From the schematic, we can see that the blue LED corresponds to chip IO pin 46. From the circuit, when IO46 is high, the blue LED lights up.
 ![led](./img/led/led2.png)
 
-控制LED使用machine模块中的Pin对象，使用说明如下：
+Controlling the LED uses the Pin object from the machine module. Usage instructions are as follows:
 
-## Pin对象
+## Pin Object
 
-Pin引脚对象。
+Pin is a pin object.
 
-### 构造函数
+### Constructor
 ```python
 from machine import Pin
 
 LED = Pin(id, mode, pull)
 ```
 
-Pin位于machine模块下，直接import使用:
+Pin is located under the machine module and can be used by directly importing it:
 
-- `id` ：芯片引脚编号。如：1、2、46。
-- `mode` ：输入/输出模式。
-    - `Pin.IN` : 输入模式；
-    - `Pin.OUT` : 输出模式；   
-- `pull`: 上下拉电阻配置。
-    - `None` : 无上下拉电阻；
-    - `Pin.PULL_UP` : 上拉电阻启用；
-    - `Pin.PULL_DOWN` : 下拉电阻启用。
+- `id` : Chip pin number, e.g., 1, 2, 46.
+- `mode` : Input/output mode.
+    - `Pin.IN` : Input mode;
+    - `Pin.OUT` : Output mode;
+- `pull`: Pull-up/pull-down resistor configuration.
+    - `None` : No pull-up/pull-down resistor;
+    - `Pin.PULL_UP` : Pull-up resistor enabled;
+    - `Pin.PULL_DOWN` : Pull-down resistor enabled.
 
 
-### 使用方法
+### Usage
 ```python
 LED.value([X])
 ```
-配置引脚电平值：
-- `输出模式` ：输出电平值。
-    - `0` : 输出低电平；
-    - `1` : 输出高电平。
-- `输入模式` ：无需参数，获取当前引脚输入电平值。
+Configure pin level:
+- `Output mode` : Output level value.
+    - `0` : Output low level;
+    - `1` : Output high level.
+- `Input mode` : No parameters needed, gets the current pin input level.
 
 <br></br>
 
 ```python
 LED.on()
 ```
-引出输出高电平“1”，3.3V。
+Outputs high level "1", 3.3V.
 
 <br></br>
 
@@ -67,51 +67,51 @@ LED.on()
 LED.off()
 ```
 
-引出输出低电平“0”，0V。
+Outputs low level "0", 0V.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/machine.Pin.html#machine-pin
 
 
-上表对MicroPython的machine中Pin对象做了详细的说明，machine是大模块，Pin是machine下面的其中一个小模块，在Python编程里有两种方式引用相关模块:
+The table above provides a detailed explanation of the Pin object in MicroPython's machine module. machine is the main module, and Pin is one of its submodules. There are two ways to reference related modules in Python programming:
 
-- 方式1是：import machine，然后通过machine.Pin来操作；
+- Method 1: `import machine`, then operate via `machine.Pin`;
 
-- 方式2是：from machine import Pin,意思是直接从machine中引入Pin模块，然后直接通过构建led对象来操作。显然方式2会显得更直观和方便，本实验也是使用方式2来编程。
+- Method 2: `from machine import Pin`, which directly imports the Pin module from machine, then operates by constructing a led object. Method 2 is clearly more intuitive and convenient, and this experiment uses Method 2 for programming.
 
-代码编写流程如下：
+The code writing flow is as follows:
 
 
 ```mermaid
 graph TD
-    导入Pin模块 --> GPIO46输出高电平点亮LED蓝灯;
+    Import-Pin-module --> Set-GPIO46-high-to-light-up-the-blue-LED;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：点亮LED蓝灯
-版本：v1.0
+Experiment Name: Light up the blue LED
+Version: v1.0
 '''
 
-from machine import Pin #导入Pin模块
+from machine import Pin #Import Pin module
 
-LED=Pin(46,Pin.OUT) #构建led对象，GPIO46,输出
-LED.value(1) #点亮LED，也可以使用led.on()
+LED=Pin(46,Pin.OUT) #Build LED object, GPIO46, output
+LED.value(1) #Light up LED, or use led.on()
 
 ```
 
-## 实验结果
+## Experimental Results
 
-在Thonny IDE中运行上述代码：
+Run the above code in Thonny IDE:
 
 ![led1](./img/led/led3.png)
 
-可以看到LED蓝灯被点亮。
+You can see the blue LED lights up.
 
 ![led1](./img/led/led1.png)
 
-从第一个实验我们可以看到，使用MicroPython来开发关键是要学会构造函数和其使用方法，便可完成对相关对象的操作，在强大的模块函数支持下，实验只用了简单的两行代码便实现了点亮LED灯。
+From this first experiment, we can see that the key to MicroPython development is learning the constructor and its usage methods to operate related objects. With powerful module functions, the experiment achieved lighting up an LED with just two simple lines of code.

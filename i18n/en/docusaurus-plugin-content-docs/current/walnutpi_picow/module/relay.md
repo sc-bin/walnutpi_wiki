@@ -2,81 +2,81 @@
 sidebar_position: 1
 ---
 
-# 继电器
+# Relay
 
-## 前言
-我们知道我们的开发板GPIO输出的电平是3.3V的，这是不能直接控制一些高电压的设备，比如电灯（220V）。这时候就可以使用我们常用的低压控制高压元件—继电器。
+## Introduction
+We know that the GPIO output level of our development board is 3.3V, which cannot directly control high-voltage devices such as lights (220V). This is where the relay — a commonly used low-voltage-controlled high-voltage component — comes in.
 
-## 实验目的
-使用按键控制继电器通断。
+## Objective
+Use a button to control the relay's on/off state.
 
-## 实验讲解
+## Experiment Explanation
 
-下图是01Studio的继电器模块，可以使用3.3V供电，核桃派PicoW引出IO可以直接连接该模块控制端。左侧低压控制接口主要有供电引脚和信号控制引脚（供电电压一般为3.3V，具体以厂家参数为准）。右侧蓝色为高压部分，可连接220V电器。
+The image below shows the 01Studio relay module, which can be powered by 3.3V. The WalnutPi PicoW's IO pins can be directly connected to the module's control terminal. The low-voltage control interface on the left mainly has power pins and a signal control pin (supply voltage is typically 3.3V, depending on the manufacturer's specifications). The blue high-voltage section on the right can connect to 220V appliances.
 
-:::tip 提示
+::::tip Note
 
-务必使用3.3V电平控制的继电器，因为核桃派PicoW的GPIO耐压值为3.3V，使用5V控制的继电器可能会反向烧坏开发板。
+Always use a 3.3V level controlled relay, because the WalnutPi PicoW's GPIO voltage tolerance is 3.3V. Using a 5V-controlled relay may back-feed and damage the development board.
 
-:::
+::::
 
 ![relay](./img/relay/relay0.png)
 
-继电器可以理解成是一个开关，相当于我们平时家里面的电灯开关面板一样，只是现在使用单片机的GPIO来控制。继电器低压控制高压电器一个比较典型的接线图如下图所示：
+A relay can be understood as a switch, similar to a light switch panel in our homes, except now it's controlled by an MCU's GPIO. A typical wiring diagram for a relay controlling a high-voltage appliance from low voltage is shown below:
 
 ![relay](./img/relay/relay1.jpg)
 
-本实验中核桃派PicoW引脚10和继电器模块的控制引脚连接，接线示意图如下：
+In this experiment, WalnutPi PicoW pin 10 is connected to the relay module's control pin. The wiring diagram is as follows:
 
 ![relay](./img/relay/relay2.png)
 
-01Studio的继电器模块的控制原理非常简单，跟LED控制方式一样，只是使用低电平‘0’表示继电器开，高电平‘1’表示继电器关。
+The 01Studio relay module's control principle is very simple, similar to LED control: low level '0' means relay ON, high level '1' means relay OFF.
 
-我们可以参考基础实验—按键外部中断实验例程来使用继电器，请参考  [**外部中断**](../basic_examples/exti.md) 章节内容，这里不再重复！
+We can refer to the Basic Experiments — Button External Interrupt example for using the relay. Please see the [**External Interrupt**](../basic_examples/exti.md) chapter; it won't be repeated here!
 
-代码编写流程如下：
+The code flow is as follows:
 
 
 ```mermaid
 graph TD
-    导入Pin模块 --> 配置中断方式和定义回调函数 --> 当产生外部中断时候自动执行回调函数:控制继电器通断;
+    Import-Pin-module --> Configure-interrupt-mode-and-define-callback-function --> Auto-execute-callback-when-external-interrupt-occurs:-control-relay-on/off;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：继电器
-版本：v1.0
-作者：WalnutPi
-实验平台：核桃派PicoW
-说明：通过按键改变继电器通断状态（外部中断方式）
+Experiment Name: Relay
+Version: v1.0
+Author: WalnutPi
+Platform: WalnutPi PicoW
+Description: Use a button to change the relay's on/off state (external interrupt method)
 '''
 
-#导入相关模块
+#Import related modules
 from machine import Pin
 import time
 
-relay=Pin(10,Pin.OUT,value=1) #构建继电器对象,默认断开
-KEY=Pin(0,Pin.IN,Pin.PULL_UP) #构建KEY对象
+relay=Pin(10,Pin.OUT,value=1) #Build relay object, default off
+KEY=Pin(0,Pin.IN,Pin.PULL_UP) #Build KEY object
 
-state=0  #继电器引脚状态标志位
+state=0  #Relay pin state flag
 
-#LED状态翻转函数
+#LED state toggle function
 def fun(KEY):
     global state
-    time.sleep_ms(10) #消除抖动
-    if KEY.value()==0: #确认按键被按下
+    time.sleep_ms(10) #Debounce
+    if KEY.value()==0: #Confirm button is pressed
         state = not state
         relay.value(state)
 
-KEY.irq(fun,Pin.IRQ_FALLING) #定义中断，下降沿触发
+KEY.irq(fun,Pin.IRQ_FALLING) #Define interrupt, falling edge trigger
 ```
 
-## 实验结果
+## Experimental Results
 
-运行代码，可以通过按键来控制继电器通断：
+Run the code and you can control the relay on/off via the button:
 
 ![relay](./img/relay/relay3.png)
 
-继电器的控制方式非常简单，用途非常广。只需要一个简单的GPIO高低电平即可实现控制。
+Relay control is very simple and widely applicable. It only requires a simple GPIO high/low level to achieve control.

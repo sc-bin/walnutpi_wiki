@@ -2,42 +2,42 @@
 sidebar_position: 3
 ---
 
-# REPL串口交互调试
+# REPL Serial Interactive Debugging
 
-核桃派PicoW(ESP32-S3)的MicroPython固件集成了交互解释器REPL 【读取(Read)-运算(Eval)-输出(Print)-循环(Loop) 】，开发者可以直接通过串口终端来调试开发板。
+The MicroPython firmware on the WalnutPi PicoW (ESP32-S3) integrates an interactive interpreter called REPL [Read-Eval-Print-Loop]. Developers can directly debug the development board through the serial terminal.
 
-将开发板连接到电脑，从我的**电脑—属性—设备管理器**中找到当前开发板的串口号，这里是COM27。
+Connect the development board to the computer. From **My Computer — Properties — Device Manager**, find the current COM port number of the development board, which is COM27 here.
 
 ![repl](./img/repl/repl0.png)
 
-我们打开Thonny，将开发板连接到电脑。点击右下角：
+Open Thonny and connect the development board to the computer. Click the bottom right corner:
 
 ![repl1](./img/repl/repl1.png)
 
-在弹出的列表选择：Configure interpreter(配置解析器)
+In the popup list, select: Configure interpreter
 
 ![repl2](./img/repl/repl2.png)
 
-选择“MicroPython（ESP32）”和当前开发板对应的串口号，点击确认。
+Select "MicroPython (ESP32)" and the COM port number corresponding to the current development board, then click confirm.
 
 ![repl3](./img/repl/repl3.png)
 
-连接成功后可以在shell（串口终端）看到固件的相关信息：
+After a successful connection, you can see firmware-related information in the shell (serial terminal):
 
 ![repl3](./img/repl/repl4.png)
 
-如果连接串口后没有出现固件信息，那么有可能是因为开发板里面有代码在运行，阻塞了REPL，这时候可以点击菜单栏的 **运行 - 中断执行按钮** 打断在运行的程序即可。
+If the firmware information doesn't appear after connecting the serial port, it might be because there is code running on the development board that is blocking the REPL. In this case, click **Run — Interrupt Execution** in the menu bar to interrupt the running program.
 
 ![repl](./img/repl/repl5.png)
 
-接下来我们在终端测试一下REPL：
+Now let's test REPL in the terminal:
 
-我们在终端里面输入 print(“Hello World!”) , 按回车，可以看到打印出Hello World!字符：
+Enter `print("Hello World!")` in the terminal and press Enter. You can see the characters "Hello World!" are printed:
 
 ![repl](./img/repl/repl6.png)
 
-输入 1+1 ，按回车：
+Enter `1+1` and press Enter:
 
 ![repl](./img/repl/repl7.png)
 
-REPL还有一个强大的功能就是打印错误的代码来调试程序，在后面代码运行时候，如果程序出错，出错信息将通过REPL打印。
+Another powerful feature of REPL is printing error codes for debugging. When code runs and an error occurs, the error information will be printed through the REPL.

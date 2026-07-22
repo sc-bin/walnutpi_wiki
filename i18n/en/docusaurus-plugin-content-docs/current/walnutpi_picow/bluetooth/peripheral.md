@@ -2,174 +2,172 @@
 sidebar_position: 2
 ---
 
-# 蓝牙从机（数据收发）
+# Bluetooth Peripheral (Data Transceiver)
 
-## 前言
-BLE（Bluetooth Low Energy，低功耗蓝牙）数据收发（UART服务），可能是最通用的功能和服务了，基本上所有的BLE数据传输设备都使用UART服务。这里的UART并非指硬件串口，而是BLE的一个服务，有了它，手机APP和蓝牙设备就能建立数据传输，事不宜迟，我们马上来开始学习。
+## Introduction
+BLE (Bluetooth Low Energy) data transmission and reception (UART service) is perhaps the most versatile function and service. Virtually all BLE data transmission devices use the UART service. Note that "UART" here doesn't refer to hardware serial port but rather a BLE service. With it, phone apps and Bluetooth devices can establish data communication. Let's get started right away.
 
 
-## 实验目的
-编程实现核桃派PicoW作为（从机），跟手机（主机）收发数据。
+## Objective
+Program the WalnutPi PicoW as a peripheral to send and receive data with a phone (central).
 
-## 实验讲解
+## Experiment Explanation
 
-本实验以核桃派PicoW作为从机，手机为主机。蓝牙设备和手机通讯主要依赖“服务”，简单来说服务就是一个指定编号的黑盒子。
+In this experiment, the WalnutPi PicoW acts as the peripheral and the phone acts as the central. Communication between Bluetooth devices and phones primarily relies on "services." Simply put, a service is a numbered black box.
 
-**<font color='#00c0ff' size='4'>黑盒子的故事：</font>**
+**<font color='#00c0ff' size='4'>The Black Box Story:</font>**
 
-蓝牙设备和手机约定了一个黑盒子，名称为“AAA”，在双方建立连接后，这个黑盒子只允许手机写入数据，蓝牙设备从里面读取数据，当手机往黑盒子写入数据123，蓝牙设备从黑盒子读取，这便完成了一个从手机发送数据到蓝牙设备的过程！
+The Bluetooth device and the phone agree on a black box named "AAA." After establishing a connection, this black box only allows the phone to write data, and the Bluetooth device reads data from it. When the phone writes data "123" to the black box, the Bluetooth device reads it from the black box — this completes the process of sending data from the phone to the Bluetooth device!
 
-反过来再约定一个黑盒子，名称为“BBB”，这个黑盒子规定则和前面“AAA”相反，允许蓝牙设备写入数据，手机读取数据。这样便完成了一个从蓝牙设备发送数据到手机的过程。
+Conversely, another black box named "BBB" is agreed upon, with rules opposite to "AAA" — it allows the Bluetooth device to write data and the phone to read data. This completes the process of sending data from the Bluetooth device to the phone.
 
-就这样，各式各样的黑盒子构成了整个蓝牙服务，后来人们又考虑到为了让不同厂家之间的蓝牙设备尽量兼容，于是便制定了一系列固定编号的黑盒子。并约定了很多细节的东西，这便是蓝牙标准协议。
+Thus, various types of black boxes make up the entire Bluetooth service system. Later, to ensure compatibility between Bluetooth devices from different manufacturers, a series of fixed-number black boxes was established, along with many detailed specifications — this became the Bluetooth standard protocol.
 
-本节使用的UART服务，也就是UART协议。我们以此为例说明一下手机和BLE设备通讯真实过程，先看下表，核桃派PicoW先通过代码先定义了串口服务的服务UUID（Service UUID），长度为128bit（有16bit和128bit两个标准）：6E400001-B5A3-F393-E0A9-E50E24DCCA9E；在这个服务UUID下有2个特征值，分别是RX和TX，这些特征值也是通过128bit UUID来识别。每个特征值下有权限和value, 权限决定写和读（通知），value则是要写和读的数据。
+The UART service used in this section follows the UART protocol. Let's take this as an example to explain the actual communication process between a phone and a BLE device. First, look at the table below. The WalnutPi PicoW first defines the Service UUID for the serial service in code, with a length of 128 bits (there are 16-bit and 128-bit standards): 6E400001-B5A3-F393-E0A9-E50E24DCCA9E. Under this service UUID, there are 2 characteristic values: RX and TX. These characteristics are also identified by 128-bit UUIDs. Each characteristic has permissions and a value — permissions determine read and write (notification), and value is the data to be written and read.
 
 ![peripheral](./img/peripheral/peripheral1.png)
 
-在串口服务中，手机和BLE设备就是通过上面协议来实现数据传输，如下图所示：
+In the serial service, the phone and BLE device communicate through the protocol above, as shown below:
 
 ![peripheral](./img/peripheral/peripheral2.png)
 
-讨论到这，我们都是基于应用层，大部分蓝牙芯片原厂和提供蓝牙C SDK开发协议栈，做好了底层包括射频传输等功能，让开发变得简单。而MicroPython的出现，可以说是如虎添翼，学会原理后直接面向对象编程，几行代码即可实现蓝牙数据通讯。
+At this point, we're discussing at the application layer. Most Bluetooth chip manufacturers provide Bluetooth C SDK development protocol stacks that handle the underlying layers including RF transmission, making development simpler. The emergence of MicroPython has been a game-changer — once you understand the principles, you can use object-oriented programming with just a few lines of code to implement Bluetooth data communication.
 
-## BLE对象
+## BLE Object
 
-### 构造函数
+### Constructor
 ```python
 import bluetooth
 
 ble = bluetooth.BLE()
 ```
-构建BLE对象。 
+Build a BLE object.
 
-## 蓝牙从机对象
+## Bluetooth Peripheral Object
 
-### 构造函数
+### Constructor
 
 ```python
 import ble_simple_peripheral
 
 p = ble_simple_peripheral.BLESimplePeripheral(ble,name='WalnutPi')
 ```
-构建蓝牙从机对象。 构建后会自动发起蓝牙广播。
-- `ble`: 前面构建好的BLE对象；
-- `name` : 广播名称，这里最多支持8个字符。
+Build a Bluetooth peripheral object. Broadcasting starts automatically after building.
+- `ble`: The BLE object built previously;
+- `name`: Broadcast name, supports up to 8 characters.
 
-### 使用方法
+### Usage
 
 ```python
 p.on_write(callback)
 ```
-从机接收回调函数，收到手机发来数据会进入callback函数。
+Peripheral receive callback function. When data is received from the phone, it enters the callback function.
 
-- `callback`: 回调函数；
+- `callback`: Callback function;
 
 <br></br>
 
 ```python
-p.send(data) 
+p.send(data)
 ```
-发送数据给手机（主机）。
+Send data to the phone (central).
 
-- `data`: 发送内容。
+- `data`: Content to send.
 
 
-更多用法请阅读官方文档：<br></br>
+For more usage, refer to the official documentation:<br></br>
 https://docs.micropython.org/en/latest/library/bluetooth.html
 
-代码编写流程如下：
+The code flow is as follows:
 
 ```mermaid
 graph TD
-    导入相关模块 --> 构建BLE对象 --> 构建从机对象:设置广播名称 --> 自动发起广播 -->手机通过蓝牙APP连接核桃派PicoW并发送数据 --> 核桃派PicoW回传数据给手机-->手机通过蓝牙APP连接核桃派PicoW并发送数据 ;
+    Import-relevant-modules --> Build-BLE-object --> Build-peripheral-object:-set-broadcast-name --> Automatically-start-broadcasting --> Phone-connects-to-WalnutPi-PicoW-via-Bluetooth-app-and-sends-data --> WalnutPi-PicoW-sends-data-back-to-phone --> Phone-connects-to-WalnutPi-PicoW-via-Bluetooth-app-and-sends-data;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：数据收发（从机）
-版本：v1.0
-作者：WalnutPi
-说明：核桃派PicoW作为（从机），跟手机（主机）收发数据。
+Experiment Name: Data Transceiver (Peripheral)
+Version: v1.0
+Author: WalnutPi
+Description: WalnutPi PicoW as peripheral, sends and receives data with phone (central).
 '''
 
 import bluetooth,ble_simple_peripheral,time
 
-#构建BLE对象
+#Build BLE object
 ble = bluetooth.BLE()
 
-#构建从机对象,广播名称为WalnutPi，名称最多支持8个字符。
+#Build peripheral object, broadcast name is WalnutPi, name supports up to 8 characters.
 p = ble_simple_peripheral.BLESimplePeripheral(ble,name='WalnutPi')
 
-#接收到主机发来的蓝牙数据处理函数
+#Bluetooth data processing function for receiving data from central
 def on_rx(text):
-    
-    print("RX:",text) #打印接收到的数据,数据格式为字节数组。
-    
-    #回传数据给主机。
-    p.send("I got: ") 
-    p.send(text)
-    
 
-#从机接收回调函数，收到数据会进入on_rx函数。
+    print("RX:",text) #Print received data, format is byte array.
+
+    #Send data back to central.
+    p.send("I got: ")
+    p.send(text)
+
+
+#Peripheral receive callback function, enters on_rx function when data is received.
 p.on_write(on_rx)
 ```
 
-## 实验结果
+## Experimental Results
 
-由于本例程依赖蓝牙相关库，所以需要使用thonny把例程源码中配套py库文件上传到核桃派PicoW开发板：
+Since this example depends on Bluetooth-related libraries, you need to use Thonny to upload the supporting Python library files from the example source code to the WalnutPi PicoW development board:
 
 ![broadcast](./img/broadcast/broadcast1.png)
 
-运行主程序main.py，核桃派picow就开始蓝牙广播了, 等待手机连接：
+Run the main program `main.py`, and the WalnutPi PicoW starts Bluetooth broadcasting, waiting for phone connection:
 
 ![peripheral](./img/peripheral/peripheral3.png)
 
 <br></br>
 
-**手机APP测试:**
+**Phone APP Testing:**
 
-由于ble不是经典蓝牙协议，无法在手机直接搜索操作，需要安装app来测试。这里推荐Adafruit的**bluefruit connect**应用软件来测试。
+Since BLE is not classic Bluetooth protocol, it cannot be directly searched on phones. You need to install an app for testing. We recommend Adafruit's **bluefruit connect** app.
 
-- 苹果手机安装方法：
+- iOS Installation:
 
-在APP Store 搜索：“bluefruit connect” 直接安装即可。
+Search "bluefruit connect" in the App Store and install directly.
 
 ![broadcast](./img/broadcast/broadcast3.png)
 
 <br></br>
 
-- 安卓手机安装方法：
+- Android Installation:
 
-使用核桃派资料包提供的apk安装，位于资料包 **开发工具-->蓝牙测试APP -->安卓手机** 目录下：
+Install using the APK provided in the WalnutPi resources package, located in **开发工具-->蓝牙测试APP -->安卓手机** directory:
 
 ![broadcast](./img/broadcast/broadcast4.png)
 
-安装后打开APP （本教程基于安卓APP测试），可以看到搜索到核桃派PicoW发出的蓝牙广播信号。
+After installing, open the app (this tutorial is based on Android testing). You can see the Bluetooth broadcast signal emitted by the WalnutPi PicoW.
 
 ![broadcast](./img/broadcast/broadcast5.png)
 
-点击APP **CONNECT** 按钮即可连接核桃派PicoW, 连接成功后可以看到核桃派PicoW终端显示新链接：
+Click the **CONNECT** button in the app to connect to the WalnutPi PicoW. After a successful connection, the WalnutPi PicoW terminal will show the new connection:
 
 ![peripheral](./img/peripheral/peripheral3_1.png)
 
 
-手机APP上出现几个服务选项，这里选择UART服务：
+Several service options appear in the phone app. Select the UART service here:
 
 ![peripheral](./img/peripheral/peripheral4.png)
 
-现在链接成功了，可以开始收发数据，在APP下方输入发送内容，点击**SEND**发送：
+Now the connection is established and data can be sent and received. Enter the content to send at the bottom of the app and click **SEND**:
 
 ![peripheral](./img/peripheral/peripheral5.png)
 
-可以在核桃派PicoW终端打印出看到接收到的信息：
+You can see the received information printed in the WalnutPi PicoW terminal:
 
 ![peripheral](./img/peripheral/peripheral5_1.png)
 
-同时APP收到核桃派PicoW回传的信息：
+At the same time, the app receives the data sent back by the WalnutPi PicoW:
 
 ![peripheral](./img/peripheral/peripheral6.png)
-
-
