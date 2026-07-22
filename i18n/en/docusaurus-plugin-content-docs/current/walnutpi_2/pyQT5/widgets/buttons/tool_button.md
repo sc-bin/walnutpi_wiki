@@ -2,19 +2,19 @@
 sidebar_position: 2
 ---
 
-# ToolButton（工具按钮）
+# ToolButton
 
-## 介绍
+## Introduction
 
-工具按钮跟PushButton按钮的主要区别是可以添加一个方向箭头。
+The main difference between ToolButton and PushButton is that it can have a directional arrow.
 
 ![ToolButton1](./img/ToolButton/ToolButton1.png)
 <br></br>
-工具按钮的编辑很简单，双击可以修改按钮文字内容，拖动边缘可以放大缩小按钮。其它所有属性都可以在右边属性栏都可以设置。
+Editing the tool button is simple. Double-click to modify the button text content, and drag the edges to resize the button. All other properties can be configured in the right-side properties panel.
 
 ![ToolButton2](./img/ToolButton/ToolButton2.png)
 
-该窗口生成的py代码如下：
+The Python code generated from this window is as follows:
 ```python
 
 # -*- coding: utf-8 -*-
@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
 
 ```
 
-其中跟工具按钮相关的代码如下：
+The code related to the tool buttons is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -68,16 +68,16 @@ class Ui_MainWindow(object):
 
         ...
 
-        #工具按键（左箭头）
+        # Tool button (left arrow)
         self.toolButton = QtWidgets.QToolButton(self.centralwidget) 
         self.toolButton.setGeometry(QtCore.QRect(180, 130, 50, 50))
-        self.toolButton.setArrowType(QtCore.Qt.LeftArrow) #左箭头
+        self.toolButton.setArrowType(QtCore.Qt.LeftArrow) # Left arrow
         self.toolButton.setObjectName("toolButton")
 
-        #工具按键（右箭头）
+        # Tool button (right arrow)
         self.toolButton_2 = QtWidgets.QToolButton(self.centralwidget)
         self.toolButton_2.setGeometry(QtCore.QRect(290, 130, 50, 50))
-        self.toolButton_2.setArrowType(QtCore.Qt.RightArrow) #右箭头
+        self.toolButton_2.setArrowType(QtCore.Qt.RightArrow) # Right arrow
         self.toolButton_2.setObjectName("toolButton_2")
 
         ...
@@ -92,50 +92,50 @@ class Ui_MainWindow(object):
         ...
 
 ```
-## QToolButton对象
+## QToolButton Object
 
-|  常用方法 |  说明 |
+|  Common Methods |  Description |
 |  :---:  | --- | 
-| setText()  |  设置按钮显示的文本  | 
-| setArrowType()  |  设置箭头方向。参数：<br></br> ● QtCore.Qt.NoArrow :无<br></br> ● QtCore.Qt.UpArrow :上 <br></br> ● QtCore.Qt.DownArrow :下 <br></br> ● QtCore.Qt.LeftArrow :左<br></br> ● QtCore.Qt.RightArrow :右| 
+| setText()  |  Set the text displayed on the button  | 
+| setArrowType()  |  Set arrow direction. Parameters:<br></br> ● QtCore.Qt.NoArrow : None<br></br> ● QtCore.Qt.UpArrow : Up <br></br> ● QtCore.Qt.DownArrow : Down <br></br> ● QtCore.Qt.LeftArrow : Left<br></br> ● QtCore.Qt.RightArrow : Right| 
 
 <br></br>
 
-|  常用信号 |  说明 |
+|  Common Signals |  Description |
 |  :---:  | --- | 
-| clicked  |  点击触发  | 
+| clicked  |  Triggered on click  | 
 
 
-## 示例
+## Example
 
-**例：编程实现点击2个按钮分别执行不同的函数。**
+**Example: Program two buttons to execute different functions when clicked.**
 
-按钮最常用的信号是点击，即clicked, 使用pushButton.clicked.connect()指定按钮被点击后执行指定函数。
+The most commonly used signal for buttons is click, i.e., clicked. Use pushButton.clicked.connect() to specify the function to execute when the button is clicked.
 
-参考信号和槽章节内容在self.retranslateUi(MainWindow)后面加入：
+Referring to the Signals and Slots section, add the following after self.retranslateUi(MainWindow):
 
 ```python
 
-self.toolButton.clicked.connect(self.fun1) # 按下执行fun1函数
-self.toolButton_2.clicked.connect(self.fun2) # 按下执行fun2函数
+self.toolButton.clicked.connect(self.fun1) # Execute fun1 function when pressed
+self.toolButton_2.clicked.connect(self.fun2) # Execute fun2 function when pressed
 
 ```
 
-然后在 Ui_MainWindow 类下加入要执行函数，这里让终端输出信息：
+Then add the functions to be executed inside the Ui_MainWindow class. Here, they print information to the terminal:
 
 ```python
 
-#工具按钮1按下执行函数
+# Function executed when tool button 1 is pressed
 def fun1(self):
     print('Left')
         
-#工具按钮2按下执行函数
+# Function executed when tool button 2 is pressed
 def fun2(self):
     print('Right')
 
 ```
 
-完整代码如下：
+The complete code is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -167,8 +167,8 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.toolButton.clicked.connect(self.fun1) #按下执行fun1函数
-        self.toolButton_2.clicked.connect(self.fun2) #按下执行fun2函数
+        self.toolButton.clicked.connect(self.fun1) # Execute fun1 function when pressed
+        self.toolButton_2.clicked.connect(self.fun2) # Execute fun2 function when pressed
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -177,44 +177,44 @@ class Ui_MainWindow(object):
         self.toolButton.setText(_translate("MainWindow", "..."))
         self.toolButton_2.setText(_translate("MainWindow", "..."))
         
-    #工具按钮1按下执行函数
+    # Function executed when tool button 1 is pressed
     def fun1(self):
         print('Left')
         
-    #工具按钮2按下执行函数
+    # Function executed when tool button 2 is pressed
     def fun2(self):
         print('Right')
 
 #################
-#   主程序代码   #
+#   Main Program Code   #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+#【Optional Code】Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+#【Optional Code】Fix display issues on monitors with 2K+ resolution
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Program entry point: build the window and display it
 app = QtWidgets.QApplication(sys.argv)
-MainWindow = QtWidgets.QMainWindow() #构建窗口对象
-ui = Ui_MainWindow() #构建pyQT5设计的窗口对象
-ui.setupUi(MainWindow) #初始化窗口
-MainWindow.show() #显示窗口
+MainWindow = QtWidgets.QMainWindow() # Build window object
+ui = Ui_MainWindow() # Build PyQt5-designed window object
+ui.setupUi(MainWindow) # Initialize window
+MainWindow.show() # Display window
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+#【Recommended Code】Allow terminal to interrupt window with ctrl+c for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit process when program closes
 
 ```
 
-运行代码，按下左箭头键打印“Left”，按下右箭头键打印“Right”。
+Run the code. Pressing the left arrow button prints "Left" and pressing the right arrow button prints "Right".
 
 ![ToolButton3](./img/ToolButton/ToolButton3.png)

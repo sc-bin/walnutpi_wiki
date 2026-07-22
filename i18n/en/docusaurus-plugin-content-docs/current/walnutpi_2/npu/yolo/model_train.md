@@ -1,143 +1,143 @@
 ---
 sidebar_position: 8
 ---
-# 在线训练模型
+# Online Model Training
 
-核桃派在线训练模型网站适用于用户需要自己训练视觉模型场景，无需代码，拖放图片构建数据集，简单几步，即可生成强大的YOLO11视觉模型。训练完成后自动生成模型文件和python脚本，可直接在开发板上运行。
+The WalnutPi online model training website is designed for users who need to train their own visual models. Without any coding, simply drag and drop images to build a dataset, and with a few simple steps, you can generate a powerful YOLO11 visual model. Upon completion of training, model files and Python scripts are automatically generated and can be directly run on the development board.
 
-在线训练网站链接：https://ai.01studio.cc 
+Online training website link: https://ai.01studio.cc
 
-目前支持平台：核桃派2B **(请使用v1.4以上Debian版本镜像）**
+Currently supported platform: WalnutPi 2B **(Please use Debian image v1.4 or above)**
 
-支持视觉识别类型：图像分类、图像检测
+Supported visual recognition types: Image Classification, Image Detection
 
-## 注册登录
+## Registration and Login
 
-打开 https://ai.01studio.cc ，点击右上角登录按钮
+Open https://ai.01studio.cc and click the login button in the top right corner.
 
 ![train](./img/train/train1.png)
 
-可以通过手动注册或微信、Github关联账号一键登录（当前关联登录仍然需要邮件或手机号码验证。）
+You can register manually or use WeChat or Github account association for one-click login (currently, associated login still requires email or phone number verification).
 
 ![train](./img/train/train2.png)
 
-登录后点击右上角 【头像--个人主页】 可查看或修改自己的个人信息
+After logging in, click [Avatar--Personal Homepage] in the top right corner to view or modify your personal information.
 
 ![train](./img/train/train3.png)
 
 ![train](./img/train/train4.png)
 
-## 训练分类模型
+## Training a Classification Model
 
-视觉分类是对图片进行识别分类，输出这张图片大概率是什么物品。（无位置矩形框）
+Visual classification is about identifying and classifying images, outputting what item the image most likely contains (without location bounding boxes).
 
-这里准备了一个简单的数据集给大家测试使用，点击下载： [示例数据集（分类）](https://01studio-1258570164.cos.ap-guangzhou.myqcloud.com/train/%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%88%E5%88%86%E7%B1%BB%EF%BC%89.zip) ，里面包含了苹果和鼠标各数十张图片。
+Here is a simple dataset prepared for testing. Click to download: [Sample Dataset (Classification)](https://01studio-1258570164.cos.ap-guangzhou.myqcloud.com/train/%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%88%E5%88%86%E7%B1%BB%EF%BC%89.zip). It contains dozens of images of apples and mice.
 
 ![train](./img/train/train5.png)
 
-### 创建数据集
+### Creating a Dataset
 
-点击  模型训练--数据集--创建数据集 :
+Click Model Training--Dataset--Create Dataset:
 
 ![train](./img/train/train6.png)
 
-进入后输入数据集名称（自定义），然后选择分类，点击创建。
+Enter the dataset name (custom), select classification, and click create.
 
 ![train](./img/train/train7.png)
 
-可以看到新建了一条数据集。
+You can see a new dataset has been created.
 
 ![train](./img/train/train8.png)
 
-- `数据集ID`：所有数据集唯一编号；
-- `数据集名称`：自己定义的数据集名称；
-- `类型`：视觉识别类型，这里是分类；
-- `创建时间`：数据集的创建时间；
-- `最后更新时间`：数据集最后编辑时间；
-- `操作`：包含编辑和删除按钮（删除目前不可恢复）。
+- `Dataset ID`: Unique number for all datasets;
+- `Dataset Name`: The user-defined dataset name;
+- `Type`: Visual recognition type, here it is classification;
+- `Created Time`: The creation time of the dataset;
+- `Last Updated`: The last editing time of the dataset;
+- `Actions`: Includes edit and delete buttons (deletion is currently irreversible).
 
-点击右边操作的`编辑`按钮，首次进入会提示新建一个标签，这里我们训练苹果和鼠标分类识别，先创建苹果标签 apple **（标签尽量使用英文，避免某些开发板无中文库无法使用）**
+Click the `Edit` button in the right-side actions. On first entry, you will be prompted to create a new label. Here, we are training apple and mouse classification recognition. First, create the apple label **apple** **(Use English labels as much as possible to avoid issues on some development boards without Chinese library support)**.
 
 ![train](./img/train/train9.png)
 
-创建后左边列表栏出现了apple标签，点击右边按钮可以编辑修改。
+After creation, the apple label appears in the left sidebar. Click the right button to edit or modify.
 
 ![train](./img/train/train10.png)
 
-点击【上传图片到训练集】
+Click [Upload Images to Training Set]
 
 ![train](./img/train/train11.png)
 
-点击【添加图片】
+Click [Add Images]
 
 ![train](./img/train/train12.png)
 
-将前面下载的示例数据集中的apple图片的选中：
+Select the apple images from the sample dataset downloaded earlier:
 
 ![train](./img/train/train13.png)
 
-点击【上传到训练集】
+Click [Upload to Training Set]
 
 ![train](./img/train/train14.png)
 
-同样方法再上传几张图片到验证集。训练集用于训练，验证集用于每轮训练考核。验证集数量一般为数据集数量的10%~30%即可。
+Use the same method to upload a few images to the validation set. The training set is used for training, and the validation set is used for assessment after each training round. The number of validation set images should generally be about 10%~30% of the total dataset.
 
 ![train](./img/train/train15.png)
 
-点击【创建标签】，然后新建一个鼠标（mouse）标签。
+Click [Create Label], then create a mouse label.
 
-选中mouse标签:
+Select the mouse label:
 
 ![train](./img/train/train16.png)
 
-按前面的方法将示例数据集的鼠标图片上传到训练集和数据集。
+Use the same method as before to upload the mouse images from the sample dataset to the training set and validation set.
 
 ![train](./img/train/train17.png)
 
-### 开始训练
+### Start Training
 
-点击数据集上方 【创建训练任务】：
+Click [Create Training Task] above the dataset:
 
 ![train](./img/train/train18.png)
 
-配置训练参数：**参数一般情况下按默认配置即可。**
+Configure training parameters: **Generally, the default configuration is fine.**
 
 ![train](./img/train/train19.png)
 
-- `目标板`：这里选中WalnutPi 2B；
-- `模型类型`：会根据数据集自动选择；
-- `模型规模`：开发板一般选n或s，其它可能跑不起。
+- `Target Board`: Select WalnutPi 2B here;
+- `Model Type`: Automatically selected based on the dataset;
+- `Model Scale`: For development boards, generally choose n or s, as others may not run.
 ![train](./img/train/train20.png)
-- `训练轮次`：当前平台最大允许500轮；
-- `模型尺寸`：数值变大精度会提升，但运行时间长。一般推荐224或320。
-- `批量大小（batch）`：默认16，如果图片数量较多（一千张）可以选中32以提升训练速度；
-- `最大学习率（lr0）`：默认0.01，一般情况下无需调整；
+- `Training Epochs`: The platform allows a maximum of 500 epochs;
+- `Model Size`: Larger values improve accuracy but increase runtime. Generally recommended 224 or 320.
+- `Batch Size`: Default is 16. If there are many images (around a thousand), you can select 32 to improve training speed;
+- `Max Learning Rate (lr0)`: Default is 0.01, usually no need to adjust;
 
-点击【提交】后自动跳转到训练界面：
+After clicking [Submit], you will automatically be redirected to the training interface:
 
 ![train](./img/train/train21.png)
 
-左边是项目信息，右上方是训练日志，右下方是训练结果图表。以下图为例，模型在第5次后识别准确率达100%，效果非常好。
+The left side shows project information, the top right shows training logs, and the bottom right shows training result charts. Taking the example below, the model achieved 100% recognition accuracy after the 5th iteration, with excellent results.
 
 ![train](./img/train/train22.png)
 
-点击左侧导航栏--训练记录 即可看到所有训练项目信息。点击右边【详情】按钮进入：
+Click the left navigation bar--Training Records to see all training project information. Click the [Details] button on the right to enter:
 
 ![train](./img/train/train23.png)
 
-训练完成后可以点击【下载】按钮下载模型和代码文件。
+After training is complete, you can click the [Download] button to download the model and code files.
 
 ![train](./img/train/train24.png)
 
-### 部署运行
+### Deployment and Running
 
-模型文件下载后通过U盘等方式拷贝到核桃派2B。推荐桌面版系统，方便观察摄像头或者图片识别结果。
+After downloading, copy the model file to WalnutPi 2B via USB drive or other methods. The desktop version system is recommended to conveniently observe camera or image recognition results.
 
-也可以在桌面版核桃派系统网页打开 https://ai.01studio.cc , 同样账号登录。在训练记录中下载训练结果文件。
+You can also open https://ai.01studio.cc in the desktop version WalnutPi system browser, log in with the same account, and download the training result files from the training records.
 
 ![train](./img/train/train25.png)
 
-使用下面指令解压。
+Use the following command to decompress.
 
 ```bash
 tar -xvf 3.tar
@@ -145,275 +145,266 @@ tar -xvf 3.tar
 
 ![train](./img/train/train26.png)
 
-可以看到有4个文件:
+You can see there are 4 files:
 
 ![train](./img/train/train27.png)
 
-分别是：
+They are:
 
-- `best.nb` ：适用于核桃派2B（全志T527）的模型文件
-- `val.jpg` ：用于测试图片demo的图片
-- `demo-picture.py` ：识别图片demo，会用到val.jpg
-- `demo-camera.py` : 使用USB摄像头识别 
+- `best.nb`: Model file suitable for WalnutPi 2B (Allwinner T527)
+- `val.jpg`: Image used for testing the picture demo
+- `demo-picture.py`: Picture recognition demo, uses val.jpg
+- `demo-camera.py`: USB camera recognition
 
-#### 基于图片
+#### Image-Based
 
-在终端使用 **python demo-picture.py** 指令，或者使用thonny打开运行。
-可以看到识别结果为mouse鼠标，置信率为0.97 （最大1），同时在当前路径下返回result.jpg，图片左上角有识别信息。
+Use the **python demo-picture.py** command in the terminal, or open and run it with Thonny.
+You can see the recognition result is mouse, with a confidence of 0.97 (max 1). At the same time, result.jpg is returned in the current path, with recognition info in the top left corner of the image.
 
 ![train](./img/train/train28.png)
 
-#### 基于摄像头
+#### Camera-Based
 
-核桃派2B连接USB摄像头：
+Connect a USB camera to WalnutPi 2B:
 
 ![train](./img/train/train29.png)
 
-终端运行指令： **python demo-camera.py** , 出现一个摄像头图像显示框，可以实时识别分类物体。
+Run the command in the terminal: **python demo-camera.py**. A camera image display window will appear, allowing real-time classification recognition of objects.
 
 ![train](./img/train/train30.png)
 
+## Training a Detection Model
 
-## 训练检测模型
+Image detection identifies the types of objects trained in the images and annotates them with bounding boxes.
 
-图像检测是将图片中训练时的物体类型识别出来，并使用方框进行标注。
+Here is a simple dataset prepared for testing. Click to download: [Sample Dataset (Detection)](https://01studio-1258570164.cos.ap-guangzhou.myqcloud.com/train/%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%88%E6%A3%80%E6%B5%8B%EF%BC%89.zip). It contains dozens of images of apples and bananas, each with an already annotated label.txt file.
 
-这里准备了一个简单的数据集给大家测试使用，点击下载： [示例数据集（检测）](https://01studio-1258570164.cos.ap-guangzhou.myqcloud.com/train/%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E9%9B%86%EF%BC%88%E6%A3%80%E6%B5%8B%EF%BC%89.zip) ，里面包含了苹果和香蕉各数十张图片已经标注好的label.txt文件。
-
-train里面的是训练集，val里面的是验证集。
+The "train" folder contains the training set, and the "val" folder contains the validation set.
 
 ![train](./img/train/train31.png)
 
-### 创建数据集
+### Creating a Dataset
 
-点击  模型训练--数据集--创建数据集 :
+Click Model Training--Dataset--Create Dataset:
 
 ![train](./img/train/train6.png)
 
-进入后输入数据集名称（自定义），然后选择检测，点击创建。
+Enter the dataset name (custom), select detection, and click create.
 
 ![train](./img/train/train32.png)
 
-可以看到新建了一条数据集。
+You can see a new dataset has been created.
 
 ![train](./img/train/train33.png)
 
-- `数据集ID`：所有数据集唯一编号；
-- `数据集名称`：自己定义的数据集名称；
-- `类型`：视觉识别类型，这里是分类；
-- `创建时间`：数据集的创建时间；
-- `最后更新时间`：数据集最后编辑时间；
-- `操作`：包含编辑和删除按钮（删除目前不可恢复）。
+- `Dataset ID`: Unique number for all datasets;
+- `Dataset Name`: The user-defined dataset name;
+- `Type`: Visual recognition type, here it is classification;
+- `Created Time`: The creation time of the dataset;
+- `Last Updated`: The last editing time of the dataset;
+- `Actions`: Includes edit and delete buttons (deletion is currently irreversible).
 
-点击【编辑】按钮进入编辑数据集，然后点击上传图片：
+Click the [Edit] button to enter the dataset editing page, then click upload images:
 
 ![train](./img/train/train34.png)
 
-先上传到训练集：
+First upload to the training set:
 
 ![train](./img/train/train35.png)
 
-将示例数据集train文件夹里全部图片添加上传。
+Add and upload all images from the "train" folder of the sample dataset.
 
 ![train](./img/train/train36.png)
 
 ![train](./img/train/train37.png)
 
-在右边创建一个标签，名称为apple，颜色自定义一下。
+Create a label on the right with the name apple and a custom color.
 
 ![train](./img/train/train38.png)
 
 ![train](./img/train/train39.png)
 
-创建完成如下图：
+After creation, it looks like this:
 
 ![train](./img/train/train40.png)
 
-然后再创建一个香蕉的标签 banana 。**（提示：创建完点击右边小按钮可以重新编辑）**
+Then create a banana label **banana**. **(Tip: After creating, click the small button on the right to re-edit)**
 
 ![train](./img/train/train41.png)
 
-#### 图片标注
+#### Image Annotation
 
-接下来我们就可以标注图片，从第一张图片开始：
+Next, we can annotate the images. Start from the first image:
 
 ![train](./img/train/train42.png)
 
-先选中标签栏的苹果，然后使用鼠标框出苹果。完成后如下图，左边有个方框，里面有个数字1，右边下方为标注框信息。
+First select the apple label in the label bar, then use the mouse to draw a box around the apple. Once done, it looks like the image below: a box on the left with the number 1 inside, and annotation box info on the bottom right.
 
 ![train](./img/train/train43.png)
 
-同样方法再标注香蕉。
+Use the same method to annotate the banana as well.
 
 ![train](./img/train/train44.png)
 
-最后用同样的方法将所有图片的苹果和香蕉标注出来。
+Finally, use the same method to annotate the apples and bananas in all images.
 
 ![train](./img/train/train45.png)
 
 <br></br>
 
-训练集标注完成后将val文件夹图片上传到验证集。**训练集用于训练，验证集用于每轮训练考核。验证集数量一般为数据集数量的10%~30%即可。**
+After the training set annotation is complete, upload the val folder images to the validation set. **The training set is used for training, and the validation set is used for assessment after each training round. The number of validation set images should generally be about 10%~30% of the total dataset.**
 
 ![train](./img/train/train46.png)
 
 ![train](./img/train/train47.png)
 
-然后使用与前面训练集同样方法进行标注。
+Then use the same method as the training set to annotate.
 
-
-下面这个位置可以筛选训练集、验证集 以及是否已经标准的图片。
+The following position allows you to filter the training set, validation set, and whether images have been annotated.
 
 ![train](./img/train/train48.png)
 
-至此检测数据集标注完成。
+The detection dataset annotation is now complete.
 
-:::tip 提示
-平台目前支持上传和导出标注文件，当前仅支持YOLO TXT 格式，每个TXT文件对应一张图片的所有标注目标，每一行代表一个目标，每行格式为：
-**<类别索引> <目标中心点x> <目标中心点y> <目标宽度w> <目标高度h>**
-:::
+::::tip Note
+The platform currently supports uploading and exporting annotation files, only supporting YOLO TXT format. Each TXT file corresponds to all annotation targets of one image, with each line representing one target in the format:
+**`&lt;class_index&gt; &lt;center_x&gt; &lt;center_y&gt; &lt;width&gt; &lt;height&gt;`**
+::::
 
-示例检测数据集里面带一个和图片同名的txt文件是标注信息文件。可以直接上传导入。
+The sample detection dataset contains annotation info files with the same name as the images (txt files). They can be directly uploaded and imported.
 
 ![train](./img/train/train49.png)
 
-点击上传标注文件：
+Click upload annotation file:
 
 ![train](./img/train/train50.png)
 
-
-导入后如标签名称不一致手动修改即可。
+After import, if the label names are inconsistent, manually modify them.
 
 ![train](./img/train/train51.png)
 
+### Start Training
 
-### 开始训练
-
-完成标注后点击数据集上方 【创建训练任务】：
+After completing annotation, click [Create Training Task] above the dataset:
 
 ![train](./img/train/train52.png)
 
-配置训练参数：**参数一般情况下按默认配置即可。**
+Configure training parameters: **Generally, the default configuration is fine.**
 
 ![train](./img/train/train19.png)
 
-- `目标板`：这里选中WalnutPi 2B；
-- `模型类型`：会根据数据集自动选择；
-- `模型规模`：开发板一般选n或s，其它可能跑不起。
+- `Target Board`: Select WalnutPi 2B here;
+- `Model Type`: Automatically selected based on the dataset;
+- `Model Scale`: For development boards, generally choose n or s, as others may not run.
 ![train](./img/train/train20.png)
-- `训练轮次`：平台当前最大允许500轮；
-- `模型尺寸`：数值变大精度会提升，但运行时间长。一般推荐224或320。
-- `批量大小（batch）`：默认16，如果图片数量较多（一千张）可以选中32以提升训练速度；
-- `最大学习率（lr0）`：默认0.01，一般情况下无需调整；
+- `Training Epochs`: The platform allows a maximum of 500 epochs;
+- `Model Size`: Larger values improve accuracy but increase runtime. Generally recommended 224 or 320.
+- `Batch Size`: Default is 16. If there are many images (around a thousand), you can select 32 to improve training speed;
+- `Max Learning Rate (lr0)`: Default is 0.01, usually no need to adjust;
 
-点击【提交】后自动跳转到训练界面：
+After clicking [Submit], you will automatically be redirected to the training interface:
 
 ![train](./img/train/train53.png)
 
-左边是项目信息，右上方是训练日志，右下方是训练结果图表。以下图为例，模型在100轮训练后最终**mAP50**值为0.94（>0.8），**mAP50-mAP50-95**值为0.65(>0.5)，效果非常好。
+The left side shows project information, the top right shows training logs, and the bottom right shows training result charts. Taking the example below, after 100 epochs of training, the final **mAP50** value is 0.94 (>0.8), and the **mAP50-95** value is 0.65 (>0.5), with excellent results.
 
 ![train](./img/train/train54.png)
 
-点击左侧导航栏--训练记录 即可看到所有训练项目信息。点击右边【详情】按钮进入：
+Click the left navigation bar--Training Records to see all training project information. Click the [Details] button on the right to enter:
 
 ![train](./img/train/train23.png)
 
-训练完成后可以点击【下载】按钮下载模型和代码文件。
+After training is complete, you can click the [Download] button to download the model and code files.
 
 ![train](./img/train/train24.png)
 
-### 部署运行
+### Deployment and Running
 
-下载后通过U盘等方式拷贝到核桃派2B。推荐桌面版系统，方便观察摄像头或者图片识别结果。
+After downloading, copy to WalnutPi 2B via USB drive or other methods. The desktop version system is recommended to conveniently observe camera or image recognition results.
 
-也可以在桌面版核桃派系统网页打开 https://ai.01studio.cc , 同样账号登录。在训练记录中下载训练结果文件。
+You can also open https://ai.01studio.cc in the desktop version WalnutPi system browser, log in with the same account, and download the training result files from the training records.
 
 ![train](./img/train/train55.png)
 
-使用指令 tar -xvf 71.rar 解压（根据自己的文件名修改）。可以看到有4个文件
+Use the command tar -xvf 71.rar to decompress (modify according to your own file name). You can see there are 4 files:
 
 ![train](./img/train/train56.png)
 
-分别是：
+They are:
 
-- `best.nb` ：适用于核桃派2B（全志T527）的模型文件
-- `val.jpg` ：用于测试图片demo的图片
-- `demo-picture.py` ：识别图片demo，会用到val.jpg
-- `demo-camera.py` : 使用USB摄像头识别 
+- `best.nb`: Model file suitable for WalnutPi 2B (Allwinner T527)
+- `val.jpg`: Image used for testing the picture demo
+- `demo-picture.py`: Picture recognition demo, uses val.jpg
+- `demo-camera.py`: USB camera recognition
 
-#### 基于图片
+#### Image-Based
 
-在终端使用 **python demo-picture.py** 指令，或者使用thonny打开运行。
+Use the **python demo-picture.py** command in the terminal, or open and run it with Thonny.
 
-可以看到识别结果，将识别水果标注出来，**同时在当前路径下返回结果图片result.jpg**。
+You can see the recognition results, with the identified fruits annotated, **and the result image result.jpg returned in the current path**.
 
 ![train](./img/train/train57.png)
 
-#### 基于摄像头
+#### Camera-Based
 
-核桃派2B连接USB摄像头：
+Connect a USB camera to WalnutPi 2B:
 
 ![train](./img/train/train29.png)
 
-终端运行指令： **python demo-camera.py** , 出现一个摄像头图像显示框，可以实时识别检测物体并标注方框。
+Run the command in the terminal: **python demo-camera.py**. A camera image display window will appear, allowing real-time detection of objects with bounding box annotation.
 
 ![train](./img/train/train58.png)
 
-## 模型分享
+## Model Sharing
 
-训练完成后可以选择分享自己的模型供其他用户使用，也可以在模型分享库查找适合自己的模型。
+After training is complete, you can choose to share your model for other users to use, or browse the model sharing library to find a model that suits your needs.
 
-### 模型分享库
+### Model Sharing Library
 
-链接：https://ai.01studio.cc/market
+Link: https://ai.01studio.cc/market
 
-点击链接进入模型分享库，可以看到所以用户分享的模型，可通过上分筛选栏筛选适合自己的模型。
+Click the link to enter the model sharing library, where you can see all models shared by users. Use the filter bar at the top to filter models that suit your needs.
 
 ![train](./img/train/share8.png)
 
-点击模型卡片进入，即可看到当前模型的详细信息，右边可以添加收藏和下载该模型部署到自己的开发上，**注意确认模型开发板型号是否一致**。
+Click a model card to enter and see the detailed information of the current model. On the right, you can add to favorites and download the model for deployment on your own development board. **Make sure the model development board model is consistent**.
 
 ![train](./img/train/share9.png)
 
-### 分享自己的模型
+### Sharing Your Own Model
 
-在训练记录中找到训练成功的记录，点击`分享`按钮：
+Find the successfully trained record in the training records and click the `Share` button:
 
 ![train](./img/train/share1.png)
 
-进入分享编辑界面，平台会自动生成一些模型已有信息：
+Enter the sharing editing interface. The platform will automatically generate some existing model information:
 
 ![train](./img/train/share2.png)
 
-- 上传封面
+- Upload Cover
 
-可以自行上传图片或使用平台生成图片。自动生成的检测图片支持缩放。
+You can upload your own image or use the platform-generated image. The automatically generated detection image supports scaling.
 
 ![train](./img/train/share3.png)
 
-- 填写模型名称和模型简介
+- Fill in Model Name and Model Introduction
 
-模型名称相当于标题，不用太长。简介可以简短介绍一下这个模型。
+The model name is like a title; keep it short. The introduction can briefly describe this model.
 
 ![train](./img/train/share4.png)
 
-- 详情描述
+- Detailed Description
 
-详情已经预先生成了一些内容，用户可以自行修改。编辑框拥有图片上传、全屏等丰富的编辑功能。支持MardDown语法，可以实现插入B站视频等功能。编辑完成后点击 `发布` 按钮。
+The details have been pre-generated with some content that users can modify themselves. The editing box has rich editing features such as image upload and full-screen mode. Supports MarkDown syntax, allowing you to insert Bilibili videos and other functions. After editing, click the `Publish` button.
 
 ![train](./img/train/share5.png)
 
-发布后可以点击下方`编辑`按钮再次编辑：
+After publishing, you can click the `Edit` button below to edit again:
 
 ![train](./img/train/share6.png)
 
-发布后即可在模型分享库看到相关信息。
+After publishing, you can see the relevant information in the model sharing library.
 
 ![train](./img/train/share7.png)
-
-
-
-
-
 
 

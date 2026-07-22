@@ -2,71 +2,70 @@
 sidebar_position: 3
 ---
 
-# 资料下载
+# Downloads
 
-## 系统镜像
+## System Images
 
-当前核桃派2B提供核桃派OS（Debian12）、Home Assistant镜像（Ubuntn和Android镜像将在后续发布）。本教程主要基于核桃派OS（Debian12），也是我们推荐使用的镜像，分桌面版（Desktop版）和非桌面版（Server版）， 提供以下多种下载方式。
+Currently Walnut Pi 2B provides Walnut Pi OS (Debian12) and Home Assistant images (Ubuntu and Android images will be released later). This tutorial is mainly based on Walnut Pi OS (Debian12), which is our recommended image, available in Desktop and Server editions. The following download options are provided.
 
-### 百度网盘
+### Baidu Netdisk
 
-- 百度网盘链接：https://pan.baidu.com/s/1dxZ9weWiwwEjI5t3j5sP6Q?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk link: https://pan.baidu.com/s/1dxZ9weWiwwEjI5t3j5sP6Q?pwd=WPKJ
+- Access code: **WPKJ**
 
 ![download](./img/download/download0.png)
 
-### QQ群文件
+### QQ Group Files
 
-核桃派开源互助群:  **677173708**
+Walnut Pi Open-Source Community Group: **677173708**
 
-:::tip 提示
-在Q群将群文件转发给自己设备或其它QQ即可高速下载。
-:::
+::::tip Note
+Forward the group files to your own device or another QQ account within the group for high-speed downloads.
+::::
 
 ![download](./img/download/download1.png)
 
 ### GitHub
 
-海外地区用户可以使用此方式下载：
+Users outside of China can use this method to download:
 
 https://github.com/walnutpi/WalnutPi_2_image/releases
 
 ![download](./img/download/download2.png)
 
-## 在线教程配套资料包
+## Online Tutorial Resource Package
 
-核桃派教程配套软件、例程源代码、原理图、芯片手册等。
+Supporting software, example source code, schematics, chip datasheets, and more for the Walnut Pi tutorials.
 
-### 百度网盘下载
+### Baidu Netdisk Download
 
-- 百度网盘链接：https://pan.baidu.com/s/1ezCNtejvghsVO0hpYNJ27Q?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk link: https://pan.baidu.com/s/1ezCNtejvghsVO0hpYNJ27Q?pwd=WPKJ
+- Access code: **WPKJ**
 
 ![download](./img/download/download3.png)
 
-### Github下载
+### GitHub Download
 
-海外地区用户可以使用此方式下载：
+Users outside of China can use this method to download:
 
 https://github.com/walnutpi/WalnutPi_2_resource/releases
 
 ![download](./img/download/download4.png)
 
-### 资料包介绍
+### Resource Package Overview
 
-- **开发工具软件**
+- **Development Tools**
 
-开发软件、上位机、相关驱动。
+Development software, host tools, and related drivers.
 
-- **教程代码**
+- **Tutorial Code**
 
-本在线教程的源代码。
+Source code for this online tutorial.
 
-- **原理图和功能图**
+- **Schematics and Diagrams**
 
-开发板原理图和接口说明。
+Board schematics and interface descriptions.
 
-- **芯片手册**
+- **Chip Datasheets**
 
-主要IC手册等。
-
+Primary IC datasheets, etc.

@@ -2,31 +2,31 @@
 sidebar_position: 13
 ---
 
-# Users DIY
+# Community Open-Source Project Sharing
 
-感谢以下用户为核桃派开源生态贡献项目，如果你也有基于核桃派相关开源项目可以QQ群或者邮件（walnutpi@qq.com）联系我们，我们将不定期为贡献项目用户赠送核桃派相关产品。
+Thanks to the following users for contributing projects to the Walnut Pi open-source ecosystem. If you also have open-source projects based on Walnut Pi, feel free to contact us via QQ group or email (walnutpi@qq.com). We will periodically reward contributing users with Walnut Pi related products.
 
-## 核桃派2B 部署deepseek-r1 1.5B大模型
+## Walnut Pi 2B: Deploying DeepSeek-R1 1.5B LLM
 
-- `用户`：ouyanglingle
+- `User`: ouyanglingle
 
-[核桃派2B运行deepseek-r1大模型，并将用户文本转化为AT指令输出给单片机](https://forum.walnutpi.com/t/topic/298)
+[Running DeepSeek-R1 LLM on Walnut Pi 2B and converting user text to AT commands for output to a microcontroller](https://forum.walnutpi.com/t/topic/298)
 
 ![diy](./img/diy/deepseek.jpg)
 
-## 核桃派2B 小智AI语音助手
+## Walnut Pi 2B: XiaoZhi AI Voice Assistant
 
-- `用户`：jd3096
+- `User`: jd3096
 
-[核桃派2B上运行创客魅魔——小智新手向教程](https://forum.walnutpi.com/t/topic/315)
+[Running Maker Succubus — XiaoZhi on Walnut Pi 2B: A Beginner's Guide](https://forum.walnutpi.com/t/topic/315)
 
 ![diy](./img/diy/xiaozhi.png)
 
 
-## 核桃派1.54寸LCD扩展板
+## Walnut Pi 1.54-inch LCD Expansion Board
 
-- `用户`：windskys
+- `User`: windskys
 
-[核桃派2B的功能小板（LCD） PCB开源](https://oshwhub.com/windskys/walnut-pi-2b)
+[Walnut Pi 2B Functional Board (LCD) — Open-source PCB](https://oshwhub.com/windskys/walnut-pi-2b)
 
 ![diy](./img/diy/1.54_lcd.png)

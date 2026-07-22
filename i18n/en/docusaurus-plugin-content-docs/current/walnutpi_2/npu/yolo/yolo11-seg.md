@@ -2,59 +2,59 @@
 sidebar_position: 5
 ---
 
-# YOLO11 图像分割
+# YOLO11 Image Segmentation
 
-该模型在检测模型的基础上，增加了对于哪些像素点属于目标物体的判断
+This model builds upon the detection model by adding the ability to determine which pixels belong to the target object.
 
 ![result](./img/seg/example_seg.jpg)
 
 
-## 准备模型文件
+## Prepare Model File
 
-我们提供的程序包里会有一个名为`yolo11n-seg.nb`的文件，这就是在核桃派2B（T527） NPU上运行YOLO11图像分割的模型文件。
+The program package we provide includes a file named `yolo11n-seg.nb`, which is the model file for running YOLO11 image segmentation on the WalnutPi 2B (T527) NPU.
 
 ![result](./img/seg/seg1.png)
 
-想尝试自行转换模型可以参考：[模型转换教程](./model_convert.md) 
+If you want to try converting the model yourself, refer to: [Model Conversion Tutorial](./model_convert.md)
 
-## 安装OpenCV
+## Install OpenCV
 
-本教程需要用到OpenCV库，安装方法参考：[OpenCV安装](../../opencv/install.md)
+This tutorial requires the OpenCV library. For installation instructions, refer to: [OpenCV Installation](../../opencv/install.md)
 
-## Python运行模型
+## Run Model with Python
 
-核桃派2B v1.3.0 版本以上系统提供一套封装好的YOLO11 Python库。
+WalnutPi 2B v1.3.0 and above provides a packaged YOLO11 Python library.
 
-### 1. 实例化yolo11类
-实例化`YOLO11_SEG`类，需要传入模型文件的路径
+### 1. Instantiate yolo11 Class
+Instantiate the `YOLO11_SEG` class by passing the model file path:
 ```python
 from walnutpi import YOLO11
 yolo = YOLO11.YOLO11_SEG("model/yolo11n-seg.nb")
 ```
-### 2. 运行模型-阻塞式
-使用`run`方法即可运行模型，并返回检测结果，需要传入3个参数
-- 图片数据， 使用opencv的读取图片方法进行读取即可
-- 置信度阈值， 只会返回置信度高于这个值的检测框
-- 检测框重叠度阈值， 模型经常会在物体周围同时命中多个检测框，如果框之间的面积重合度高于这个值，则只保留置信度最高的框，删除其他重合框
+### 2. Run Model - Blocking Mode
+Use the `run` method to run the model and get detection results. It takes 3 parameters:
+- Image data, read using OpenCV's image reading method
+- Confidence threshold, only detection boxes above this confidence will be returned
+- Detection box overlap threshold, the model often hits multiple boxes around an object. If the area overlap between boxes exceeds this value, only the box with the highest confidence is kept, and other overlapping boxes are removed
 
 ```python
-# 读取图片
+# Read image
 import cv2
 img = cv2.imread("image/bus.jpg")
 
-# 检测
+# Detect
 boxes = yolo.run(img, 0.5, 0.5)
 ```
 
-### 3. 运行模型-非阻塞式
-使用`run_async`方法会创建一个线程来运行模型,然后立刻返回。需要传入3个参数
-- 图片数据， 使用opencv的读取图片方法进行读取即可
-- 置信度阈值， 只会返回置信度高于这个值的检测框
-- 检测框重叠度阈值， 模型经常会在物体周围同时命中多个检测框，如果框之间的面积重合度高于这个值，则只保留置信度最高的框，删除其他重合框
+### 3. Run Model - Non-blocking Mode
+Use the `run_async` method, which creates a thread to run the model and returns immediately. It takes 3 parameters:
+- Image data, read using OpenCV's image reading method
+- Confidence threshold, only detection boxes above this confidence will be returned
+- Detection box overlap threshold
 
-非阻塞式运行需要配合 `is_running` 属性使用，他的值是 true或false，表示后台是否跑着`run_async`启动的模型运行线程。如果后台已经跑着一个运行线程了，则运行`run_async`时不会再启动新的线程。也可以用此属性来判断模型运行线程跑完了没，是否可以获取结果了。
+Non-blocking mode works with the `is_running` property, which has a value of `true` or `false`, indicating whether a `run_async` model thread is running in the background. If a thread is already running, calling `run_async` again won't start a new thread. You can also use this property to check if the model thread has finished and results are ready.
 
-使用`get_result()`方法 会返回后台的识别结果，与阻塞式方法`run`得到的是相同的东西
+Use the `get_result()` method to return the background recognition result, which is the same as what the blocking `run` method returns:
 
 ```python
 import cv2
@@ -66,24 +66,24 @@ while yolo.is_running:
 boxes = yolo.get_result()
 ```
 
-### 4. 检测结果
-`run`方法和`get_result`方法返回的都是一个列表，如果图片中检测不到东西则返回一个空的列表。列表里每个值都代表一个命中了的检测框，每个检测框对象都包含以下属性
+### 4. Detection Results
+Both the `run` method and `get_result` method return a list. If nothing is detected in the image, an empty list is returned. Each value in the list represents a detected box, and each box object contains the following properties:
 
-| 属性        | 说明                                                           |
+| Property    | Description                                                           |
 | ----------- | -------------------------------------------------------------- |
-| x           | 检测框中心点的x坐标                                            |
-| y           | 检测框中心点的y坐标                                            |
-| w           | 检测框的宽度                                                   |
-| h           | 检测框的高度                                                   |
-| reliability | 表示检测框的置信度，例如:0.78                                  |
-| label       | 检测框的标签                                                   |
-| contours    | 包含所有轮廓点坐标的列表                                       |
-| mask        | 一张单通道灰度图，不属于物体的像素点为0，属于物体的像素点为255 |
+| x           | x-coordinate of the detection box center                                            |
+| y           | y-coordinate of the detection box center                                            |
+| w           | Width of the detection box                                                   |
+| h           | Height of the detection box                                                   |
+| reliability | Confidence of the detection box, e.g., 0.78                                  |
+| label       | Label of the detection box                                                   |
+| contours    | List of all contour point coordinates                                       |
+| mask        | A single-channel grayscale image; pixels not belonging to the object are 0, pixels belonging to the object are 255 |
 
-注意label是一个数字，例如yolo官方模型训练时标注了80个类型，检测出来的label属性就会是0-79
+Note that `label` is a number. For example, the official YOLO model was trained with 80 annotated types, so the detected `label` property will be 0-79.
 
 
-可以使用以下代码输出所有检测到的框的信息
+The following code can be used to output all detected box information:
 ```python
 print(f"boxes: {boxes.__len__()}")
 for box in boxes:
@@ -99,29 +99,29 @@ for box in boxes:
     )
 ```
 
-mask图像可以使用以下代码叠加到原图上显示
+The mask image can be overlaid on the original image using the following code:
 ```python
 import numpy as np
 
 
-mask_img = np.zeros_like(img)  # 生成一张与原图大小相同的纯黑图片
-mask_img[box.mask > 200] = (0, 255, 0)  # 将mask颜色值大于200的像素都改为绿色
-img = cv2.addWeighted(img, 1, mask_img, 0.5, 0)  # 将mask_img与原图叠加
+mask_img = np.zeros_like(img)  # Generate a pure black image of the same size as the original
+mask_img[box.mask > 200] = (0, 255, 0)  # Change pixels with mask value greater than 200 to green
+img = cv2.addWeighted(img, 1, mask_img, 0.5, 0)  # Overlay mask_img on the original
 ```
 
-## 示例程序
+## Example Programs
 
-### 基于图片
+### Image-Based
 
-读取图片做检测，将目标物体都高亮
+Read an image for detection and highlight target objects.
 
 ![results](./img/seg/example_seg_picture.jpg)
 
 ```python
 '''
-实验名称：YOLO11图像分割
-实验平台：核桃派2B
-说明：基于图片
+Experiment Name: YOLO11 Image Segmentation
+Experiment Platform: WalnutPi 2B
+Description: Image-based
 '''
 
 from walnutpi import YOLO11
@@ -129,7 +129,7 @@ import dataset_coco
 import cv2
 import numpy as np
 
-#【可选代码】允许Thonny远程运行
+# [Optional] Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
@@ -137,11 +137,11 @@ model_path = "model/yolo11n-seg.nb"
 picture_path = "image/000000371552.jpg"
 output_path = "result.jpg"
 
-# 检测图片
+# Detect image
 yolo = YOLO11.YOLO11_SEG(model_path)
 boxes = yolo.run(picture_path, 0.5, 0.5)
 
-# 到图上画框
+# Draw boxes on image
 img = cv2.imread(picture_path)
 for box in boxes:
     left_x = int(box.x - box.w / 2)
@@ -178,32 +178,32 @@ for box in boxes:
         (0, 0, 0),
         1,
     )
-    mask_img = np.zeros_like(img)  # 生成一张与原图大小相同的纯黑图片
-    mask_img[box.mask > 200] = (0, 255, 0)  # 将mask颜色值大于200的像素都改为绿色
-    img = cv2.addWeighted(img, 1, mask_img, 0.5, 0)  # 将mask_img与原图叠加
+    mask_img = np.zeros_like(img)
+    mask_img[box.mask > 200] = (0, 255, 0)
+    img = cv2.addWeighted(img, 1, mask_img, 0.5, 0)
 
-#保存图片
+# Save image
 cv2.imwrite(output_path, img)
 
-#窗口显示图片
+# Display image in window
 cv2.imshow('result',img)
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey()
+cv2.destroyAllWindows()
 
 ```
 
-### 基于摄像头
+### Camera-Based
 
-可以先学习在OpenCV的 [USB摄像头使用教程](../../opencv/usb_cam.md)
+You can first learn about the [USB Camera Usage Tutorial](../../opencv/usb_cam.md) in OpenCV.
 
 ![results](./img/seg/example_seg_camera.jpg)
 
 ```python
 '''
-实验名称：YOLO11图像分割
-实验平台：核桃派2B
-说明：基于摄像头
+Experiment Name: YOLO11 Image Segmentation
+Experiment Platform: WalnutPi 2B
+Description: Camera-based
 '''
 
 from walnutpi import YOLO11
@@ -211,27 +211,22 @@ import dataset_coco
 import cv2
 import numpy as np
 
-#【可选代码】允许Thonny远程运行
+# [Optional] Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
 model_path = "model/yolo11n-seg.nb"
 
-# 检测图片
+# Detect image
 yolo = YOLO11.YOLO11_SEG(model_path)
 
-# 打开摄像头并循环获取帧显示到屏幕上
+# Open camera and loop to display frames on screen
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-# 设置为1080p
-# cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
-# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # 设置宽度
-# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)  # 设置长度
 while True:
-    # 读取一帧图像并显示出来
     ret, img = cap.read()
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
@@ -240,7 +235,6 @@ while True:
         yolo.run_async(img, 0.5, 0.5)
     boxes = yolo.get_result()
 
-    # 到图上画框
     for box in boxes:
         left_x = int(box.x - box.w / 2)
         left_y = int(box.y - box.h / 2)
@@ -248,44 +242,21 @@ while True:
         right_y = int(box.y + box.h / 2)
         label = str(dataset_coco.label_names[box.label]) + " " + str('%.2f'%box.reliability)
         (label_width, label_height), bottom = cv2.getTextSize(
-            label,
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.5,
-            1,
+            label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1,
         )
-        cv2.rectangle(
-            img,
-            (left_x, left_y),
-            (right_x, right_y),
-            (255, 255, 0),
-            2,
-        )
-        cv2.rectangle(
-            img,
-            (left_x, left_y - label_height * 2),
-            (left_x + label_width, left_y),
-            (255, 255, 255),
-            -1,
-        )
-        cv2.putText(
-            img,
-            label,
-            (left_x, left_y - label_height),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.5,
-            (0, 0, 0),
-            1,
-        )
-        mask_img = np.zeros_like(img)  # 生成一张与原图大小相同的纯黑图片
-        mask_img[box.mask > 200] = (0, 0, 255)  # 将mask颜色值大于200的像素都改为红
-        img = cv2.addWeighted(img, 1, mask_img, 0.8, 0)  # 将mask_img与原图叠加
+        cv2.rectangle(img, (left_x, left_y), (right_x, right_y), (255, 255, 0), 2)
+        cv2.rectangle(img, (left_x, left_y - label_height * 2), (left_x + label_width, left_y), (255, 255, 255), -1)
+        cv2.putText(img, label, (left_x, left_y - label_height), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+        mask_img = np.zeros_like(img)
+        mask_img[box.mask > 200] = (0, 0, 255)
+        img = cv2.addWeighted(img, 1, mask_img, 0.8, 0)
 
     cv2.imshow("result", img)
-    key = cv2.waitKey(1) # 窗口的图像刷新时间为1毫秒，防止阻塞    
-    if key == 32: # 如果按下空格键，打断退出
+    key = cv2.waitKey(1)
+    if key == 32:
         break
     
-cap .release() # 关闭摄像头
-cv2.destroyAllWindows() # 销毁显示摄像头视频的窗口
+cap.release()
+cv2.destroyAllWindows()
 
 ```

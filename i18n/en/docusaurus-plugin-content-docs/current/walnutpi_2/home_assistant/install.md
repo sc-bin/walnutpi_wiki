@@ -2,36 +2,34 @@
 sidebar_position: 2
 ---
 
-# Home Assistant安装
+# Home Assistant Installation
 
-开始使用Home Assistant的第一步就是将它安装到设备上，本章提供多种安装方法供用户选择。
+The first step to using Home Assistant is installing it on your device. This section provides multiple installation methods for you to choose from.
 
-镜像、安装包和相关资料下载：
+Image files, installation packages, and related resources:
 
-- 百度网盘下载
+- Baidu Netdisk Download
 
-百度网盘链接：https://pan.baidu.com/s/1s9KPVuz24v-L-7RlwfmD3Q?pwd=WPKJ
+Baidu Netdisk Link: https://pan.baidu.com/s/1s9KPVuz24v-L-7RlwfmD3Q?pwd=WPKJ
 
-提取码：**WPKJ**
+Access Code: **WPKJ**
 
-- QQ群文件下载
+- QQ Group File Download
 
-核桃派开源互助群:  **677173708**
+WalnutPi Open Source Support Group: **677173708**
 
-:::tip 提示
-在Q群将群文件转发给自己设备或其它QQ即可高速下载。
+:::tip Note
+Forward the group files to your own device or another QQ account in the group for high-speed downloads.
 :::
 
-## 用核桃派开发板DIY
+## DIY with WalnutPi Development Board
 
-核桃派是一款迷你低成本的单板计算机，对于已经购买核桃派2B等Linux开发板用户可以在核桃派系统上自行安装Home Assistant。
+The WalnutPi is a compact, low-cost single-board computer. For users who already own a WalnutPi 2B or other Linux development board, you can install Home Assistant on your WalnutPi system yourself.
 
+### Install Using Image
 
-### 使用镜像安装
+WalnutPi officially provides images pre-installed with Home Assistant, compatible with all WalnutPi Linux development boards. Simply flash the image and power on to get started. For image flashing instructions, refer to the [System Image Flashing](../getting_start/os-install.md#using-rufus-to-flash-recommended) section.
 
-核桃派官方提供预装Home Assitant的镜像，已适配所有核桃派Linux开发板，用户烧录镜像后上电启动即可。镜像烧录方法参考：[**系统镜像烧录**](../getting_start/os-install.md#使用rufus烧录推荐) 章节内容。
+The WalnutPi 2B 2GB/4GB variants can use the Home Assistant Desktop or Server edition images. The 1GB variant has limited memory and can only use the Home Assistant Server edition image. **We recommend using the 2GB/4GB version — having a desktop makes initial configuration much easier.**
 
-
-核桃派2B 2G/4G内存版本可使用Home Assistant Desktop版或Serve版镜像；1G版本内存有限，只能使用Home Assistant Serve版镜像；**推荐使用2G/4G版本开发板，带桌面新手配置起来会更方便。**
-
-安装完成后下一节开始初始化配置。
+After installation, proceed to the next section for initial configuration.

@@ -2,43 +2,43 @@
 sidebar_position: 1
 ---
 
-# GPIO介绍
+# GPIO Introduction
 
-我们详细介绍一下核桃派的GPIO，也就是核桃派的40Pin GPIO（和树莓派类似），核桃派已经是一个很棒的卡片电脑，但 GPIO 的设计让用户使用核桃派进行各类 DIY 电子设计变得更容易，让你拥使用一个强大的单片机开发板一样的体验。
+Let's take a detailed look at the Walnut Pi's GPIO, i.e., its 40-pin GPIO header (similar to Raspberry Pi). The Walnut Pi is already a great single-board computer, but the GPIO design makes it easier for users to perform various DIY electronic projects, giving you an experience similar to using a powerful microcontroller development board.
 
 ![gpio](./img/gpio_intro/gpio.png)
 
-下面是核桃派GPIO的引脚图：
+Below is the Walnut Pi GPIO pinout diagram:
 
-- 核桃派2B
+- Walnut Pi 2B
 ![pinout](./img/gpio_intro/pinout.png)
 
-从上面表格和图例可以看到，GPIO和传统的单片机开发相似，除了普通IO口外，也有I2C、串口（UART）、SPI等总线接口，以及电源输出供电引脚（3.3V和5V）。可以外接各类传感器和模块，在后面的嵌入式编程章节都会涉及。
+As shown in the table and diagram above, GPIO is similar to traditional microcontroller development. In addition to regular I/O pins, it also features I2C, UART, SPI and other bus interfaces, as well as power output pins (3.3V and 5V). You can connect various sensors and modules, all of which will be covered in the later embedded programming chapters.
 
-## 电源引脚
+## Power Pins
 
-核桃派GPIO中有两路5V和两路3.3V输出引脚，以及8个GND引脚，可对外供电。
+The Walnut Pi GPIO header provides two 5V and two 3.3V output pins, as well as 8 GND pins for external power supply.
 
-## 普通IO
+## General-Purpose I/O
 
-除了电源引脚外，所有IO口都可以配置为输入/输出引脚使用。IO电平为3.3V。
+Except for the power pins, all I/O pins can be configured as input/output pins. The I/O voltage level is 3.3V.
 
-## 其它功能
+## Other Functions
 
-部分引脚有其它功能，具体如下：
+Some pins have additional functions, as detailed below:
 
-### PWM (脉宽调制)
+### PWM (Pulse Width Modulation)
 
-PB4, PB6, PI10, PI11, PI12, PI2, PI3, PI4, PI5, PI6, PI7, PI15, PI16, PI13, PI14, PI0, PI1, PL2, PL3, PL4, PL5, PL6 提供硬件PWM功能。
+PB4, PB6, PI10, PI11, PI12, PI2, PI3, PI4, PI5, PI6, PI7, PI15, PI16, PI13, PI14, PI0, PI1, PL2, PL3, PL4, PL5, PL6 support hardware PWM.
 
-查询指令：
+Query command:
 
 ```bash
 gpio pin pwm
 ```
 ![gpio](./img/gpio_intro/pwm.png)
 
-### UART 
+### UART
 
 - TX2(PB0), RX2(PB1)
 - TX3(PI11), RX3(PI12)
@@ -48,28 +48,28 @@ gpio pin pwm
 - TX7(PB13), RX7(PB14)
 - TX8(PL2), RX8(PBL3)
 
-查询指令：
+Query command:
 ```bash
 gpio pin uart
 ```
 ![gpio](./img/gpio_intro/uart.png)
 
-### I2C 
+### I2C
 
 - SDA1(PB5), SCL1(PB4)
 - SDA2(PI16), SCL2(PI15)
 
-查询指令：
+Query command:
 ```bash
 gpio pin i2c
 ```
 ![gpio](./img/gpio_intro/i2c.png)
 
-### SPI 
+### SPI
 
 - SPI1: MOSI (PI4); MISO (PI5); SCLK (PI3); CS0 (PI2), CS1 (PI6)
 
-查询指令：
+Query command:
 ```bash
 gpio pin spi
 ```

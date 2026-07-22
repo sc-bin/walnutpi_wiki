@@ -2,9 +2,9 @@
 sidebar_position: 42
 ---
 
-# 主控ID号
+# Chip ID
 
-核桃派2B的主控是全志T527，每个芯片的chipid都是唯一的，用户可以通过下面指令获取chipid来区分不同开发板。
+The Walnut Pi 2B is powered by the Allwinner T527 chipset, and each chip has a unique chip ID. Users can retrieve the chip ID using the following command to distinguish between different development boards:
 
 ```bash
 cat /sys/class/sunxi_info/sys_info |grep sunxi_serial

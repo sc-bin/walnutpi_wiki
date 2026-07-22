@@ -2,63 +2,62 @@
 sidebar_position: 9
 ---
 
-# LCD使用
+# Using LCD
 
-## 核桃派3.5寸LCD
+## WalnutPi 3.5-inch LCD
 
-核桃派官方镜像提供3.5寸LCD屏驱动，烧录桌面板系统并配置启动即可通过LCD显示桌面，实现OpenCV可视化。如摄像头实时采集显示。
+The official WalnutPi image provides a 3.5-inch LCD screen driver. After flashing the desktop system and configuring the boot, you can display the desktop through the LCD, enabling OpenCV visualization, such as real-time camera capture display.
 
-核桃派官方3.5寸LCD（电阻触摸）[点击查看使用教程](../os_software/display/3.5_LCD.md)
+WalnutPi Official 3.5-inch LCD (Resistive Touch) [Click to view tutorial](../os_software/display/3.5_LCD.md)
 
-直接运行上一节USB摄像头代码即可：
+Directly run the USB camera code from the previous section:
 
 ![lcd](./img/lcd/lcd1.png)
 
-可以通过下面代码实现无边框全屏显示：
+You can achieve borderless fullscreen display with the following code:
 
 ```python
-# 创建一个全屏无边框的窗口
+# Create a fullscreen borderless window
 cv2.namedWindow('Video', cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty('Video', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 ```
 
-完成参考代码如下：
+The complete reference code is as follows:
 ```python
 '''
-实验名称：USB摄像头使用（全屏显示）
-实验平台：核桃派1B
-说明：按空格键退出
+Experiment Name: Using USB Camera (Fullscreen Display)
+Experiment Platform: WalnutPi 1B
+Description: Press the spacebar to exit
 '''
 
 import cv2
 
-# 创建一个全屏无边框的窗口
+# Create a fullscreen borderless window
 cv2.namedWindow('Video', cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty('Video', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
-cam = cv2.VideoCapture(1) # 打开摄像头
+cam = cv2.VideoCapture(1) # Open the camera
 
-while (cam.isOpened()): # 确认被打开
+while (cam.isOpened()): # Confirm it is opened
     
-    retval, img = cam.read() # 从摄像头中实时读取图像
+    retval, img = cam.read() # Read images from the camera in real-time
     
-    cv2.imshow("Video", img) # 在窗口中显示读取到的图像
+    cv2.imshow("Video", img) # Display the read image in a window
     
-    key = cv2.waitKey(1) # 窗口的图像刷新时间为1毫秒，防止阻塞
+    key = cv2.waitKey(1) # Window image refresh time is 1 millisecond to prevent blocking
     
-    if key == 32: # 如果按下空格键，打断
+    if key == 32: # If the spacebar is pressed, break
         break
     
-cam.release() # 关闭摄像头
-cv2.destroyAllWindows() # 销毁显示摄像头视频的窗口
+cam.release() # Close the camera
+cv2.destroyAllWindows() # Destroy the window displaying the camera video
 
 ```
 
-运行代码效果（无边框）：
+Code execution result (borderless):
 
 ![lcd](./img/lcd/lcd2.png)
 
-:::tip 提示
-1.54寸LCD也可以实现以上相关操作。核桃派官方1.54寸LCD [点击查看使用教程](../os_software/display/1.54_LCD.md)
-:::
-
+::::tip Note
+The 1.54-inch LCD can also achieve the above operations. WalnutPi Official 1.54-inch LCD [Click to view tutorial](../os_software/display/1.54_LCD.md)
+::::

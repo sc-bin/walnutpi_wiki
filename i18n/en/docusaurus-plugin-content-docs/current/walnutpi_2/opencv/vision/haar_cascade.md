@@ -2,15 +2,15 @@
 sidebar_position: 1
 ---
 
-# 级联分类器介绍
+# Cascade Classifier Introduction
 
-级联分类器可以理解成是OpenCV用于视觉识别提前预制好的模型文件。
+A cascade classifier can be understood as a pre-trained model file prepared by OpenCV for visual recognition.
 
-比如要在一张有人和猫的图片中检测人的眼睛，那么需要识别猫和人，猫有4条腿，人有2条腿，用不同的这个腿数量分类器来区分人或猫。接着在人体中可以再通过第2个分类器来区分眼睛和耳朵，从而实现检测眼睛目标。这里用到了2个分离器，将这些分类器按特定顺序串连起来，就成了一个 **级联分类器**。
+For example, to detect human eyes in an image containing both people and cats, you need to recognize both cats and humans. Cats have 4 legs, and humans have 2 legs. Different classifiers based on the number of legs are used to distinguish between humans and cats. Then, within the human body, a second classifier can distinguish between eyes and ears, thereby achieving the goal of detecting eyes. Here, 2 classifiers are used. Connecting these classifiers in a specific sequence forms a **cascade classifier**.
 
-## 级联分类器文件路径
+## Cascade Classifier File Path
 
-OpenCV官方提供一些级联分类器文件，核桃派通过pip安装后位于以下目录，以xml结尾的就是：
+OpenCV officially provides some cascade classifier files. After installing via pip on WalnutPi, they are located in the following directory, with files ending in xml:
 
 ```bash
 /home/pi/.local/lib/python3.11/site-packages/cv2/data
@@ -18,46 +18,46 @@ OpenCV官方提供一些级联分类器文件，核桃派通过pip安装后位�
 
 ![haar_cascade](./img/haar_cascade/haar_cascade1.png) 
 
-也可以在github上获取：https://github.com/opencv/opencv/tree/4.x/data/haarcascades
+They can also be obtained on GitHub: https://github.com/opencv/opencv/tree/4.x/data/haarcascades
 
-下面是这些常用的级联分类器说明：
+Below are descriptions of these commonly used cascade classifiers:
 
-- `haarcascade_fullbody.xml`: 人体检测；
-- `haarcascade_upperbody.xml`: 上半身检测；
-- `haarcascade_lowerbody.xml`: 下半身检测；
-- `haarcascade_frontalface_default.xml`: 正面人脸检测；
-- `haarcascade_profileface.xml`: 侧面人脸检测；
-- `haarcascade_eye.xml`: 眼睛检测；
-- `haarcascade_lefteye_2splits.xml`: 左眼检测；
-- `haarcascade_righteye_2splits.xml`: 右眼检测；
-- `haarcascade_eye_tree_eyeglasses.xml`: 眼镜检测；
-- `haarcascade_smile.xml`: 笑容检测；
-- `haarcascade_frontalcatface.xml`: 正面猫脸检测；
-- `haarcascade_russian_plate_number.xml`: 车牌检测；
+- `haarcascade_fullbody.xml`: Human body detection;
+- `haarcascade_upperbody.xml`: Upper body detection;
+- `haarcascade_lowerbody.xml`: Lower body detection;
+- `haarcascade_frontalface_default.xml`: Frontal face detection;
+- `haarcascade_profileface.xml`: Profile face detection;
+- `haarcascade_eye.xml`: Eye detection;
+- `haarcascade_lefteye_2splits.xml`: Left eye detection;
+- `haarcascade_righteye_2splits.xml`: Right eye detection;
+- `haarcascade_eye_tree_eyeglasses.xml`: Eyeglasses detection;
+- `haarcascade_smile.xml`: Smile detection;
+- `haarcascade_frontalcatface.xml`: Frontal cat face detection;
+- `haarcascade_russian_plate_number.xml`: License plate detection;
 
-## 使用方法
+## Usage
 
-级联分类器的使用方法比较简单，只需要加载级联分类器和使用分类器识别图像即可。
+Using cascade classifiers is relatively simple. You only need to load the cascade classifier and use it to recognize the image.
 
-### 加载级联分类器
+### Loading a Cascade Classifier
 
 ```python
 <CascadeClassifier object> = cv2.CascadeClassifier(filename)
 ```
-返回分类器对象。
-- `filename`: 级联分类器XML文件；
+Returns the classifier object.
+- `filename`: Cascade classifier XML file;
 
-### 使用分类器识别对象
+### Using the Classifier to Recognize Objects
 
 ```python
 objects = cascade.detectMultiScale(image, scaleFactor, minNeighbors, flags, minSize, maxSize)
 ```
-返回objects为目标区域数组。每个目标包含4个值，分别是：左上角横坐标，左上角纵坐标，宽度，高度。
-- `image`:待识别的图像；
-- `scaleFactor`: 扫描图像时缩放比例（可选参数）；
-- `minNeighbors`: 该值越大，分析误差越小（可选参数）；
-- `flags`: 使用默认值（可选参数）；
-- `minSize`: 最小目标尺寸（可选参数）；
-- `maxSize`: 最大目标尺寸（可选参数）；
+Returns objects as an array of target regions. Each target contains 4 values: top-left x-coordinate, top-left y-coordinate, width, height.
+- `image`: The image to be recognized;
+- `scaleFactor`: Scale factor when scanning the image (optional parameter);
+- `minNeighbors`: The larger this value, the smaller the analysis error (optional parameter);
+- `flags`: Use default value (optional parameter);
+- `minSize`: Minimum target size (optional parameter);
+- `maxSize`: Maximum target size (optional parameter);
 
-在接下来内容中我们会用到上面的级联分类器实现各种场景视觉识别。
+In the following content, we will use the above cascade classifiers to implement visual recognition in various scenarios.

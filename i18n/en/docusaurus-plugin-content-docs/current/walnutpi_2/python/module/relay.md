@@ -2,130 +2,129 @@
 sidebar_position: 1
 ---
 
-# 继电器
+# Relay
 
-## 前言
-我们知道核桃派开发板GPIO输出的电平是3.3V的，这是不能直接控制一些高电压的设备，比如电灯（220V）。这时候就可以使用我们常用的低压控制高压模块—继电器。
+## Introduction
+We know that the GPIO output level of the Walnut Pi development board is 3.3V, which cannot directly control high-voltage devices such as light bulbs (220V). In this case, we can use a commonly used low-voltage control high-voltage module — the relay.
 
-## 实验目的
-使用按键控制继电器通断。
+## Experiment Objective
+Use a button to control relay on/off.
 
-## 实验讲解
+## Experiment Explanation
 
-下图是一款常用的继电器模块，左侧低压控制接口主要有供电引脚和信号控制引脚（供电电压一般为3.3V，具体以厂家参数为准）。右侧蓝色为高压部分，可连接220V电器。
-:::tip 提示
+The image below shows a commonly used relay module. The left low-voltage control interface mainly includes power pins and signal control pins (supply voltage is generally 3.3V, subject to manufacturer specifications). The right blue section is the high-voltage part, which can connect to 220V appliances.
+:::tip
 
-建议使用3.3V电平控制的继电器，因为核桃派GPIO输出为3.3V，使用5V控制的继电器操作不当可能会烧坏核桃派开发板。
+It is recommended to use a relay with 3.3V level control, because the Walnut Pi GPIO output is 3.3V. Using a 5V-controlled relay improperly may damage the Walnut Pi development board.
 
 :::
 
-![relay1](./img/relay/relay1.png) 
+![relay1](./img/relay/relay1.png)
 
-下图为电器连接示意图，左侧为低压控制部分，右侧为高压控制部分 **(接线注意用电安全)**：
+The image below shows the appliance connection diagram — left side is the low-voltage control part, right side is the high-voltage control part **(pay attention to electrical safety when wiring)**:
 
-![relay2](./img/relay/relay2.png) 
+![relay2](./img/relay/relay2.png)
 
 
-继电器跟前面gpio章节LED的操作方式类似，只需要将模块信号引脚连接到核桃派，然后通过编程控制核桃派GPIO引脚高低电平变化即可控制继电器，从而控制高压开关通断。
+The relay operates similarly to the LED in the previous GPIO chapters. Simply connect the module signal pin to the Walnut Pi, then program to control the high/low level changes of the Walnut Pi GPIO pin to control the relay, thereby controlling the high-voltage switch on/off.
 
-## digitalio对象
+## digitalio Object
 
-在CircuitPython中可以直接使用 digitalio（数字 IO）模块编程实现IO输入从而实现按键的输入电平检测。具体介绍如下表：
+In CircuitPython, you can directly use the digitalio module to program I/O input for detecting the input level. Details are as follows:
 
-### 构造函数
+### Constructor
 ```python
 relay=digitalio.DigitalInOut(pin)
 ```
-参数说明：
-- `pin` 开发板引脚编号。例：board.PB6
+Parameter description:
+- `pin` Development board pin number. Example: board.PB6
 
-### 使用方法
+### Usage
 ```python
 relay.direction = value
 ```
-引脚定义输入/输出。value匹配值如下：
-- `digitalio.Direction.INPUT` ：输入。
-- `digitalio.Direction.OUTPUT` ：输出。
+Defines pin as input/output. Value options:
+- `digitalio.Direction.INPUT` : Input.
+- `digitalio.Direction.OUTPUT` : Output.
 
 <br></br>
 
 ```python
 relay.pull = value
 ```
-设置上下拉电阻。value匹配值如下：
-- `digitalio.Pull.UP` :上拉。  
-- `digitalio.Pull.DOWN` :下拉。  
+Set pull-up/pull-down resistor. Value options:
+- `digitalio.Pull.UP` : Pull-up.
+- `digitalio.Pull.DOWN` : Pull-down.
 
 <br></br>
 
 ```python
 relay.value = value
 ```
-GPIO输出值。value匹配值如下：
-- `True` 或 `1` ：高电平。
-- `False` 或 `0` ：低电平。
+GPIO output value. Value options:
+- `True` or `1` : High level.
+- `False` or `0` : Low level.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, please refer to the official documentation:<br></br>
 https://docs.circuitpython.org/en/latest/shared-bindings/digitalio/index.html
 
 
-在本实验中我们通过按键来实现继电器通断，按一下打开，再按一下关闭，如此循环。代码编写流程图如下：
+In this experiment, we use a button to control relay on/off: press once to turn on, press again to turn off, and repeat. The code flow chart is as follows:
 
 ```mermaid
 graph TD
-    导入digitalio相关模块-->构建relay和key对象-->按键按下-->打开继电器-->按键再次按下-->关闭继电器-->按键按下;
+    Import-digitalio-related-modules-->Build-relay-and-key-objects-->Button-pressed-->Turn-on-relay-->Button-pressed-again-->Turn-off-relay-->Button-pressed;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：继电器
-实验平台：核桃派2B
+Experiment Name: Relay
+Experiment Platform: Walnut Pi 2B
 '''
 
-#导入相关模块
+# Import related modules
 import board,time
 from digitalio import DigitalInOut, Direction, Pull
 
-#构建继电器对象和初始化
-relay = DigitalInOut(board.PB6) #定义引脚编号
-relay.direction = Direction.OUTPUT  #IO为输出
-relay.value = 1 #初始化关闭继电器
+# Build relay object and initialize
+relay = DigitalInOut(board.PB6) # Define pin number
+relay.direction = Direction.OUTPUT  # IO as output
+relay.value = 1 # Initialize relay to off
 
-#构建按键对象和初始化
-switch = DigitalInOut(board.KEY) #定义引脚编号
-switch.direction = Direction.INPUT #IO为输入
+# Build key object and initialize
+switch = DigitalInOut(board.KEY) # Define pin number
+switch.direction = Direction.INPUT # IO as input
 
-state = 1 #继电器初始状态，高电平关闭
+state = 1 # Relay initial state, high level means off
 
 while True:
 
-    if switch.value == 0: #按键被按下
-        time.sleep(0.01) #延时10ms消抖
-        if switch.value == 0: #按键被按下
-            state = not state #状态翻转
-            relay.value = state #改变继电器状态
+    if switch.value == 0: # Button pressed
+        time.sleep(0.01) # Delay 10ms debounce
+        if switch.value == 0: # Button pressed
+            state = not state # Toggle state
+            relay.value = state # Change relay state
             
-            #等待按键释放
+            # Wait for button release
             while switch.value ==0:
                 pass
 ```
 
-## 实验结果
+## Experiment Results
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../python_run.md)
+Here we use Thonny to remotely run the above Python code on the Walnut Pi. For instructions on running Python code on the Walnut Pi, please refer to: [Running Python Code](../python_run.md)
 
-![relay3](./img/relay/relay3.png) 
+![relay3](./img/relay/relay3.png)
 
-当传感器检测到有人时候，蓝灯亮。
+When the sensor detects a person, the blue LED lights up.
 
-![relay4](./img/relay/relay4.png) 
+![relay4](./img/relay/relay4.png)
 
-没人时候蓝灯熄灭。
+When no person is detected, the blue LED turns off.
 
-![relay5](./img/relay/relay5.png) 
-
+![relay5](./img/relay/relay5.png)
 

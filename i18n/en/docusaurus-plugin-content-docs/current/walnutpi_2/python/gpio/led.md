@@ -2,138 +2,138 @@
 sidebar_position: 3
 ---
 
-# 点亮第1个LED
+# Lighting the First LED
 
-## 前言
-相信大部分人开始学习嵌入式单片机编程都会从点亮LED开始，我们核桃派的学习也不例外，通过点亮第一个LED能让你对核桃派GPIO应用和编程方法有一定的认识，为以后的学习和更大型的程序打下基础，增加信心。
+## Introduction
+It's believed that most people start learning embedded MCU programming by lighting an LED, and learning on the Walnut Pi is no exception. Lighting the first LED will give you a certain understanding of Walnut Pi GPIO applications and programming methods, laying the foundation for future learning and larger programs while boosting confidence.
 
-## 实验目的
-点亮板载LED蓝灯。
+## Experiment Objective
+Light up the onboard blue LED.
 
-## 实验讲解
+## Experiment Explanation
 
-核桃派板载一个可编程LED，位于按键旁边：
+The Walnut Pi has an onboard programmable LED, located next to the button:
 ![led1](./img/led/led1.png)
 
-从核桃派原理图可以看到LED连接到主控引脚PC13,通过输出高电平点亮：
+From the Walnut Pi schematic, we can see that the LED is connected to the main control pin PC13, which lights up when outputting a high level:
 ![led2](./img/led/led2.png)
 
-由于我们使用的是Python库，只需要知道库引脚名称即可。
+Since we are using a Python library, we only need to know the library pin name.
 
-我们可以在终端通过python指令查看引脚编号。
+We can check the pin number through Python commands in the terminal.
 
-在终端输入python进入Python交互:
+Enter python in the terminal to start Python interactive mode:
 ```bash
 python
 ```
 
-然后输入：
+Then enter:
 ```python
 import board
 ```
-再输入：
+Then enter:
 ```python
 board.
 ```
-按键盘Tab键即可补全看到所有核桃派Python库引脚名称。
+Press the Tab key to autocomplete and see all Walnut Pi Python library pin names.
 
-LED在Python库中的名称为**board.LED** :
+The LED's name in the Python library is **board.LED**:
 
 ![led3](./img/led/led3.png)
 
-## digitalio对象
+## digitalio Object
 
-在CircuitPython中可以直接使用 digitalio（数字 IO）模块编程实现IO输出从而点亮LED功能。具体介绍如下表：
+In CircuitPython, you can directly use the digitalio module to program I/O output to light up the LED. Details are as follows:
 
-### 构造函数
+### Constructor
 ```python
 led=digitalio.DigitalInOut(pin)
 ```
-参数说明：
-- `pin` 开发板引脚编号。例：board.LED, board.PB6
+Parameter description:
+- `pin` Development board pin number. Example: board.LED, board.PB6
 
-### 使用方法
+### Usage
 ```python
 led.direction = value
 ```
-引脚定义输入/输出。value匹配值如下：
-- `digitalio.Direction.INPUT` ：输入。
-- `digitalio.Direction.OUTPUT` ：输出。
+Defines pin as input/output. Value options:
+- `digitalio.Direction.INPUT` : Input.
+- `digitalio.Direction.OUTPUT` : Output.
 
 <br></br>
 
 ```python
 led.pull = value
 ```
-设置上下拉电阻。value匹配值如下：
-- `digitalio.Pull.UP` :上拉。  
-- `digitalio.Pull.DOWN` :下拉。  
+Set pull-up/pull-down resistor. Value options:
+- `digitalio.Pull.UP` : Pull-up.
+- `digitalio.Pull.DOWN` : Pull-down.
 
 <br></br>
 
 ```python
 led.value = value
 ```
-GPIO输出值。value匹配值如下：
-- `True` 或 `1` ：高电平。
-- `False` 或 `0` ：低电平。
+GPIO output value. Value options:
+- `True` or `1` : High level.
+- `False` or `0` : Low level.
 
 <br></br>
 
-更多用法请阅读官方文档：<br></br>
+For more usage, please refer to the official documentation:<br></br>
 https://docs.circuitpython.org/en/latest/shared-bindings/digitalio/index.html
 
-上面对CircuitPython的DigitalInOut对象做了详细的说明，digitalio是大模块，DigitalInOut、Direction、Pull、DriveMode是digitalio下面的其中一个小模块，在python编程里有两种方式引用相关模块:
+The above describes CircuitPython's DigitalInOut object in detail. digitalio is the main module, and DigitalInOut, Direction, Pull, DriveMode are submodules under digitalio. In Python programming, there are two ways to reference related modules:
 
-- 方式1是：import digitalio，然后通过digitalio.DigitalInOut来操作；
-- 方式2是：from digitalio import DigitalInOut,意思是直接从digitalio中引入DigitalInOut模块，然后直接通过DigitalInOut来操作。显然方式2会显得更直观和方便，本实验也是使用方式2来编程。代码编写流程如下：
+- Method 1: import digitalio, then operate via digitalio.DigitalInOut;
+- Method 2: from digitalio import DigitalInOut, meaning directly import the DigitalInOut module from digitalio and then operate directly via DigitalInOut. Method 2 is clearly more intuitive and convenient. This experiment also uses Method 2 for programming. The code flow is as follows:
 
 ```mermaid
 graph TD
-    导入digitalio相关模块-->构建LED对象;
-    构建LED对象-->点亮LED;
+    Import-digitalio-related-modules-->Build-LED-object;
+    Build-LED-object-->Light-up-LED;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：点亮第1个LED
-实验平台：核桃派
+Experiment Name: Lighting the First LED
+Experiment Platform: Walnut Pi
 '''
 
-#导入相关模块
+# Import related modules
 import board
 from digitalio import DigitalInOut, Direction
 
-#构建LED对象和初始化
-led = DigitalInOut(board.LED) #定义引脚编号
-led.direction = Direction.OUTPUT  #IO为输出
+# Build LED object and initialize
+led = DigitalInOut(board.LED) # Define pin number
+led.direction = Direction.OUTPUT  # IO as output
 
-led.value = 1 #输出高电平，点亮板载LED蓝灯
+led.value = 1 # Output high level, light up onboard blue LED
 
-#led.value = 0 #输出低电平，熄灭板载LED蓝灯
+#led.value = 0 # Output low level, turn off onboard blue LED
 ```
 
-## 实验结果
+## Experiment Results
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../python_run.md)
+Here we use Thonny to remotely run the above Python code on the Walnut Pi. For instructions on running Python code on the Walnut Pi, please refer to: [Running Python Code](../python_run.md)
 
 ![led4](./img/led/led4.png)
 
 
-LED被点亮，不过核桃派的蓝灯默认做了系统启动指示灯（成功启动蓝灯亮），所以看不出效果。
+The LED is lit. However, the Walnut Pi's blue LED is used as a system startup indicator by default (blue LED lit when system starts successfully), so the effect may not be noticeable.
 
 ![led5](./img/led/led5.png)
 
-可以修改代码将led熄灭：
+You can modify the code to turn off the LED:
 ```python
-led.value = 0 #输出低电平，熄灭板载LED蓝灯
+led.value = 0 # Output low level, turn off onboard blue LED
 ```
 ![led6](./img/led/led6.png)
 
-除了使用板载LED外，你也可以自己搭建电路，注意修改代码中的GPIO引脚编号即可。
+Besides using the onboard LED, you can also build your own circuit. Just modify the GPIO pin number in the code accordingly.
 
 ![led7](./img/led/led7.png)
 
-从第一个实验我们可以看到，使用Python来开发核桃派硬件是要学会python库的构造函数和其使用方法，便可通过编程对相关对象的操作，在强大的Python库支持下，实验只用了简单的几行代码便实现了点亮LED灯。
+From this first experiment, we can see that using Python to develop Walnut Pi hardware requires learning the constructor and usage of Python libraries, enabling programming operations on related objects. With the support of powerful Python libraries, the experiment only needed a few lines of code to light up the LED.

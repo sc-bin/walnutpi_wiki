@@ -2,38 +2,35 @@
 sidebar_position: 8
 ---
 
-# SSH远程终端
+# SSH Remote Terminal
 
-熟悉指令用户可以对已经联网的核桃派进行局域网SSH远程终端控制，方便使用自己的PC对核桃派远程进行各种指令操作。
+Users familiar with command-line operations can perform LAN-based SSH remote terminal control on a networked Walnut Pi, allowing convenient remote command operations on the Walnut Pi from your PC.
 
-- `普通用户（默认）` 账号：pi ; 密码：pi
-- `管理员账户` 账号：root ; 密码：root
+- `Normal User (Default)` Username: pi ; Password: pi
+- `Root Account` Username: root ; Password: root
 
-在这之前你需要将核桃派通过**网线**或者参考下一节[WiFi连接](../os_software/wifi)章节内容将核桃派连接到路由器。保证核桃派和你的电脑在同一个 网段下（通常指连接到同一个路由器下）。
+Before this, you need to connect the Walnut Pi to the router via an **Ethernet cable** or by following the [WiFi Connection](../os_software/wifi) section. Ensure the Walnut Pi and your computer are on the same subnet (i.e., connected to the same router).
 
-先使通过HDMI显示器或者串口方式用下方指令获取核桃派当前IP地址：
+First, obtain the Walnut Pi's current IP address via an HDMI display or serial connection using the following command:
 ```bash
 sudo ifconfig
 ```
-eth0表示以太网接口，wlan0表示WiFi连接，连接成功下方会有IP地址。
+eth0 indicates the Ethernet interface, and wlan0 indicates the WiFi connection. When connected, the IP address will be displayed below.
 
 ![ssh1](./img/ssh/ssh1.png)
 
-这里使用putty软件演示（你可以使用其它带ssh功能的软件工具）:
+We'll use PuTTY for demonstration (you can use any other SSH-capable software):
 
 ![ssh2](./img/ssh/ssh2.png)
 
-选择的是ssh，然后输入核桃派IP地址，端口默认22。
+Select SSH, then enter the Walnut Pi's IP address. The default port is 22.
 
 ![ssh3](./img/ssh/ssh3.png)
 
-弹出信任直接选择是即可。
+When the trust prompt appears, simply select Yes.
 
 ![ssh4](./img/ssh/ssh4.png)
 
-然后出现账号密码输入提示，普通用户账户密码都输入"pi"即可。登录成功就就出现核桃派终端相关信息。
+You will then see a login prompt. Enter "pi" for both username and password. Upon successful login, the Walnut Pi terminal information will appear.
 
 ![ssh5](./img/ssh/ssh5.png)
-
-
-

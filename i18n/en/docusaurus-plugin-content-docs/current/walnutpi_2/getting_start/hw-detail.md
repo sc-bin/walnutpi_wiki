@@ -2,143 +2,143 @@
 sidebar_position: 2
 ---
 
-# 硬件详解
+# Hardware Details
 
-对核桃派2B各部分硬件详细讲解。
+A detailed explanation of the hardware components of the Walnut Pi 2B.
 
 
 ## CPU
 
-跟普通电脑一样，核桃派硬件是由众多组件组成，每个组件都为其整体运行扮演重要角色，首先来看看CPU。核桃派2B使用全志T527 八核高性能Cortex-A55处理器，主频可达1.8GHz。
+Just like a regular computer, the Walnut Pi hardware is made up of many components, each playing an important role in its overall operation. Let's start with the CPU. The Walnut Pi 2B uses the Allwinner T527 octa-core high-performance Cortex-A55 processor with a clock speed up to 1.8GHz.
 
-:::tip 提示：
-T527有2个版本，分别是`M02X0DCH`和`M00X0DCH`，其中`M02X0DCH`表示带2TOPs算力版本。核桃派2B使用的为`M02X0DCH`，即带2TOPs算力。
-:::
+::::tip Note:
+The T527 comes in two variants: `M02X0DCH` and `M00X0DCH`. `M02X0DCH` indicates the version with 2 TOPS AI computing power. The Walnut Pi 2B uses the `M02X0DCH` variant, which has 2 TOPS of computing power.
+::::
 
 ![cpu](./img/hw-detail/cpu.png)
 
 
-## RAM（内存）
+## RAM (Memory)
 
-在 CPU 旁边有1个黑色矩形芯片（下图所示）。这就是核桃派的随机存储器（RAM），也就是我们常说的内存。
+Next to the CPU is a black rectangular chip (shown below). This is the Walnut Pi's Random Access Memory (RAM).
 
-当你使用核桃派时，RAM在保持你的使用和运行，只有当你保存相关文件时才会保存到 microSD 卡或者EMMC储存介质。这些组件在一起形成核桃派的易失性和非易失性记忆：RAM 是掉电不保存，而 microSD卡和EMMC是掉电保存的。
+When you use the Walnut Pi, RAM holds your active operations and running processes. Files are only saved to the MicroSD card or EMMC storage when you explicitly save them. Together, these components form the Walnut Pi's volatile and non-volatile memory: RAM is lost when power is removed, while the MicroSD card and EMMC retain data after power-off.
 
-**核桃派2B提供1/2/4GB内存选择。（T527最大支持4G内存）**
+**The Walnut Pi 2B offers 1/2/4GB RAM options. (The T527 supports up to 4GB of RAM.)**
 
 ![ram](./img/hw-detail/ram.png)
 
-## EMMC（闪存）
+## EMMC (Flash Storage)
 
-EMMC闪存可以简单理解成电脑的“硬盘”，可以存放操作系统或者文件。掉电是保存的。功能和MicroSD卡一样，速度比MicroSD卡快。
+EMMC flash storage can be thought of as the computer's "hard drive" — it stores the operating system and files, and retains data after power-off. Its function is similar to a MicroSD card but with faster speeds.
 
-**核桃派2B的EMMC是选配，默认32GB容量**
+**The EMMC on the Walnut Pi 2B is optional, with a default capacity of 32GB.**
 
 ![emmc](./img/hw-detail/emmc.png)
 
 
-## MicroSD卡槽
+## MicroSD Card Slot
 
-microSD卡连接器在核桃派2B的背部。这是核桃派的存储：插入这里的 microSD卡包含核桃派所有保存的文件、所有安装的软件和运行的操作系统。
+The MicroSD card slot is located on the back of the Walnut Pi 2B. This is the board's storage: the MicroSD card inserted here contains all saved files, installed software, and the running operating system.
 
-**microSD卡最大支持容量为512GB**
+**The MicroSD card supports a maximum capacity of 512GB.**
 
 ![ram](./img/hw-detail/sd.png)
 
 
 ## PCIe
 
-核桃派2B提供PCIe 2.1接口，可通过扩展板外接固态硬盘等兼容PCIe标准的设备。
+The Walnut Pi 2B features a PCIe 2.1 interface, which can be used to connect PCIe-compliant devices such as SSDs via an expansion board.
 
 ![pcie](./img/hw-detail/pcie.png)
 
 
-## WiFi和蓝牙
+## WiFi and Bluetooth
 
-在核桃派的左上角，你会发现一个金属屏蔽罩。这是无线模块，实际由两部分组成，分别是 WiFi 和蓝牙。WiFi用于连接到无线网络；而蓝牙则可以用于连接外设比如蓝牙键盘鼠标，也可以向附近的传感器或智能手机等设备发送数据。
+In the upper-left corner of the Walnut Pi, you will find a metal shielding cover. This is the wireless module, which consists of two parts: WiFi and Bluetooth. WiFi is used to connect to wireless networks, while Bluetooth can be used to connect to peripherals such as Bluetooth keyboards and mice, or to send data to nearby sensors or devices like smartphones.
 
-**核桃派2B无线模块支持双频WiFi(2.4G和5G)以及蓝牙5.0。板载双频陶瓷天线，无需外接天线。同时预留ipex4天线座，有需要用户可以焊接0R电阻切换。**
+**The Walnut Pi 2B wireless module supports dual-band WiFi (2.4G and 5G) and Bluetooth 5.0. It features onboard dual-band ceramic antennas—no external antenna is required. An ipex4 antenna connector is also reserved; users needing an external antenna can solder 0Ω resistors to switch.**
 
 ![ram](./img/hw-detail/wireless.png)
 
 
 ## USB
 
-核桃派有4个标准 USB 2.0和1个USB3.0接口。其中3个以USB-A母座接口引出（如下图），还有1个位于供电接口的type-c(可以通过type-c拓展坞拓展引出)，这些可以连接各种USB外围设备，包括键盘、鼠标、USB摄像头、U盘等。
+The Walnut Pi has 4 standard USB 2.0 ports and 1 USB 3.0 port. Three are exposed as USB-A female connectors (as shown below), and the fourth is the Type-C power port (which can be expanded via a Type-C hub). These can connect various USB peripherals, including keyboards, mice, USB cameras, flash drives, and more.
 
-**USB母座黑色是USB2.0，蓝色是USB3.0。**
+**Black USB connectors are USB 2.0; the blue connector is USB 3.0.**
 
 ![ram](./img/hw-detail/usb.png)
 
 
-## 以太网
+## Ethernet
 
-核桃派2B板载千兆以太网口（10M/100M/1000M自适应），你可以用一根网线将核桃派连接到有线计算机网络（路由器 LAN 网口）。如果仔细观察以太网端口，您会在底部看到两个发光二极管（LED）,这些是状态 LED，让您知道该网络连接正在工作。
+The Walnut Pi 2B has an onboard Gigabit Ethernet port (10M/100M/1000M auto-negotiation). You can connect the Walnut Pi to a wired computer network (router LAN port) using an Ethernet cable. If you look closely at the Ethernet port, you will see two Light Emitting Diodes (LEDs) at the bottom — these are status LEDs that let you know the network connection is active.
 
-:::tip 提示
-连接百兆以太网线指示灯状态：绿灯常亮，黄灯闪烁；<br></br>
-连接千兆以太网线指示灯状态：绿灯闪烁，黄灯常亮。
-:::
+::::tip Note
+100M Ethernet connection indicator status: green LED steady on, yellow LED blinking;<br></br>
+1000M Ethernet connection indicator status: green LED blinking, yellow LED steady on.
+::::
 
-**预留PoE接口，可以通过搭配PoE电源模块供电，需要路由器具备PoE功能。**
+**A PoE interface is reserved, allowing power delivery via a PoE power module (requires a PoE-capable router).**
 
 ![ram](./img/hw-detail/ethernet.png)
 
 
-## 音频接口
+## Audio Interface
 
-核桃派2B背面预留一个音频FPC座，可以通过转接板转成3.5mm音频座，也就是常见的耳机插孔。可以用于连接耳机或扬声器得到更强大的声音。
+The back of the Walnut Pi 2B has an audio FPC connector, which can be adapted to a 3.5mm audio jack (the common headphone jack) using an adapter board. This can be used to connect headphones or speakers for louder sound output.
 
 ![ram](./img/hw-detail/audio1.png)
 
 
 ## HDMI
 
-核桃派2B拥有1个高清多媒体接口(HDMI 2.0)端口，支持4K@60fps。板载microHDMI接口，通常情况下你需要使用microHDMI转标准HDMI线缆连接到显示器。
+The Walnut Pi 2B has 1 High-Definition Multimedia Interface (HDMI 2.0) port, supporting 4K@60fps. It uses an onboard micro HDMI connector; you will typically need a micro HDMI to standard HDMI cable to connect to a display.
 
 ![ram](./img/hw-detail/hdmi.png)
 
 ## MIPI CSI
 
-核桃派2B拥有1 MIPI CSI接口（1x4 lane CSI，兼容2 lane）。可外接CSI摄像头设备。
+The Walnut Pi 2B has 1 MIPI CSI interface (1x4 lane CSI, 2 lane compatible), which can connect external CSI camera devices.
 
 ![ram](./img/hw-detail/csi.png)
 
 ## MIPI DSI
 
-核桃派2B拥有1 MIPI DSI接口（1x4 lane CSI，兼容2 lane）。可外接MIPI显示屏，支持1080P@60fps。
+The Walnut Pi 2B has 1 MIPI DSI interface (1x4 lane DSI, 2 lane compatible), which can connect external MIPI displays, supporting 1080P@60fps.
 
 ![ram](./img/hw-detail/dsi.png)
 
 
-## 红外接收器
+## IR Receiver
 
-核桃派2B板载红外接收头1个。
+The Walnut Pi 2B has 1 onboard infrared receiver.
 
 ![ir](./img/hw-detail/ir.png)
 
 
-## 按键和LED
+## Button and LED
 
-核桃派2B板载可编程按键和LED各1个。
+The Walnut Pi 2B has 1 programmable button and 1 programmable LED onboard.
 
 ![ram](./img/hw-detail/key_led.png)
 
 
 ## GPIO
 
-核桃派上方有个40P金属引脚（排针），分成两行，每行20个排针。这是GPIO(通用输入/输出)排针，这些引脚用于连接LED、按钮到传感器、操纵杆和脉搏率监控器等其他硬件进行通信。也就是我们常说的单片机IO口。
+The top of the Walnut Pi features a 40-pin metal header (pin header), arranged in two rows of 20 pins each. This is the GPIO (General Purpose Input/Output) header. These pins are used to connect and communicate with hardware such as LEDs, buttons, sensors, joysticks, pulse rate monitors, and more—essentially what we commonly refer to as microcontroller I/O pins.
 
-核桃派使用彩色40P排针，方便接线，避免误接短路。
+The Walnut Pi uses a color-coded 40-pin header for easier wiring and to prevent misconnection or short circuits.
 ![ram](./img/hw-detail/gpio.png)
 
-## 串口调试口
+## Serial Debug Port
 
-核桃派引出了串口调试口，可以通过USB转TTL串口工具连接，使用putty等工具查看调试信息或登录系统控制台。
+The Walnut Pi exposes a serial debug port, which can be connected using a USB-to-TTL serial adapter. Tools such as PuTTY can then be used to view debug information or log into the system console.
 ![ram](./img/hw-detail/debug.png)
 
-## 电源管理
+## Power Management
 
-在核桃派方的Type-C 母座上方看到一个小芯片， 这是电源处理芯片（PMC），可以处理将Type-C端口输入的电源转换为核桃派工作需要的电源。核桃派2B要求电源输入5V，电流3A以上。
+Above the Walnut Pi's Type-C connector, you can see a small chip. This is the Power Management IC (PMIC), which converts the power input from the Type-C port into the voltages needed for the Walnut Pi to operate. The Walnut Pi 2B requires a 5V power input with a current of 3A or higher.
 
 ![ram](./img/hw-detail/pmc.png)

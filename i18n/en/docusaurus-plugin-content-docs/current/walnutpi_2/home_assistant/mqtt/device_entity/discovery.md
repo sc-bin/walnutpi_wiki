@@ -1,33 +1,33 @@
 ---
 sidebar_position: 1
 ---
-# 发现设备和实体
+# Discovering Devices and Entities
 
-MQTT设备的发现可以让我们免去过多的配置工作就可以直接使用特定的额MQTT设备，这种配置方式是通过MQTT主题和内容实现的。简单来说就是比如有一个灯设备，这个设备往MQTT服务器发送一个特定的主题（topic）和内容（message），Home Assistant接收到相关信息后自动配置该设备和实体信息。
+MQTT device discovery allows us to use specific MQTT devices directly without excessive configuration. This configuration method works through MQTT topics and payloads. In simple terms, if there is a light device that publishes a specific topic and payload to the MQTT server, Home Assistant receives the relevant information and automatically configures the device and entity.
 
-为了避免重复，每个实体需要有唯一的标识符来区分。也就是说不同设备和实体的MQTT主题和内容需要遵循特定的格式。
+To avoid duplication, each entity must have a unique identifier. This means that the MQTT topics and payloads of different devices and entities must follow a specific format.
 
-## 主题格式
+## Topic Format
 
-这个是指MQTT的主题topic。
+This refers to the MQTT topic.
 
 ```
 <discovery_prefix>/<component>/[<node_id>/]<object_id>/config
 ```
-- `<discovery_prefix>`: 发现的前缀默认为 homeassistant
-- `<component>`: MQTT集成里面预定义好的元件，例如：light
-- `<node_id>`（可选）: 提供主题的节点的 ID，一般不使用。节点的 ID 只能包含字符类中的字符`[a-zA-Z0-9_-]`（字母数字、下划线和连字符）。
-- `<object_id>`: 实体的ID，需要唯一，只能包含字符类中的字符`[a-zA-Z0-9_-]`（字母数字、下划线和连字符）。
+- `<discovery_prefix>`: The discovery prefix, defaults to homeassistant
+- `<component>`: One of the predefined components in the MQTT integration, e.g., light
+- `<node_id>` (optional): The ID of the node providing the topic. Generally not used. The node ID can only contain characters from the character class `[a-zA-Z0-9_-]` (alphanumeric, underscore, and hyphen).
+- `<object_id>`: The entity ID, must be unique, can only contain characters from `[a-zA-Z0-9_-]` (alphanumeric, underscore, and hyphen).
 
-例：`homeassistant/light/picow1_led/config` , 可表示核桃派PicoW(核桃派MCU开发板)上的一个led, 组件类型为light。
+Example: `homeassistant/light/picow1_led/config` could represent an LED on the WalnutPi PicoW (WalnutPi MCU board), with component type light.
 
-更多内容请参考官方文档：https://www.home-assistant.io/integrations/mqtt#mqtt-discovery
+For more information, refer to the official documentation: https://www.home-assistant.io/integrations/mqtt#mqtt-discovery
 
-## 消息格式
+## Payload Format
 
-这个消息是搭配上面的主题一起发送，主要是告诉主机当前实体和设备的相关信息。格式需要使用`json`类型，由于不同设备和实体信息不一样，而Home Assistant官方有非常多的组件，这里直接以例子举例方便了解，后续有需要用到不同组件查阅官方文档即可。
+The payload is sent together with the topic above to inform the host of the relevant information about the current entity and device. The format must be `json`. Since different devices and entities have different information, and Home Assistant officially has many components, we'll use an example to help understand. For future needs with different components, just refer to the official documentation.
 
-下面是注册一个实体和绑定设备：
+Below is an example of registering an entity and binding a device:
 
 ```json
 {
@@ -35,7 +35,7 @@ MQTT设备的发现可以让我们免去过多的配置工作就可以直接使�
     "device_class":"LIGHT",
     "command_topic":"picow1/light/led/state",
     "unique_id":"picow1_led",
-               
+
     "device":{
                 "identifiers":"picow_01",
                 "name":"picow1"
@@ -43,51 +43,51 @@ MQTT设备的发现可以让我们免去过多的配置工作就可以直接使�
 }
 ```
 
-### 实体
+### Entity
 
-- `name`: 实体名称，自定义填写；
-- `device_class`: 组件类型，跟前面主题配置信息相关，不能填错，比如这里的`LIGHT`是组件`light`下的一个可用实体；
-- `command_topic`: 用于注册实体后发布相关属性主题，比如灯的亮和灭状态，自定义，保证不同实体的主题不一样即可；
-- `unique_id`: 实体ID，自定义，务必保证每个实体唯一；
+- `name`: Entity name, can be customized;
+- `device_class`: Component type, related to the topic configuration above. Must not be wrong. For example, `LIGHT` here is a valid entity under the `light` component;
+- `command_topic`: Used to publish relevant attribute topics after registering the entity, such as the on/off state of a light. Can be customized; just make sure different entities have different topics;
+- `unique_id`: Entity ID, can be customized, must be unique for each entity;
 
-### 设备
+### Device
 
-告知Home Assistant实体对应的设备。
+Informs Home Assistant of the device corresponding to the entity.
 
-- `identifiers`: 识别标识符，每个设备唯一；
-- `name`: 设备名称，自定义；
+- `identifiers`: Identification identifier, unique per device;
+- `name`: Device name, can be customized;
 
-**可以将多个实体注册到同一个设备（注意配置主题要唯一）。** 例如：
+**Multiple entities can be registered to the same device (make sure the topics are unique).** For example:
 
-一个开发板（设备）有LED1灯（实体）和LED2灯（实体）。
+A development board (device) with LED1 (entity) and LED2 (entity).
 
-一个温湿度传感器（设备）有温度（实体）和湿度（实体）。
+A temperature/humidity sensor (device) with temperature (entity) and humidity (entity).
 
-:::tip 提示
-在Home Assistant里面实体是最小单元，允许用户只注册实体而不注册设备。但为了方便使用时候区分一般建议同时注册设备。
+:::tip Note
+In Home Assistant, entities are the smallest unit. Users are allowed to register only entities without registering a device. However, for ease of use and distinction, registering both the device and entities together is generally recommended.
 :::
 
-## 发现设备测试
+## Device Discovery Test
 
-我们使用MQTT助手来测试让Home Assistant主机发现一个实体和设备。
+We'll use the MQTT helper tool to test having the Home Assistant host discover an entity and device.
 
-使用MQTTX助手连接到核桃派MQTT服务器，参考：[MQTTX使用教程](../install.md#连接核桃派mqtt服务器并测试)。 
+Use MQTTX to connect to the WalnutPi MQTT server. See: [MQTTX Usage Tutorial](../install.md#connect-to-walnutpi-mqtt-server-and-test).
 
-数据格式选`json`，然后在发送栏输入：
+Select the data format as `json`, then enter in the send field:
 
-主题：
+Topic:
 ```
 homeassistant/light/picow1_led/config
 ```
 
-消息：
+Payload:
 ```json
 {
   "name": "led",
   "device_class": "LIGHT",
   "command_topic": "picow1_led/light/state",
   "unique_id": "picow1_led",
-  
+
   "device": {
             "identifiers": "picow_1",
             "name": "picow1"
@@ -95,31 +95,22 @@ homeassistant/light/picow1_led/config
 }
 ```
 
-输入后点击右下角发送按钮：
+After entering, click the send button at the bottom right:
 
 ![discovery](./img/discovery/discovery1.png)
 
-打开刚刚添加的MQTT集成：
+Open the MQTT integration you just added:
 
 ![discovery](./img/discovery/discovery2.png)
 
-可以看到多了1个设备和1个实体，这个页面是动态刷新的：
+You can see 1 new device and 1 new entity have appeared. This page refreshes dynamically:
 
 ![discovery](./img/discovery/discovery3.png)
 
-点击进去可以看到设备和实体的详细信息：
+Click to view detailed information about the device and entity:
 
 ![discovery](./img/discovery/discovery4.png)
 
 ![discovery](./img/discovery/discovery5.png)
 
-到这里我们搜索发现设备和实体成功了，详细的使用方法会在后面教程针对不同设备和实体进行讲解。
-
-
-
-
-
-
-
-
-
+We have successfully discovered devices and entities. Detailed usage will be explained in later tutorials for different devices and entities.

@@ -4,39 +4,39 @@ sidebar_position: 4
 
 # PWM
 
-本篇主要介绍如何使用板上的硬件PWM功能，基于linux下对pwm的通用操作方式
+This guide mainly introduces how to use the onboard hardware PWM functionality, based on the general Linux PWM operation method.
 
-需要管理员才能操作硬件pwm，这里先从用户pi切换到root用户
+Root privileges are required to operate hardware PWM. First, switch from user pi to root user:
 ```
 su root
 ```
 ![pwm_gpio_pin](./img/pwm/su_root.png)
 
-## 查看pwm引脚分布
-运行命令`gpio pin pwm`来查看有哪些引脚带硬件pwm功能
+## View PWM Pin Distribution
+Run the `gpio pin pwm` command to see which pins support hardware PWM:
 ```
 gpio pin pwm
 ```
 ![pwm_gpio_pin](./img/pwm/pwm_gpio_pin.png)
 
 
-## 切换引脚到pwm功能
-跟uart spi i2c那些功能不同，如果你想使用引脚的pwm功能，使用`set-device指令`关掉该引脚上的其他功能即可。（set-device更改完需要重启才能生效）
+## Switch Pin to PWM Function
+Unlike UART, SPI, I2C functions, if you want to use the PWM function of a pin, simply use the `set-device` command to disable other functions on that pin. (Changes made by set-device require a restart to take effect.)
 
-例如核桃派2b的引脚24（PI2）可作为pwm3、uart5_tx、spi1_cs0这3种功能，只要本次开机时没有启用uart5 和 spi1 ，那这个引脚24（PI2）就可以被设置为硬件pwm输出
+For example, pin 24 (PI2) of the Walnut Pi 2B can serve as pwm3, uart5_tx, or spi1_cs0. As long as uart5 and spi1 are not enabled during the current boot, this pin 24 (PI2) can be set as a hardware PWM output.
 
-## PWM控制方式
+## PWM Control Method
 
-### 1. 导出pwm的控制文件
-在路径 **/sys/class/pwm/** 下有着4个文件夹，与芯片本身的4个硬件pwm控制器相对应。将通道号写入到内部的**export**文件，即可生成对应pwm通道的控制文件。后面我们通过生成的这些文件来控制pwm的周期占空比等参数。
+### 1. Export PWM Control Files
+There are 4 folders under the path **/sys/class/pwm/**, corresponding to the 4 hardware PWM controllers of the chip. Write the channel number to the internal **export** file to generate the control file for the corresponding PWM channel. We will use these generated files later to control PWM parameters such as period and duty cycle.
 
 ![ls_pwm](./img/pwm/ls_pwm.png)
 
-- 例如引脚19是PWM0-5，pwm控制器0的通道5，归 **pwmchip0** 
-- 例如引脚27是PWM1-1，pwm控制器1的通道1，归 **pwmchip16**
-- 例如引脚29是PWM3-4，pwm控制器3的通道4，归 **pwmchip22**
+- For example, pin 19 is PWM0-5, channel 5 of PWM controller 0, belonging to **pwmchip0**
+- For example, pin 27 is PWM1-1, channel 1 of PWM controller 1, belonging to **pwmchip16**
+- For example, pin 29 is PWM3-4, channel 4 of PWM controller 3, belonging to **pwmchip22**
 
-这里我要控制的是PWM0-13，pwm控制器3的通道4，进pwmchip0文件夹，写入13到文件 **export**
+Here I want to control PWM0-13, channel 13 of PWM controller 0. Enter the pwmchip0 folder and write 13 to the **export** file:
 ```
 cd /sys/class/pwm/pwmchip0
 echo 13 > export
@@ -44,79 +44,79 @@ echo 13 > export
 
 ![export_pwm13](./img/pwm/export_pwm13.png)
 
-进入这个 **pwm13** 文件夹，这些文件就可以用来设置pwm了
+Enter this **pwm13** folder; the files inside can be used to configure PWM.
 
 ![ls_pwm13](./img/pwm/ls_pwm13.png)
 
-### 2. 设置周期
+### 2. Set Period
 
-**period** 这个文件用于设置pwm的周期，单位是纳秒（ns）
+The **period** file is used to set the PWM period, in nanoseconds (ns).
 
-例如我想输出一个周期为20ms的pwm，则敲入如下命令即可
+For example, to output a PWM signal with a 20ms period, enter the following command:
 ```
-echo 20000000 > period #周期设置为20ms
+echo 20000000 > period #Set period to 20ms
 ```
 ![pwm_write_period](./img/pwm/pwm_write_period.png)
 
 
-### 3. 设置占空比
-**duty_cycle** 这个文件用来设置一个周期内高电平的时长，单位是纳秒（ns）（可通过另一个文件设置，让duty_cycle代表低电平所占时长）
+### 3. Set Duty Cycle
+The **duty_cycle** file is used to set the high-level duration within one period, in nanoseconds (ns). (Another file can be set so that duty_cycle represents the low-level duration.)
 
-例如我想让这个pwm的高电平时长为1.5ms，则敲入如下命令即可
+For example, to set the PWM high-level duration to 1.5ms, enter the following command:
 ```
-echo 1500000 > duty_cycle #高电平时长为1.5ms
+echo 1500000 > duty_cycle #High-level duration is 1.5ms
 ```
 ![pwm_write_duty](./img/pwm/pwm_write_duty.png)
 
-### 4. 设置占空比的极性
-**polarity** 这个文件用来设置duty_cycle文件参数所代表的是哪段电平的长度
-- 设置为 normal,则**duty_cycle**文件的值会做为一个周期内 高电平 所占的时长
-- 设置为 inversed,则**duty_cycle**文件的值会做为一个周期内 低电平 所占的时长
+### 4. Set Duty Cycle Polarity
+The **polarity** file is used to set which part of the level the duty_cycle file parameter represents.
+- Set to `normal`: the value of the **duty_cycle** file represents the high-level duration within one period.
+- Set to `inversed`: the value of the **duty_cycle** file represents the low-level duration within one period.
 
-我想让上面写的1.5ms代表高电平的时长，只要往这个文件内写入normal即可
+To have the 1.5ms written above represent high-level duration, simply write `normal` to this file:
 ```
 echo normal > polarity
 ```
 ![pwm_write_polarity](./img/pwm/pwm_write_polarity.png)
 
 
-### 5. 启动/关闭 输出
-**enable** 这个文件用于使能pwm输出，
-- 写入1，使能pwm输出
-- 写入0，关闭pwm输出
+### 5. Enable/Disable Output
+The **enable** file is used to enable PWM output:
+- Write 1 to enable PWM output
+- Write 0 to disable PWM output
 
 ```
-echo 1 > enable #使能pwm输出
-echo 0 > enable #关闭pwm输出
+echo 1 > enable #Enable PWM output
+echo 0 > enable #Disable PWM output
 ```
 ![pwm_enable_1](./img/pwm/pwm_enable_1.png)
 ![the_pwm_show](./img/pwm/the_pwm_show.png)
 
 
-## 示例：控制PWM1-1输出
+## Example: Control PWM1-1 Output
 
-首先运行`gpio pins`命令查看引脚是否已设置为其他功能。
+First, run the `gpio pins` command to check if the pin has already been configured for another function.
 
 ![gpio_pins_27_is_in_use](./img/pwm/gpio_pins_27_is_in_use.png)
 
-由上图可知，该引脚已经被启用为i2c2,那么我们需要使用命令`set-device`来关掉i2c2,然后运行命令`sudo reboot`重启后生效
+As shown above, this pin has already been enabled as I2C2. We need to use the `set-device` command to disable I2C2, then run `sudo reboot` to restart and apply the changes.
 ![set-device-dis-i2c2](./img/pwm/set-device-dis-i2c2.png)
 
 ![gpio_pin_pi16_unused](./img/pwm/gpio_pin_pi16_unused.png)
-重启后看到该引脚的mode现在已经变成了off，就可以输出pwm了
+After restarting, you can see that the pin mode has changed to off, and PWM output is now available.
 
 
-让pwm1-1输出一个频率100HZ（周期10ms），占空比百分之50（高电平长5ms）的波形。完整流程如下
+To make PWM1-1 output a waveform with a frequency of 100Hz (period 10ms) and a duty cycle of 50% (high-level duration 5ms), the complete procedure is as follows:
 ```
-sudo su #切换到root用户
+sudo su #Switch to root user
 echo 1 > /sys/class/pwm/pwmchip16/export
-echo 10000000 > /sys/class/pwm/pwmchip16/pwm1/period #周期设置为10ms
-echo 5000000 > /sys/class/pwm/pwmchip16/pwm1/duty_cycle #高电平时长为5ms
-echo normal > /sys/class/pwm/pwmchip16/pwm1/polarity #duty_cycle代表高电平时长
-echo 1 > /sys/class/pwm/pwmchip16/pwm1/enable #使能pwm输出
+echo 10000000 > /sys/class/pwm/pwmchip16/pwm1/period #Set period to 10ms
+echo 5000000 > /sys/class/pwm/pwmchip16/pwm1/duty_cycle #High-level duration is 5ms
+echo normal > /sys/class/pwm/pwmchip16/pwm1/polarity #duty_cycle represents high-level duration
+echo 1 > /sys/class/pwm/pwmchip16/pwm1/enable #Enable PWM output
 ```
 ```
-echo 0 >/sys/class/pwm/pwmchip16/pwm1/enable #关闭pwm输出
+echo 0 >/sys/class/pwm/pwmchip16/pwm1/enable #Disable PWM output
 ```
 ![enable_pwm1_1_50hz](./img/pwm/enable_pwm1_1_50hz.png)
 

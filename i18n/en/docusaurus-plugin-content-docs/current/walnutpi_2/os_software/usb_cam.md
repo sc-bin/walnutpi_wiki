@@ -2,41 +2,41 @@
 sidebar_position: 46
 ---
 
-# USB摄像头
+# USB Camera
 
-核桃派系统内置USB摄像头驱动。市面上大部分USB CAM都可以使用，这里使用下面这款讲解：
+The Walnut Pi system has built-in USB camera drivers. Most USB cameras on the market are supported. This tutorial uses the following model as an example:
 
 ![usb_cam1](./img/usb_cam/usb_cam1.png)
 
-直接插到核桃派其中一个USB口就好。
+Simply plug it into any USB port on the Walnut Pi.
 
 ![usb_cam2](./img/usb_cam/usb_cam2.png)
 
-## 获取设备信息
+## Getting Device Information
 
-先使用v4l2-ctl查看当前USB摄像头设备信息，这要安装 v4l ，核桃派大部分软件都可以通过 sudo apt install 方式安装：
+First, use `v4l2-ctl` to view the current USB camera device information. Install v4l—most Walnut Pi software can be installed via `sudo apt install`:
 
 ```bash
 sudo apt install v4l-utils
 ```
 
-安装完成后运行下面指令查看插入的USB摄像头信息：
+After installation, run the following command to view the connected USB camera information:
 
 ```bash
 v4l2-ctl --list-devices
 ```
 
-可以看到这款摄像头有多个video，通常是第一个。这里是：video1
+You can see that this camera has multiple video devices, with the first one usually being the correct one. Here it's: video1
 
 ![usb_cam3](./img/usb_cam/usb_cam3.png) 
 
-## 使用 mjpg-streamer 测试
+## Testing with mjpg-streamer
 
-### 下载项目
+### Download the Project
 
-项目地址：https://github.com/jacksonliam/mjpg-streamer 
+Project URL: https://github.com/jacksonliam/mjpg-streamer 
 
-这里使用git方式下载，方便以后更新。
+We'll use git to clone it for easy updates later.
 
 ```bash
 git clone https://github.com/jacksonliam/mjpg-streamer.git
@@ -44,22 +44,22 @@ git clone https://github.com/jacksonliam/mjpg-streamer.git
 
 ![usb_cam4](./img/usb_cam/usb_cam4.png) 
 
-:::tip 提示
+::::tip Note
 
-如果没有科学上网条件，可以用浏览器打开项目地址，点击**Code -- Download Zip** 下载项目文件然后拷贝到核桃派。
+If you don't have access to GitHub, you can open the project URL in a browser, click **Code -- Download Zip** to download the project files, and then copy them to the Walnut Pi.
 
-:::
+::::
 ![usb_cam5](./img/usb_cam/usb_cam5.png) 
 
-另外还需要安装一下依赖软件：
+You'll also need to install the dependency packages:
 
 ```bash
 sudo apt install -y cmake libjpeg62-turbo-dev
 ```
 
-### 编译和安装
+### Build and Install
 
-接下来执行下面指令编译和安装 mjpg-streamer 
+Next, execute the following commands to build and install mjpg-streamer:
 
 ```bash
 cd mjpg-streamer/mjpg-streamer-experimental
@@ -73,9 +73,9 @@ make -j4
 sudo make install
 ```
 
-### 启动测试
+### Start and Test
 
-安装完成后输入下面命令启动 mjpg_streamer ，注意我们这里是video1，具体根据你的设备号来填写。
+After installation, run the following command to start mjpg_streamer. Note that we use video1 here—replace it with your actual device number.
 
 ```bash
 export LD_LIBRARY_PATH=.
@@ -85,13 +85,13 @@ export LD_LIBRARY_PATH=.
 sudo ./mjpg_streamer -i "./input_uvc.so -d /dev/video1 -u -f 30" -o "./output_http.so -w ./www"
 ```
 
-启动成功后如下图，部分error提示可以忽略：
+Upon successful startup, you'll see the output below (some error messages can be safely ignored):
 ![usb_cam6](./img/usb_cam/usb_cam6.png) 
 
-在同一局域网（通常是同一路由器下）的电脑打开浏览器，输入核桃派IP地址和端口8080 ，如：192.168.2.134:8080 ，打开网页，可以看到 mjpg_streamer 的主页出来了。**你也可以直接在核桃派的桌面系统的浏览器这么操作。**
+Open a web browser on a computer on the same LAN (typically connected to the same router) and enter the Walnut Pi's IP address with port 8080, e.g.: 192.168.2.134:8080. The mjpg_streamer homepage will appear. **You can also do this directly in the Walnut Pi's Desktop edition browser.**
 
 ![usb_cam7](./img/usb_cam/usb_cam7.png) 
 
-点击Stream, 就可以看到摄像头实时采集的视频流。
+Click Stream to view the real-time video feed from the camera.
 
 ![usb_cam8](./img/usb_cam/usb_cam8.png) 

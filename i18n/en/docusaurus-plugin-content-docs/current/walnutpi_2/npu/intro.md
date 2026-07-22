@@ -2,15 +2,13 @@
 sidebar_position: 1
 ---
 
-# NPU简介
+# NPU Introduction
 
+NPU (Neural Processing Unit) is a hardware acceleration chip specifically designed for neural network computing in the field of artificial intelligence, serving as the core computing engine of the AI era. Compared to traditional CPUs (Central Processing Units) and GPUs (Graphics Processing Units), NPUs deeply optimize their architecture by integrating a large number of dedicated units for neural network operations, such as multiply-accumulator arrays and systolic arrays, enabling efficient execution of complex operations like matrix operations and activation function calculations. This gives them astonishing speed and energy efficiency advantages when processing deep learning tasks, significantly reducing computational latency and power consumption, and enabling real-time inference and training in scenarios such as image recognition, speech processing, and natural language processing. From smart terminals to data centers, from edge computing to cloud services, NPUs, with their powerful parallel processing capabilities and excellent energy efficiency ratios, drive the rapid deployment of AI technologies and become a key force in driving intelligent transformation across industries.
 
-NPU（Neural Processing Unit，神经网络处理器）    是专为人工智能领域的神经网络计算设计的硬件加速芯片 ，是人工智能时代的核心算力引擎。相较于传统的 CPU（中央处理器）和 GPU（图形处理器），NPU 通过深度优化架构，集成大量针对神经网络运算的专用单元，如乘累加器阵列、脉动阵列等，能够高效执行矩阵运算、激活函数计算等复杂操作。这使其在处理深度学习任务时，展现出惊人的速度和能效优势，大幅降低计算延迟与功耗，在图像识别、语音处理、自然语言处理等场景中实现实时推理与训练。从智能终端到数据中心，从边缘计算到云端服务，NPU 凭借其强大的并行处理能力和卓越的能效比，推动人工智能技术快速落地，成为驱动行业智能化变革的关键力量。
-
-关于CPU、GPU、NPU区别可以查看B站这个up主的视频：https://www.bilibili.com/video/BV1wbcdeWENh/
+For the differences between CPU, GPU, and NPU, you can watch this Bilibili video: https://www.bilibili.com/video/BV1wbcdeWENh/
 
 ![intro](./img/intro/intro1.png)
 
-
-核桃派2B（全志T527）内置2TOPS NPU, 支持INT 8/16/32b, Float 16/32b. 核桃派OS(Debian)已经移植好相关驱动。
+WalnutPi 2B (Allwinner T527) features a built-in 2 TOPS NPU, supporting INT 8/16/32b and Float 16/32b. WalnutPi OS (Debian) has already ported the relevant drivers.
 

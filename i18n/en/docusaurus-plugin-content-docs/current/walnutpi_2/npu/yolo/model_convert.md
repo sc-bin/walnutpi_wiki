@@ -1,75 +1,75 @@
 ---
 sidebar_position: 7
 ---
-# 模型转换
+# Model Conversion
 
-本节讲述前面几个YOLOV11在核桃派上运行的.nb格式模型模型文件是如何转换的。本教程使用需要具备一定的Linux系统基础。
+This section explains how the .nb format model files used in the previous YOLO11 examples running on WalnutPi are converted. This tutorial requires some basic Linux system knowledge.
 
-先下载核桃派YOLO模型相关资料包，里面包含了本教程用到的相关软件工具：
+First, download the WalnutPi YOLO model resource package, which contains the relevant software tools used in this tutorial:
 
-- 百度网盘链接：https://pan.baidu.com/s/1Mce6yRNqlZen-uj_qjtF6A?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Cloud link: https://pan.baidu.com/s/1Mce6yRNqlZen-uj_qjtF6A?pwd=WPKJ
+- Extraction code: **WPKJ**
 
-YOLO11官方提供有PyTorch训练好的原始模型文件（.pt格式），我们需要先转成（.onnx格式）通用模型文件，然后再转成（.nb）模型文件才能在核桃派2B（T527）NPU上运行。
+YOLO11 officially provides pre-trained original model files (.pt format) using PyTorch. We need to first convert them to (.onnx format) general model files, and then convert them to (.nb) model files to run on the WalnutPi 2B (T527) NPU.
 
 ```mermaid
 graph TD
-    YOLO官方模型:pt格式-->通用模型:ONNX格式-->在T527的NPU运行模型:nb格式;
+    YOLO-official-model:pt-format-->General-model:ONNX-format-->Model-running-on-T527-NPU:nb-format;
 ```
 
-## pt模型获取
+## Getting the pt Model
 
-本教程的.pt文件是使用从[ultralytics release(v8.3.0)](https://github.com/ultralytics/assets/releases/tag/v8.3.0)获取：
+The .pt files used in this tutorial are obtained from [ultralytics release (v8.3.0)](https://github.com/ultralytics/assets/releases/tag/v8.3.0):
 
-    YOLO11n：无人机、移动设备、实时监控（低算力环境）。
-    YOLO11s/m：通用目标检测（如安防监控、自动驾驶辅助）。
-    YOLO11l/x：高精度场景（如工业质检、医学图像分析）。
+    YOLO11n: Drones, mobile devices, real-time monitoring (low-compute environments).
+    YOLO11s/m: General object detection (e.g., security monitoring, autonomous driving assistance).
+    YOLO11l/x: High-precision scenarios (e.g., industrial inspection, medical image analysis).
 
-核桃派YOLO11教程模型使用的是速度最快体积最小的YOLOv11n系列。对应名称如下：
+The WalnutPi YOLO11 tutorial uses the fastest and smallest YOLO11n series models. The corresponding names are as follows:
 
-- `分类`: yolo11n-cls.pt
-- `检测`: yolo11n.pt
-- `定向检测`: yolo11n-obb.pt
-- `图像分割`: yolo11n-seg.pt
-- `姿势识别`: yolo11n-pose.pt
+- `Classification`: yolo11n-cls.pt
+- `Detection`: yolo11n.pt
+- `Oriented Detection`: yolo11n-obb.pt
+- `Image Segmentation`: yolo11n-seg.pt
+- `Pose Recognition`: yolo11n-pose.pt
 
-:::tip 提示：
-本节教程以检测模型`yolo11n.pt`为例进行讲解，其它模型操作方式一样。
-:::
+::::tip Note:
+This section uses the detection model `yolo11n.pt` as an example. The operation method is the same for other models.
+::::
 
-## pt转onnx
+## pt to onnx Conversion
 
-需要使用安装了linux系统的电脑，或是在windows上使用虚拟机安装linux系统。核桃派开发板暂不支持运行模型格式转换工具。
+You need a computer with a Linux system installed, or use a virtual machine to install Linux on Windows. The WalnutPi development board does not currently support running the model format conversion tool.
 
-### 下载转换工具
+### Download Conversion Tools
 
-`.pt`文件里面包含着yolo运行所需要的参数数值，但里面没有网络结构信息。如果要在npu上运行，需要将其导出为包含网络结构信息的onnx格式。这一步需要调用yolo11源码自带的工具。
+The `.pt` file contains the parameter values required for YOLO operation, but it does not contain network structure information. To run on the NPU, you need to export it to onnx format, which includes network structure information. This step requires using the built-in tools from the YOLO11 source code.
 
-- 先安装ultralytics库
+- First, install the ultralytics library
 
 ```bash
 sudo pip install ultralytics
 ```
 
-先需要下载一份 yolo11 的源码，用来将yolo11专用的模型文件转为通用的onnx模型文件，这里需要下载核桃派的YOLO11项目，因为官方自带的后处理操作会影响检测精度。所以我们提供的yolo11源码中对后处理部分做了一些修改，增加了一些模型原始数据的输出。
+First, you need to download a copy of the YOLO11 source code to convert the YOLO11-specific model files to general onnx model files. Here, you need to download the WalnutPi YOLO11 project, because the official built-in post-processing operations can affect detection accuracy. So, the YOLO11 source code we provide has made some modifications to the post-processing part, adding additional model raw data output.
 
 ```shell
 git clone https://github.com/walnutpi/ultralytics_yolo11.git
 ```
 
-克隆项目后先运行以下命令，临时修改环境变量PYTHONPATH，指定python的模块搜索路径到yolo11源码的存放位置。我的yolo11源码存放路径是/opt/ultralytics_yolo11，所以命令如下：
+After cloning the project, first run the following command to temporarily modify the environment variable PYTHONPATH, specifying Python's module search path to the location of the YOLO11 source code. My YOLO11 source code storage path is /opt/ultralytics_yolo11, so the command is as follows:
 
 ```shell
 export PYTHONPATH=/opt/ultralytics_yolo11
 ```
 
-:::tip 提示
-以上命令仅仅当前终端生效，如果关闭了当前终端，重新打开后需要重新执行一下该命令。
-:::
+::::tip Note
+The above command only takes effect in the current terminal. If you close the current terminal, you need to re-run this command when reopening it.
+::::
 
-### 执行转换代码
+### Execute Conversion Code
 
-新建一个py文件，输入下面代码，然后在pt模型文件下运行以下python代码，他会从刚刚设置的`PYTHONPATH`指向的路径中查找 YOLO 这个库，并导出这个代码里指定的模型文件为onnx格式。
+Create a new py file and enter the following code. Then run the following Python code in the same directory as the pt model file. It will look for the YOLO library from the `PYTHONPATH` path you just set and export the model file specified in this code to onnx format.
 
 ```python
 from ultralytics import YOLO
@@ -77,54 +77,53 @@ from ultralytics import YOLO
 model = YOLO("./yolo11n.pt")
 model.export(format="onnx")
 ```
-- 执行python代码
+- Run the Python code
 ![model_convert](./img/model_convert/convert1.png)
 
-- 成功生成onnx模型
+- Successfully generated onnx model
 ![model_convert](./img/model_convert/convert2.png)
 
-## onnx转nb
+## onnx to nb Conversion
 
-请准备一台安装了linux系统的电脑，或是在windows下安装虚拟机。
+Please prepare a computer with a Linux system installed, or install a virtual machine on Windows.
 
-onnx是一个开放通用的模型格式，而不同芯片厂家的NPU设计结构有所差异，所以需要转成厂家NPU能跑的模型。比如针对核桃派2B T527，全志官方会提供转换工具和说明。**为了方便用户使用，我们直接将转换环境打包成Docker，用户可以直接安装。**
+onnx is an open and general model format, but the NPU design of different chip manufacturers varies, so you need to convert it to a model that the manufacturer's NPU can run. For example, for WalnutPi 2B T527, Allwinner officially provides conversion tools and documentation. **For user convenience, we directly package the conversion environment into Docker, which users can install directly.**
 
-下载核桃派提供的docker镜像和脚本工具资料包:
+Download the Docker image and script tool resource package provided by WalnutPi:
 
-### 安装docker镜像和转换脚本
+### Install Docker Image and Conversion Scripts
 
-- 1.安装docker
+- 1. Install Docker
 
-如果linux电脑内没有安装docker，可以使用资料包文件夹下的 `docker-ce_17.09.0-ce-0-ubuntu_amd64.deb` 安装包进行安装:
+If Docker is not installed on your Linux computer, you can use the `docker-ce_17.09.0-ce-0-ubuntu_amd64.deb` installation package in the resource package folder for installation:
 
-在linux下运行以下命令即可安装
+Run the following command in Linux to install:
 
 ```bash
 sudo apt install docker.io
 ```
 
-- 2.导入docker镜像
+- 2. Import Docker Image
 
-资料包`ubuntu-npu_v1.8.11.rar`文件经过解压后会得到一个`ubuntu-npu_v1.8.11.tar`文件(尾缀不一样)，这个是一个ubuntu18的docker镜像，里面安装并配置好了核桃派npu转换工具。
+After decompressing the `ubuntu-npu_v1.8.11.rar` file in the resource package, you will get an `ubuntu-npu_v1.8.11.tar` file (with a different suffix). This is an Ubuntu 18 Docker image with the WalnutPi NPU conversion tools installed and configured.
 
-运行以下命令导入到docker中：
+Run the following command to import it into Docker:
 
 ```bash
 docker load -i ubuntu-npu_v1.8.11.tar
 ```
 
-- 3.安装转换脚本
+- 3. Install Conversion Scripts
 
-npu-model-transform文件夹下是我们写的一些快捷脚本，我们将调用docker镜像进行转换的全部步骤都写在脚本上，方便用户使用。
+The npu-model-transform folder contains some shortcut scripts we wrote. We have written all the steps for calling the Docker image for conversion into scripts for user convenience.
 
-运行里面的install.sh，即可完成安装:
+Run install.sh inside it to complete the installation:
 
 ```bash
 sudo ./install.sh
 ```
 
-### 安装依赖库
-
+### Install Dependencies
 
 ```bash
 sudo pip install onnx
@@ -134,31 +133,30 @@ sudo pip install onnx
 sudo apt install jq
 ```
 
-我们将导出模型信息、编写配置文件、模型量化、量化数据生成nb文件 等步骤都合并做成了一条命令 `npu-transfer-yolo`
+We have combined steps such as exporting model information, writing configuration files, model quantization, and generating nb files from quantization data into a single command `npu-transfer-yolo`.
 
-模型在训练时使用的是float32类型来存储参数，在NPU上运行时，需要将参数转化为int8等存储范围较小的类型，以减小模型体积，同时提高模型运行速度。这个步骤就叫**量化**。**量化**不是直接对参数做四舍五入，而是需要输入一些图片给模型，根据模型的响应状态来优化各个参数。
+When training, the model uses float32 type to store parameters. When running on the NPU, the parameters need to be converted to types with smaller storage ranges, such as int8, to reduce model size and improve model execution speed. This step is called **quantization**. **Quantization** is not simply rounding parameters; it requires feeding some images to the model and optimizing each parameter based on the model's response state.
 
-我们需要准备几张图片用于量化，一般是从训练数据集里抽几张就行，将他们存放到一个文件夹下。
+We need to prepare several images for quantization, usually just taking a few from the training dataset, and store them in a folder.
 
-然后运行以下命令，传入两个参数，一个是onnx模型文件的路径，一个是存放图片的文件夹路径。
+Then run the following command, passing two parameters: one is the path to the onnx model file, and the other is the path to the folder containing the images.
 
 ```bash
 sudo npu-transfer-yolo yolo11n.onnx ./image/
 ```
 
-最后会在当前路径下生成一个`yolo11n.nb`文件，这个文件就可以在核桃派2B的npu上运行推理了
+Finally, a `yolo11n.nb` file will be generated in the current directory. This file can then run inference on the WalnutPi 2B NPU.
 
-## 模型查看工具
+## Model Viewer Tool
 
-[netron.app](https://netron.app/) 是一个网页工具，可用于查看pt和onnx模型的结构。不支持nb等厂家自定义格式的模型查看。
+[netron.app](https://netron.app/) is a web-based tool that can be used to view the structure of pt and onnx models. It does not support viewing manufacturer-custom format models like nb.
 
-- pt格式
+- pt format
 
 ![model_convert](./img/model_convert/netron_pt_yolo11n.jpg)
 
-- onnx格式
+- onnx format
 
 ![model_convert](./img/model_convert/netron_onnx_yolo11n.jpg)
-
 
 

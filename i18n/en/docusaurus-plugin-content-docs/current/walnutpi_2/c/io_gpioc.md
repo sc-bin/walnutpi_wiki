@@ -2,39 +2,43 @@
 sidebar_position: 2
 ---
 
-# IO控制
+# IO Control
 
-:::tip 提示
-请使用核桃派OS v2.3以上版本。
+:::tip Note
+Please use WalnutPi OS v2.3 or above.
 :::
 
-## 关于引脚编号
-运行以下命令，可查看各引脚状态。后续编程都是使用这张表里的 **Physical** 编号来指代引脚
+## About Pin Numbering
+
+Run the following command to view the status of each pin. In subsequent programming, use the **Physical** numbers from this table to refer to the pins.
+
 ```
 gpio pins
 ```
+
 ![gpio_pins](./img/io_gpioc/gpio_pins.png)
 
-详细操作方式请点击查看：[**GPIO指令操作**](../gpio/gpio_command.md) 章节内容，这里不再重复。
+For detailed operation instructions, please refer to: [**GPIO Command Operations**](../gpio/gpio_command.md) section. This will not be repeated here.
 
 
-## 示例代码
-这是一个示例代码：按下核桃派开发板上的按键则LED亮起，松开则熄灭LED
+## Example Code
+
+Here is an example: pressing the button on the WalnutPi development board turns on the LED, and releasing it turns off the LED.
 
 ```
 #include <stdio.h>
 #include <unistd.h>
-#include "gpio.h" //控制gpio的库
+#include "gpio.h" // Library for controlling GPIO
 
 #define KEY 41
 #define LED 42
-// 使用gpio pins命令查看得到这两个引脚编号
+// These two pin numbers can be obtained using the gpio pins command
 
 int main()
 {
     pin_set_mode(LED, OUTPUT); 
     pin_set_mode(KEY, INPUT); 
-    pin_set_pullUpDn(KEY, PULL_UP); //开启内部上拉
+    pin_set_pullUpDn(KEY, PULL_UP); // Enable internal pull-up
     while (1)
     {
         if (pin_read(KEY) == 0)
@@ -46,14 +50,15 @@ int main()
 }
 ```
 
-## 命令行编译运行代码
-编译代码，由于gpio库是以动态库存在，所以编译要加上`-lgpio`。下面指令表示将当前目录下的test.c文件编译成可执行文件test。
+## Command Line Compilation and Execution
+
+To compile the code, since the GPIO library exists as a dynamic library, you need to add `-lgpio` during compilation. The following command compiles the test.c file in the current directory into the executable test.
 
 ```bash
 gcc -Wall -o test test.c -lgpio
 ```
 
-运行刚刚编译出来的程序，注意需要管理员权限才能控制gpio：
+Run the compiled program. Note that administrator privileges are required to control GPIO:
 
 ```bash
 sudo ./test
@@ -62,26 +67,29 @@ sudo ./test
 
 
 
-## Geany IDE 编译
+## Geany IDE Compilation
 
-Geany IDE的使用，可以查看这一篇教程 [**在开发板上编译C语言代码**](./c_run.md)
+For how to use Geany IDE, refer to this tutorial: [**Compiling C Code on the Development Board**](./c_run.md)
 
-如果使用核桃派桌面系统自带的Geany IDE ，需要进行一下设置。
+If you are using the Geany IDE that comes with the WalnutPi desktop system, you need to make some settings.
 
-打开**生成--设置生成命令** ：
+Open **Build--Set Build Commands**:
 
 
 ![c4](./img/c_run/geany_1.png)
 
 ![c4](./img/c_run/geany_command.png)
 
-在**Build**命令最后的地方加入 `-lgpio` ，这样在点击软件内的构建按钮时，就会让gpio库也参与编译过程：
+Add `-lgpio` at the end of the **Build** command, so that when you click the build button in the software, the GPIO library will also participate in the compilation process:
+
 ```bash
 gcc -Wall -o "%e" "%f" -lgpio
 ```
-在**Execute**命令前面加入 `sudo ` , 这样在点击软件内的运行按钮时，就会以管理员身份运行
+
+Add `sudo ` before the **Execute** command, so that when you click the run button in the software, it will run with administrator privileges:
+
 ```bash
 sudo "./%e"
 ```
 
-点击 **确定** 键保存
+Click **OK** to save.

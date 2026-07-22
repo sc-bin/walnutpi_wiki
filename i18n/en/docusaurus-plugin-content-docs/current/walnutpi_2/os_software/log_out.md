@@ -2,23 +2,23 @@
 sidebar_position: 20
 ---
 
-# 关机和重启
+# Shutdown and Reboot
 
-核桃派是带有操作系统的，跟普通单片机开发板直接断电就关闭不一样，为了保护电路板，建议用菜单栏的**Log Out(注销)**功能, 在弹出对话框中选择关机或重启。以避免突然断电从而损坏操作系统或者导致文件丢失。
+The Walnut Pi runs an operating system, so unlike a typical microcontroller development board that simply shuts off when power is cut, it is recommended to use the **Log Out** function in the menu bar for shutdown or reboot in the pop-up dialog. This helps protect the circuit board and avoids sudden power loss, which could damage the operating system or cause data loss.
 
 ![log_out1](./img/log_out/log_out1.png)
 
-**Shut DownW**是关机，**Restart**是重启。
+**Shut Down** for shutdown, **Restart** for reboot.
 
 ![log_out2](./img/log_out/log_out2.png)
 
-可以通过指令来关机或重启。
-- 关机
+You can also shut down or reboot via commands:
+- Shutdown
 ```bash
 sudo poweroff
 ```
 
-- 重启
+- Reboot
 ```bash
 sudo reboot
 ```

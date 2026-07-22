@@ -2,57 +2,55 @@
 sidebar_position: 4
 ---
 
-# 概念和术语
+# Concepts and Terminology
 
-通过前面的安装和配置，我们已经成功进入Home Assistant, 接下来看一下Home Assistant最重要的一些概念。搞清楚这些概念对后面使用会有很大的帮助。这章节先大概了解即可，后面教程在实际使用过程中会有详细讲解。
+After the installation and configuration in previous steps, we have successfully entered Home Assistant. Now let's go over some of the most important Home Assistant concepts. Understanding these concepts will greatly help with later usage. For now, a general understanding is enough — later tutorials will cover them in detail during practical use.
 
-## 集成
+## Integrations
 
-集成是允许 Home Assistant 连接到其他软件和平台的软件。例如，飞利浦名为Hue的产品将使用飞利浦Hue集成并允许 Home Assistant 与硬件控制器 Hue Bridge 对话。任何家庭助理兼容设备连接到 Hue Bridge 将在 Home Assistant 中显示为设备。
+Integrations are software that allow Home Assistant to connect to other software and platforms. For example, the Philips Hue product line uses the Philips Hue integration to let Home Assistant communicate with the Hue Bridge hardware controller. Any Home Assistant-compatible device connected to the Hue Bridge will appear as a device in Home Assistant.
 
-所有集成介绍链接：https://www.home-assistant.io/integrations
+Link to all integrations: https://www.home-assistant.io/integrations
 
 ![concept](./img/concept/concept1.png)
 
-## 实体
+## Entities
 
-实体是 Home Assistant 中保存数据的基本构建块。一个实体代表一个传感器或 Home Assistant 中的功能。实体用于监视物理属性或控制其他实体
-。一个实体通常是设备的一部分或服务。
+Entities are the basic building blocks that hold data in Home Assistant. An entity represents a sensor or a capability in Home Assistant. Entities are used to monitor physical properties or control other entities. An entity is typically part of a device or service.
 
-## 设备
+## Devices
 
-设备是一个或多个实体的逻辑分组。一个装置可能代表一个物理设备，可以有一个或多个传感器。传感器显示为与设备关联的实体。例如，运动传感器被表示为设备。它可以提供运动检测、温度和光照水平作为实体。实体具有诸如在检测到运动时检测到以及在没有运动时清除等状态。
+A device is a logical grouping of one or more entities. A device may represent a physical device that can have one or more sensors. Sensors appear as entities associated with the device. For example, a motion sensor is represented as a device. It can provide motion detection, temperature, and light level as entities. Entities have states such as "detected" when motion is triggered and "cleared" when there is none.
 
 ![concept](./img/concept/concept2.png)
 
-:::tip 提示
-集成、设备、实体的关系可以用以下例子理解：小米集成下有小米温湿度传感计（1个设备） ，小米温湿度计下有2个实体，分别是温度和湿度值。
+:::tip Note
+The relationship between Integrations, Devices, and Entities can be understood with the following example: Under the Xiaomi integration, there is a Xiaomi temperature/humidity sensor (1 device), and under that sensor, there are 2 entities: temperature and humidity values.
 :::
 
-**集成、设备、实体位于配置选项下：**
+**Integrations, Devices, and Entities are located under the Settings menu:**
 
 ![concept](./img/concept/concept3.png)
 
-## 自动化
+## Automations
 
-自动化是实现设备或事件联动，由3个关键组件组成：
+Automations enable device or event coordination and consist of three key components:
 
-1. 触发器 - 启动自动化的事件。例如，当太阳落山或运动传感器被激活时。
-2. 条件 - 操作必须满足的可选测试可以运行。例如，如果有人在家。
-3. 操作 - - 与设备交互。例如开灯。
+1. Triggers — Events that start an automation. For example, when the sun sets or a motion sensor is activated.
+2. Conditions — Optional tests that must pass before an action can run. For example, if someone is home.
+3. Actions — Interactions with devices. For example, turning on a light.
 
-## 场景
+## Scenes
 
-场景会捕获实体的状态，因此您可以稍后重新体验相同的场景。例如，“看电视”场景会调暗客厅灯光，设置为暖白色并打开电视。
+Scenes capture the states of entities so you can recall the same scene later. For example, a "Watching TV" scene dims the living room lights, sets them to warm white, and turns on the TV.
 
-**自动化、场景位于配置选项下：**
+**Automations and Scenes are located under the Settings menu:**
 
 ![concept](./img/concept/concept4.png)
 
-## 附加组件
+## Add-ons
 
-附加组件（加载项）通常是可以与 Home Assistant 一起运行的应用程序，但提供了一种在 Home Assistant 中安装、配置和运行的快速简便的方法。附加组件提供额外的功能，而集成
-将 Home Assistant 连接到其他应用程序。
+Add-ons are typically applications that can run alongside Home Assistant, providing a quick and easy way to install, configure, and run within Home Assistant. Add-ons provide additional functionality, while integrations connect Home Assistant to other applications.
 
 ![concept](./img/concept/concept5.png)
 

@@ -2,55 +2,54 @@
 sidebar_position: 50
 ---
 
-# 更新说明
+# Changelog
 
 ## 2026-2-5
 
-- 新增 [MIPI显示屏（核桃派官方10.1寸）](./os_software/display/10.1_mipi.md) 教程。
+- Added [MIPI Display (Walnut Pi Official 10.1-inch)](./os_software/display/10.1_mipi.md) tutorial.
 
 ## 2026-1-26
 
-- 新增 **核桃派2B** Android镜像和使用教程。 
+- Added **Walnut Pi 2B** Android image and usage tutorial.
 
-    - [Android系统使用](./android/burn.md)
-
+    - [Android System Usage](./android/burn.md)
 
 ## 2026-1-13
 
-- 新增 [MIPI摄像头](./os_software/mipi_cam.md) 教程。
-- 新增 [MIPI显示屏（核桃派官方5.5寸）](./os_software/display/5.5_mipi.md) 教程。
+- Added [MIPI Camera](./os_software/mipi_cam.md) tutorial.
+- Added [MIPI Display (Walnut Pi Official 5.5-inch)](./os_software/display/5.5_mipi.md) tutorial.
 
 ## 2025-10-16
 
-- 新增 **NPU应用 -- 在线训练模型**教程。 
+- Added **NPU Applications -- Model Sharing** tutorial.
 
-    - [模型分享](./npu/yolo/model_train.md#模型分享)
+    - [Model Sharing](./npu/yolo/model_train.md#模型分享)
 
 ## 2025-9-10
 
-- 新增 **NPU应用 -- 在线训练模型**教程。 
+- Added **NPU Applications -- Online Model Training** tutorial.
 
-    - [在线训练模型](./npu/yolo/model_train.md)
+    - [Online Model Training](./npu/yolo/model_train.md)
 
 ## 2025-5-20
 
-- 新增 **NPU应用 -- YOLO11**教程。 
+- Added **NPU Applications -- YOLO11** tutorial.
 
-    - [YOLO应用](./npu/yolo/intro.md)
+    - [YOLO Applications](./npu/yolo/intro.md)
 
 ## 2025-3-19
 
-- 新增 [MIPI显示屏](./os_software/display/5.5_mipi.md) 教程。
+- Added [MIPI Display](./os_software/display/5.5_mipi.md) tutorial.
 
 ## 2025-3-3
 
-- 新增 [录音](./os_software/audio.md#录音) 教程。
+- Added [Audio Recording](./os_software/audio.md#录音) tutorial.
 
 ## 2025-2-21
 
-- 新增 [使用SD卡自动烧录镜像到EMMC功能](./getting_start/os-install.md#使用sd卡自动烧录镜像推荐)。
-- 新增 [社区用户开源项目分享](./diy.md)
+- Added [Auto-flash Image to EMMC Using SD Card](./getting_start/os-install.md#使用sd卡自动烧录镜像推荐) feature.
+- Added [Community Open-Source Project Sharing](./diy.md)
 
 ## 2025-2-13
 
-- 第一版正式发布。
+- First official release.

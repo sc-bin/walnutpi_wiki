@@ -1,8 +1,8 @@
 {
-  "label": "NPU应用",
+  "label": "NPU Application",
   "position": 9,
   "link": {
     "type": "generated-index",
-    "description": "在核桃派上使用开发NPU"
+    "description": "Developing with NPU on WalnutPi"
   }
 }

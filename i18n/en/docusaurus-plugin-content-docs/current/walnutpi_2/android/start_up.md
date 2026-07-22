@@ -2,28 +2,56 @@
 sidebar_position: 2
 ---
 
-# 开机
+# Startup
 
-在上一节系统镜像烧录完成后MicroSD卡里面就带有核桃派Android系统了，将它插入核桃派背面的SD卡槽，上电后蓝灯常亮表示启动正常。
+After completing the system image burning in the previous section, the microSD card will contain the WalnutPi Android system. Insert it into the SD card slot on the back of WalnutPi. After powering on, a solid blue LED indicates normal startup.
 
-## 使用5.5寸显示屏（电容触摸）
+## Using the 5.5-inch Display (Capacitive Touch)
 
-镜像名称为：【**2026-1-26_WalnutPi-2B_android13_5.5inch_hdmi.img**】 表示默认使用核桃派官方5.5寸屏（1080P）幕为主屏，[购买连接>>](https://item.taobao.com/item.htm?id=1013424344059)。可以外接HDMI作为同屏显示扩展。
+The image named **2026-1-26_WalnutPi-2B_android13_5.5inch_hdmi.img** defaults to using the official WalnutPi 5.5-inch display (1080P) as the primary screen, [Purchase link >>](https://item.taobao.com/item.htm?id=1013424344059). An external HDMI monitor can be connected for mirrored display.
 
-系统正常启动蓝灯会常亮。
+After normal system boot, the blue LED will remain solid.
 
 ![start_up](./img/start_up/start_up1.png)
 
-启动成功后显示Android系统界面。
+Once booted successfully, the Android system interface will appear.
 
 ![start_up](./img/start_up/start_up0.png)
 
-核桃派2B Android系统出厂预装了豌豆荚、谷歌浏览器、B站，大部分应用游戏都可以通过豌豆荚进行下载安装。
+The WalnutPi 2B Android system comes pre-installed with Wandoujia (app store), Google Chrome, and Bilibili. Most apps and games can be downloaded and installed via Wandoujia.
 
-## HDMI显示器同屏显示
+## HDMI Monitor Mirroring
 
-直接插入HDMI显示器即可实现同屏显示。
+Simply connect an HDMI monitor to enable screen mirroring.
 
 ![start_up](./img/start_up/start_up2.png)
 
-如果你没有显示器，或者无法正常启动，可以使用USB转TTL工具连接到核桃派的调试串口使用串口终端方式登录，此方式适合调试人员。具体参考：[调试串口打开终端](../os_software/terminal#调试串口打开终端) 章节内容。
+If you do not have a monitor or cannot boot normally, you can use a USB-to-TTL tool connected to the WalnutPi debug serial port to log in via a serial terminal. This method is suitable for developers. For details, refer to: [Debug Serial Port Terminal](../os_software/terminal#调试串口打开终端).
+
+## Setting Simplified Chinese
+
+Click the **Settings** button at the bottom-left corner of the home screen:
+
+![start_up](./img/start_up/language1.png)
+
+Then navigate to `System` → `Language & input` → `Languages`, as shown below. Then click **Add a language**.
+
+![start_up](./img/start_up/language2.png)
+
+Select **简体中文** (Simplified Chinese):
+
+![start_up](./img/start_up/language3.png)
+
+Once it appears, press and hold the drag handle on the right, then drag Simplified Chinese to the very top.
+
+![start_up](./img/start_up/language4.png)
+
+After setup, the default language will be Simplified Chinese, as shown below.
+
+![start_up](./img/start_up/language5.png)
+
+## Power Off
+
+Long-press the development board button to bring up the shutdown options.
+
+![start_up](./img/start_up/poweroff.png)

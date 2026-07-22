@@ -2,41 +2,40 @@
 sidebar_position: 3
 ---
 
-# 按键
+# Button
 
-## 前言
-本节主要内容是为Home Assistant主机添加一个按键，实现按键按下事件检测。为了方便演示，本教程会分别使用核桃派2B和核桃派PicoW（ESP32S3）来作为mqtt节点来操作。
+## Overview
+This section focuses on adding a button to the Home Assistant host to detect button press events. For easy demonstration, this tutorial uses both the WalnutPi 2B and the WalnutPi PicoW (ESP32S3) as MQTT nodes to operate.
 
-- 核桃派2B按键
+- WalnutPi 2B Button
 
 ![key](./img/key/key1.png)
 
-- 核桃派PicoW按键
+- WalnutPi PicoW Button
 
 ![key](./img/key/key2.png)
 
-## 实验目的
-核桃派Home Assistant主机添加按键并实现按键事件检测。
+## Objective
+Add a button to the WalnutPi Home Assistant host and implement button press event detection.
 
-## 实验讲解
+## Explanation
 
-按键需要用到Home Assistant MQTT组件中的event。实验的关键是搞清楚发现MQTT设备的主题信息以及控制方法，具体说明如下：
+The button uses the event component from the Home Assistant MQTT integration. The key to the experiment is understanding the topic information for discovering MQTT devices and the control method, as detailed below:
 
+## MQTT Topic
 
-## MQTT主题
-
-下面这个主题用于Home Assistant主机通过MQTT发现该设备：
+The following topic is used for the Home Assistant host to discover this device via MQTT:
 
 ```
 homeassistant/event/1b_key/config
 ```
 
-- `homeassistant`:默认的前缀
-- `event`: 按键使用的MQTT元件为event
-- `1b_key`: 实体的ID，需要唯一，这里自定义的内容，表示核桃派1B的按键；
-- `config`:默认的后缀
+- `homeassistant`: Default prefix
+- `event`: The MQTT component used for buttons is event
+- `1b_key`: Entity ID, must be unique. This is a custom value representing the WalnutPi 1B's button;
+- `config`: Default suffix
 
-## MQTT消息
+## MQTT Payload
 
 ```json
 {
@@ -45,7 +44,7 @@ homeassistant/event/1b_key/config
     "state_topic": "1b_key/event/state",
     "event_types": "press",
     "unique_id":"1b_key",
-           
+
     "device":{
                 "identifiers":"1b_01",
                 "name":"WalnutPi_1B"
@@ -53,70 +52,70 @@ homeassistant/event/1b_key/config
 }
 ```
 
-### 实体
+### Entity
 
-- `"name":"key"`: 实体名称，自定义填写；
-- `"device_class":"doorbell"`: 组件类型，跟前面主题配置信息相关，不能填错，比如这里的`doorbell`是组件`event`下的一个可用实体；
-- `"state_topic":"1b_key/event/state"`: 用于注册实体后发布相关属性主题，这里用来发送按键状态，主题内容自定义，保证不同实体的主题不一样即可；
-- `"unique_id":"1b_key"`: 实体ID，自定义，务必保证每个实体唯一；
+- `"name":"key"`: Entity name, can be customized;
+- `"device_class":"doorbell"`: Component type, related to the topic configuration above. Must not be wrong. For example, `doorbell` here is a valid entity under the `event` component;
+- `"state_topic":"1b_key/event/state"`: Used to publish relevant attribute topics after registering the entity. Here it sends button state. The topic content can be customized; just make sure different entities have different topics;
+- `"unique_id":"1b_key"`: Entity ID, can be customized, must be unique for each entity;
 
-### 设备
+### Device
 
-告知Home Assistant实体对应的设备。
+Informs Home Assistant of the device corresponding to the entity.
 
-- `"identifiers":"1b_01"`: 识别标识符，每个设备唯一；
-- `"name":"WalnutPi_1B"`: 设备名称，自定义；
+- `"identifiers":"1b_01"`: Identification identifier, unique per device;
+- `"name":"WalnutPi_1B"`: Device name, can be customized;
 
-更多MQTT light内容可查阅官方文档：https://www.home-assistant.io/integrations/event.mqtt/
+For more MQTT event content, see the official documentation: https://www.home-assistant.io/integrations/event.mqtt/
 
-代码编写流程如下：
+The code flow is as follows:
 
 ```mermaid
 graph TD
-    导入相关模块-->构建KEY对象-->连接MQTT服务器-->注册KEY实体和设备-->检测按键状态-->MQTT发送状态信息-->检测按键状态;
+    Import modules-->Build KEY object-->Connect MQTT server-->Register KEY entity and device-->Detect button state-->Send state via MQTT-->Detect button state;
 ```
 
-## 基于核桃派1B实现
+## Implementation Using WalnutPi 1B
 
-核桃派1B板载可编程按键，我们在前面教程中学习过核桃派使用Python编程实现MQTT通讯[MQTT通讯](../../../python/network/mqtt.md)，在这个基础上实现即可：
+The WalnutPi 1B has an onboard programmable button. We learned about WalnutPi Python MQTT communication in a previous tutorial [MQTT Communication](../../../python/network/mqtt.md). We build on that foundation:
 
-### 参考代码
+### Reference Code
 
 ```python
 '''
-实验名称：Home Assistant 按键
-实验平台：核桃派1B
-作者：WalnutPi
-说明：编程实现Home Assistant 按键检测。
+Experiment Name: Home Assistant Button
+Platform: WalnutPi 1B
+Author: WalnutPi
+Description: Program Home Assistant button detection.
 '''
 
-#导入相关库
+#Import libraries
 import paho.mqtt.client as mqtt
 
 import board,time
 from digitalio import DigitalInOut, Direction
 
-#构建按键对象和初始化
-key = DigitalInOut(board.KEY) #定义引脚编号
-key.direction = Direction.INPUT #IO为输入
+#Build button object and initialize
+key = DigitalInOut(board.KEY) #Define pin
+key.direction = Direction.INPUT #IO as input
 
-#MQTT服务器和用户信息
-CLIENT_ID = 'WalnutPi-KEY' # 客户端ID
-SERVER = '127.0.0.1' #表示本机IP地址
-PORT = 1883    
+#MQTT server and user info
+CLIENT_ID = 'WalnutPi-KEY' # Client ID
+SERVER = '127.0.0.1' #Localhost IP address
+PORT = 1883
 USER='pi'
 PASSWORD='pi'
 
-#构建mqtt客户端对象
+#Build MQTT client object
 client = mqtt.Client(CLIENT_ID)
 
-#配置用户名和密码
+#Configure username and password
 client.username_pw_set(USER, PASSWORD)
 
-#发起连接
+#Initiate connection
 client.connect(SERVER,PORT)
 
-#首次启动注册设备
+#Register device on first boot
 topic = "homeassistant/event/1b_key/config"
 message = """{
            "name":"key",
@@ -124,7 +123,7 @@ message = """{
            "state_topic": "1b_key/event/state",
            "event_types": "press",
            "unique_id":"1b_key",
-           
+
            "device":{
                       "identifiers":"1b_01",
                       "name":"WalnutPi_1B"
@@ -133,113 +132,113 @@ message = """{
 
 client.publish(topic, message)
 
-# 开启新线程保持MQTT连接。
+# Start a new thread to maintain MQTT connection.
 client.loop_start()
 
 while True:
-    
-    if key.value == 0: #按键被按下
-        
-        time.sleep(0.01) #延时10ms消抖
-        
-        if key.value == 0: #按键被按下
-            
-            client.publish("1b_key/event/state", """{"event_type":"press"}""") #发送按键事件
-            
-            while key.value == 0: #等待按键松开
-                
+
+    if key.value == 0: #Button pressed
+
+        time.sleep(0.01) #10ms debounce delay
+
+        if key.value == 0: #Button pressed
+
+            client.publish("1b_key/event/state", """{"event_type":"press"}""") #Send button event
+
+            while key.value == 0: #Wait for button release
+
                 pass
 ```
 
-### 实验结果
+### Results
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../../../python/python_run.md)
+Here we use Thonny to remotely run the Python code on the WalnutPi. For methods to run Python code on WalnutPi, see: [Running Python Code](../../../python/python_run.md)
 
 ![key](./img/key/key3.png)
 
-运行后可以看到Home Assistant主机显示2个设备和3个实体，这是因为我们把按键注册到上一节LED的设备中去了。：
+After running, the Home Assistant host shows 2 devices and 3 entities. This is because we registered the button under the same device as the LED from the previous section:
 
 ![key](./img/key/key4.png)
 
-点击**设备**，打开WalnutPi_1B设备：
+Click **Devices** to open the WalnutPi_1B device:
 
 ![key](./img/key/key5.png)
 
-可以看到右边实体多了一个事件，就是刚刚添加的按键（一个设备可以拥有多个实体）：
+On the right side, you can see one more event entity — this is the button we just added (one device can have multiple entities):
 
 ![key](./img/key/key6.png)
 
-按下核桃派1B上的按键：
+Press the button on the WalnutPi 1B:
 
 ![key](./img/key/key7.png)
 
-在Home Assistant主机页面可以看到触发了Press事件：
+On the Home Assistant host page, you can see that a Press event was triggered:
 
 ![key](./img/key/key8.png)
 
-可以点击**添加到仪表盘**：
+You can click **Add to Dashboard**:
 
 ![key](./img/key/key9.png)
 
-Home Assistant系统会自动选择卡片类型：
+Home Assistant automatically selects the card type:
 
 ![key](./img/key/key10.png)
 
-添加后可在概览首页界面看到按键实体：
+After adding, you can see the button entity on the Overview dashboard:
 
 ![key](./img/key/key11.png)
 
-## 基于核桃派PicoW实现
+## Implementation Using WalnutPi PicoW
 
-核桃派PicoW（ESP32-S3）板载可编程按键，使用方法参考:[核桃派PicoW教程](https://www.walnutpi.com/picow/directory)，保证核桃派PicoW和核桃派1B连接到同一个路由器下即可：
+The WalnutPi PicoW (ESP32-S3) has an onboard programmable button. For usage, see: [WalnutPi PicoW Tutorial](https://www.walnutpi.com/picow/directory). Ensure that both the WalnutPi PicoW and the WalnutPi 1B are connected to the same router:
 
 ![key](./img/key/key12.png)
 
-### 参考代码
+### Reference Code
 ```python
 '''
-实验名称：Home Assistant 按键
-实验平台：核桃派1B + 核桃派PicoW
-作者：WalnutPi
-说明：编程实现Home Assistant 按键检测
+Experiment Name: Home Assistant Button
+Platform: WalnutPi 1B + WalnutPi PicoW
+Author: WalnutPi
+Description: Program Home Assistant button detection
 '''
 import network,time
-from simple import MQTTClient #导入MQTT板块
+from simple import MQTTClient #Import MQTT module
 from machine import Pin,Timer
 
-LED=Pin(46, Pin.OUT) #初始化WIFI指示灯
+LED=Pin(46, Pin.OUT) #Initialize WiFi indicator LED
 
-#WIFI连接函数
+#WiFi connection function
 def WIFI_Connect():
 
     global LED
 
-    wlan = network.WLAN(network.STA_IF) #STA模式
-    wlan.active(True)                   #激活接口
-    start_time=time.time()              #记录时间做超时判断
+    wlan = network.WLAN(network.STA_IF) #STA mode
+    wlan.active(True)                   #Activate interface
+    start_time=time.time()              #Record time for timeout check
 
     if not wlan.isconnected():
         print('connecting to network...')
-        wlan.connect('01Studio_2.4G', '01studio0123456789') #输入WIFI账号密码
+        wlan.connect('01Studio_2.4G', '01studio0123456789') #Enter WiFi SSID and password
 
         while not wlan.isconnected():
 
-            #LED闪烁提示
+            #LED blinking indicator
             LED.value(1)
             time.sleep_ms(300)
             LED.value(0)
             time.sleep_ms(300)
 
-            #超时判断,15秒没连接成功判定为超时
+            #Timeout check: if not connected within 15 seconds, treat as timeout
             if time.time()-start_time > 15 :
                 print('WIFI Connected Timeout!')
                 break
 
     if wlan.isconnected():
-        #LED点亮
+        #Turn on LED
         LED.value(1)
 
-        #串口打印信息
+        #Print network info to serial
         print('network information:', wlan.ifconfig())
 
         return True
@@ -248,23 +247,23 @@ def WIFI_Connect():
         return False
 
 
-#接收数据任务
+#Receive data task
 def MQTT_Rev(tim):
     client.check_msg()
 
-#执行WIFI连接函数并判断是否已经连接成功
+#Execute WiFi connection and check if successful
 if WIFI_Connect():
-    
-    CLIENT_ID = 'WalnutPi-PicoW2' # 客户端ID
-    SERVER = '192.168.1.118'  # MQTT服务器地址
-    PORT = 1883    
+
+    CLIENT_ID = 'WalnutPi-PicoW2' # Client ID
+    SERVER = '192.168.1.118'  # MQTT server address
+    PORT = 1883
     USER='pi'
     PASSWORD='pi'
-    
-    client = MQTTClient(CLIENT_ID, SERVER, PORT, USER, PASSWORD) #建立客户端对象
+
+    client = MQTTClient(CLIENT_ID, SERVER, PORT, USER, PASSWORD) #Create client object
     client.connect()
-    
-    #注册设备
+
+    #Register device
     TOPIC = "homeassistant/event/picow2_key/config"
     mssage = """{
                   "name": "key",
@@ -272,7 +271,7 @@ if WIFI_Connect():
                   "state_topic": "picow2_key/event/state",
                   "event_types": "press",
                   "unique_id": "picow2_key",
-                  
+
                   "device": {
                     "identifiers": "picow_2",
                     "name": "picow2"
@@ -283,53 +282,50 @@ if WIFI_Connect():
     client.publish(TOPIC, mssage)
 
 
-KEY=Pin(0,Pin.IN,Pin.PULL_UP) #构建KEY对象
+KEY=Pin(0,Pin.IN,Pin.PULL_UP) #Build KEY object
 
-#LED状态翻转函数
+#Button interrupt handler
 def fun(KEY):
-    time.sleep_ms(10) #消除抖动
-    if KEY.value()==0: #确认按键被按下
-        
-        #发送mqtt按键信息
+    time.sleep_ms(10) #Debounce
+    if KEY.value()==0: #Confirm button pressed
+
+        #Send MQTT button info
         TOPIC = "picow2_key/event/state"
         mssage = """{"event_type":"press"}"""
         client.publish(TOPIC, mssage)
 
-KEY.irq(fun,Pin.IRQ_FALLING) #定义中断，下降沿触发
+KEY.irq(fun,Pin.IRQ_FALLING) #Define interrupt, falling edge trigger
 
 while True:
-    
+
     pass
 
 ```
 
-### 实验结果
+### Results
 
-使用Thonny 连接核桃派PicoW开发板，运行上面代码：
+Use Thonny to connect to the WalnutPi PicoW board and run the code above:
 
 ![key](./img/key/key13.png)
 
-连接成功后可以看到核桃派Home Assistant主机多了一个设备：
+After a successful connection, you can see one additional device on the WalnutPi Home Assistant host:
 
 ![key](./img/key/key14.png)
 
-进入设备，可以看到出现了注册的key事件实体：
+Enter the device to see the registered key event entity:
 
 ![key](./img/key/key15.png)
 
-按下核桃派PicoW的按键：
+Press the button on the WalnutPi PicoW:
 
 ![key](./img/key/key2.png)
 
-核桃派Home Assistant主机检测到press事件：
+The WalnutPi Home Assistant host detects the press event:
 
 ![key](./img/key/key16.png)
 
-同样可以在右边控制LED开关和添加到仪表盘：
+You can also control the LED on the right and add it to the dashboard:
 
 ![key](./img/key/key17.png)
 
 ![key](./img/key/key18.png)
-
-
-

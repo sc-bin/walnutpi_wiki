@@ -2,96 +2,96 @@
 sidebar_position: 1
 ---
 
-# 缩放
+# Resize
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像进行缩放功能，即缩小和放大，也就是改变图像的大小。
+This section learns to use OpenCV for image resizing, i.e., shrinking and enlarging, which means changing the size of the image.
 
-## 实验目的
+## Experiment Objective
 
-对图像进行缩放并显示。
+Resize an image and display it.
 
-## 实验讲解
+## Experiment Explanation
 
-OpenCV Python库提供了resize()函数实现图像缩放功能。
+The OpenCV Python library provides the resize() function to implement image resizing.
 
-### resize() 使用方法
+### resize() Usage
 
 ```python
 img = cv2.resize(src, dsize, fx, fy, interpolation)
 ```
 
-图像缩放。
-- `src` ：原始图像。
-- `dsize` ：生成图像大小，格式（宽，高），单位为像素。
-- `fx` ：水平方向缩放比例（可选）。
-- `fy` ：垂直方向缩放比例（可选）。
-- `interpolation` ：补充或删减像素（可选），建议默认值。
+Image resizing.
+- `src`: Original image.
+- `dsize`: Generated image size, format (width, height), in pixels.
+- `fx`: Horizontal scaling factor (optional).
+- `fy`: Vertical scaling factor (optional).
+- `interpolation`: Supplement or remove pixels (optional), default value is recommended.
 
-本节我们将图片分别缩小和放大并显示出来，代码编写流程如下：
+In this section, we will shrink and enlarge the image separately and display them. The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    打开图像-->缩小图像-->放大图像-->显示图像;
+    Open-image-->Shrink-image-->Enlarge-image-->Display-image;
 ```
 
 <br></br>
 
-参考代码如下:
+Reference code is as follows:
 
-**使用dsize参数缩放：**
+**Scaling using the dsize parameter:**
 ```python
 '''
-实验名称：图像缩放（dsize参数）
-实验平台：核桃派2B
+Experiment Name: Image Resizing (dsize Parameter)
+Experiment Platform: WalnutPi 2B
 '''
 
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg,
-cv2.imshow('lenna', img) #显示图像
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg in the current directory
+cv2.imshow('lenna', img) # Display the image
 
-img1 = cv2.resize(img, (200,200)) #使用dsize参数按照宽高200x200大小缩放
-cv2.imshow('200x200', img1) #显示图像
+img1 = cv2.resize(img, (200,200)) # Scale using dsize parameter to 200x200
+cv2.imshow('200x200', img1) # Display the image
 
-img2 = cv2.resize(img, (500,500)) #使用dsize参数按照宽高500x500大小缩放
-cv2.imshow('500x500', img2) #显示图像
+img2 = cv2.resize(img, (500,500)) # Scale using dsize parameter to 500x500
+cv2.imshow('500x500', img2) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any key press
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-**使用fx,fy参数缩放：**
+**Scaling using the fx, fy parameters:**
 ```python
 '''
-实验名称：图像缩放（fx,fy参数）
-实验平台：核桃派2B
+Experiment Name: Image Resizing (fx, fy Parameters)
+Experiment Platform: WalnutPi 2B
 '''
 
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg,
-cv2.imshow('lenna', img) #显示图像
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg in the current directory
+cv2.imshow('lenna', img) # Display the image
 
-img1 = cv2.resize(img, None, fx=1/2 , fy=1/2) #使用fx,fy参数将图像缩小到1/2
-cv2.imshow('0.5x', img1) #显示图像
+img1 = cv2.resize(img, None, fx=1/2 , fy=1/2) # Shrink the image to 1/2 using fx, fy parameters
+cv2.imshow('0.5x', img1) # Display the image
 
-img2 = cv2.resize(img, None, fx=2 , fy=2) #使用fx,fy参数将图像放大2倍
-cv2.imshow('2x', img2) #显示图像
+img2 = cv2.resize(img, None, fx=2 , fy=2) # Enlarge the image 2x using fx, fy parameters
+cv2.imshow('2x', img2) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any key press
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-## 实验结果
+## Experiment Results
 
-分别在核桃派运行上面2个代码，可以看到实验结果如下图 (多个窗口可能会出现重叠，使用鼠标拖动一下)：
+Run the above two codes on the WalnutPi respectively, and you can see the experimental results as shown below (multiple windows may overlap, just drag them apart with the mouse):
 
-**使用dsize参数缩放结果：**
+**Scaling result using the dsize parameter:**
 ![resize](./img/resize/resize1.png)
 
-**使用fx,fy参数缩放结果：**
+**Scaling result using the fx, fy parameters:**
 ![resize](./img/resize/resize2.png)

@@ -2,49 +2,49 @@
 sidebar_position: 8
 ---
 
-# 打包发布程序
+# Packaging and Publishing Programs
 
-在核桃派系统可以使用Pyinstaller将py代码打包成可执行文件。也就是相当于应用程序，可以直接双击打开执行。
+On the WalnutPi system, you can use PyInstaller to package Python code into an executable file. This is essentially an application that can be opened and executed directly by double-clicking.
 
-:::tip 提示
+:::tip Note
 
-在核桃派系统可以直接通过 python xx.py 指令打开python程序了，使用这个功能的目的是保护代码以及方便传播使用。
+On the WalnutPi system, you can already open Python programs directly using the `python xx.py` command. The purpose of this feature is to protect the code and facilitate distribution and usage.
 
 :::
 
-核桃派新版系统出厂已经安装该应用，对于没有安装的系统版本可以通过pip指令安装：
+Newer WalnutPi systems come with this application pre-installed. For system versions that do not have it installed, you can install it via the pip command:
 ```bash
 sudo pip install pyinstaller
 ```
-## 打包Python程序
+## Packaging Python Programs
 
-在pi目录下新建一个文件夹window ，然后将自己运行通过的py代码文件拷贝进去，这里使用前面第一个窗口教程的window.py演示。
+Create a new folder named `window` in the `pi` directory, then copy your verified Python code file into it. Here we use the window.py from the previous First Window tutorial for demonstration.
 
-执行：
+Execute:
 ```bash
 pyinstaller -F window.py
 ```
 ![publish0](./img/publish/publish0.png)
 
-执行后可以看到目录下生成了3个新目录和文件。
+After execution, you can see 3 new items (directories and files) generated in the directory.
 
-- dist: 生成应用位置；
-- build: 打包过程的日志文件和中间文件；
-- window.spec: 打包所需配置
+- dist: Location of the generated application;
+- build: Log files and intermediate files from the packaging process;
+- window.spec: Configuration required for packaging
 
 ![publish1](./img/publish/publish1.png)
 
-打开list文件夹，里面的就是可执行文件，双击即可打开。
+Open the dist folder. The file inside is the executable, which can be opened by double-clicking.
 
 ![publish2](./img/publish/publish2.png)
 
-如果无法打开，请执行下面命令给程序增加执行权限：
+If it cannot be opened, execute the following command to grant execution permissions to the program:
 
 ```bash
 chmod +x window
 ```
 
-打开后可以看到窗口程序：
+After opening, you can see the window program:
 
 ![publish3](./img/publish/publish3.png)
 

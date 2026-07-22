@@ -2,167 +2,167 @@
 sidebar_position: 6
 ---
 
-# UART（串口通讯）
+# UART (Serial Communication)
 
-## 前言
-串口是应用广泛的通讯接口，很多工控产品、无线透传模块都是使用串口来收发指令和传输数据，这样用户就可以在无须考虑底层实现原理的前提下将各类串口功能模块灵活应用起来。你也可以可以通过串口跟其它开发通讯实现数据交互，如STM32、ESP32、Arudio等。
+## Introduction
+The serial port is a widely used communication interface. Many industrial control products and wireless transparent transmission modules use serial ports to send/receive commands and transfer data, allowing users to flexibly use various serial module functions without worrying about the underlying implementation. You can also communicate with other development boards via serial ports to exchange data, such as STM32, ESP32, Arduino, etc.
 
-## 实验目的
-编程实现串口收发数据。
+## Experiment Objective
+Program serial port data transmission and reception.
 
-## 实验讲解
+## Experiment Explanation
 
-核桃派的GPIO有引出多路串口，本教程使用UART2, 即PB0--TX2, PB1--RX2。
-![uart1](./img/uart/uart1.png) 
+The Walnut Pi GPIO header provides multiple serial ports. This tutorial uses UART2, i.e., PB0--TX2, PB1--RX2.
+![uart1](./img/uart/uart1.png)
 
-## 开启串口2
+## Enable UART2
 
-在终端输入下面指令：
+Enter the following command in the terminal:
 ```bash
 sudo set-device enable uart2
 ```
 
-重启开发板：
+Restart the development board:
 ```bash
 sudo reboot
 ```
 
-启动后查看开启情况：
+Check the status after startup:
 ```bash
 gpio pins
 ```
 
-出现下图表示开启成功：
-![uart1](./img/uart/uart1_1.png) 
+The following output indicates successful activation:
+![uart1](./img/uart/uart1_1.png)
 
-更多GPIO配置教程请看：[GPIO设备配置](../../gpio/gpio_config.md)
+For more GPIO configuration tutorials, see: [GPIO Device Configuration](../../gpio/gpio_config.md)
 
-## Serial对象
+## Serial Object
 
-核桃派串口通讯可以使用linux系统自带的Serial标准库编程。具体介绍如下：
+Walnut Pi serial communication can use the Serial standard library built into the Linux system. Details are as follows:
 
-### 构造函数
+### Constructor
 ```python
-serial.Serial(“dev”,baudrate)
+serial.Serial("dev",baudrate)
 ```
-构建UART对象
-- `”dev”` :设备号，核桃派的uart2是”/dev/ttyS2”；
-- `baudrate` :串口波特率，可以设置为常用的9600、115200等。
+Build a UART object
+- `"dev"` : Device number. For Walnut Pi, uart2 is "/dev/ttyS2";
+- `baudrate` : Serial baud rate, can be set to commonly used values like 9600, 115200, etc.
 
-### 使用方法
+### Usage
 ```python
 Serial.inWaiting()
 ```
-返回串口接收并存放在缓冲区的字符个数，int型。可以用来判断是否有接收到数据。
+Returns the number of characters received and stored in the buffer, int type. Can be used to check if data has been received.
 
 <br></br>
 
 ```python
 Serial.read(num)
 ```
-读取数据，返回字节字符串。
-- `num` ：读取字符数量。
+Read data, returns byte string.
+- `num` : Number of characters to read.
 
 <br></br>
 
 ```python
 Serial.write(b'str')
 ```
-发送数据，要求格式为字节字符串。
-- `b'str'` ：发送内容。
+Send data, requires byte string format.
+- `b'str'` : Content to send.
 
 <br></br>
 
-更多Serial的python用法，请看官方文档：
+For more Python usage of Serial, see the official documentation:
 https://pyserial.readthedocs.io/en/latest/pyserial_api.html#module-serial
 
-了解了UART对象用法后，我们可以用一个USB转TTL工具，配合电脑上位机【串口助手】来跟核桃派进行串口通信。这类工具大同小异，**需要注意的是如果带3.3V和5V电平切换的，需要将跳线帽打到3.3V，因为核桃派的GPIO电平是3.3V的。**
+After understanding the UART object usage, we can use a USB-to-TTL tool along with a computer serial assistant (terminal software) to communicate with the Walnut Pi via serial port. These tools are generally similar. **Note: if the tool has 3.3V and 5V level switching, the jumper cap should be set to 3.3V, because the Walnut Pi GPIO level is 3.3V.**
 
-![uart2](./img/uart/uart2.png) 
+![uart2](./img/uart/uart2.png)
 
-本实验我们使用UART2，也就是TX2(PI5)和RX2(PI6)，接线示意图如下：**（3.3V可以不用接）**
+This experiment uses UART2, i.e., TX2(PI5) and RX2(PI6). The wiring diagram is as follows: **(3.3V can be left unconnected)**
 
-![uart3](./img/uart/uart3.png) 
+![uart3](./img/uart/uart3.png)
 
 
-在本实验中我们可以先初始化串口，然后给串口发去一条信息，这样PC机的串口助手就会在接收区显示出来，然后进入循环，当核桃派检测到有数据可以接收时候就将数据接收并打印，并通过终端打印显示。代码编写流程图如下：
+In this experiment, we first initialize the serial port, then send a message so that the PC serial assistant displays it in the receive area. Then enter a loop: when the Walnut Pi detects receivable data, it reads and prints the data via the terminal. The code flow chart is as follows:
 
 ```mermaid
 graph TD
-    导入Serial模块-->构建串口对象-->发送信息-->判断是否有信息--是-->接收并在终端打印-->判断是否有信息;
-    判断是否有信息--否-->判断是否有信息;
+    Import-Serial-module-->Build-serial-object-->Send-message-->Check-if-data-received--Yes-->Receive-and-print-in-terminal-->Check-if-data-received;
+    Check-if-data-received--No-->Check-if-data-received;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：UART(串口通讯)
-实验平台：核桃派
+Experiment Name: UART (Serial Communication)
+Experiment Platform: Walnut Pi
 '''
 
-#导入相关模块
+# Import related modules
 import serial,time
 
-# 配置串口
+# Configure serial port
 com = serial.Serial("/dev/ttyS2", 115200)
 
-#发送提示字符
+# Send prompt characters
 com.write(b'Hello WalnutPi!')
 
 while True:
 
-    # 获得接收缓冲区字符个数 int
+    # Get the number of characters in the receive buffer, int
     count = com.inWaiting()
     
-    if count != 0: #收到数据
+    if count != 0: # Data received
         
-        # 读取内容并打印
+        # Read content and print
         recv = com.read(count)
         print(recv)
         
-        #发回数据
+        # Send data back
         com.write(recv)
         
-        # 清空接收缓冲区
+        # Clear receive buffer
         com.flushInput()
         
-    # 延时100ms,接收间隔
+    # Delay 100ms, receive interval
     time.sleep(0.1)
 ```
 
-## 实验结果
+## Experiment Results
 
-终端输入下面指令确认UART2开启情况：
+Enter the following command in the terminal to confirm UART2 activation:
 ```bash
 gpio pins
 ```
 
-出现下图表示开启成功：
+The following output indicates successful activation:
 
-![uart1](./img/uart/uart1_1.png) 
+![uart1](./img/uart/uart1_1.png)
 
-如没开启请按前面内容打开：[开启串口2](#开启串口2)
+If not enabled, follow the steps above to enable: [Enable UART2](#enable-uart2)
 
-使用USB转TTL工具链接核桃派和电脑。
+Use a USB-to-TTL tool to connect the Walnut Pi and the computer.
 
-![uart5](./img/uart/uart5.png) 
+![uart5](./img/uart/uart5.png)
 
-电脑打开串口助手，选择USB转TTL对应的COM，波特率115200。点击打开，等待接收数据：
+On the computer, open the serial assistant, select the COM port corresponding to the USB-to-TTL, baud rate 115200. Click open and wait to receive data:
 
-![uart6](./img/uart/uart6.png) 
+![uart6](./img/uart/uart6.png)
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../python_run.md)
+Here we use Thonny to remotely run the above Python code on the Walnut Pi. For instructions on running Python code on the Walnut Pi, please refer to: [Running Python Code](../python_run.md)
 
-![uart4](./img/uart/uart4.png) 
+![uart4](./img/uart/uart4.png)
 
-运行后可以看到电脑串口助手接收到信息：
+After running, you can see the computer serial assistant receiving the message:
 
-![uart7](./img/uart/uart7.png) 
+![uart7](./img/uart/uart7.png)
 
-在串口助手发送栏输入信息，点击发送，可以看到thonny下方终端打印接收到的数据（核桃派开发板接收到的数据）：
+Enter a message in the serial assistant's send field and click send. You can see the received data printed in the Thonny terminal below (data received by the Walnut Pi development board):
 
-![uart8](./img/uart/uart8.png) 
+![uart8](./img/uart/uart8.png)
 
 
-串口数据收发应用非常广泛，除了本例程跟电脑通讯外，还可以跟其它单片机开发板或者串口模块设备通讯。
+Serial data communication is widely used. Besides communicating with a computer as in this example, it can also communicate with other microcontroller development boards or serial module devices.

@@ -2,87 +2,87 @@
 sidebar_position: 3
 ---
 
-# 第一个窗口
+# First Window
 
-本节我们来打造一个最简单的窗口来学习一下是怎么来构建自己的GUI并在核桃派上运行。
+In this section, we will create the simplest window to learn how to build our own GUI and run it on WalnutPi.
 
-## 使用Qt Designer创建窗口
+## Creating a Window with Qt Designer
 
-:::tip 提示
+:::tip Note
 
-1、核桃派需要连接HDMI显示器和键盘鼠标设计，或者通过VNC远程桌面操作。参考：[VNC远程桌面](../os_software/vnc.md)。
+1. WalnutPi needs to be connected to an HDMI monitor, keyboard, and mouse for design, or operated via VNC remote desktop. Refer to: [VNC Remote Desktop](../os_software/vnc.md).
 
-2、由于pyQT5优秀的跨平台特点，本节操作在Windows下同样适用。
+2. Due to PyQt5's excellent cross-platform features, the operations in this section also apply to Windows.
 
 :::
 
-设计pyQT5窗口用到Qt Designer。本节只做最简单的演示，更详细的窗口设置和控件功能在后面章节内容都会讲解。
+Qt Designer is used to design PyQt5 windows. This section only demonstrates the basics. More detailed window settings and widget functions will be covered in later chapters.
 
-打开Qt Designer，在左上角有不同窗口类型选择，一般默认选择**Main Window**，选择后点击**创建**：
+Open Qt Designer. There are different window type options in the upper left corner. Generally, select **Main Window** by default, then click **Create**:
 
 ![window1](./img/first_window/window1.png)
 
-创建后如下图，软件的各个区域功能如下：
+After creation, the interface looks like the following. The functions of each area of the software are as follows:
 
 ![window2](./img/first_window/window2.png)
 
-考虑到部分用户想用3.5寸LCD显示，我们可以将窗口大小调成480x320（核桃派3.5寸LCD分辨率）。将右边**属性编辑器**的**geometry**属性展开，然后将宽度和高度调成480和320即可。
+Considering that some users want to display on a 3.5-inch LCD, we can resize the window to 480x320 (WalnutPi 3.5-inch LCD resolution). Expand the **geometry** property in the right-side **Property Editor**, then adjust the width and height to 480 and 320.
 
 ![window3](./img/first_window/window3.png)
 
-拖动一个PushButton控件到窗口。
+Drag a PushButton widget to the window.
 
 ![window4](./img/first_window/window4.png)
 
-拖动一个label标签控件到窗口。
+Drag a Label widget to the window.
 
 ![window5](./img/first_window/window5.png)
 
-双击label标签可以修改内容，将内容修改为：Hello WalnutPi 。
+Double-click the label to modify its content. Change the content to: Hello WalnutPi.
 
 ![window6](./img/first_window/window6.png)
 
-属性中的**windowTitle**可以修改窗口标题栏名称：
+The **windowTitle** property can be used to change the window title bar name:
 
 ![window6_1](./img/first_window/window6_1.png)
 
-属性中的**windowIcon**可以修改窗口左上角图标，有兴趣用户可以自行修改：
+The **windowIcon** property can be used to change the window's top-left icon. Interested users can modify it themselves:
 
 ![window6_2](./img/first_window/window6_2.png)
 
-我们将这个窗口作为第一个演示窗口了，点击菜单栏**窗体--预览**：
+We will use this window as our first demo window. Click the menu bar **Form--Preview**:
 
 ![window7](./img/first_window/window7.png)
 
-可以看到刚刚制作的窗口预览出来了。这个功能在开发过程中可以检查是不是我们想要制作的效果。
+You can see the window we just created in the preview. This feature allows you to check whether it matches the desired effect during development.
 
 ![window8](./img/first_window/window8.png)
 
-点击菜单栏**文件--保存**或直接点击新建窗口右上角关闭按钮，将新建的窗口保存，名字自己定义，这里保存为“window.ui”。
+Click the menu bar **File--Save** or directly click the close button in the upper right corner of the new window to save the window. Name it whatever you like. Here we save it as "window.ui".
 
 ![window9](./img/first_window/window9.png)
 
-- 在核桃派下保存
+- Saving on WalnutPi
 
 ![window11](./img/first_window/window11.png)
 
-到这里，第一个窗口ui文件设计完成。
+At this point, the design of the first window UI file is complete.
 
-## 将窗口ui文件转成Python代码文件
+## Converting the Window UI File to a Python Code File
 
-我们需要将设计好的窗口ui文件转成python代码才可以核桃派的Python程序执行。可以通过终端指令直接转换：
+We need to convert the designed window UI file into Python code so that it can be executed by the Python program on WalnutPi. This can be done directly via terminal commands:
 
-在window.ui文件目录下的终端执行下面指令，该指令表示将window.ui文件生成window.py文件
+In the terminal, navigate to the directory of the window.ui file and execute the following command. This command generates a window.py file from the window.ui file:
 
 ```bash
 python -m PyQt5.uic.pyuic window.ui -o window.py
 ```
 
-执行后可以看到生成了py文件
+After execution, you can see the generated .py file:
 
 ![window12](./img/first_window/window12.png)
 
-打开windows.py文件可以看到生成了Python代码如下，主要就是窗口名称、位置坐标等属性的设置，大家可以修改窗口或按钮属性值，然后再生成py代码对比，就可以直观了解到各个对象的使用方法。
+Opening the window.py file, you can see the generated Python code, which mainly consists of window name, position coordinates, and other attribute settings. You can modify the window or button property values, then regenerate the .py code and compare, to intuitively understand how each object is used.
 
 ```python
 
@@ -128,4 +128,4 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Hello WalnutPi"))
 ```
 
-可以看到生成的代码只是定义了类和函数，所以该代码是不能直接运行的，需要添加一些代码来实现窗口显示，这在下一节会讲述。
+As you can see, the generated code only defines classes and functions, so it cannot be run directly. Some additional code needs to be added to display the window, which will be covered in the next section.

@@ -1,8 +1,8 @@
 {
-  "label": "添加MQTT设备和实体",
+  "label": "Adding MQTT Devices and Entities",
   "position": 3,
   "link": {
     "type": "generated-index",
-    "description": "添加各类MQTT设备和实体"
+    "description": "Adding Various MQTT Devices and Entities"
   }
 }

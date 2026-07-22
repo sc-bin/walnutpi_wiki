@@ -2,29 +2,29 @@
 sidebar_position: 2
 ---
 
-# 开发环境搭建
+# Development Environment Setup
 
-## 核桃派
+## WalnutPi
 
-核桃派出厂系统已经安装好了pyQT5，其中带桌面版系统预装QT Designer。QT Designer是一个强大的可视化GUI设计工具，通过QT Designer设计GUI可以极大提高开发效率。
+The WalnutPi factory system comes with PyQt5 pre-installed, and the desktop version comes pre-installed with QT Designer. QT Designer is a powerful visual GUI design tool that greatly improves development efficiency when designing GUIs.
 
-:::tip 提示
+:::tip Note
 
-推荐使用核桃派带桌面版系统开发，方便调试。
+It is recommended to use the WalnutPi desktop version system for development, as it facilitates debugging.
 
 :::
 
-### pyQT5
+### PyQt5
 
-pyQT5可以通过以下命令查询：
+PyQt5 can be verified with the following command:
 
-由于pyQT5是一系列Python库，所以先进入python:
+Since PyQt5 is a series of Python libraries, first enter Python:
 
 ``` bash
 python
 ``` 
 
-然后 import 一下，注意字母大小写，没有报错则说明系统已经安装。如果提示没有找到库请重烧最新版镜像。
+Then import it, paying attention to letter case. If no error occurs, the system has it installed. If it says the library is not found, please re-flash the latest image.
 
 ``` python
 import PyQt5
@@ -35,57 +35,57 @@ import PyQt5
 
 ### Qt Designer
 
-核桃派系统已经预装QT Designer,位于**开始菜单--开发**目录下：
+The WalnutPi system comes with QT Designer pre-installed, located in the **Start Menu--Development** directory:
 
 ![setup2](./img/development_setup/setup2.png)
 
-打开后软件界面如下图所示：
+After opening, the software interface looks like this:
 
 ![setup3](./img/development_setup/setup3.png)
 
 ## Windows
 
-pyQT5的一个好处是可移植性强，也就是说在Windows，Mac, Linux代码通用。如果你想在Windows上开发，然后在核桃派上使用相关代码也是可以的。
+One of the great benefits of PyQt5 is its strong portability, meaning the code is universal across Windows, Mac, and Linux. If you want to develop on Windows and then use the code on WalnutPi, that's perfectly fine.
 
-### 安装Python
+### Install Python
 
-1、确保电脑已经安装了Python3，在电脑终端运行python命令即可查看：
+1. Make sure your computer has Python3 installed. Run the python command in the terminal to check:
 
-在Windows按键盘`Win`+ `R` ，输入cmd可以快速启动终端：
+In Windows, press `Win` + `R`, type cmd to quickly open the terminal:
 ![setup4](./img/development_setup/setup4.png)
 
 ![setup5](./img/development_setup/setup5.png)
 
-在终端输入**python**关键词能查看到Python版本说明已安装。
+If you can see the Python version after typing **python** in the terminal, it means it is installed.
 
 ![setup6](./img/development_setup/setup6.png)
 
-如果没有安装请到[<python官网下载链接>](https://www.python.org/downloads/)，推荐python3.10以上版本，注意安装时要勾选添加到环境变量的选项。
+If not installed, go to the [Python official download page](https://www.python.org/downloads/). Python 3.10 or above is recommended. Make sure to check the option to add to environment variables during installation.
 
-### 安装PyQT5
+### Install PyQt5
 
-在Windows终端通过下面指令安装：
+Install it in the Windows terminal with the following command:
 
 ``` bash
 pip3 install pyqt5
 ```
 
-### 安装Qt Designer
+### Install Qt Designer
 
-在Windows终端通过下面指令安装：
+Install it in the Windows terminal with the following command:
 
 ``` bash
 pip3 install pyqt5-tools
 ```
 
-安装后可执行文件位于Python安装路径的lib目录下：
+After installation, the executable is located in the lib directory under the Python installation path:
 
-C:\Users\用户\AppData\Local\Programs\Python\Python310\Lib\site-packages\qt5_applications\Qt\bin
+C:\Users\User\AppData\Local\Programs\Python\Python310\Lib\site-packages\qt5_applications\Qt\bin
 
-由于比较常用，可以拖动创建快捷方式到桌面。
+Since it is frequently used, you can drag it to create a shortcut on the desktop.
 
 ![setup7](./img/development_setup/setup7.png)
 
-软件打开后如下图所示：
+After opening, the software looks like this:
 
 ![setup8](./img/development_setup/setup8.png)

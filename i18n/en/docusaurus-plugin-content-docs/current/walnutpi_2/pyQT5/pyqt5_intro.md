@@ -2,12 +2,12 @@
 sidebar_position: 1
 ---
 
-# PyQt5简介
+# PyQt5 Introduction
 
 ![intro1](./img/pyqt5_intro/intro1.png)
 
-玩Linux的小伙伴应该都听过QT，QT是一个跨平台的C++开发库，主要用来开发图形用户界面（GUI）。而pyQT则是由Digia公司开发的基于Python接口的QT框架，由一系列Python模块组成，简单来说就是用Python编程开发GUI。
+Those who work with Linux have probably heard of QT. QT is a cross-platform C++ development library primarily used for developing graphical user interfaces (GUI). PyQt, developed by Digia, is a Python-based interface for the QT framework, consisting of a series of Python modules. Simply put, it allows you to develop GUIs using Python programming.
 
-人生苦短，pyQT的的优势是保留了QT底层运行效率同时提高了开发效率，不需要再去C++编程，只要你懂Python, 再搭配QT Designer（QT的可视化界面编程软件）即可轻松地打造自己的GUI。
+Life is short, and the advantage of PyQt is that it retains QT's underlying execution efficiency while improving development efficiency. You no longer need to program in C++. As long as you know Python and use QT Designer (QT's visual interface programming tool), you can easily create your own GUIs.
 
-pyQT5的“5”是版本号，不向下兼容，是目前市面上最流行，资料最丰富的版本。希望本章教程能让你快速熟悉如何开发pyQT5并部署到核桃派。
+The "5" in PyQt5 is the version number, which is not backward compatible. It is currently the most popular and most well-documented version on the market. We hope this chapter's tutorial helps you quickly learn how to develop PyQt5 and deploy it on WalnutPi.

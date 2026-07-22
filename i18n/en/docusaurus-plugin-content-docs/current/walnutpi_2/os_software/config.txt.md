@@ -4,31 +4,42 @@ sidebar_position: 60
 
 # config.txt
 
-**config.txt主要用于配置核桃派的部分功能。**
+**config.txt is primarily used to configure certain features of the Walnut Pi.**
 
-sd卡有两个分区，config.txt存放在第一个分区内。在核桃派开发板上，可以在`/boot`路径下访问config.txt。如果用读卡器在Windows电脑上读取sd卡，由于分区2是windows无法识别的ext4格式，系统会弹出sd卡损坏的报错，请无视他。
+The SD card has two partitions, and config.txt is located in the first partition. On the Walnut Pi board, you can access config.txt under the `/boot` directory. If you read the SD card on a Windows computer using a card reader, the second partition is in ext4 format (unrecognizable by Windows), and the system may show an error about the SD card being corrupted—simply ignore this.
 
-![u盘](./img/config_txt/windows_path.png)
+![usb drive](./img/config_txt/windows_path.png)
 
-![u盘](./img/config_txt/config_txt2.png)
+![usb drive](./img/config_txt/config_txt2.png)
 
-## 显示屏配置
+## Display Configuration
 
-默认是使用HDMI显示，`screen=hdmi`, 可以修改参数使能其它屏幕显示。
+The default display is via HDMI (`screen=hdmi`). You can modify the parameter to enable other display outputs.
 
-- 核桃派官方3.5寸SPI屏
-
-```bash
-screen=lcd35-st7796
-```
-
-- 核桃派官方1.54寸SPI屏
+- Walnut Pi Official 1.54-inch SPI Display
 
 ```bash
 screen=lcd15-st7789
 ```
 
-- 市面上树莓派mipi屏(分辨率为800x480)
+- Walnut Pi Official 3.5-inch SPI Display
+
+```bash
+screen=lcd35-st7796
+```
+- Walnut Pi Official 5.5-inch MIPI Display (1920x1080)
+
+```bash
+screen=dsi-1920x1080
+```
+
+- Walnut Pi Official 10.1-inch MIPI Display (1280x800)
+
+```bash
+screen=dsi-1280x800
+```
+
+- Third-party Raspberry Pi MIPI Display (800x480)
 
 ```bash
 screen=dsi-800x480
@@ -37,61 +48,61 @@ screen=dsi-800x480
 ![lcd](./img/config_txt/lcd.png)
 
 
-## 是否在显示器（hdmi或lcd屏）上开启控制台终端
-`console_display`, 默认是开启。如果选择关闭，则在开机信息输出完之后，不会再有那个要求输入账号密码登陆，给你敲命令行的终端。
+## Enable or Disable Console Terminal on Display (HDMI or LCD)
+`console_display` is enabled by default. If disabled, after the boot messages finish, there will no longer be a terminal prompt asking for login credentials.
 
-典型应用场景：编写了一个qt程序让他显示到fb，并设置开机自启动。如果显示器上的终端没有关闭，你在键盘上的所有输入都会同时被qt窗口以及终端接收。而且终端还会输出一些东西到显示器上。
+Typical use case: You write a Qt program to display on the framebuffer and set it to auto-start at boot. If the display terminal is not turned off, all your keyboard input will be received by both the Qt window and the terminal simultaneously. The terminal will also output information to the display.
 
-- 开启
+- Enable
 ```
 console_display=enable
 ```
-- 关闭
+- Disable
 ```
 console_display=disable
 ```
 
-## 设置串口终端位置
-`console_uart`，默认是uart0作为串口终端，可以设置到其他串口。
+## Set Serial Terminal Location
+`console_uart`: uart0 is the default serial terminal. It can be reconfigured to other serial ports.
 
-uboot的信息固定从uart0输出。
+U-Boot information is always output from uart0.
 
-- 设置到串口2
+- Set to UART2
 ```
 console_uart=uart2
 ```
 
 
-## 是否在显示器上输出开机信息
-`display_bootinfo`,默认为是。如果关闭，则开机时的那堆信息不会输出到显示器上
+## Enable or Disable Boot Messages on Display
+`display_bootinfo` is enabled by default. If disabled, the boot log messages will not appear on the display.
 
-- 开启
+- Enable
 ```
 display_bootinfo=enable
 ```
-- 关闭
+- Disable
 ```
 display_bootinfo=disable
 ```
 
-## 内核日志可输出等级
-`printk_level`,默认是3。驱动输出信息时都会带一个等级数字，如果数字小于这个变量设置值的，就会被直接输出到终端。
+## Kernel Log Output Level
+`printk_level` defaults to 3. When drivers output information, each message has a level number. Messages with a level lower than this variable's value will be directly output to the terminal.
 
-| 数字 | 含义 |
+| Number | Meaning |
 | - | - |
-| 0 | 系统无法使用 
-| 1 | 必须立即采取行动
-| 2 | 紧急
-| 3 | 错误
-| 4 | 警告
-| 5 | 正常但重要
-| 6 | 信息
-| 7 | 调试信息 
+| 0 | System is unusable 
+| 1 | Must take immediate action
+| 2 | Critical
+| 3 | Error
+| 4 | Warning
+| 5 | Normal but significant
+| 6 | Informational
+| 7 | Debug
 
 
-## 启用设备树插件
-`overlay_prefix`,指定设备树文件的前缀，默认是`sun50i-h616`
+## Enable Device Tree Overlays
+`overlay_prefix`: Specifies the device tree file prefix, default is `sun50i-h616`.
 
-`overlays`, 该变量指示linux内核启动时会启用哪些设备树插件，例如当 overlays=spi1 ，则系统会加载/boot/overlays路径下的 sun50i-h616-spi1.dtbo 这个设备树文件
+`overlays`: This variable indicates which device tree overlays the Linux kernel will load at boot. For example, when `overlays=spi1`, the system will load the `sun50i-h616-spi1.dtbo` device tree file from the `/boot/overlays` directory.
 
-我们提供了一个set-device指令，会扫描/boot/overlays路径下所有设备树文件，并一键控制启用与关闭 ---> [set-device](../gpio/gpio_config)
+We provide a `set-device` command that scans all device tree files under `/boot/overlays` and enables/disables them with a single command ---> [set-device](../gpio/gpio_config)

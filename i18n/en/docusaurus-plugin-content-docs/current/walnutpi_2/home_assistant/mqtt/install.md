@@ -1,165 +1,155 @@
 ---
 sidebar_position: 1
 ---
-# MQTT服务器安装
+# MQTT Server Installation
 
-MQTT（又名 MQ 遥测传输）是一种基于 TCP/IP 的机器对机器或“物联网”连接协议。它允许极其轻量级的发布/订阅消息传输。MQTT是一个非常通用的协议，使用它可以让我们非常方便接入自己的设备。关于核桃派MQTT详细教程可以参考：[MQTT通讯](../../python/network/mqtt.md)
+MQTT (Message Queuing Telemetry Transport) is a TCP/IP-based machine-to-machine or "Internet of Things" connection protocol. It enables extremely lightweight publish/subscribe messaging transport. MQTT is a very versatile protocol that makes it easy to integrate your own devices. For detailed WalnutPi MQTT tutorials, see: [MQTT Communication](../../python/network/mqtt.md)
 
+Using the MQTT integration requires an MQTT server.
 
-使用MQTT集成需要一个MQTT服务器。
-
-:::tip 提示
-如果你使用的是核桃派Home Assistant镜像，那么这个镜像出厂已经安装好了MQTT服务器，并开机自启动。
+:::tip Note
+If you are using the WalnutPi Home Assistant image, the MQTT server is pre-installed and configured to start automatically on boot.
 :::
 
+If you installed Home Assistant on the standard WalnutPi image, you need to manually install and configure the MQTT server. Installation instructions are as follows:
 
-如果你使用核桃派普通镜像安装的Home Assistant，那么就需要自己手动安装和配置MQTT服务器。安装教程如下：
+## Installation
 
-## 安装
-
-打开核桃派终端, 使用apt指令安装：
+Open the WalnutPi terminal and install using apt:
 
 ```bash
 sudo apt install mosquitto
 ```
 
-设置开机自启动：
+Set to start automatically on boot:
 
 ```bash
 sudo service mosquitto start
 ```
 
-## 常规配置
+## General Configuration
 
-这里可以配置mqtt服务器端口和绑定文件相关信息，在核桃派 **/etc/mosquitto/conf.d** 目录下用终端新建一个配置文件，名称随意，系统会自动检测，如default.conf :
+Here you can configure the MQTT server port and related file bindings. Create a configuration file in the WalnutPi **/etc/mosquitto/conf.d** directory using the terminal. The filename can be anything — the system will auto-detect it — for example, default.conf:
 
 ```bash
 sudo nano /etc/mosquitto/conf.d/default.conf
 ```
 
-输入内容：
+Enter the following content:
 ```
-#修改端口
+# Modify port
 port 1883
 
-# 不允许匿名访问，需要提供 用户名&密码 才能连接服务器
+# Disallow anonymous access — username & password required to connect
 allow_anonymous false
 
-# 指定要使用的 用户名&密码 文件，需手动创建该文件
+# Specify the username & password file to use; this file must be created manually
 password_file /etc/mosquitto/pwfile
 
-# 指定权限控制文件存放路径，需手动创建该文件
+# Specify the ACL file path; this file must be created manually
 acl_file /etc/mosquitto/aclfile
 ```
 
-然后按ctrl+x保存退出。
+Then press Ctrl+X to save and exit.
 
-## 新建账户
+## Create Account
 
-这个账号和密码用于登录MQTT服务器。核桃派 **/etc/mosquitto/** 目录使用下面指令新建一个文件，文件名称和前面配置的名称 **pwfile**要一致。
+This username and password are used to log in to the MQTT server. In the WalnutPi **/etc/mosquitto/** directory, create a file with the following command. The filename must match the one configured above — **pwfile**.
 
 ```bash
 sudo touch /etc/mosquitto/pwfile
 ```
 
-增加文件后需要使用mosquitto_passwd命令来创建账号密码：这里以新建一个账号：pi ，密码：pi 的账户来测试。
+After creating the file, use the mosquitto_passwd command to create the account and password. Here we create a test account with username: pi, password: pi.
 
 ```bash
 sudo mosquitto_passwd /etc/mosquitto/pwfile pi
 ```
 
-然后后提示输入密码即可。
+You will then be prompted to enter the password.
 
-:::tip 提示
-密码不会显示，注意区分大小写，需要需要2次。
+:::tip Note
+The password will not be displayed on screen. Pay attention to case sensitivity and enter it twice.
 :::
 
 ![install](./img/install/install1.png)
 
-## 设定账号权限 
+## Set Account Permissions
 
-这个功能主要是让不同用户过滤掉MQTT服务器一些没用的信息。可选功能，如果不设置就表示接收全部主题信息。
+This feature mainly filters out unnecessary information on the MQTT server for different users. This is optional — if not set, all topic messages will be received.
 
-在核桃派 **/etc/mosquitto/** 目录使用下面指令新建一个账号权限文件，文件名称和前面配置的名称 **aclfile**要一致。
+In the WalnutPi **/etc/mosquitto/** directory, create an ACL file with the following command. The filename must match the one configured above — **aclfile**.
 
 ```bash
 sudo nano /etc/mosquitto/aclfile
 ```
 
-文件内输入：
+Enter the following content:
 
 ```
 user pi
 topic #
 ```
 
-表示然后按ctrl+x保存退出。
+Save and exit by pressing Ctrl+X.
 
-上面内容表示pi用户接收所有MQTT topic信息，如： **topic walnutpi/#** 则表示只接受**walnutpi/**开头的topic相关信息。其它主题会屏蔽。
+The above content means the pi user receives all MQTT topic information. For example: **topic walnutpi/#** would only accept topic information starting with **walnutpi/**, blocking other topics.
 
-所有配置完成后通过下面指令重启MQTT服务以生效：
-
-
-配置完成后重启MQTT服务器以便配置生效：
+After all configuration is complete, restart the MQTT service for changes to take effect:
 
 ```bash
 sudo service mosquitto restart
 ```
 
-## 测试MQTT服务器
+## Testing the MQTT Server
 
-在核桃派上安装完MQTT服务器后可以使用MQTT助手测试，这里推荐一款功能比较齐全的测试助手，叫MQTTX，支持windows, mac, linux等平台，在今后MQTT实验里面会经常借助MQTT助手来调试。这里基于windows安装使用：
+After installing the MQTT server on the WalnutPi, you can test it using an MQTT helper tool. We recommend a feature-rich test tool called MQTTX, which supports Windows, Mac, Linux, and other platforms. We'll frequently use MQTT helper tools for debugging in future MQTT experiments. Here we use the Windows installation:
 
-### 下载和安装MQTTX
+### Download and Install MQTTX
 
-下载地址：https://mqttx.app/zh/downloads
+Download link: https://mqttx.app/zh/downloads
 
-选择自己电脑合适版本下载，下图是Windows 64位系统：
+Choose the appropriate version for your computer. Below shows the Windows 64-bit version:
 
 ![install](./img/install/install2.png)
 
-下载完成后直接安装即可。
+Download and install directly.
 
-### 连接核桃派MQTT服务器并测试
+### Connect to WalnutPi MQTT Server and Test
 
-打开安装好的MQTTX ，可以看到界面非常简洁：
+Open the installed MQTTX. The interface is very clean:
 
 ![install](./img/install/install3.png)
 
-点击连接旁边的 + 按钮，选 **新建连接** 新建一个链接：
+Click the + button next to Connections and select **New Connection**:
 
 ![install](./img/install/install4.png)
 
-输入核桃派MQTT服务器信息：
-- `名称`：随意；
-- `服务器地址`：填写核桃派的IP地址；
-- `用户名和密码`：前面配置的用户名和密码，如果使用Home Assistant镜像，则默认用户名：pi；密码：pi。
+Enter the WalnutPi MQTT server information:
+- `Name`: Anything you like;
+- `Server Address`: Enter the WalnutPi IP address;
+- `Username and Password`: The username and password configured earlier. If using the Home Assistant image, the defaults are: username: pi, password: pi.
 
-其它信息默认即可。
+Leave other settings at their defaults.
 
 ![install](./img/install/install5.png)
 
-然后点击**连接**，连接成功后会有提示：
+Then click **Connect**. A success message will appear:
 
 ![install](./img/install/install6.png)
 
-连接成功后订阅一个测试的主题，点击**添加主题**：
+After connecting, subscribe to a test topic by clicking **Add Topic**:
 
 ![install](./img/install/install7.png)
 
-在弹出窗口主题位置输入 ：walnutpi/1 ，这里的-`walnutpi/1`是主题名称，可以自己定义，点击确认。
+In the popup, enter: walnutpi/1 in the Topic field. `walnutpi/1` is the topic name — you can define it yourself. Click Confirm.
 
 ![install](./img/install/install8.png)
 
-然后回到主窗口，在右侧按下图选择数据类型和输入主题和信息，主题必须和订阅的一致，输入完成后按右下角发送按钮：
+Back on the main window, select the data type as shown on the right, enter the topic and message. The topic must match the subscription. Click the send button at the bottom right:
 
 ![install](./img/install/install9.png)
 
-可以看到对话框出现了2条信息，右边为发送的内容，左边为接收内容。说明核桃派MQTT服务器收发正常。
+You should see two messages in the dialog — the right side is the sent content, the left side is the received content. This confirms that the WalnutPi MQTT server is sending and receiving normally.
 
 ![install](./img/install/install10.png)
-
-
-
-
-

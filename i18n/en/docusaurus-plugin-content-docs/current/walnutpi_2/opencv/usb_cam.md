@@ -2,68 +2,68 @@
 sidebar_position: 8
 ---
 
-# USB摄像头使用
+# Using USB Camera
 
-摄像头相当于OpenCV的眼睛，有了摄像头，就可以实时处理摄像头采集的视频流和图片，在上面实现图像处理和机器视觉算法。
+The camera is like OpenCV's eyes. With a camera, you can process video streams and images captured by the camera in real-time, implementing image processing and machine vision algorithms on them.
 
-核桃派系统内置USB摄像头驱动。市面上大部分USB CAM都可以使用，这里使用下面这款讲解：[**点击购买->**](https://item.taobao.com/item.htm?spm=a213gs.success.result.1.6c854831c6UKif&id=740242931183) 
+The WalnutPi system has built-in USB camera drivers. Most USB cameras on the market can be used. The following model is used for this tutorial: [**Click to buy->**](https://item.taobao.com/item.htm?spm=a213gs.success.result.1.6c854831c6UKif&id=740242931183) 
 
 ![usb_cam1](./img/usb_cam/usb_cam1.png)
 
-直接插到核桃派其中一个USB口就好。
+Simply plug it into one of the WalnutPi USB ports.
 
 ![usb_cam2](./img/usb_cam/usb_cam2.png)
 
-## 获取USB摄像头设备信息
+## Getting USB Camera Device Information
 
-先使用v4l2-ctl查看当前USB摄像头设备信息，这要安装 v4l ，核桃派大部分软件都可以通过 sudo apt install 方式安装：
+First, use v4l2-ctl to view the current USB camera device information. This requires installing v4l. Most WalnutPi software can be installed via sudo apt install:
 
 ```bash
 sudo apt install v4l-utils
 ```
 
-安装完成后运行下面指令查看插入的USB摄像头信息：
+After installation, run the following command to view the inserted USB camera information:
 
 ```bash
 v4l2-ctl --list-devices
 ```
 
-可以看到这款摄像头有多个video，通常是第一个。这里是：video1
+You can see that this camera has multiple video devices, usually the first one. Here it is: video1
 
 ![usb_cam3](./img/usb_cam/usb_cam3.png) 
 
-## 通过OpenCV使用摄像头
+## Using Camera via OpenCV
 
-OpenCV可以通过VideoCapture()函数获取摄像头视频流。摄像头视频流本质是一帧帧的图像，因此结合前面学习的读取、显示和保存图像，即可对摄像头图像进行采集显示（由于速度较快，因此跟看视频一样）。参考代码如下：
+OpenCV can obtain camera video streams through the VideoCapture() function. A camera video stream is essentially a series of images frame by frame. Therefore, by combining the previously learned reading, displaying, and saving images, you can capture and display camera images (since it is fast, it looks like a video). Reference code is as follows:
 
 ```python
 '''
-实验名称：USB摄像头使用
-实验平台：核桃派
+Experiment Name: Using USB Camera
+Experiment Platform: WalnutPi
 '''
 
 import cv2
 
-cam = cv2.VideoCapture(1) # 打开摄像头，确认好编号
+cam = cv2.VideoCapture(1) # Open the camera, confirm the number
 
-while (cam.isOpened()): # 确认被打开
+while (cam.isOpened()): # Confirm it is opened
     
-    retval, img = cam.read() # 从摄像头中实时读取图像
+    retval, img = cam.read() # Read images from the camera in real-time
     
-    cv2.imshow("Video", img) # 在窗口中显示读取到的图像
+    cv2.imshow("Video", img) # Display the read image in a window
     
-    key = cv2.waitKey(1) # 窗口的图像刷新时间为1毫秒，防止阻塞
+    key = cv2.waitKey(1) # Window image refresh time is 1 millisecond to prevent blocking
     
-    if key == 32: # 如果按下空格键，打断
+    if key == 32: # If the spacebar is pressed, break
         break
     
-capture.release() # 关闭摄像头
-cv2.destroyAllWindows() # 销毁显示摄像头视频的窗口
+cam.release() # Close the camera
+cv2.destroyAllWindows() # Destroy the window displaying the camera video
 
 ```
 
-在核桃派上运行代码，可以看到摄像头采集到的视频图像实时显示出来：
+Run the code on the WalnutPi, and you can see the video images captured by the camera displayed in real-time:
 
 ![usb_cam3](./img/usb_cam/usb_cam4.png) 
 
-代码中获得的 **img** 就是每一帧图像，可以用于我们之前学习的所有opencv图像处理操作。
+The **img** obtained in the code is each frame image, which can be used for all the OpenCV image processing operations we have learned previously.

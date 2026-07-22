@@ -2,166 +2,166 @@
 sidebar_position: 5
 ---
 
-# 系统镜像烧录
+# System Image Burning
 
-- **视频教程**
+- **Video Tutorial**
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1203172875&bvid=BV12F4m1N7Jz&cid=1508551068&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
 <br></br>
 <br></br>
 
-WalnutPi OS是一款基于Debian的免费操作系统，针对核桃派硬件进行了优化，是在核桃派上正常使用的推荐操作系统。
+Walnut Pi OS is a free Debian-based operating system optimized for Walnut Pi hardware. It is the recommended operating system for normal use on the Walnut Pi.
 
-核桃派的操作系统是安装到SD卡上的，目前提供2个镜像，分别是定制版Debian和无桌面版本。
+The Walnut Pi operating system is installed onto an SD card. Currently, two images are available: a customized Debian Desktop edition and a Server (headless) edition.
 
-- 桌面版（desketop版）核桃派定制版Debian经过魔改后，体验更像Windows，系统预装丰富的应用软件，开机即用。包含C、Python编程软件、谷歌浏览器、LibreOffice办公（兼容Office）、图片查看器、VLC媒体播放器、截图软件等，务求让大家降低使用门槛。
+- **Desktop Edition**: The Walnut Pi customized Debian has been heavily modified to provide an experience closer to Windows. The system comes pre-installed with a rich set of applications, ready to use right after booting. It includes C and Python programming tools, Google Chrome browser, LibreOffice (compatible with Microsoft Office), an image viewer, VLC media player, screenshot tool, and more, all aimed at lowering the barrier to entry.
 
-- 无桌面版（server版）使用终端方式交互，好处是更快的启动速度，更少的内存占用，功耗低，特别适合熟悉Linux指令的用户。你甚至可以用它来部署一个小型服务器。
+- **Server Edition (Headless)**: This uses terminal-based interaction. The benefits are faster boot times, lower memory usage, and lower power consumption—especially suitable for users familiar with Linux commands. You can even use it to deploy a small server.
 
 <br></br>
 
-- `普通用户（默认）` 账号：pi ; 密码：pi
-- `管理员账户` 账号：root ; 密码：root
+- `Normal User (Default)` Username: pi ; Password: pi
+- `Root Account` Username: root ; Password: root
 
-## 镜像下载地址：
+## Image Download Links:
 
-- 百度网盘链接：https://pan.baidu.com/s/1dxZ9weWiwwEjI5t3j5sP6Q?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk: https://pan.baidu.com/s/1dxZ9weWiwwEjI5t3j5sP6Q?pwd=WPKJ
+- Access code: **WPKJ**
 
-更新说明可以看里面的**说明文档.txt**。觉得百度网盘下载慢的话可以到QQ群文件下载：677173708
+For changelog details, see the **readme.txt** inside the download. If Baidu Netdisk download speeds are too slow, you can download from the QQ group files: 677173708
 
 ![0](./img/os-install/0.png)
 
 
-## SD启动卡烧录
+## Burning the SD Boot Card
 
-### 使用rufus烧录（推荐）
+### Using Rufus (Recommended)
 
-镜像下载完后我们还需要一个镜像烧录软件，这里推荐轻量级镜像烧录软件rufus。下载地址：https://rufus.ie/zh/#google_vignette
+After downloading the image, you will also need an image burning tool. We recommend the lightweight burning software **Rufus**. Download link: https://rufus.ie/
 
 ![9](./img/os-install/9.png)
 
-下载后直接打开软件，选择U盘盘符和要烧写的镜像即可：
+After downloading, simply open the software, select your USB drive and the image file to burn:
 
 ![10](./img/os-install/10.png)
 
 
-### 使用balenaEtcher烧录
+### Using balenaEtcher
 
-如果上面rufus软件无法烧录，也可使用balenaEtcher试试。**balenaEtcher**下载： [https://etcher.balena.io/#download-etcher](https://etcher.balena.io/#download-etcher/)
+If Rufus cannot burn the image, you can try balenaEtcher. **balenaEtcher** download: [https://etcher.balena.io/#download-etcher](https://etcher.balena.io/#download-etcher/)
 
 ![1](./img/os-install/1.png)
 
-根据自己电脑的操作系统选择对应软件下载。Windows用户默认选择第一个下载安装。
+Choose the version that matches your computer's operating system. Windows users should select the first option to download and install.
 
 ![2](./img/os-install/2.png)
 
-安装完成后打开软件，出现以下界面：
+After installation, open the software and you will see the following interface:
 
 ![3](./img/os-install/3.png)
 
-我们将MicroSD卡通过读卡器接入电脑 (推荐容量16G以上，闪迪class10牌子)。
+Insert the MicroSD card into your computer via a card reader (recommended: 16GB or larger, SanDisk Class 10 or similar brand).
 
 ![3_1](./img/os-install/3_1.png)
 
-回到刚刚镜像烧录软件，点击Select image 选择之前下载的系统镜像文件, 网盘下载的是压缩文件，先解压出来img文件再选择。
+Return to the image burning software. Click **Select image** and choose the system image file you downloaded earlier. Note that files downloaded from Baidu Netdisk are compressed—extract the .img file first before selecting.
 
 ![4](./img/os-install/4.png)
 
-然后在Select Drive选择SD卡 U盘对应的盘符，如果出现提示要格式化U盘直接点取消即可，因为烧录软件会格式化SD卡。
+Then, under **Select Drive**, choose the drive letter corresponding to your SD card. If a prompt appears asking to format the drive, simply click Cancel—the burning software will format the SD card automatically.
 
 ![4_1](./img/os-install/4_1.png)
 
 ![5](./img/os-install/5.png)
 
-点击 Flash 开始烧写镜像，烧录过程会有进度提示：
+Click **Flash** to begin burning the image. You will see a progress indicator during the process:
 
 ![6](./img/os-install/6.png)
 
-烧写完成后如下图所示：
+Once burning is complete, it will appear as shown below:
 
 ![7](./img/os-install/7.png)
 
-烧录完成后会发现Windows只会显示一个100M的盘符，属于正常现象，里面放置了一些核桃派配置文件。
+After burning, you may notice that Windows only shows a 100MB partition. This is normal—it contains some Walnut Pi configuration files.
 
 ![8](./img/os-install/8.png)
 
-## EMMC烧录
+## EMMC Burning
 
-下面教程适用于核桃派2B 带EMMC版本。
+The following tutorial applies to the Walnut Pi 2B with EMMC version.
 
-:::tip 提示
-当SD卡和EMMC同时带有操作系统时候，主控芯片会从SD卡启动系统。
-:::
+::::tip Note
+When both the SD card and EMMC contain an operating system, the chipset will boot from the SD card.
+::::
 
-### 使用SD卡自动烧录镜像（推荐）
+### Auto-flash Image to EMMC Using SD Card (Recommended)
 
-核桃派2B提供封装好可自动烧录镜像到EMMC的镜像系统，下载地址：
+The Walnut Pi 2B provides a packaged system image that can automatically flash the OS to EMMC. Download links:
 
-- 百度网盘链接：https://pan.baidu.com/s/1nUUUX1yq7dbeRtqAv8XCMQ?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk: https://pan.baidu.com/s/1nUUUX1yq7dbeRtqAv8XCMQ?pwd=WPKJ
+- Access code: **WPKJ**
 
-装载的是核桃派Debian镜像，包含桌面版和无桌面版。
+This contains the Walnut Pi Debian images, including both Desktop and Server editions.
 
 ![emmc_burn](./img/os-install/emmc_burn0.png)
 
-通过前面 [SD启动卡烧录](#sd启动卡烧录) 方法将这个镜像烧录到SD卡。烧录后插入核桃派。
+Use the [Burning the SD Boot Card](#burning-the-sd-boot-card) method described earlier to burn this image to the SD card. After burning, insert it into the Walnut Pi.
 
-可通过下面3种方式查看烧录进度：
+You can monitor the flashing progress in the following 3 ways:
 
-**1、连接HDMI显示器（推荐1080P分辨率显示器）**
+**1. Connect an HDMI Display (1080P resolution recommended)**
 
-系统启动后会自动显示烧录进度：
+The system will automatically display the flashing progress after booting:
 
 ![emmc_burn](./img/os-install/emmc_burn1.png)
 
-烧录完成后如下图所示：
+After flashing is complete, it will appear as shown below:
 
 ![emmc_burn](./img/os-install/emmc_burn2.png)
 
-**2、串口终端**
+**2. Serial Terminal**
 
-也可以通过串口终端可以查看烧录进度：
+You can also view the flashing progress via the serial terminal:
 
 ![emmc_burn](./img/os-install/emmc_burn3.png)
 
-**3、LED蓝灯**
+**3. Blue LED**
 
-烧录时LED蓝灯闪烁，烧录完成熄灭。
+The blue LED blinks during the flashing process and turns off once flashing is complete.
 
 ![emmc_burn](./img/os-install/emmc_burn4.png)
 
 
-烧录完成后断电，拔掉SD卡，再次上电后从EMMC启动系统。
+After flashing is complete, power off, remove the SD card, and power on again to boot from EMMC.
 
 
-### 在核桃派Debian系统手动烧录
+### Manual Flashing from the Walnut Pi Debian System
 
-除了上面方法外外，也可以通过SD卡启动一个核桃派Debian系统，然后将核桃派镜像通过U盘或网络挂载方式挂载到该系统进行手动烧写。
+In addition to the methods above, you can also boot a Walnut Pi Debian system from an SD card, then mount the Walnut Pi image via USB drive or network share to perform manual flashing.
 
 ![emmc](./img/os-install/10_2.png)
 
 
-也可以先将镜像压缩成了zip格式，再通过U盘连接核桃派，然后通过`uzip`指令解压镜像以节省拷贝时间。
+You can also compress the image into a zip file first, connect it to the Walnut Pi via a USB drive, and then decompress the image using the `unzip` command to save copying time.
 
 ![emmc](./img/os-install/11.png)
 
-解压到当前目录：
+Extract to the current directory:
 ```bash
 unzip xxx.zip
 ```
 
-:::tip 提示
+::::tip Note
 
-也可以解压到指定目录下，下面指令表示将zip文件解压到/home/pi目录：
+You can also extract to a specific directory. The following command extracts the zip file to the /home/pi directory:
 ```bash
 unzip xxx.zip -d /home/pi
 ```
-:::
+::::
 
 
-然后通过下面指令即可将img镜像文件烧录到核桃派EMMC：
+Then use the following command to flash the .img image file to the Walnut Pi EMMC:
 
 ```bash
 sudo set-emmc burn xxx.img
@@ -169,4 +169,4 @@ sudo set-emmc burn xxx.img
 
 ![emmc](./img/os-install/12.png)
 
-烧录完成后关机，拔掉SD镜像卡，上电系统正常启动说明系统已经烧录到EMMC并且工作正常。
+After flashing is complete, shut down, remove the SD card, and power on. If the system boots normally, it means the system has been successfully flashed to EMMC and is working properly.

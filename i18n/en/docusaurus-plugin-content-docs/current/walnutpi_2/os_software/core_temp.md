@@ -2,31 +2,32 @@
 sidebar_position: 21
 ---
 
-# 温度信息
+# Temperature Information
 
-核桃派2B的T527有6个温度传感器，分别是：
-- `sensor0`: CPUL小核温度
-- `sensor1`: CPUB大核温度
-- `sensor2`: GPU温度
-- `sensor3`: NPU温度
-- `sensor4`: DDR温度
-- `sensor5`: PMC电源芯片温度
+The Walnut Pi 2B's T527 chip has 6 temperature sensors:
 
-:::tip 提示
-下面命令获取的温度数据值需要除以1000。
-:::
+- `sensor0`: CPUL (Little Core) temperature
+- `sensor1`: CPUB (Big Core) temperature
+- `sensor2`: GPU temperature
+- `sensor3`: NPU temperature
+- `sensor4`: DDR temperature
+- `sensor5`: PMIC temperature
 
-## CPU温度信息
+::::tip Note
+Temperature values retrieved by the commands below need to be divided by 1000.
+::::
+
+## CPU Temperature
 
 ### CPUL
 
-查看传感器类型指令：
+Check sensor type command:
 
 ```bash
 cat /sys/class/thermal/thermal_zone0/type
 ```
 
-查看温度信息指令：
+Check temperature command:
 ```bash
 cat /sys/class/thermal/thermal_zone0/temp
 ```
@@ -35,73 +36,73 @@ cat /sys/class/thermal/thermal_zone0/temp
 
 ### CPUB
 
-查看传感器类型指令：
+Check sensor type command:
 
 ```bash
 cat /sys/class/thermal/thermal_zone1/type
 ```
 
-查看温度信息指令：
+Check temperature command:
 ```bash
 cat /sys/class/thermal/thermal_zone1/temp
 ```
 
 ![core_temp1](./img/core_temp/cpub.png)
 
-## GPU温度信息
+## GPU Temperature
 
-查看传感器类型指令：
+Check sensor type command:
 
 ```bash
 cat /sys/class/thermal/thermal_zone2/type
 ```
 
-查看温度信息指令：
+Check temperature command:
 ```bash
 cat /sys/class/thermal/thermal_zone2/temp
 ```
 
 ![core_temp2](./img/core_temp/gpu.png)
 
-## NPU温度信息
+## NPU Temperature
 
-查看传感器类型指令：
+Check sensor type command:
 
 ```bash
 cat /sys/class/thermal/thermal_zone3/type
 ```
 
-查看温度信息指令：
+Check temperature command:
 ```bash
 cat /sys/class/thermal/thermal_zone3/temp
 ```
 
 ![core_temp3](./img/core_temp/npu.png)
 
-## DDR温度信息
+## DDR Temperature
 
-查看传感器类型指令：
+Check sensor type command:
 
 ```bash
 cat /sys/class/thermal/thermal_zone4/type
 ```
 
-查看温度信息指令：
+Check temperature command:
 ```bash
 cat /sys/class/thermal/thermal_zone4/temp
 ```
 
 ![core_temp4](./img/core_temp/ddr.png)
 
-## PMC电源芯片温度信息
+## PMIC Temperature
 
-查看传感器类型指令：
+Check sensor type command:
 
 ```bash
 cat /sys/class/thermal/thermal_zone5/type
 ```
 
-查看温度信息指令：
+Check temperature command:
 ```bash
 cat /sys/class/thermal/thermal_zone5/temp
 ```

@@ -2,68 +2,66 @@
 sidebar_position: 3
 ---
 
-# 核桃派2B配件组装
+# Walnut Pi 2B Peripheral Assembly
 
+After learning about the Walnut Pi hardware in the previous section, we now have a general understanding of it. However, the Walnut Pi board alone cannot function—it requires certain essential peripherals such as a power supply, keyboard, mouse, and display. This section provides a detailed guide on assembling the Walnut Pi 2B peripherals.
 
-在上一节了解过核桃派的硬件后，我们对核桃派有了一定的认识。但单独一个核桃派板子是无法工作的，它要求有一些必须的外设，如电源、键盘鼠标、显示器等。这节我们就来做详细的介绍核桃派2B配件组装.
+## MicroSD Card
 
-## MicroSD卡
+The MicroSD card needs to be pre-loaded with the operating system, which will be covered in detail in the next section on system and software. This section only covers installation. A MicroSD card of 16GB or larger is recommended.
 
-MicroSD卡需要预先拷贝操作系统的，那会在下一节系统和软件展开讲解，这里只介绍安装方法。推荐使用16G以上的MicroSD卡。
-
-将MicroSD卡按下图所示方向轻轻插入到底。
+Gently insert the MicroSD card all the way in the direction shown below.
 
 ![sd](./img/hw-peripherals/sd.png)
 
-如果你需要去除 SD 卡，直接拔出即可。
-:::danger 注意
+If you need to remove the SD card, simply pull it out.
 
-请勿在通电情况下拔插 SD 卡。
+::::danger Warning
 
-:::
+Do not insert or remove the SD card while the board is powered on.
 
-## 键盘和鼠标
+::::
 
-核桃派支持有线键鼠和无线键鼠。
+## Keyboard and Mouse
+
+Walnut Pi supports both wired and wireless keyboards and mice.
 
 ![keyboard_mouse1](./img/hw-peripherals/keyboard_mouse1.png)
 
-**有线键鼠**
+**Wired Keyboard & Mouse**
 
 ![keyboard_mouse1](./img/hw-peripherals/keyboard_mouse2.png)
 
-**无线键鼠**
+**Wireless Keyboard & Mouse**
 
-将键盘和鼠标连接到USB口。有线和无线 USB 键鼠安装方法一样。正常情况下USB的拔插不需要太用力，否则可能是插反了。检查USB方向是否正确。
+Connect the keyboard and mouse to the USB ports. The installation method is the same for both wired and wireless USB devices. Normally, USB insertion and removal should not require excessive force—if it feels stuck, you may have reversed the orientation. Check that the USB connector is facing the correct direction.
 
 ![usb](./img/hw-peripherals/usb.png)
 
-## 显示器
+## Display
 
-一般的电脑显示屏或电视机都带有HDMI接口。
+Most computer monitors and TVs come with an HDMI port.
 
 ![hdmi1](./img/hw-peripherals/hdmi1.png)
 
-使用microHDMI转HDMI数据线可以直接将核桃派视频信号显示出来。
+Use a micro HDMI to HDMI cable to directly display the Walnut Pi video output.
 
 ![hdmi2](./img/hw-peripherals/hdmi2.png)
 
-将microHDMI线较小的一端连接到核桃派（靠近Type-C电源口的那个端口），另一端连接到显示器，如果你的显示器有多个输入端口，可能还需要进
-行一个输入端口切换的操作，具体视你显示器情况而定。
+Connect the smaller micro HDMI end to the Walnut Pi (the port near the Type-C power port), and the other end to your display. If your display has multiple input ports, you may need to switch the input source—this depends on your specific display.
 
 ![hdmi3](./img/hw-peripherals/hdmi3.png)
 
 
-## 网线（可选）
+## Ethernet Cable (Optional)
 
-要把核桃派和网络连接起来， 可以通过以太网或者 WiFi 无线连接。通常用WiFi，核桃派的 WiFi 支持 5G 信号连接，这里主要说一下网线的连接方法。把它
-插进以太网口，塑料夹子朝下，直到你听到咔哒声。 网线的另一端通常以相同的方式连接到路由器、 网络集线器或交换机上的任意空闲端口。如果您需要移除网线，只需将塑料夹向内挤压到插头处，然后轻轻将电缆滑出即可。
+You can connect the Walnut Pi to a network via Ethernet or WiFi. WiFi is the usual choice, and Walnut Pi supports 5G WiFi. This section focuses on the Ethernet connection method. Insert the cable into the Ethernet port with the plastic clip facing down until you hear a click. The other end of the cable typically connects to any available LAN port on a router, network hub, or switch. To remove the cable, squeeze the plastic clip inward toward the plug and gently slide the cable out.
 
 ![ethernet](./img/hw-peripherals/ethernet.png)
 
-## 音频（可选）
+## Audio (Optional)
 
-核桃派2B背面预留一个音频FPC座，可以通过转接板转成3.5mm音频座，也就是常见的耳机插孔。可以用于连接耳机或扬声器得到更强大的声音。
+The back of the Walnut Pi 2B has an audio FPC connector, which can be adapted to a 3.5mm audio jack (the common headphone jack) using an adapter board. This can be used to connect headphones or speakers for louder sound output.
 
 ![audio1](./img/hw-peripherals/audio1.png)
 
@@ -71,122 +69,121 @@ MicroSD卡需要预先拷贝操作系统的，那会在下一节系统和软件�
 
 ![audio3](./img/hw-peripherals/audio3.png)
 
-:::tip 提示
-核桃派也可以通过HDMI音频输出。
-:::
+::::tip Note
+Walnut Pi can also output audio through HDMI.
+::::
 
 
-## 主动散热扇
+## Active Cooling Fan
 
-主动散热扇能帮助核桃派板卡有效散热，特别在高温的环境下实现稳定工作。**核桃派2B会根据主控温度变化自动对散热扇进行调速。**
+The active cooling fan helps the Walnut Pi board dissipate heat effectively, ensuring stable operation especially in high-temperature environments. **The Walnut Pi 2B automatically adjusts the fan speed based on the chip temperature.**
 
 ![fan](./img/hw-peripherals/fan1.png)
 
-安装方法如下：
+Installation steps:
 
-将2个固定弹簧引脚按下图所示插入到散热扇孔：
+Insert the 2 spring-loaded mounting pins into the cooling fan holes as shown below:
 
 ![fan](./img/hw-peripherals/fan2.png)
 
 ![fan](./img/hw-peripherals/fan3.png)
 
-将配套的3片导热贴按先撕掉一面胶纸，下面位置贴好。位置大概即可，有点误差没关系。
+Peel off one side of the protective film from each of the 3 included thermal pads and place them as shown below. Approximate positioning is fine—slight deviations are acceptable.
 
-- 最厚的贴右下角（用于PMC电源芯片散热）
-- 最小的贴右上角（用于WiFi模块散热）
-- 剩下的贴左边（用于主控T527散热）
+- The thickest pad goes on the bottom-right corner (for PMIC cooling)
+- The smallest pad goes on the top-right corner (for WiFi module cooling)
+- The remaining pad goes on the left (for T527 chipset cooling)
 
 ![fan](./img/hw-peripherals/fan4.png)
 
-撕掉导热贴胶纸，然后对着核桃派2个散热孔插入。
+Peel off the remaining protective film from the thermal pads, then align and insert the fan mounting pins into the 2 heat sink holes on the Walnut Pi.
 
 ![fan](./img/hw-peripherals/fan5.png)
 
-卡扣会自动锁紧。
+The clips will lock automatically.
 
 ![fan](./img/hw-peripherals/fan6.png)
 
-最厚将4P接口插入核桃派2B散热器接口即可。
+Finally, plug the 4-pin connector into the Walnut Pi 2B fan header.
 
 ![fan](./img/hw-peripherals/fan7.png)
 
-:::tip 提示
-如需拆卸可使用镊子或者小夹子。注意不要损伤弹簧固定柱周围的元件。
-:::
+::::tip Note
+Use tweezers or small pliers if you need to remove it. Be careful not to damage the components around the spring mounting posts.
+::::
 
-## 外壳
+## Case
 
-除了亚克力底板，可以直接装配核桃派2B外壳。（市面上兼容树莓派5的外壳一般也能直接使用。）
+In addition to the acrylic base plate, you can directly assemble the Walnut Pi 2B case. (Cases compatible with Raspberry Pi 5 on the market can generally be used as well.)
 
-这里使用核桃派官方推荐的外壳:
+Here we use the officially recommended Walnut Pi case:
 
 ![shell](./img/hw-peripherals/shell1.png)
 
-支持多种使用方式：
+Supports multiple usage modes:
 
 ![shell](./img/hw-peripherals/shell1_1.png)
 
-将外壳从中间拆开：
+Disassemble the case by splitting it from the middle:
 
 ![shell](./img/hw-peripherals/shell2.png)
 
-将核桃派2B装进外壳，4个定位孔用配套的螺丝拧紧固定。
+Place the Walnut Pi 2B inside the case and tighten the 4 alignment holes with the included screws.
 
 ![shell](./img/hw-peripherals/shell3.png)
 
-支持外接3007风扇，按下图插入顶盖定位柱即可。
+Supports an external 3007 fan—simply insert it into the top cover mounting posts as shown below.
 
 ![shell](./img/hw-peripherals/shell4.png)
 
-底部可贴上配套的防滑垫：
+Attach the included anti-slip pads to the bottom:
 
 ![shell](./img/hw-peripherals/shell5.png)
 
-LED导光柱和按键在下面这个位置。测试一下按键是否正常。
+The LED light pipe and button are located in the position shown below. Test that the button works properly.
 
 ![shell](./img/hw-peripherals/shell6.png)
 
-可以将顶盖和面板打开，在以太网口位置放上配套的黑色垫子。
+Open the top cover and panel, then place the included black pad at the Ethernet port position.
 
 ![shell](./img/hw-peripherals/shell7.png)
 
-插入核桃派3.5寸显示屏。然后装上外壳使用。
+Insert the Walnut Pi 3.5-inch display, then close the case for use.
 
 ![shell](./img/hw-peripherals/shell8.png)
 
-## 亚克力底板
+## Acrylic Base Plate
 
-除了外壳，也可以只装亚克力的底板，亚克力底板的作用是避免PCB底部跟其它金属物体接触短路，避免刮花桌面，同时底部产生了空间也提升了散热效果。
+In addition to the case, you can also install just the acrylic base plate. The acrylic base plate prevents the PCB bottom from contacting metal objects and causing short circuits, protects the desktop from scratches, and creates an air gap underneath that improves heat dissipation.
 
-核桃派亚克力底板安装方法非常简单，撕掉亚克力保护膜，中间嵌套铜柱，上下两端分别用M2.5螺丝拧紧即可。
+The Walnut Pi acrylic base plate is very easy to install: peel off the protective film from the acrylic, place the copper standoffs in the middle, and tighten M2.5 screws at the top and bottom ends.
 
 ![acrylic](./img/hw-peripherals/acrylic.png)
 
 ![acrylic2](./img/hw-peripherals/acrylic2.png)
 
-## 电源连接
+## Power Connection
 
-核桃派对电源的要求是：5V 3A以上的Type-C接口电源。
+The Walnut Pi requires a power supply of 5V 3A or higher via a Type-C connector.
 
 ![power](./img/hw-peripherals/power1.png)
 
-连接电源通常是最后的操作，接通电源后意味着我们准备开始使用。将电源的Type-C端连接到核桃派。如果线材上有开关，记得将开关打开。
+Connecting power is usually the final step—once powered on, we are ready to start using the board. Connect the Type-C end of the power cable to the Walnut Pi. If the cable has an inline switch, make sure to turn it on.
 
 ![power](./img/hw-peripherals/power2.png)
 
-## PoE以太网供电
+## PoE (Power over Ethernet)
 
-除了使用type-c电源外，核桃派2B还支持PoE方式供电。只需要一根网线便可以实现上网和供电。**需要具备PoE协议的交换机和PoE模块。**
+In addition to the Type-C power supply, the Walnut Pi 2B also supports PoE power delivery. With just a single Ethernet cable, you can achieve both networking and power. **A PoE-capable switch and PoE module are required.**
 
-1、PoE供电交换机：[推荐购买链接](https://item.jd.com/100050331026.html#crumb-wrap)
+1. PoE switch: [Recommended purchase link](https://item.jd.com/100050331026.html#crumb-wrap)
 
-单个核桃派2B大概10-15W, 如果只给1台核桃派2B供电，那么只需要购买总功率大于15W即可。多台核桃派2B设备总功率需求如此类推。
+A single Walnut Pi 2B consumes approximately 10-15W. If you only need to power one Walnut Pi 2B, a switch with a total power rating above 15W is sufficient. For multiple devices, calculate the total accordingly.
 
 ![power](./img/hw-peripherals/poe0.png)
 
-2、PoE扩展板：[推荐购买链接](https://item.taobao.com/item.htm?&id=759353203698)
+2. PoE HAT: [Recommended purchase link](https://item.taobao.com/item.htm?&id=759353203698)
 
-市面上支持树莓派5代的都可以在核桃派2B上使用。
+PoE HATs compatible with Raspberry Pi 5 are also compatible with the Walnut Pi 2B.
 
 ![power](./img/hw-peripherals/poe1.png)
-

@@ -4,38 +4,38 @@ sidebar_position: 2
 
 # LED
 
-## 前言
-本节主要内容是为Home Assistant添加一个LED，实现控制开关。为了方便演示，本教程会分别使用核桃派1B和核桃派PicoW（ESP32S3）来作为mqtt节点来操作。
+## Overview
+This section focuses on adding an LED to Home Assistant for on/off control. For easy demonstration, this tutorial uses both the WalnutPi 1B and the WalnutPi PicoW (ESP32S3) as MQTT nodes to operate.
 
-- 核桃派1B LED
+- WalnutPi 1B LED
 
 ![led](./img/led/led1.png)
 
-- 核桃派PicoW LED
+- WalnutPi PicoW LED
 
 ![led](./img/led/led2.png)
 
-## 实验目的
-核桃派Home Assistant主机添加LED并实现控制开关。
+## Objective
+Add an LED to the WalnutPi Home Assistant host and implement on/off control.
 
-## 实验讲解
+## Explanation
 
-LED可以看做是一个单色的灯具，用到Home Assistant MQTT组件中的light。实验的关键是搞清楚发现MQTT设备的主题信息以及控制方法，具体说明如下：
+An LED can be thought of as a single-color light fixture, using the light component from the Home Assistant MQTT integration. The key to the experiment is understanding the topic information for discovering MQTT devices and the control method, as detailed below:
 
-## MQTT主题
+## MQTT Topic
 
-下面这个主题用于Home Assistant主机通过MQTT发现该设备：
+The following topic is used for the Home Assistant host to discover this device via MQTT:
 
 ```
 homeassistant/light/1b_led/config
 ```
 
-- `homeassistant`:默认的前缀
-- `light`: LED对应的MQTT元件为light
-- `1b_led`: 实体的ID，需要唯一，这里自定义的内容，表示核桃派1B的LED；
-- `config`:默认的后缀
+- `homeassistant`: Default prefix
+- `light`: The MQTT component used for LEDs is light
+- `1b_led`: Entity ID, must be unique. This is a custom value representing the WalnutPi 1B's LED;
+- `config`: Default suffix
 
-## MQTT消息
+## MQTT Payload
 
 ```json
 {
@@ -43,7 +43,7 @@ homeassistant/light/1b_led/config
     "device_class":"LIGHT",
     "command_topic":"1b_led/light/state",
     "unique_id":"1b_led",
-               
+
     "device":{
                 "identifiers":"1b_01",
                 "name":"WalnutPi_1B"
@@ -51,103 +51,103 @@ homeassistant/light/1b_led/config
 }
 ```
 
-### 实体
+### Entity
 
-- `"name":"led"`: 实体名称，自定义填写；
-- `"device_class":"LIGHT"`: 组件类型，跟前面主题配置信息相关，不能填错，比如这里的`LIGHT`是组件`light`下的一个可用实体；
-- `"command_topic":"1b_led/light/state"`: 用于注册实体后发布相关属性主题，比如灯的亮和灭状态，自定义，保证不同实体的主题不一样即可；
-- `"unique_id":"1b_led"`: 实体ID，自定义，务必保证每个实体唯一；
+- `"name":"led"`: Entity name, can be customized;
+- `"device_class":"LIGHT"`: Component type, related to the topic configuration above. Must not be wrong. For example, `LIGHT` here is a valid entity under the `light` component;
+- `"command_topic":"1b_led/light/state"`: Used to publish relevant attribute topics after registering the entity, such as the on/off state of a light. Can be customized; just make sure different entities have different topics;
+- `"unique_id":"1b_led"`: Entity ID, can be customized, must be unique for each entity;
 
-### 设备
+### Device
 
-告知Home Assistant实体对应的设备。
+Informs Home Assistant of the device corresponding to the entity.
 
-- `"identifiers":"1b_01"`: 识别标识符，每个设备唯一；
-- `"name":"WalnutPi_1B"`: 设备名称，自定义；
+- `"identifiers":"1b_01"`: Identification identifier, unique per device;
+- `"name":"WalnutPi_1B"`: Device name, can be customized;
 
-更多MQTT light内容可查阅官方文档：https://www.home-assistant.io/integrations/light.mqtt/
+For more MQTT light content, see the official documentation: https://www.home-assistant.io/integrations/light.mqtt/
 
-代码编写流程如下：
+The code flow is as follows:
 
 ```mermaid
 graph TD
-    导入相关模块-->构建LED对象-->连接MQTT服务器-->注册LED实体和设备-->接收MQTT信息-->控制LED开关-->接收MQTT信息;
+    Import modules-->Build LED object-->Connect MQTT server-->Register LED entity and device-->Receive MQTT messages-->Control LED on/off-->Receive MQTT messages;
 ```
 
-## 基于核桃派2B实现
+## Implementation Using WalnutPi 2B
 
-核桃派2B板载可编程LED，我们在前面教程中学习过核桃派使用Python编程实现MQTT通讯[MQTT通讯](../../../python/network/mqtt.md)，在这个基础上实现即可：
+The WalnutPi 2B has an onboard programmable LED. We learned about WalnutPi Python MQTT communication in a previous tutorial [MQTT Communication](../../../python/network/mqtt.md). We build on that foundation:
 
-### 参考代码
+### Reference Code
 
 ```python
 '''
-实验名称：Home Assistant LED灯
-实验平台：核桃派
-说明：编程实现Home Assistant控制LED灯。
+Experiment Name: Home Assistant LED Light
+Platform: WalnutPi
+Description: Program Home Assistant LED light control.
 '''
 
-#导入相关库
+#Import libraries
 import paho.mqtt.client as mqtt
 
 import board
 from digitalio import DigitalInOut, Direction
 
-#构建LED对象和初始化
-led = DigitalInOut(board.LED) #定义引脚编号
-led.direction = Direction.OUTPUT  #IO为输出
+#Build LED object and initialize
+led = DigitalInOut(board.LED) #Define pin
+led.direction = Direction.OUTPUT  #IO as output
 
-led.value = 0 #输出低电平，熄灭LED蓝灯
+led.value = 0 #Output low level, turn off blue LED
 
-#MQTT服务器和用户信息
-CLIENT_ID = 'WalnutPi-LED' # 客户端ID
-SERVER = '127.0.0.1' #表示本机IP地址
-PORT = 1883    
+#MQTT server and user info
+CLIENT_ID = 'WalnutPi-LED' # Client ID
+SERVER = '127.0.0.1' #Localhost IP address
+PORT = 1883
 USER='pi'
 PASSWORD='pi'
 
-#构建mqtt客户端对象
+#Build MQTT client object
 client = mqtt.Client(CLIENT_ID)
 
-#配置用户名和密码
+#Configure username and password
 client.username_pw_set(USER, PASSWORD)
 
 topic = "picow1/light/led/state"
 
-#客户端从服务器接收到1个CONNACK响应时执行的回调函数.
+#Callback executed when client receives a CONNACK response from the server
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
-    # 在on_connect()中使使用订阅主题意味着如果我们失去连接并重新连接，订阅将被更新。
+    # Subscribing in on_connect() means if we lose connection and reconnect, subscriptions will be renewed.
     client.subscribe("1b_led/light/state")
 
-# 当从服务器中收到其他设备的发布信息时，执行这个回调函数.
+# Callback executed when a published message is received from the server
 def on_message(client, userdata, msg):
-    
-    print(msg.topic+" "+str(msg.payload)) #打印topic和信息
 
-    if msg.payload == b'ON' : #点亮LED
-        
+    print(msg.topic+" "+str(msg.payload)) #Print topic and payload
+
+    if msg.payload == b'ON' : #Turn on LED
+
         led.value = 1
-    
-    if msg.payload == b'OFF' : #熄灭LED
-        
+
+    if msg.payload == b'OFF' : #Turn off LED
+
         led.value = 0
 
-#配置连接和接收信息的回调函数
+#Configure connection and message callback functions
 client.on_connect = on_connect
 client.on_message = on_message
 
-#发起连接
+#Initiate connection
 client.connect(SERVER,PORT)
 
-#首次启动注册设备
+#Register device on first boot
 topic = "homeassistant/light/1b_led/config"
 message = """{
            "name":"led",
            "device_class":"LIGHT",
            "command_topic":"1b_led/light/state",
            "unique_id":"1b_led",
-           
+
            "device":{
                       "identifiers":"1b_01",
                       "name":"WalnutPi_1B"
@@ -156,7 +156,7 @@ message = """{
 
 client.publish(topic, message)
 
-# 开启新线程保持MQTT连接。
+# Start a new thread to maintain MQTT connection.
 client.loop_start()
 
 while True:
@@ -165,94 +165,94 @@ while True:
 
 ```
 
-### 实验结果
+### Results
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../../../python/python_run.md)
+Here we use Thonny to remotely run the Python code on the WalnutPi. For methods to run Python code on WalnutPi, see: [Running Python Code](../../../python/python_run.md)
 
 ![led](./img/led/led3.png)
 
-运行后可以看到Home Assistant主机出现一个新设备和实体：
+After running, you can see a new device and entity appear in the Home Assistant host:
 
 ![led](./img/led/led4.png)
 
-点击**设备**，可以看到设备相关信息，右边led为实体，点击开关按钮实现LED开关：
+Click **Devices** to see device information. On the right, led is the entity. Click the toggle switch to turn the LED on/off:
 
 ![led](./img/led/led4_1.png)
 
-同时往设备发送MQTT信息：
+At the same time, MQTT messages are sent to the device:
 
 ![led](./img/led/led4_1.png)
 
-控制核桃派1B LED亮灭：
+Controlling the WalnutPi 1B LED on/off:
 
 ![led5](./img/led/led5.png)
 
 ![led6](./img/led/led6.png)
 
-还可以点击**添加到仪表盘**：
+You can also click **Add to Dashboard**:
 
 ![led6](./img/led/led7.png)
 
-Home Assistant系统会自动选择卡片类型：
+Home Assistant automatically selects the card type:
 
 ![led6](./img/led/led8.png)
 
-添加后可在概览首页界面看到该设备：
+After adding, you can see the device on the Overview dashboard:
 
 ![led6](./img/led/led9.png)
 
-## 基于核桃派PicoW实现
+## Implementation Using WalnutPi PicoW
 
-核桃派PicoW（ESP32-S3）板载可编程LED，使用方法参考:[核桃派PicoW教程](https://www.walnutpi.com/picow/directory)，保证核桃派PicoW和核桃派2B连接到同一个路由器下即可：
+The WalnutPi PicoW (ESP32-S3) has an onboard programmable LED. For usage, see: [WalnutPi PicoW Tutorial](https://www.walnutpi.com/picow/directory). Ensure that both the WalnutPi PicoW and the WalnutPi 2B are connected to the same router:
 
 ![led6](./img/led/led9_2.png)
 
-### 参考代码
+### Reference Code
 ```python
 '''
-实验名称：Home Assistant LED灯
-实验平台：核桃派 + 核桃派PicoW
-作者：WalnutPi
-说明：编程实现Home Assistant控制LED灯
+Experiment Name: Home Assistant LED Light
+Platform: WalnutPi + WalnutPi PicoW
+Author: WalnutPi
+Description: Program Home Assistant LED light control
 '''
 
 import network,time
-from simple import MQTTClient #导入MQTT板块
+from simple import MQTTClient #Import MQTT module
 from machine import Pin,Timer
 
-LED=Pin(46, Pin.OUT) #初始化WIFI指示灯
+LED=Pin(46, Pin.OUT) #Initialize WiFi indicator LED
 
-#WIFI连接函数
+#WiFi connection function
 def WIFI_Connect():
 
     global LED
 
-    wlan = network.WLAN(network.STA_IF) #STA模式
-    wlan.active(True)                   #激活接口
-    start_time=time.time()              #记录时间做超时判断
+    wlan = network.WLAN(network.STA_IF) #STA mode
+    wlan.active(True)                   #Activate interface
+    start_time=time.time()              #Record time for timeout check
 
     if not wlan.isconnected():
         print('connecting to network...')
-        wlan.connect('01Studio', '88888888') #输入WIFI账号密码
+        wlan.connect('01Studio', '88888888') #Enter WiFi SSID and password
 
         while not wlan.isconnected():
 
-            #LED闪烁提示
+            #LED blinking indicator
             LED.value(1)
             time.sleep_ms(300)
             LED.value(0)
             time.sleep_ms(300)
 
-            #超时判断,15秒没连接成功判定为超时
+            #Timeout check: if not connected within 15 seconds, treat as timeout
             if time.time()-start_time > 15 :
                 print('WIFI Connected Timeout!')
                 break
 
     if wlan.isconnected():
-        #LED点亮
+        #Turn on LED
         LED.value(1)
 
-        #串口打印信息
+        #Print network info to serial
         print('network information:', wlan.ifconfig())
 
         return True
@@ -261,45 +261,45 @@ def WIFI_Connect():
         return False
 
 
-#设置MQTT回调函数,有信息时候执行
+#Set MQTT callback, executes when a message is received
 def MQTT_callback(topic, msg):
-    
+
     print('topic: {}'.format(topic))
     print('msg: {}'.format(msg))
-    
+
     if msg == b'ON' :
-        
+
         LED.value(1)
-    
+
     if msg == b'OFF' :
-        
+
         LED.value(0)
 
-#接收数据任务·
+#Receive data task
 def MQTT_Rev(tim):
     client.check_msg()
 
-#执行WIFI连接函数并判断是否已经连接成功
+#Execute WiFi connection and check if successful
 if WIFI_Connect():
-    
-    CLIENT_ID = 'WalnutPi-PicoW1' # 客户端ID
-    SERVER = '192.168.1.118'  # MQTT服务器地址
-    PORT = 1883   
+
+    CLIENT_ID = 'WalnutPi-PicoW1' # Client ID
+    SERVER = '192.168.1.118'  # MQTT server address
+    PORT = 1883
     USER='pi'
     PASSWORD='pi'
-    
-    client = MQTTClient(CLIENT_ID, SERVER, PORT, USER, PASSWORD) #建立客户端对象
-    client.set_callback(MQTT_callback)  #配置回调函数
+
+    client = MQTTClient(CLIENT_ID, SERVER, PORT, USER, PASSWORD) #Create client object
+    client.set_callback(MQTT_callback)  #Configure callback function
     client.connect()
-    
-    #注册设备
+
+    #Register device
     TOPIC = "homeassistant/light/picow1_led/config"
     mssage = """{
                   "name": "led",
                   "device_class": "LIGHT",
                   "command_topic": "picow1_led/light/state",
                   "unique_id": "picow1_led",
-                  
+
                   "device": {
                             "identifiers": "picow_1",
                             "name": "picow1"
@@ -307,35 +307,33 @@ if WIFI_Connect():
                 }"""
 
     client.publish(TOPIC, mssage)
-    
-    #订阅主题 
-    TOPIC = 'picow1_led/light/state' # TOPIC名称
-    client.subscribe(TOPIC) #订阅主题
 
-    #开启RTOS定时器，编号为1,周期100ms，执行socket通信接收任务
+    #Subscribe to topic
+    TOPIC = 'picow1_led/light/state' # TOPIC name
+    client.subscribe(TOPIC) #Subscribe to topic
+
+    #Start RTOS timer, number 1, period 100ms, execute socket receive task
     tim = Timer(1)
     tim.init(period=100, mode=Timer.PERIODIC,callback=MQTT_Rev)
 
 ```
 
-### 实验结果
+### Results
 
-使用Thonny 连接核桃派PicoW开发板，运行上面代码：
+Use Thonny to connect to the WalnutPi PicoW board and run the code above:
 
 ![led](./img/led/led10.png)
 
-连接成功后可以看到核桃派Home Assistant主机多了一个设备：
+After a successful connection, you can see one additional device on the WalnutPi Home Assistant host:
 
 ![led](./img/led/led11.png)
 
-进入设备，同样可以在右边控制LED开关和添加到仪表盘：
+Enter the device. You can also control the LED on the right and add it to the dashboard:
 
 ![led](./img/led/led12.png)
 
-点击开关时PicoW收到MQTT信息并在thonny IDE下方终端打印信息，LED对应亮灭操作。
+When clicking the switch, the PicoW receives MQTT messages and prints them in the Thonny IDE terminal below. The LED toggles accordingly.
 
 ![led](./img/led/led13.png)
 
 ![led](./img/led/led2.png)
-
-

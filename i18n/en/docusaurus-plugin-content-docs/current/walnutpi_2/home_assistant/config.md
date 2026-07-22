@@ -2,158 +2,155 @@
 sidebar_position: 3
 ---
 
-# 初始化配置
+# Initial Configuration
 
-## 联网
+## Network Connection
 
-安装完成后首次使用需要将核桃派接上5V电源，然后通过以太网或者WiFi方式连接到路由器。
+After installation, power the WalnutPi with a 5V supply and connect it to your router via Ethernet or WiFi.
 
 ![config](./img/config/config0.png)
 
-### 通过以太网
+### Via Ethernet
 
-将网线一端连接核桃派开发板，另一端连接路由器即可。
+Connect one end of the Ethernet cable to the WalnutPi board and the other end to your router.
 
 ![config](./img/config/config0_1.png)
 
-### 通过WiFi连接
+### Via WiFi
 
-核桃派WiFi连接参考教程：[**WiFi连接**](../os_software/wifi.md)
+For WalnutPi WiFi connection instructions, see: [WiFi Connection](../os_software/wifi.md)
 
-## 手机APP下载（可选）
+## Mobile App Download (Optional)
 
-Home Assistant 官方提供APP，和PC浏览器上使用一样。安装方式如下：
+Home Assistant provides an official app that works the same as the PC browser. Installation methods:
 
-### 苹果手机
+### iPhone
 
-直接在APP Store搜索“Home Assistant”安装即可：
+Search for "Home Assistant" in the App Store and install:
 
 ![config](./img/config/config0_2.png)
 
-### Android手机
-下载APK安装。APK位于核桃派Home Assistant资料包--APP应用文件夹内：
+### Android Phone
+
+Download the APK to install. The APK can be found in the WalnutPi Home Assistant resource package — APP folder:
 
 ![config](./img/config/config0_3.png)
 
+## Initial Setup
 
-## 初始化设置
+### Open the Configuration Page
 
-### 打开配置界面
+The Home Assistant host takes about 2-3 minutes to fully start up. Once started and connected to the network, you can initialize Home Assistant via a mobile phone or computer browser:
 
-Home Assistant主机从启动到运行大概需要2-3分钟时间，启动并联网成功后可以在手机或电脑浏览器对Home Assistant进行初始化配置：
-
-:::tip 提示
-核桃派启动后LED蓝灯闪烁，表示正在等待Home Assistant启动，Home Assistant启动完成后LED会常亮，表示启动成功，这时候即可进行下面配置操作。
+:::tip Note
+After the WalnutPi boots, the blue LED will blink, indicating that Home Assistant is starting. Once Home Assistant is fully started, the LED stays solid on, meaning it is ready for the following configuration steps.
 :::
 
-- 手机打开
+- From Mobile Phone
 
-使用APP的好处是当手机和Home Assistant连接在同一个路由器时能自动发现局域网内的Home Assistant主机，打开APP，即可搜索到：
+The benefit of using the app is that it can automatically discover the Home Assistant host on the local network when both the phone and Home Assistant are connected to the same router. Open the app and it will be found:
 
 ![config](./img/config/config0_4.png)
 
-- 浏览器打开
+- From Browser
 
-在电脑浏览器或者核桃派浏览器（桌面版）输入：http://walnutpi.local:8123 进入初始化界面。
+Enter http://walnutpi.local:8123 in your computer browser or WalnutPi browser (Desktop edition) to access the initialization page.
 
-（如果这个链接无法进入需要使用：http://XXXX:8123 ，XXXX为你的核桃派当前IP地址，如：http://192.168.1.100:8123） [**核桃派IP地址获取方法**](../os_software/ip_get.md)
+(If this link does not work, use: http://XXXX:8123, where XXXX is the current IP address of your WalnutPi, e.g., http://192.168.1.100:8123) [How to Get WalnutPi IP Address](../os_software/ip_get.md)
 
-:::tip 提示
-配置成功后推荐使用ip地址登录，http://walnutpi.local:8123 实测偶尔会出现打不开情况。
+:::tip Note
+After configuration, we recommend logging in using the IP address. http://walnutpi.local:8123 sometimes fails to open in practice.
 :::
 
-### 开始配置
+### Start Configuration
 
-进入后出现下面欢迎画面：
+You will see the following welcome screen:
 
 ![config](./img/config/config1.png)
 
-左下角选择简体中文，然后点击**创建我的智能家居按钮**。
+Select your language in the bottom left, then click the **Create My Smart Home** button.
 
 ![config](./img/config/config2.png)
 
-输入自己定义的名称、用户名和密码（请牢记账号和密码），点击创建账户：
+Enter your custom name, username, and password (please remember your credentials), then click Create Account:
 
 ![config](./img/config/config3.png)
 
-输入地理位置，这里未使用科学上网的用户可能显示不出地图，先直接点下一步跳过即可：
+Enter your geographic location. Users without proxy/VPN may not see the map — you can simply click Next to skip this step:
 
 ![config](./img/config/config4.png)
 
-选择自己所在的地区：
+Select your region:
 
 ![config](./img/config/config5.png)
 
-选择是否共享使用数据给官方：
+Choose whether to share usage data with the official team:
 
 ![config](./img/config/config6.png)
 
-系统提示发现了一些设备，点完成即可。
+The system prompts that some devices were discovered — click Finish.
 
 ![config](./img/config/config7.png)
 
-然后进入了主界面，配置过的用户今后登录后都是出现这个主页面，刚刚提示发现的设备可能会在主界面仪表盘显示出来：
+You will then enter the main interface. After this initial setup, logging in will always bring you to this dashboard page. The devices discovered earlier may appear on the dashboard:
 
 ![config](./img/config/config8.png)
 
-## 修复提示
+## Fix Warnings
 
-提示修复 **系统不健康 - 没有提权** ，镜像方式首次启动原因，点忽略即可。需要注意的是忽略后需要重启一下主机，否则无法在线更新和安装部分插件。
+The warning **System unhealthy - not privileged** appears because this is the first boot from the image. Click Ignore. Note that after ignoring, you need to restart the host, otherwise online updates and some add-on installations will not work.
 
-:::tip 提示 
+:::tip Note
 
-重启方式：
+Restart Methods:
 
-1、通过核桃派终端执行 sudo reboot 重启。
+1. Execute `sudo reboot` in the WalnutPi terminal to restart.
 
-2、长按按键6秒以上关机，再断电上电开机实现重启。
+2. Press and hold the button for more than 6 seconds to shut down, then power off and on again to restart.
 
-**不建议直接断电上电重启，部分未保存内容可能丢失。**
+**Directly cutting power is not recommended, as unsaved content may be lost.**
 :::
-
 
 ![config](./img/config/config8_2.png)
 
-提示修复 **系统不受支持 - CGroup** 版本，直接点忽略即可:
+The warning **Unsupported system - CGroup version** can be ignored directly:
 
 ![config](./img/config/config9.png)
 
-## 系统更新
+## System Update
 
-Home Assistant更新，收到这个提示可以直接点进去更新，没有科学上网的用户更新会花费比较长时间（10多分钟以上） ，请耐心等待安装完成。
+When a Home Assistant update is available, you can click to enter and update directly. For users without proxy/VPN access, the update may take quite a while (10+ minutes). Please be patient.
 
 ![config](./img/config/config10.png)
 
-## 网络管理
+## Network Management
 
-网络管理用于管理Home Assistant主机的有线和无线网络（WiFi）连接。
+Network management is used to manage wired and wireless (WiFi) connections of the Home Assistant host.
 
-点击 `配置` -- `系统` ：
+Click **Settings** → **System**:
 
 ![config](./img/config/config11.png)
 
-点击`网络`:
+Click **Network**:
 
 ![config](./img/config/config12.png)
 
-这里可以看到有线以太网（ETH0）和无线WiFi（WLAN0）的网络情况，包括IP地址以及搜索WiFi热点并连接等功能设置。
+Here you can see the network status of wired Ethernet (ETH0) and wireless WiFi (WLAN0), including IP addresses, as well as scan for WiFi hotspots and connect, and other settings.
 
 ![config](./img/config/config13.png)
 
-连接WiFi热点需要将WLAN0的IPV4和IPV6开启，再扫描，选择热点输入密码连接即可。连接成功后可以看到IP信息。
+To connect to a WiFi hotspot, enable both IPv4 and IPv6 for WLAN0, then scan, select the hotspot, enter the password, and connect. Once connected, you can see the IP information.
 
 ![config](./img/config/config14.png)
 
-:::tip 提示
-更换网络方式后IP地址会变化，注意同步修改Home Assistant主机的登录地址。
+:::tip Note
+When switching network methods, the IP address will change. Remember to update the login address for the Home Assistant host accordingly.
 :::
 
-## 安全关机
+## Safe Shutdown
 
-长按核桃派按键6秒以上，LED闪烁几下就可以松开，进入关机过程，稍作等待到蓝灯熄灭，表示关机完成。
+Press and hold the WalnutPi button for more than 6 seconds. The LED will blink a few times, then you can release. The shutdown process will begin. Wait until the blue LED turns off, indicating that shutdown is complete.
 
-:::danger 警告
-不建议直接断电来关闭核桃派，有可能出现Home Assistant数据保存错误或丢失。
+:::danger Warning
+Do not directly cut power to turn off the WalnutPi, as this may cause Home Assistant data errors or loss.
 :::
-
-

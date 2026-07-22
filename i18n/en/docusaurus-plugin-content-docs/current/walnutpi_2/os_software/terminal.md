@@ -2,108 +2,108 @@
 sidebar_position: 3
 ---
 
-# 终端和常用命令
+# Terminal and Common Commands
 
-## 桌面系统打开终端
-终端（Termianal）要追溯到早期的计算机时代，那时候还没有可视化桌面，很多计算机操作都是通过终端命令完成。 到现在我们依然很多场合和调试会用到，掌握 linux 常用终端命令，能让你的开发工作事半功倍。**（无桌面系统启动后就只显示这个终端）**
+## Opening Terminal on Desktop Edition
+The terminal traces back to the early days of computing when there was no visual desktop, and most computer operations were performed via terminal commands. Even today, we still use terminals in many scenarios and for debugging. Mastering common Linux terminal commands can greatly boost your development efficiency. **(The Server edition only displays this terminal after booting.)**
 
-在启动栏中点击第3项 **“终端”** 按钮即可打开终端。**浏览器、文件管理器、终端**
+Click the third item **"Terminal"** in the Launch Bar to open the terminal. **Browser, File Manager, Terminal**
 ![terminal](./img/terminal/terminal.png)
 
-在终端中首先看到的是提示符，它正在等待您的指示。 提示运行如下：
+The first thing you see in the terminal is the prompt, waiting for your input. The prompt looks like this:
 
 <font color='#06fe00'>pi@WalnutPi</font>:~$
 
-pi 表示用户名; 
+pi indicates the username;
 
-@后面的 WalnutPi 表示主机名; 
+WalnutPi after @ indicates the hostname;
 
-~后面表示当前目录; 
+~ indicates the current directory;
 
-**$**表示非特权用户。
+**$** indicates a non-privileged user.
 
-我们来简单测试一下终端，在终端输入 ls ,按回车，可以看到列出了当前目录下的文件和文件夹名称（**无桌面系统pi目录下默认没有文件**）：
+Let's do a simple terminal test. Type `ls` and press Enter to see the files and folders listed in the current directory (**The Server edition's pi directory has no files by default**):
 ```bash
 ls
 ```
 ![ls](./img/terminal/ls.png)
 
-输入 cd Desktop ,按回车，可以看到提示当前目录变成了 Desktop（桌面下）。
+Type `cd Desktop` and press Enter to see the current directory change to Desktop:
 ```bash
 cd Desktop
 ```
 ![cd](./img/terminal/cd.png)
 
-## 调试串口打开终端
+## Opening Terminal via Debug Serial Port
 
-通过核桃派预留的串口终端排针通过USB转TTL工具连接到电脑，然后使用putty这类终端软件登录 ：
+Connect to the Walnut Pi's reserved serial terminal header pins using a USB-to-TTL adapter to your computer, then use terminal software like PuTTY to log in:
 
-核桃派2B的串口调试排针丝印T、 R、 G 分别表示TXD、RXD、GND。
+The debug serial header pins on the Walnut Pi 2B are labeled T, R, G, corresponding to TXD, RXD, and GND respectively.
 
-:::tip 提示
+::::tip Note
 
-当系统无法正常启动时可以使用此功能观察启动信息。注意TX,RX是交叉接线，有电平切换功能的USB TTL工具需要将电平切换到3.3V。
+You can use this feature to observe boot information when the system fails to boot normally. Note that TX and RX are cross-connected. USB TTL adapters with voltage switching must be set to 3.3V.
 
-:::
+::::
 
 ![debug1](./img/terminal/debug1.png)
 
-在设备管理器可以看到设备的COM号：
+Check the COM port number in Device Manager:
 
 ![debug2](./img/terminal/debug2.png)
 
-打开putty软件:
+Open PuTTY:
 
 ![debug3](./img/terminal/debug3.png)
 
-输入刚刚查看到自己电脑的COM号，然后波特率是：115200，点击open:
+Enter the COM port number found for your computer, set the baud rate to 115200, then click Open:
 
 ![debug4](./img/terminal/debug4.png)
 
-然后出现账号密码输入提示，普通用户账户密码都输入"pi"即可。**如果没出现可以按一下键盘回车键试试**。登录成功就就出现核桃派终端相关信息。
+You will then see a login prompt. Enter "pi" for both username and password. **If nothing appears, try pressing the Enter key**. Upon successful login, the Walnut Pi terminal information will appear.
 
 ![debug5](./img/terminal/debug5.png)
 
-## 用户切换
-核桃派系统预设2个用户。分别是：
-- **普通账户(桌面系统默认启动)** 用户名：pi 密码：pi
-- **管理员** 用户名：root 密码：root
+## User Switching
+The Walnut Pi system has 2 preset users:
+- **Normal User (Desktop Edition Default)** Username: pi Password: pi
+- **Root** Username: root Password: root
 
-有些终端命令需要通过管理员才可以执行，我们可以在终端通过 **sudo + 指令** 来执行。如果想直接在终端切换成管理员账户可以使用 su 指令来实现。
+Some terminal commands require root privileges. You can execute them using **sudo + command** in the terminal. To switch directly to the root account in the terminal, use the `su` command.
 
-**切换为管理员：**在终端输入su，按回车，然后在弹出的Password:后面输入密码 **root**,（密码不会显示，注意大小写），再按回车当前终端即可进入管理员用户。
+**Switch to root:** Type `su` in the terminal, press Enter, then enter the password **root** when prompted at Password: (the password will not be displayed; pay attention to case). Press Enter again to switch to the root user.
 ```bash
 su
 ```
 ![usr1](./img/terminal/usr1.png)
 
-**切换为普通用户：**在终端输入su加用户名按回车即可，如切换为pi用户可输入下面命令：
+**Switch to a normal user:** Type `su` followed by the username and press Enter. For example, to switch to the pi user:
 ```bash
 su pi
 ```
 ![usr2](./img/terminal/usr2.png)
 
-## 常用Linux命令
+## Common Linux Commands
 
-|  编号 | 命令 | 命令长称 | 功能 |  
+|  # | Command | Full Name | Function |  
 |  :---:  | :---:  | ---  | ---  |
-| 1  | ls | list | 列出当前目录下的文件 |
-| 2  | pwd | print working directory | 输出当前目录 |
-| 3  | cd | change directory | 改变目录 |
-| 4  | mkdir | make directory | 新建目录 |
-| 5  | cat | concatenate | 显示或连接文件内容 |
-| 6  | rm | remove | 删除文件 |
-| 7  | rmdir | remove directory | 删除目录 |
-| 8  | mv | move | 移动/重命名文件或目录 |
-| 9  | cp | copy | 复制文件或目录 |
-| 10  | echo |   | 显示在终端输入内容 |
-| 11  | date |  | 读取系统日期和时间 |
-| 12  | grep | global search regular <br></br> expression and print | 全面搜索正则表达式并打印 |
-| 13  | man | manual  | 显示命令使用手册 |
-| 14  | sudo | super user do | 以root权限执行 |
-| 15  | chomod | change mode | 改变文件读写权限 |
-| 16  | ./program |   | 运行program程序 |
-| 17  | apt | advance package tool | 安装/删除软件包 |
-| 18  | exit |  | 退出 |
-| 19  | reboot |   | 重启 |
-| 20 | poweroff |  | 关机 |
+| 1  | ls | list | List files in the current directory |
+| 2  | pwd | print working directory | Print the current directory |
+| 3  | cd | change directory | Change directory |
+| 4  | mkdir | make directory | Create a new directory |
+| 5  | cat | concatenate | Display or concatenate file contents |
+| 6  | rm | remove | Delete files |
+| 7  | rmdir | remove directory | Delete directories |
+| 8  | mv | move | Move/rename files or directories |
+| 9  | cp | copy | Copy files or directories |
+| 10  | echo |   | Display input content in the terminal |
+| 11  | date |  | Read system date and time |
+| 12  | grep | global search regular <br></br> expression and print | Search for a pattern and print matching lines |
+| 13  | man | manual  | Display command manual |
+| 14  | sudo | super user do | Execute with root privileges |
+| 15  | chmod | change mode | Change file read/write permissions |
+| 16  | ./program |   | Run the program executable |
+| 17  | apt | advance package tool | Install/remove software packages |
+| 18  | exit |  | Exit |
+| 19  | reboot |   | Reboot |
+| 20 | poweroff |  | Shutdown |

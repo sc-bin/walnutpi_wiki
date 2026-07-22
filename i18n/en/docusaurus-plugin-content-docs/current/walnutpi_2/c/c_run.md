@@ -2,11 +2,12 @@
 sidebar_position: 1
 ---
 
-# 在开发板上编译C语言代码
+# Compiling C Code on the Development Board
 
-## 命令行方式
+## Command Line Method
 
-先在核桃派当前目录新建一个test.c文件，输入下面内容（该代码实现在终端打印“Hello WalnutPi信息”）：
+First, create a test.c file in the current directory on WalnutPi and enter the following content (this code prints "Hello WalnutPi" to the terminal):
+
 ```c
 #include <stdio.h>
 
@@ -17,31 +18,32 @@ int main (void)
   return 0 ;
 }
 ```
-编译代码需要使用`gcc`这条命令，使用很简单。例如将test.c编译成可执行文件test，只要运行以下命令
+
+To compile the code, use the `gcc` command, which is very simple. For example, to compile test.c into an executable named test, just run:
 
 ```bash
 gcc test.c -o test
 ```
 
-运行刚刚编译出来的程序：
+Run the compiled program:
 
 ```bash
 ./test
 ```
 
-可以看到执行后终端打印出：Hello WalnutPi信息：
+You will see "Hello WalnutPi" printed in the terminal:
 
 ![c1](./img/c_run/gcc_compile.png)
 
-## Geany IDE (核桃派本地)
+## Geany IDE (Local on WalnutPi)
 
-核桃派桌面系统出厂预装了Geany IDE ，位于**开始--开发**栏，使用Geany可以实现C编程和编译运行。
+The WalnutPi desktop system comes pre-installed with Geany IDE, located in the **Start--Development** menu. You can use Geany for C programming, compiling, and running.
 
-打开Geany:
+Open Geany:
 
 ![c2](./img/c_run/c2.png)
 
-新建一个文件，输入下面的测试代码，保存为.c文件。
+Create a new file, enter the following test code, and save it as a .c file.
 
 ```c
 #include <stdio.h>
@@ -56,10 +58,10 @@ int main (void)
 
 ![c3](./img/c_run/c3.png)
 
-点击**Build**按钮，下方可以看到编译结果信息。编译成功的话当前目录下会生成一个可执行文件。
+Click the **Build** button, and you will see the compilation result below. If the compilation is successful, an executable file will be generated in the current directory.
 
 ![c6](./img/c_run/c6.png)
 
-点击**执行**按钮，运行刚刚编译出来的可执行文件。可以看到弹出一个新终端，打印了“Hello WalnutPi”信息。
+Click the **Execute** button to run the compiled executable. A new terminal will pop up, displaying "Hello WalnutPi".
 
 ![c7](./img/c_run/geany_run.png)

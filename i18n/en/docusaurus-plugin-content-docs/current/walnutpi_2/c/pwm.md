@@ -4,9 +4,9 @@ sidebar_position: 6
 
 # PWM
 
-[**GPIO应用 - PWM**](../gpio/pwm.md)章节中通过给指定的文件内写入数值来操作硬件pwm，如果想用C语言控制pwm，只要调用C语言提供的读写文件的函数去操作那些文件即可。
+In the [**GPIO Application - PWM**](../gpio/pwm.md) section, hardware PWM is controlled by writing values to specified files. If you want to control PWM using C language, simply call the C language file read/write functions to operate those files.
 
-## 例程-操作PWM1-1输出
+## Example - Operating PWM1-1 Output
 
 ```c
 #include <stdio.h>
@@ -23,9 +23,9 @@ char *control_path[4] = {
 };
 
 /**
- * 将字符串写入指定文件
- * @param path 文件路径
- * @param str 要写入的字符串
+ * Write a string to a specified file
+ * @param path File path
+ * @param str String to write
  */
 void write_to_file(char *path, char *str)
 {
@@ -41,26 +41,26 @@ void write_to_file(char *path, char *str)
 }
 
 /**
- * 导出PWM通道
- * @param control 控制器编号0 1 2 3
- * @param channel PWM通道号
+ * Export a PWM channel
+ * @param control Controller number 0 1 2 3
+ * @param channel PWM channel number
  */
 void pwm_export(int control, int channel)
 {
     char path[100];
     char str[10];
 
-    sprintf(path, "%s/export", control_path[control]); // 生成export文件的路径
+    sprintf(path, "%s/export", control_path[control]); // Generate the path to the export file
     sprintf(str, "%d", channel);
     write_to_file(path, str);
 }
 
 /**
- * 配置PWM通道的参数。
- * @param control 控制器编号0 1 2 3
- * @param channel PWM通道号
- * @param period PWM信号的周期，单位为纳秒。
- * @param duty_cycle PWM信号的高电平时长。
+ * Configure PWM channel parameters.
+ * @param control Controller number 0 1 2 3
+ * @param channel PWM channel number
+ * @param period PWM signal period in nanoseconds.
+ * @param duty_cycle PWM signal high-level duration.
  */
 void pwm_config(int control, int channel, int period, int duty_cycle)
 {
@@ -80,9 +80,9 @@ void pwm_config(int control, int channel, int period, int duty_cycle)
 }
 
 /**
- * 启用PWM通道的输出。
- * @param control 控制器编号0 1 2 3
- * @param channel PWM通道号
+ * Enable PWM channel output.
+ * @param control Controller number 0 1 2 3
+ * @param channel PWM channel number
  */
 void pwm_enable(int control, int channel)
 {
@@ -94,9 +94,9 @@ void pwm_enable(int control, int channel)
 }
 
 /**
- * 关闭PWM通道的输出。
- * @param control 控制器编号0 1 2 3
- * @param channel PWM通道号
+ * Disable PWM channel output.
+ * @param control Controller number 0 1 2 3
+ * @param channel PWM channel number
  */
 void pwm_disable(int control, int channel)
 {
@@ -109,9 +109,9 @@ void pwm_disable(int control, int channel)
 
 int main()
 {
-    pwm_export(1, 1); // 导出PWM通道
-    pwm_config(1, 1, 10000000, 5000000); // 配置PWM周期和占空比
-    pwm_enable(1, 1); // 启用PWM输出
+    pwm_export(1, 1); // Export PWM channel
+    pwm_config(1, 1, 10000000, 5000000); // Configure PWM period and duty cycle
+    pwm_enable(1, 1); // Enable PWM output
 
     return 0;
 }
@@ -119,15 +119,15 @@ int main()
 ```
 
 
-上面代码中通过下面3个语句配置PWM输出。其中 **pwm_config(1, 1, 10000000, 5000000);** 
+The above code configures the PWM output through the following 3 statements. Regarding **pwm_config(1, 1, 10000000, 5000000);** 
 
-- (1,1) 表示定时器1，通道1
-- 周期时间 10000000ns, 即10ms,  频率为：1s/10ms=100Hz; 
-- 高电平时间 5000000ns, 即5ms, 占空比为：5ms/10ms = 50%
+- (1,1) indicates timer 1, channel 1
+- Period time 10000000ns, i.e., 10ms, frequency: 1s/10ms = 100Hz; 
+- High-level time 5000000ns, i.e., 5ms, duty cycle: 5ms/10ms = 50%
 
-## 实验结果
+## Experimental Results
 
-下面为输出引脚和输出结果：
+Below are the output pin and results:
 
 ![pwm](./img/pwm/pwm1.png)
 

@@ -4,25 +4,25 @@ sidebar_position: 8
 
 # PWM
 
-## 前言
+## Introduction
 
-PWM常用于电机，舵机控制，核桃派2B有多路PWM引脚，用户可以通过扩展电机驱动板来控制各类舵机、电机。本节来讲解如何使用Python编程实现PWM输出。
+PWM is commonly used for motor and servo control. The Walnut Pi 2B has multiple PWM pins, allowing users to control various servos and motors by connecting motor driver boards. This section explains how to use Python programming to implement PWM output.
 
-## 实验目的
+## Experiment Objective
 
-使用Python编程实现PWM输出。
+Use Python programming to implement PWM output.
 
-## 实验讲解
+## Experiment Explanation
 
-Linux下一切皆文件，之前 [**GPIO应用 - pwm**](../../gpio/pwm.md) 章节中通过给指定的文件内写入数值来操作硬件pwm，如果想用python控制pwm，只要调用python提供的读写文件的函数去操作那些文件即可。
+In Linux, everything is a file. In the previous [**GPIO Application - PWM**](../../gpio/pwm.md) chapter, hardware PWM was operated by writing values to specified files. If you want to control PWM with Python, simply call Python's file read/write functions to operate those files.
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：PWM输出
-实验平台：核桃派2B
-说明：在PWM1-1引脚输出一个100Hz,占空比为50%的方波。
+Experiment Name: PWM Output
+Experiment Platform: Walnut Pi 2B
+Description: Output a 100Hz, 50% duty cycle square wave on PWM1-1 pin.
 '''
 
 control_path = {
@@ -37,55 +37,55 @@ def write_to_file(path: str, value: str) -> None:
         f.write(value)
 
 def pwm_export(control: int, channel: int) -> None:
-    """导出PWM通道
-    @param control 控制器编号0 1 2 3
-    @param channel PWM通道号
+    """Export PWM channel
+    @param control Controller number 0 1 2 3
+    @param channel PWM channel number
     """
     write_to_file(f"{control_path[control]}/export", str(channel))
 
 def pwm_config(control: int, channel: int, period: int, duty_cycle: int) -> None:
-    """配置PWM通道的参数。
-    @param control 控制器编号0 1 2 3
-    @param channel PWM通道号
-    @param period PWM信号的周期，单位为纳秒。
-    @param duty_cycle PWM信号的高电平时长。
+    """Configure PWM channel parameters.
+    @param control Controller number 0 1 2 3
+    @param channel PWM channel number
+    @param period PWM signal period, in nanoseconds.
+    @param duty_cycle PWM signal high-level duration.
     """
     write_to_file(f"{control_path[control]}/pwm{channel}/period", str(period))
     write_to_file(f"{control_path[control]}/pwm{channel}/duty_cycle", str(duty_cycle))
     write_to_file(f"{control_path[control]}/pwm{channel}/polarity", "normal")
 
 def pwm_enable(control: int, channel: int) -> None:
-    """启用PWM通道的输出。
-    @param control 控制器编号0 1 2 3
-    @param channel PWM通道号
+    """Enable PWM channel output.
+    @param control Controller number 0 1 2 3
+    @param channel PWM channel number
     """
     write_to_file(f"{control_path[control]}/pwm{channel}/enable", "1")
 
 def pwm_disable(control: int, channel: int) -> None:
-    """关闭PWM通道的输出。
-    @param control 控制器编号0 1 2 3
-    @param channel PWM通道号
+    """Disable PWM channel output.
+    @param control Controller number 0 1 2 3
+    @param channel PWM channel number
     """
     write_to_file(f"{control_path[control]}/pwm{channel}/enable", "0")
 
-pwm_export(1, 1)  # 导出PWM通道
-pwm_config(1, 1, 10000000, 5000000)  # 配置PWM周期和占空比
-pwm_enable(1, 1)  # 启用PWM输出
+pwm_export(1, 1)  # Export PWM channel
+pwm_config(1, 1, 10000000, 5000000)  # Configure PWM period and duty cycle
+pwm_enable(1, 1)  # Enable PWM output
 
 ```
 
-上面代码中通过下面3个语句配置PWM输出。其中 **pwm_config(1, 1, 10000000, 5000000);** 
+In the code above, PWM output is configured via the following 3 statements, including **pwm_config(1, 1, 10000000, 5000000);**
 
-- (1,1) 表示定时器1，通道1
-- 周期时间 10000000ns, 即10ms,  频率为：1s/10ms=100Hz; 
-- 高电平时间 5000000ns, 即5ms, 占空比为：5ms/10ms = 50%
+- (1,1) means timer 1, channel 1
+- Period time 10000000ns, i.e., 10ms, frequency: 1s/10ms=100Hz;
+- High-level time 5000000ns, i.e., 5ms, duty cycle: 5ms/10ms = 50%
 
-## 实验结果
+## Experiment Results
 
-下面为输出引脚和输出结果：
+Below is the output pin and result:
 
 ![pwm](./img/pwm/pwm1.png)
 
 ![pwm](./img/pwm/pwm2.png)
 
-这里给了一个最基础的控制方式，用户可以自行Python封装成各类库用法。
+This provides the most basic control method. Users can encapsulate it into various library usages in Python on their own.

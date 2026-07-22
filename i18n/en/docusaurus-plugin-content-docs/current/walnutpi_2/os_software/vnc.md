@@ -2,40 +2,40 @@
 sidebar_position: 9
 ---
 
-# VNC远程桌面
+# VNC Remote Desktop
 
-- **视频教程**
+- **Video Tutorial**
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1953508549&bvid=BV14C411n7TY&cid=1518749812&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
 <br></br>
 <br></br>
 
-核桃派预装了VNC服务器，VNC适应于局域网（通常指同一个路由器网络下）桌面登录。**使用该服务前先确保核桃派已经通过以太网或无线WiFi连接到路由器。**
+The Walnut Pi comes pre-installed with a VNC server. VNC is suitable for LAN-based desktop login (typically within the same router network). **Before using this service, make sure the Walnut Pi is connected to the router via Ethernet or WiFi.**
 
-使用核桃派桌面系统的时候由于要配置各类信息和联网，可以使用HDMI显示屏和键鼠操作，当我们配置好网络等参数后，就可以通过远程桌面来登录核桃派，实现电脑控制。
+When using the Walnut Pi Desktop edition, you can use an HDMI display along with a keyboard and mouse for configuration and networking. Once the network and other parameters are set up, you can log into the Walnut Pi via remote desktop for computer-based control.
 
-:::danger 注意
-目前核桃派预装的是X11VNC服务器，好处是直接远程到当前桌面不额外占内存。不过远程时核桃派需要通过HDMI一直连接到显示器，否则会出现卡顿或者无法连接，因为没有进入桌面导致。
+::::danger Warning
+Currently, the Walnut Pi comes pre-installed with the X11VNC server. The advantage is that it directly remotes into the current desktop without consuming extra memory. However, during remote access, the Walnut Pi must remain connected to a display via HDMI; otherwise, you may experience lag or connection failures because the desktop hasn't fully loaded.
 
-但我们用VNC就是为了省一个显示器。这里给一个解决方案就是花10几元成本使用一个叫**HDMI显卡欺骗器**的东西，通过microHDMI转HDMI母头接到核桃派，解决未接显示器卡顿问题。[**点击购买->**](https://item.taobao.com/item.htm?spm=a213gs.success.result.1.6c854831c6UKif&id=741004778478) 
-:::
+However, the whole point of using VNC is to save a display. A solution is to use a device called an **HDMI dummy plug**, which costs about 10+ yuan. Connect it to the Walnut Pi via a micro HDMI to HDMI female adapter to resolve the lag issue when no display is connected. [**Click to buy ->**](https://item.taobao.com/item.htm?spm=a213gs.success.result.1.6c854831c6UKif&id=741004778478) 
+::::
 
 ![vnc0](./img/vnc/vnc0.png)
 
-除了官方推荐的外，也可以购买核桃派用户DIY的HDMI欺骗器，优点是体积小巧：[**点击购买->**](https://www.goofish.com/item?id=839752328610) 
+In addition to the officially recommended one, you can also purchase a DIY HDMI dummy plug made by Walnut Pi users, which is more compact: [**Click to buy ->**](https://www.goofish.com/item?id=839752328610) 
 
 ![vnc0](./img/vnc/vnc0_1.png)
 
-## 开启VNC服务
+## Enabling the VNC Service
 
-输入下面指令即可开启：（默认密码：**pi** , 默认端口：**5900**）
+Run the following command to enable it: (default password: **pi**, default port: **5900**)
 
 ```bash
 set-vnc enable
 ```
 
-开启成功后需要重启核桃派。
+After enabling, reboot the Walnut Pi:
 
 ```bash
 sudo reboot
@@ -44,60 +44,56 @@ sudo reboot
 ![vnc1](./img/vnc/vnc1.png)
 
 
-## 电脑VNC连接到核桃派
+## Connecting to Walnut Pi via VNC from a PC
 
-现在电脑安装一个VNC Viewer（客户端,注意不是服务器），用于连接核桃派。下载地址：https://www.realvnc.com/en/connect/download/viewer/
+First, install VNC Viewer (the client, not the server) on your computer to connect to the Walnut Pi. Download link: https://www.realvnc.com/en/connect/download/viewer/
 
 ![vnc2](./img/vnc/vnc2.png)
 
-安装完打开该软件，在上方输入核桃派的IP地址，[IP地址获取方法](../os_software/ip_get) 。**这里可以不用输入端口号，因为核桃派预装VNC服务器使用默认的5900端口**
+After installation, open the software and enter the Walnut Pi's IP address in the top bar. [How to obtain the IP address](../os_software/ip_get). **You do not need to enter a port number here, as the pre-installed VNC server on the Walnut Pi uses the default port 5900.**
 
 ![vnc3](./img/vnc/vnc3.png)
 
-然后按回车，在弹出的提示框按 “continue”：
+Press Enter, then click "Continue" in the pop-up prompt:
 
 ![vnc4](./img/vnc/vnc4.png)
 
-密码是 **pi** ，可以勾选记住密码这样以后就不用再次输出。
+The password is **pi**. You can check "Remember password" to avoid entering it again.
 
 ![vnc5](./img/vnc/vnc5.png)
 
-点OK后成功登录。
+Click OK to log in successfully.
 
 ![vnc6](./img/vnc/vnc6.png)
 
-## 关闭VNC服务
+## Disabling the VNC Service
 
-开启VNC以后就一直开机启动了，如想关闭VNC服务，可以通过下面指令，配置后重启核桃派生效。
+Once enabled, the VNC service starts automatically at boot. To disable it, use the following command and reboot for the change to take effect:
 
 ```bash
 set-vnc disable
 ```
 
-## 设置密码
+## Setting the Password
 
-出厂密码默认是**pi**，比如要设置成 “12345678” ，可以通过下面指令：
+The default password is **pi**. For example, to set it to "12345678", use the following command:
 
 ```bash
 set-vnc password 12345678
 ```
 
-## 设置端口
+## Setting the Port
 
-出厂端口默认是**5900**，比如要设置成 “5901” ，可以通过下面指令：
+The default port is **5900**. For example, to change it to "5901", use the following command:
 
 ```bash
 set-vnc port 5901
 ```
 
-:::tip 提示
+::::tip Note
 
-在终端输入 “set-vnc ” ，按键盘 `Tab` 键即可查看所有命令。
+Type "set-vnc " in the terminal and press the `Tab` key to view all available commands.
 
-:::
+::::
 
 ![vnc7](./img/vnc/vnc7.png)
-
-
-
-

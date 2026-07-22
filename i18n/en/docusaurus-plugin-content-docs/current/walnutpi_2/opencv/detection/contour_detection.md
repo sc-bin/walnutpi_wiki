@@ -2,147 +2,145 @@
 sidebar_position: 1
 ---
 
-# 轮廓检测
+# Contour Detection
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像进行轮廓检测功能，轮廓指图像中图形或物体的边缘线条。
+This section learns to use OpenCV for image contour detection. Contours refer to the edge lines of shapes or objects in an image.
 
-## 实验目的
+## Experiment Objective
 
-图像轮廓检测并画图显示。
+Detect image contours and draw them for display.
 
-## 实验讲解
+## Experiment Explanation
 
-OpenCV Python库提供了findContours()函数实现查找轮廓以及drawContours()描绘轮廓功能。
+The OpenCV Python library provides the findContours() function for finding contours and the drawContours() function for drawing contours.
 
-### findContours() 使用方法
+### findContours() Usage
 
 ```python
 contours, hierarchy = cv2.findContours(image, mode, methode)
 ```
 
-图像查找边缘坐标。返回contours表示轮廓点坐标list；hierarchy表示层次关系。
-- `iamge` ：8位单通道二值图像。
-- `mode` ：检测模式。
-    - `cv2.RETR_EXTERNAL` ：只检测外廓。
-    - `cv2.RETR_LIST` ：检测所有轮廓，不建立层次关系。
-    - `cv2.RETR_CCOMP` ：检测所有轮廓，建立2级层次关系。
-    - `cv2.RETR_TREE` ：检测所有轮廓，立层树状层次关系。
-- `methode` ：检测方法。
-    - `cv2.CHAIN_APPROX_NONE` ：保存轮廓所有点。
-    - `cv2.CHAIN_APPROX_SIMPLE` ：只保存水平、垂直、或对角线轮廓的端点。
+Find edge coordinates in the image. Returns contours as a list of contour point coordinates; hierarchy indicates hierarchical relationships.
+- `iamge`: 8-bit single-channel binary image.
+- `mode`: Detection mode.
+    - `cv2.RETR_EXTERNAL`: Only detect outer contours.
+    - `cv2.RETR_LIST`: Detect all contours, do not establish hierarchical relationships.
+    - `cv2.RETR_CCOMP`: Detect all contours, establish 2-level hierarchical relationships.
+    - `cv2.RETR_TREE`: Detect all contours, establish tree-like hierarchical relationships.
+- `methode`: Detection method.
+    - `cv2.CHAIN_APPROX_NONE`: Save all contour points.
+    - `cv2.CHAIN_APPROX_SIMPLE`: Save only the endpoints of horizontal, vertical, or diagonal contours.
 
-### drawContours() 使用方法
+### drawContours() Usage
 
 ```python
 img = cv2.drawContours(image, contours, contourIdx, color, thickness, lineType, hierarchy, maxLevel, offset)
 ```
 
-图像查找边缘坐标。返回contours表示轮廓点坐标list；hierarchy表示层次关系。
-- `iamge` ：原始图像。
-- `contours` ：findContours()得到的list。
-- `contourIdx` ：索引方式，-1表示绘制所有轮廓。
-- `color` ：颜色。
-- `thickness` ：粗细，-1表示实心。
-- `lineType` ：轮廓线型（可选）。
-- `hierarchy` ：findContours()得到的层次关系（可选）。
-- `maxLevel` ：层次深度（可选）。
-- `offset` ：偏移量，改变绘制结果位置（可选）。
+Draw contours. Returns contours as a list of contour point coordinates; hierarchy indicates hierarchical relationships.
+- `iamge`: Original image.
+- `contours`: The list obtained from findContours().
+- `contourIdx`: Index method, -1 means draw all contours.
+- `color`: Color.
+- `thickness`: Thickness, -1 means solid fill.
+- `lineType`: Contour line type (optional).
+- `hierarchy`: Hierarchical relationships obtained from findContours() (optional).
+- `maxLevel`: Hierarchical depth (optional).
+- `offset`: Offset, changes the position of the drawn result (optional).
 
-
-这里我们可以画一个实心圆和实心矩形，然后二值化图像，再查找轮廓和描绘轮廓，代码编写流程如下：
+Here we can draw a solid circle and a solid rectangle, then binarize the image, then find and draw contours. The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    新建图像画布-->画实心圆和矩形-->转成灰度图像-->二值化图像-->查找和描绘轮廓-->显示图像;
+    Create-new-image-canvas-->Draw-solid-circle-and-rectangle-->Convert-to-grayscale-image-->Binarize-image-->Find-and-draw-contours-->Display-image;
 ```
 
 <br></br>
 
-参考代码如下:
+Reference code is as follows:
 
 ```python
 '''
-实验名称：轮廓检测
-实验平台：核桃派
+Experiment Name: Contour Detection
+Experiment Platform: WalnutPi
 '''
 
 import cv2
 import numpy as np
 
-#新建一个300x300像素的RGB888纯白色图像
+# Create a new 300x300 pixel RGB888 pure white image
 img = np.ones((300,300,3),np.uint8)*255
 
-#画蓝色实心圆形 img0
+# Draw a blue solid circle img0
 img0 = cv2.circle(img, (100, 100), 50, (255,0,0), -1)
 
-#画红色实心矩形
+# Draw a red solid rectangle
 img = cv2.rectangle(img0, (150, 150), (250, 250), (0,0,255), -1)
 
-cv2.imshow('color', img) #显示图像
+cv2.imshow('color', img) # Display the image
 
-#将彩色图像转化为灰度图像（单通道）
+# Convert the color image to grayscale (single channel)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-cv2.imshow('gray', img) #显示图像
+cv2.imshow('gray', img) # Display the image
 
-#将灰度图像转化二值图像
+# Convert the grayscale image to binary image
 t,img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
-cv2.imshow('binary', img) #显示图像
+cv2.imshow('binary', img) # Display the image
 
-#检测轮廓
+# Detect contours
 contours, hierarchy = cv2.findContours(img, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
 
-#在原图img0上描绘轮廓，绿色
+# Draw contours on the original image img0, green
 img = cv2.drawContours(img0, contours, -1, (0,255,0), 5)
-cv2.imshow('contours', img) #显示图像
+cv2.imshow('contours', img) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any key press
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-## 实验结果
+## Experiment Results
 
-在核桃派运行上面代码，可以看到实验图片的变化过程，最终轮廓被描绘出来实验结果如下图：
-
+Run the above code on the WalnutPi, and you can see the change process of the experimental images. The final contour drawing result is shown below:
 
 ![contour_detection1](./img/contour_detection/contour_detection1.png)
 
-## 拓展
+## Extension
 
-我们使用lenna.jpg描绘轮廓，观察结果。代码如下：
+We use lenna.jpg to draw contours and observe the results. The code is as follows:
 
 ```python
 '''
-实验名称：轮廓检测2
-实验平台：核桃派
+Experiment Name: Contour Detection 2
+Experiment Platform: WalnutPi
 '''
 import cv2
 import numpy as np
 
-img0 = cv2.imread('lenna.jpg') #读取图像，原图观察用
-cv2.imshow('lenna', img0) #显示图像
+img0 = cv2.imread('lenna.jpg') # Read the image for original observation
+cv2.imshow('lenna', img0) # Display the image
 
-img = cv2.imread('lenna.jpg',0) #获取灰度图像
-cv2.imshow('gray', img) #显示灰度图像
+img = cv2.imread('lenna.jpg',0) # Get the grayscale image
+cv2.imshow('gray', img) # Display the grayscale image
 
-#将灰度图像转化二值图像
+# Convert the grayscale image to binary image
 t,img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
-cv2.imshow('binary', img) #显示二值图像
+cv2.imshow('binary', img) # Display the binary image
 
-#检测轮廓
+# Detect contours
 contours, hierarchy = cv2.findContours(img, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
 
-#在原图img0上描绘轮廓
+# Draw contours on the original image img0
 img = cv2.drawContours(img0, contours, -1, (0,255,0), 5)
-cv2.imshow('contours', img) #显示轮廓图像
+cv2.imshow('contours', img) # Display the contour image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any key press
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-实验结果如下：
+Experiment results are as follows:
 
 ![contour_detection1](./img/contour_detection/contour_detection2.png)

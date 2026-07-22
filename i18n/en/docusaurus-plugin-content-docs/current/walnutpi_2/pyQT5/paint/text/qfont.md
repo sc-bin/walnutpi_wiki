@@ -2,29 +2,29 @@
 sidebar_position: 2
 ---
 
-# 字体设置
+# Font Settings
 
-上一节我们学会了基本的图形画法，这一节我们来学习画笔和画刷设置。
+In the previous section, we learned the basic drawing of text. In this section, we will learn about font settings.
 
-## 字体对象（QFont）
+## Font Object (QFont)
 
-字体对象主要用来设置字体大小、样式等。
+The font object is mainly used to set font size, style, etc.
 
-|  常用字体方法 |  说明 |
+|  Common Font Methods |  Description |
 |  :---:  | --- | 
-| setFamily()  |  设置字体类型 | 
-| setPointSize()  |  设置字体大小  | 
-| setBold()  |  设置粗体。参数: `True` 粗体，`False` 非粗体  | 
-| setItalic()  |  设置斜体。参数: `True` 斜体，`False` 非斜体  | 
-| setOverline()  |  设置文本上划线  | 
-| setUnderline()  |  设置文本下划线  | 
-| setStrikeOut()  |  设置文本中划线  | 
+| setFamily()  |  Set font family | 
+| setPointSize()  |  Set font size  | 
+| setBold()  |  Set bold. Parameter: `True` for bold, `False` for normal  | 
+| setItalic()  |  Set italic. Parameter: `True` for italic, `False` for normal  | 
+| setOverline()  |  Set text overline  | 
+| setUnderline()  |  Set text underline  | 
+| setStrikeOut()  |  Set text strikethrough  | 
 
-## 使用示例
+## Usage Example
 
-**例：给上一节写字体例程的字体加大加粗。**
+**Example: Enlarge and bold the font in the previous text writing example.**
 
-实现代码如下：
+The implementation code is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -40,73 +40,73 @@ from PyQt5.QtWidgets import QWidget
 class Window(QWidget):
     
     def __init__(self):
-        super().__init__() #同时执行父对象QWidget的初始化程序
-        self.setWindowTitle("WalnutPi Paint") # 设置窗口标题
-        self.resize(480,320) # 设置窗口大小
+        super().__init__() # Also execute the parent QWidget's initialization
+        self.setWindowTitle("WalnutPi Paint") # Set window title
+        self.resize(480,320) # Set window size
         
-        #窗口背景颜色设置
+        # Window background color setting
         self.setObjectName("Paint_Window")
-        self.setStyleSheet("#Paint_Window{background-color: black}") #黑色
+        self.setStyleSheet("#Paint_Window{background-color: black}") # Black
 
     def paintEvent(self,event):
         
-        painter=QPainter(self) # 创建绘图对象
-        painter.setPen(Qt.green) # 设置画笔,绿色
+        painter=QPainter(self) # Create drawing object
+        painter.setPen(Qt.green) # Set pen, green
         
-        #设置字体
+        # Set font
         font = QFont()
-        font.setFamily("幼圆") #字体类型
-        font.setPointSize(50) #大小
-        font.setBold(True) #加粗
+        font.setFamily("YouYuan") # Font family
+        font.setPointSize(50) # Size
+        font.setBold(True) # Bold
         painter.setFont(font)
         
-        #写文本
-        painter.drawText(100, 100, "核桃派！")
+        # Write text
+        painter.drawText(100, 100, "WalnutPi!")
      
 #################
-#   主程序代码   #
+#   Main Program Code   #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+#【Optional Code】Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+#【Optional Code】Fix display issues on monitors with 2K+ resolution
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Program entry point: build the window and display it
 app = QtWidgets.QApplication(sys.argv)
-window = Window() #构建窗口对象
-window.show() #显示窗口
-#window.showFullScreen() #全屏显示窗口
+window = Window() # Build window object
+window.show() # Display window
+#window.showFullScreen() # Fullscreen display window
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+#【Recommended Code】Allow terminal to interrupt window with ctrl+c for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit process when program closes
 
 ```
 
-这里代码和之前区别主要是加入了字体设置：
+The main difference between this code and the previous one is the addition of font settings:
 ```python
 
     def paintEvent(self,event):
 
         ...
 
-        #设置字体
+        # Set font
         font = QFont()
-        font.setFamily("幼圆") #字体类型
-        font.setPointSize(50) #大小
-        font.setBold(True) #加粗
+        font.setFamily("YouYuan") # Font family
+        font.setPointSize(50) # Size
+        font.setBold(True) # Bold
         painter.setFont(font)
         
 ```
 
-运行结果如下：
+The result is as follows:
 ![qfont1](./img/qfont/qfont1.png)

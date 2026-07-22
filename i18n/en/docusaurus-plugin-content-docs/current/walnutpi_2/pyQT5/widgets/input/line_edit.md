@@ -2,19 +2,19 @@
 sidebar_position: 1
 ---
 
-# LineEdit（单行文本框）
+# LineEdit (Single-line Text Box)
 
-## 介绍
+## Introduction
 
-单行文本框允许用于输入单行文本。
+The single-line text box allows users to input a single line of text.
 
 ![LineEdit1](./img/LineEdit/LineEdit1.png)
 
-双击可以添加文本框预显示内容，拖动边缘可以缩放。还有字体大小、其它属性右边属性栏都可以设置。
+Double-click to add preset display content to the text box, and drag the edges to resize. Font size and other properties can be configured in the right-side properties panel.
 
 ![LineEdit2](./img/LineEdit/LineEdit2.png)
 
-该窗口生成的py代码如下：
+The Python code generated from this window is as follows:
 ```python
 # -*- coding: utf-8 -*-
 
@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
 
 ```
 
-其中跟单行文本相关的代码如下：
+The code related to the single-line text box is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -59,50 +59,50 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         ...
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(180, 120, 113, 20)) #文本框的x坐标、y坐标、宽度、高度；
-        self.lineEdit.setObjectName("lineEdit") #设置单行文本框对象名称，非显示名称。
+        self.lineEdit.setGeometry(QtCore.QRect(180, 120, 113, 20)) # Text box x, y, width, height
+        self.lineEdit.setObjectName("lineEdit") # Set text box object name, not display name
 
 ```
-## QLineEdit对象
+## QLineEdit Object
 
-|  常用方法 |  说明 |
+|  Common Methods |  Description |
 |  :---:  | --- | 
-| setText()  |  设置文本框内容  | 
-| Text()  |  获取文本框内容  | 
-| clear()  |  清除文本框内容 | 
-| setMaxLength()  |  允许输入最大字符长度 | 
+| setText()  |  Set text box content  | 
+| Text()  |  Get text box content  | 
+| clear()  |  Clear text box content | 
+| setMaxLength()  |  Set maximum allowed input character length | 
 
 <br></br>
 
-|  常用信号 |  说明 |
+|  Common Signals |  Description |
 |  :---:  | --- | 
-| textChanged  |  文本框内容发生改变时触发  | 
-| editingFinished  |  内容编写结束时，按下**Enter**键触发  | 
+| textChanged  |  Triggered when text box content changes  | 
+| editingFinished  |  Triggered when editing is finished by pressing the **Enter** key  | 
 
-## 示例
+## Example
 
-**例：当用户在文本框完成输入按下Enter键时，在终端将输入内容打印出来。**
+**Example: When the user finishes typing in the text box and presses Enter, print the input content to the terminal.**
 
-完成输入信号使用editingFinished，在self.retranslateUi(MainWindow)后面加入：
+Use the editingFinished signal to detect when input is complete. Add the following after self.retranslateUi(MainWindow):
 
 ```python
 
-self.lineEdit.editingFinished.connect(self.fun) # 编辑结束, 按下<Enter>键结束
+self.lineEdit.editingFinished.connect(self.fun) # Editing finished, triggered by pressing <Enter>
 
 ```
 
-然后在 Ui_MainWindow 类下加入要执行函数，这里让终端输出信息：
+Then add the function to be executed inside the Ui_MainWindow class. Here, it prints information to the terminal:
 
 ```python
 
-#执行函数
+# Execution function
 def fun(self):
     print(self.lineEdit.text())
 
 
 ```
 
-完整代码如下：
+The complete code is as follows:
 
 ```python
 
@@ -130,48 +130,48 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        #self.lineEdit.textChanged.connect(self.fun) # 文本框内容改变
-        self.lineEdit.editingFinished.connect(self.fun) # 编辑结束, 按下<Enter>键结束
+        #self.lineEdit.textChanged.connect(self.fun) # Text box content changed
+        self.lineEdit.editingFinished.connect(self.fun) # Editing finished, triggered by pressing <Enter>
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
-    #执行函数
+    # Execution function
     def fun(self):
         print(self.lineEdit.text())
 
 #################
-#   主程序代码   #
+#   Main Program Code   #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+#【Optional Code】Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+#【Optional Code】Fix display issues on monitors with 2K+ resolution
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Program entry point: build the window and display it
 app = QtWidgets.QApplication(sys.argv)
-MainWindow = QtWidgets.QMainWindow() #构建窗口对象
-ui = Ui_MainWindow() #构建pyQT5设计的窗口对象
-ui.setupUi(MainWindow) #初始化窗口
-MainWindow.show() #显示窗口
+MainWindow = QtWidgets.QMainWindow() # Build window object
+ui = Ui_MainWindow() # Build PyQt5-designed window object
+ui.setupUi(MainWindow) # Initialize window
+MainWindow.show() # Display window
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+#【Recommended Code】Allow terminal to interrupt window with ctrl+c for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit process when program closes
 
 ```
 
-运行代码，在文本框输入信息并按下电脑**Enter**键，可以看到终端打印输入到文本框的信息。
+Run the code. Type information into the text box and press the **Enter** key on your computer. You will see the typed information printed in the terminal.
 
 ![LineEdit3](./img/LineEdit/LineEdit3.png)

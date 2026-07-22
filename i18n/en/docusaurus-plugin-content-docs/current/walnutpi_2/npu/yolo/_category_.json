@@ -1,8 +1,8 @@
 {
-  "label": "YOLO应用",
+  "label": "YOLO Application",
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "在核桃派上跑YOLO"
+    "description": "Running YOLO on WalnutPi"
   }
 }

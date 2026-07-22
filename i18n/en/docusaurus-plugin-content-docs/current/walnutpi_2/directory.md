@@ -7,187 +7,186 @@ sidebar_position: 0
 
 ![directory](./img/directory/directory1.png)
 
-### **核桃派2代介绍**
+### **Walnut Pi 2 Introduction**
 
-- [产品参数](./intro/hw-parameter.md)
-- [资料下载](./intro/download.md)
+- [Product Specifications](./intro/hw-parameter.md)
+- [Downloads](./intro/download.md)
 
-### **开箱指南**
+### **Getting Started**
 
-- [硬件详解](./getting_start/hw-detail.md)
-- [核桃派2B配件组装](./getting_start/1b-peripherals.md)
-- [系统镜像烧录](./getting_start/os-install.md)
-- [开机](./getting_start/start_up.md)
+- [Hardware Details](./getting_start/hw-detail.md)
+- [Walnut Pi 2B Peripheral Assembly](./getting_start/1b-peripherals.md)
+- [System Image Burning](./getting_start/os-install.md)
+- [Power On](./getting_start/start_up.md)
 
-### **核桃派系统使用**
+### **Walnut Pi OS Usage**
 
-- [系统简介](./os_software/os_intro.md)
-- [预装软件](./os_software/software.md)
-- [终端和常用命令](./os_software/terminal.md)
-- [WiFi连接](./os_software/wifi.md)
-- [时间设置](./os_software/date.md)
-- [系统语言](./os_software/language.md)
-- [IP地址获取](./os_software/ip_get.md)
-- [SSH远程终端](./os_software/ssh.md)
-- [VNC远程桌面](./os_software/vnc.md)
-- [设备地图](./os_software/map_device.md)
-- [EMMC闪存](./os_software/emmc.md)
-- [NVMe固态硬盘](./os_software/nvme.md)
-- [关机和重启](./os_software/log_out.md)
-- [主控温度信息](./os_software/core_temp.md)
-- [主控ID号](./os_software/cpu_id.md)
-- [音频和录音](./os_software/audio.md)
-- [红外接收头](./os_software/ir.md)
-- [U盘挂载](./os_software/usb_disk.md)
-- [MIPI摄像头](./os_software/mipi_cam.md)
-- [USB摄像头](./os_software/usb_cam.md)
-- **显示屏**
-    - [1.54寸显示屏](./os_software/display/1.54_LCD.md) 
-    - [3.5寸显示屏](./os_software/display/3.5_LCD.md)    
-    - [5.5寸MIPI屏](./os_software/display/5.5_mipi.md)
-    - [10.1寸MIPI屏](./os_software/display/10.1_mipi.md)
-    - [树莓派MIPI屏](./os_software/display/rpi_mipi.md)
-- [开机自动运行脚本](./os_software/auto_run.md)
+- [OS Introduction](./os_software/os_intro.md)
+- [Pre-installed Software](./os_software/software.md)
+- [Terminal and Common Commands](./os_software/terminal.md)
+- [WiFi Connection](./os_software/wifi.md)
+- [Time Settings](./os_software/date.md)
+- [System Language](./os_software/language.md)
+- [IP Address](./os_software/ip_get.md)
+- [SSH Remote Terminal](./os_software/ssh.md)
+- [VNC Remote Desktop](./os_software/vnc.md)
+- [Device Map](./os_software/map_device.md)
+- [EMMC Storage](./os_software/emmc.md)
+- [NVMe SSD](./os_software/nvme.md)
+- [Shutdown and Reboot](./os_software/log_out.md)
+- [CPU Temperature](./os_software/core_temp.md)
+- [Chip ID](./os_software/cpu_id.md)
+- [Audio and Recording](./os_software/audio.md)
+- [IR Receiver](./os_software/ir.md)
+- [USB Drive Mounting](./os_software/usb_disk.md)
+- [MIPI Camera](./os_software/mipi_cam.md)
+- [USB Camera](./os_software/usb_cam.md)
+- **Display**
+    - [1.54-inch Display](./os_software/display/1.54_LCD.md) 
+    - [3.5-inch Display](./os_software/display/3.5_LCD.md)    
+    - [5.5-inch MIPI Display](./os_software/display/5.5_mipi.md)
+    - [10.1-inch MIPI Display](./os_software/display/10.1_mipi.md)
+    - [Raspberry Pi MIPI Display](./os_software/display/rpi_mipi.md)
+- [Auto-run Script on Boot](./os_software/auto_run.md)
 - [config.txt](./os_software/config.txt.md)
 
-### **GPIO应用**
+### **GPIO Applications**
 
-- [GPIO介绍](./gpio/gpio_intro.md)
-- [GPIO指令操作](./gpio/gpio_command.md)
-- [GPIO设备配置](./gpio/gpio_config.md)
+- [GPIO Introduction](./gpio/gpio_intro.md)
+- [GPIO Command Operations](./gpio/gpio_command.md)
+- [GPIO Device Configuration](./gpio/gpio_config.md)
 - [PWM](./gpio/pwm.md)
 
-### **Python嵌入式编程**
+### **Python Embedded Programming**
 
-- [运行Python代码](./python/python_run.md) 
-- [Blinka（Python库）简介](./python/blinka_intro.md) 
-- **GPIO基础实验**
-    - [GPIO介绍](./python/gpio/gpio_intro.md) 
-    - [点亮第1个LED](./python/gpio/led.md) 
-    - [按键](./python/gpio/key.md) 
-    - [有源蜂鸣器](./python/gpio/active_buzzer.md) 
-    - [UART（串口通讯）](./python/gpio/uart.md) 
-    - [I2C（OLED显示屏）](./python/gpio/i2c_oled.md) 
+- [Running Python Code](./python/python_run.md) 
+- [Introduction to Blinka (Python Library)](./python/blinka_intro.md) 
+- **GPIO Basic Experiments**
+    - [GPIO Introduction](./python/gpio/gpio_intro.md) 
+    - [Lighting the First LED](./python/gpio/led.md) 
+    - [Button](./python/gpio/key.md) 
+    - [Active Buzzer](./python/gpio/active_buzzer.md) 
+    - [UART (Serial Communication)](./python/gpio/uart.md) 
+    - [I2C (OLED Display)](./python/gpio/i2c_oled.md) 
     - [PWM](./python/gpio/pwm.md) 
-- **传感器**
-    - [人体感应传感器](./python/sensor/human_induction.md) 
-    - [HC-SR04超声波测距](./python/sensor/hcsr04.md) 
-    - [BMP280大气压强](./python/sensor/bmp280.md) 
-    - [MPU6050六轴加速度计](./python/sensor/mpu6050.md) 
-    - [VL53L1X激光测距](./python/sensor/vl53l1x.md) 
-    - [MLX90614红外测温](./python/sensor/mlx90614.md) 
-- **拓展模块**
-    - [继电器](./python/module/relay.md) 
-- **网络应用**
-    - [Socket通讯](./python/network/socket.md) 
-    - [MQTT通讯](./python/network/mqtt.md) 
-- **其它使用技巧**
-    - [开机自动运行Python代码](./python/skills/auto_run.md) 
-    - [Python调用终端命令](./python/skills/command.md) 
+- **Sensors**
+    - [PIR Motion Sensor](./python/sensor/human_induction.md) 
+    - [HC-SR04 Ultrasonic Distance](./python/sensor/hcsr04.md) 
+    - [BMP280 Barometric Pressure](./python/sensor/bmp280.md) 
+    - [MPU6050 6-Axis Accelerometer](./python/sensor/mpu6050.md) 
+    - [VL53L1X Laser Distance](./python/sensor/vl53l1x.md) 
+    - [MLX90614 Infrared Thermometer](./python/sensor/mlx90614.md) 
+- **Expansion Modules**
+    - [Relay](./python/module/relay.md) 
+- **Network Applications**
+    - [Socket Communication](./python/network/socket.md) 
+    - [MQTT Communication](./python/network/mqtt.md) 
+- **Other Tips**
+    - [Auto-run Python Code on Boot](./python/skills/auto_run.md) 
+    - [Calling Terminal Commands from Python](./python/skills/command.md) 
 
-### **C嵌入式编程**
+### **C Embedded Programming**
 
-- [在开发板上编译C语言代码](./c/c_run.md) 
-- [IO控制](./c/io_gpioc.md) 
+- [Compiling C Code on the Board](./c/c_run.md) 
+- [IO Control](./c/io_gpioc.md) 
 - [I2C](./c/i2c.md) 
 - [SPI](./c/spi.md) 
-- [UART（串口）](./c/uart.md) 
+- [UART (Serial)](./c/uart.md) 
 - [PWM](./c/pwm.md) 
 
 ### **PyQt5**
 
-- [PyQt5简介](./pyQT5/pyqt5_intro.md) 
-- [开发环境搭建](./pyQT5/development_setup.md) 
-- [第一个窗口](./pyQT5/first_window.md) 
-- [代码编写和运行](./pyQT5/code_run.md) 
-- [信号和槽](./pyQT5/signal_slot.md) 
-- **控件**
-    - [控件简介](./pyQT5/widgets/widgets_intro.md) 
-    - **按钮类**
-        - [PushButton（按钮）](./pyQT5/widgets/buttons/push_button.md) 
-        - [ToolButton（工具按钮）](./pyQT5/widgets/buttons/tool_button.md) 
-    - **显示控件**
+- [PyQt5 Introduction](./pyQT5/pyqt5_intro.md) 
+- [Development Environment Setup](./pyQT5/development_setup.md) 
+- [First Window](./pyQT5/first_window.md) 
+- [Writing and Running Code](./pyQT5/code_run.md) 
+- [Signals and Slots](./pyQT5/signal_slot.md) 
+- **Widgets**
+    - [Widgets Introduction](./pyQT5/widgets/widgets_intro.md) 
+    - **Button Classes**
+        - [PushButton](./pyQT5/widgets/buttons/push_button.md) 
+        - [ToolButton](./pyQT5/widgets/buttons/tool_button.md) 
+    - **Display Widgets**
         - [Label](./pyQT5/widgets/display/label.md) 
-    - **输入控件**
-        - [LineEdit（单行文本框）](./pyQT5/widgets/input/line_edit.md) 
-        - [TextEdit（多行文本框）](./pyQT5/widgets/input/text_edit.md) 
-- **绘图**
-    - [绘图简介](./pyQT5/paint/paint_intro.md) 
-    - **绘制形状**
-        - [画形状](./pyQT5/paint/shape/shape.md) 
-        - [画笔和画刷设置](./pyQT5/paint/shape/qpen_qbursh.md) 
-    - **绘制文本**
-        - [写文本](./pyQT5/paint/text/text.md) 
-        - [字体设置](./pyQT5/paint/text/qfont.md) 
-    - [绘制图像](./pyQT5/paint/image.md) 
+    - **Input Widgets**
+        - [LineEdit (Single-line Text Box)](./pyQT5/widgets/input/line_edit.md) 
+        - [TextEdit (Multi-line Text Box)](./pyQT5/widgets/input/text_edit.md) 
+- **Drawing**
+    - [Drawing Introduction](./pyQT5/paint/paint_intro.md) 
+    - **Drawing Shapes**
+        - [Drawing Shapes](./pyQT5/paint/shape/shape.md) 
+        - [Pen and Brush Settings](./pyQT5/paint/shape/qpen_qbursh.md) 
+    - **Drawing Text**
+        - [Writing Text](./pyQT5/paint/text/text.md) 
+        - [Font Settings](./pyQT5/paint/text/qfont.md) 
+    - [Drawing Images](./pyQT5/paint/image.md) 
 
 ### **OpenCV**
 
-- [OpenCV简介](./opencv/intro.md) 
-- [OpenCV安装](./opencv/install.md) 
-- [图像基本操作](./opencv/operate.md) 
-- [图像基础知识](./opencv/image.md) 
-- **绘图**
-    - [画图形](./opencv/draw/shape.md) 
-    - [写字符](./opencv/draw/string.md) 
-- **图像处理**
-    - [缩放](./opencv/process/resize.md) 
-    - [翻转](./opencv/process/flip.md) 
-    - [二值化](./opencv/process/binary.md) 
-- **图像检测**
-    - [轮廓检测](./opencv/detection/contour_detection.md) 
-    - [边缘检测](./opencv/detection/edge_detection.md) 
-    - [线段检测](./opencv/detection/line_detection.md) 
-    - [圆形检测](./opencv/detection/circle_detection.md) 
-    - [模板匹配](./opencv/detection/template_match.md) 
-- [USB摄像头使用](./opencv/usb_cam.md) 
-- [LCD使用](./opencv/lcd.md) 
-- **视觉识别**
-    - [级联分类器介绍](./opencv/vision/haar_cascade.md) 
-    - [人脸检测](./opencv/vision/front_face_detection.md)
-    - [眼睛检测](./opencv/vision/eye_detection%20copy.md) 
-    - [猫脸检测](./opencv/vision/cat_face_detection.md) 
-    - [车牌检测](./opencv/vision/plate_detection.md) 
+- [OpenCV Introduction](./opencv/intro.md) 
+- [OpenCV Installation](./opencv/install.md) 
+- [Basic Image Operations](./opencv/operate.md) 
+- [Image Fundamentals](./opencv/image.md) 
+- **Drawing**
+    - [Drawing Shapes](./opencv/draw/shape.md) 
+    - [Writing Characters](./opencv/draw/string.md) 
+- **Image Processing**
+    - [Resize](./opencv/process/resize.md) 
+    - [Flip](./opencv/process/flip.md) 
+    - [Binarization](./opencv/process/binary.md) 
+- **Image Detection**
+    - [Contour Detection](./opencv/detection/contour_detection.md) 
+    - [Edge Detection](./opencv/detection/edge_detection.md) 
+    - [Line Detection](./opencv/detection/line_detection.md) 
+    - [Circle Detection](./opencv/detection/circle_detection.md) 
+    - [Template Matching](./opencv/detection/template_match.md) 
+- [USB Camera Usage](./opencv/usb_cam.md) 
+- [LCD Usage](./opencv/lcd.md) 
+- **Visual Recognition**
+    - [Cascade Classifier Introduction](./opencv/vision/haar_cascade.md) 
+    - [Face Detection](./opencv/vision/front_face_detection.md)
+    - [Eye Detection](./opencv/vision/eye_detection%20copy.md) 
+    - [Cat Face Detection](./opencv/vision/cat_face_detection.md) 
+    - [License Plate Detection](./opencv/vision/plate_detection.md) 
 
-### **NPU应用**
+### **NPU Applications**
 
-- [NPU简介](./npu/intro.md) 
-- **YOLO应用**
-    - [YOLO简介](./npu/yolo/intro.md) 
-    - [YOLO11分类](./npu/yolo/yolo11-cls.md) 
-    - [YOLO11检测](./npu/yolo/yolo11-detect.md) 
-    - [YOLO11定向检测](./npu/yolo/yolo11-obb.md) 
-    - [YOLO11图像分割](./npu/yolo/yolo11-seg.md) 
-    - [YOLO11姿势识别](./npu/yolo/yolo11-pose.md) 
-    - [模型转换](./npu/yolo/model_convert.md) 
-    - [在线模型训练](./npu/yolo/model_train.md) 
+- [NPU Introduction](./npu/intro.md) 
+- **YOLO Applications**
+    - [YOLO Introduction](./npu/yolo/intro.md) 
+    - [YOLO11 Classification](./npu/yolo/yolo11-cls.md) 
+    - [YOLO11 Detection](./npu/yolo/yolo11-detect.md) 
+    - [YOLO11 Oriented Detection](./npu/yolo/yolo11-obb.md) 
+    - [YOLO11 Image Segmentation](./npu/yolo/yolo11-seg.md) 
+    - [YOLO11 Pose Estimation](./npu/yolo/yolo11-pose.md) 
+    - [Model Conversion](./npu/yolo/model_convert.md) 
+    - [Online Model Training](./npu/yolo/model_train.md) 
 
 ### **Home Assistant**
 
-- [简介](./home_assistant/intro.md) 
-- [Home Assistant安装](./home_assistant/install.md) 
-- [初始化配置](./home_assistant/config.md) 
-- [概念和术语](./home_assistant/concept.md) 
-- [仪表盘](./home_assistant/dashboard.md) 
-- **MQTT集成**
-    - [MQTT服务器安装](./home_assistant/mqtt/install.md) 
-    - [添加MQTT集成](./home_assistant/mqtt/add.md) 
-    - **添加MQTT设备和实体**
-        - [发现设备和实体](./home_assistant/mqtt/device_entity/discovery.md) 
+- [Introduction](./home_assistant/intro.md) 
+- [Home Assistant Installation](./home_assistant/install.md) 
+- [Initial Configuration](./home_assistant/config.md) 
+- [Concepts and Terminology](./home_assistant/concept.md) 
+- [Dashboard](./home_assistant/dashboard.md) 
+- **MQTT Integration**
+    - [MQTT Server Installation](./home_assistant/mqtt/install.md) 
+    - [Adding MQTT Integration](./home_assistant/mqtt/add.md) 
+    - **Adding MQTT Devices and Entities**
+        - [Discovering Devices and Entities](./home_assistant/mqtt/device_entity/discovery.md) 
         - [LED](./home_assistant/mqtt/device_entity/led.md) 
-        - [按键](./home_assistant/mqtt/device_entity/key.md) 
-        - [温度传感器DS18B20](./home_assistant/mqtt/device_entity/ds18b20.md) 
-- [摄像头监控](./home_assistant/ip_camera.md) 
-- [自动化](./home_assistant/automation.md) 
-- [加入市面上产品](./home_assistant/other_device.md) 
-- [接入苹果HomeKit](./home_assistant/homekit.md) 
+        - [Button](./home_assistant/mqtt/device_entity/key.md) 
+        - [Temperature Sensor DS18B20](./home_assistant/mqtt/device_entity/ds18b20.md) 
+- [Camera Monitoring](./home_assistant/ip_camera.md) 
+- [Automation](./home_assistant/automation.md) 
+- [Adding Commercial Products](./home_assistant/other_device.md) 
+- [Integrating Apple HomeKit](./home_assistant/homekit.md) 
 
-### **Android系统使用**
+### **Android System Usage**
 
-- [镜像烧录](./android/burn.md) 
-- [开机](./android/start_up.md) 
+- [Image Burning](./android/burn.md) 
+- [Power On](./android/start_up.md) 
     
-### [**社区用户开源项目分享**](./diy.md) 
+### [**Community Open-Source Project Sharing**](./diy.md) 
 
-### [**更新说明**](./update.md)
-
+### [**Changelog**](./update.md)

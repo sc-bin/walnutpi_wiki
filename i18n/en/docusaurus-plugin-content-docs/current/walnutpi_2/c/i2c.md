@@ -4,44 +4,52 @@ sidebar_position: 3
 
 # I2C
 
-## 配置引脚
+## Configure Pins
 
-### 找到板子上的i2c引脚
-为了方便查找，我们加入了一个显示功能引脚位置的功能，运行以下命令，查看板子的40pin引脚上有几个可用i2c
+### Find the I2C Pins on the Board
+For easy lookup, we added a feature to display the functional pin positions. Run the following command to see how many available I2C interfaces are on the board's 40-pin header:
+
 ```bash
 gpio pin i2c
 ```
-![查看i2c引脚位置](./img/i2c/gpio_pin_i2c.png)
+
+![View I2C Pin Positions](./img/i2c/gpio_pin_i2c.png)
 
 
-### 启用i2c
-我们使用`set-device`指令来使能/关闭指定设备的底层驱动，使能后，引脚就会由gpio模式切换为对应的引脚复用功能。（配置后要重启才能生效）
+### Enable I2C
+We use the `set-device` command to enable/disable the underlying driver for a specified device. After enabling, the pins will switch from GPIO mode to the corresponding multiplexed pin function. (A restart is required for the changes to take effect.)
 
 
-首先查看各设备的状态
+First, check the status of each device:
+
 ```bash
 set-device status
 ```
-![查看各设备状态](./img/i2c/device-status.png)
 
-运行指令启用i2c1，注意要重启后才能生效
+![Check device status](./img/i2c/device-status.png)
+
+Run the command to enable i2c1. Note that a restart is required for the changes to take effect:
+
 ```bash
 sudo set-device enable i2c1
 ```
 
-重启后查看引脚状态,可以看到3和5都处于i2c复用模式了了
-![引脚alt正确](./img/i2c/pin_35_mode_is_ok.png)
+After rebooting, check the pin status. You will see that pins 3 and 5 are now in I2C multiplexed mode:
 
-并且存在`/dev/i2c-1`这个文件，因为后续我们需要通过操作这个文件来控制i2c通讯
-![i2c1节点存在](./img/i2c/i2c_dev.png)
+![Pin alt correct](./img/i2c/pin_35_mode_is_ok.png)
 
-## i2c读写程序
-linux下一切皆是文件。而i2c1也被抽象为`/dev/i2c-1`这个文件。通过`open`打开它，用`ioctl`触发读写，`close`关闭文件。
+And the file `/dev/i2c-1` exists, because we will need to operate on this file later to control I2C communication.
 
-### 1. 打开文件
-linux下一切皆是文件，先使用`open`函数打开我们要操作的设备对应文件，获取文件描述符。
+![i2c1 node exists](./img/i2c/i2c_dev.png)
 
-需要这些头文件
+## I2C Read/Write Program
+In Linux, everything is a file. I2C1 is abstracted as the file `/dev/i2c-1`. Open it with `open`, trigger read/write with `ioctl`, and close it with `close`.
+
+### 1. Open the File
+In Linux, everything is a file. First, use the `open` function to open the device file we want to operate and obtain a file descriptor.
+
+The following header files are needed:
+
 ```c
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -49,7 +57,8 @@ linux下一切皆是文件，先使用`open`函数打开我们要操作的设备
 #include <unistd.h>
 ```
 
-open设备节点
+Open the device node:
+
 ```c
     int fd = open("/dev/i2c-1", O_RDWR);
     if (fd < 0)
@@ -60,23 +69,25 @@ open设备节点
 ```
 
 ### 2. i2c_msg
-linux下操作i2c不是使用write和read函数，而是使用一个i2c_msg结构体来配置从i2c从起始到停止之间要做的内容。
-- `addr`: 目标地址
-- `flags`: 读还是写
-- `buf` : buf的地址，根据`flags`是读还是写，会在地址帧发送后，将其内容发送出去，或是读取总线内容存放进来。
-- `len` : buf的大小
+In Linux, I2C operations use the `i2c_msg` structure instead of the `write` and `read` functions. It configures what to do from the I2C start to stop conditions.
+- `addr`: Target address
+- `flags`: Read or write
+- `buf` : Address of the buffer. Depending on whether `flags` indicates read or write, after the address frame is sent, the buffer content will either be transmitted or data from the bus will be stored into it.
+- `len` : Size of the buffer
 
 
 ![i2c_msg_struct](./img/i2c/i2c_msg_struct.png)
 
 
-### 3. 向i2c总线写
-从德州仪器那下载的i2c时序图↓
-![i2c写时序](./img/i2c/i2c_write_timing.png)
+### 3. Writing to the I2C Bus
+I2C write timing diagram (from TI) ↓
 
-加入我现在想往地址是0x3c的设备上，把寄存器0x01赋值为0x55，那msg结构体的设置就该如下。`addr`和`flags`共同决定第一帧地址帧的内容。因为`flags`是写，所以在地址帧发送完后，会将buf的内容依次发送出去。
+![I2C write timing](./img/i2c/i2c_write_timing.png)
 
-首先，需要这些头文件
+Suppose I want to write the value 0x55 to register 0x01 on a device with address 0x3c. The msg structure should be set as follows. `addr` and `flags` together determine the content of the first address frame. Since `flags` indicates a write, after the address frame is sent, the buf content will be transmitted sequentially.
+
+First, the following header files are needed:
+
 ```c
 #include <sys/ioctl.h>
 #include <linux/i2c.h>
@@ -90,17 +101,18 @@ linux下操作i2c不是使用write和read函数，而是使用一个i2c_msg结�
     uint8_t value = 0x55;
 
     uint8_t buf[2];
-    buf[0] = reg; //寄存器
-    buf[1] = value; //数据
+    buf[0] = reg; // Register
+    buf[1] = value; // Data
 
     struct i2c_msg msg;
-    msg.addr = addr; //目标地址
-    msg.flags = 0;  //读写标志
-    msg.len = 2;  //buf长度
+    msg.addr = addr; // Target address
+    msg.flags = 0;  // Read/Write flag
+    msg.len = 2;  // buf length
     msg.buf = buf; 
 ```
 
-编写完msg后，还需要创建`i2c_rdwr_ioctl_data`结构体，写清楚本次i2c通信要处理几个msg，然后用`ioctl`函数触发一次i2c通信。
+After writing the msg, you also need to create the `i2c_rdwr_ioctl_data` structure, specify how many msgs this I2C communication needs to handle, and then use the `ioctl` function to trigger an I2C communication.
+
 ```c
     struct i2c_rdwr_ioctl_data data;
     data.msgs = &msg;
@@ -112,13 +124,14 @@ linux下操作i2c不是使用write和read函数，而是使用一个i2c_msg结�
     return ret;
 ```
 
-### 4. 从i2c总线读
-从德州仪器那下载的i2c时序图↓
-![i2c读时序](./img/i2c/i2c_read_timing.png)
+### 4. Reading from the I2C Bus
+I2C read timing diagram (from TI) ↓
 
-我现在想往地址是0x3c的设备上，读取寄存器0x01的值.
+![I2C read timing](./img/i2c/i2c_read_timing.png)
 
-根据时序图，需要两个msg，第一个msg是写，地址帧后只跟寄存器编号。第二个msg是读，地址帧发完就是从机将该寄存器的内容返回。
+Now I want to read the value of register 0x01 from the device with address 0x3c.
+
+According to the timing diagram, two msgs are needed. The first msg is a write, followed only by the register number after the address frame. The second msg is a read; after the address frame is sent, the slave returns the content of that register.
 
 ```c
     uint8_t addr = 0x3c;
@@ -138,7 +151,8 @@ linux下操作i2c不是使用write和read函数，而是使用一个i2c_msg结�
 
 ```
 
-编写完msg后，还需要创建`i2c_rdwr_ioctl_data`结构体，写清楚本次i2c通信要处理几个msg，然后用`ioctl`函数触发一次i2c通信。
+After writing the msgs, you also need to create the `i2c_rdwr_ioctl_data` structure, specify how many msgs this I2C communication needs to handle, and then use the `ioctl` function to trigger an I2C communication.
+
 ```c
     struct i2c_rdwr_ioctl_data data;
     data.msgs = msgs;
@@ -151,22 +165,23 @@ linux下操作i2c不是使用write和read函数，而是使用一个i2c_msg结�
     return res;
 ```
 
-### 5. 关闭文件
-每次`open`后记得调用`close`来手动关闭，不然文件描述符会保留直到程序关闭。而系统限制单个程序最大只能同时打开1024个文件，如果程序不停的open却不close，没一会就要报错退出了。
+### 5. Close the File
+Remember to call `close` after each `open` to manually close it, otherwise the file descriptor will remain until the program exits. The system limits a single program to a maximum of 1024 simultaneously open files. If the program keeps opening files without closing them, it will soon error out.
+
 ```
 close(fd);
 ```
 
-## 示例-从mlx90614中读取温度数据
+## Example - Reading Temperature Data from MLX90614
 
 ![mlx90614](./img/i2c/mlx90614.png)
 
-首先阅读mlx90614的手册，查看他的读写时序↓
+First, read the MLX90614 datasheet to check its read/write timing ↓
 
 
-![i2c读时序](./img/i2c/mlx_read_timing.png)
+![I2C read timing](./img/i2c/mlx_read_timing.png)
 
-根据手册给的时序，这里要创建两个msg，第一个是写，buf内存放读取温度的命令0x07。第二个是读，连续3个字节，其中前两个是温度数据。再加上mlx90614的地址是0，最后代码如下
+According to the timing diagram from the datasheet, two msgs need to be created here. The first is a write, with the buf containing the temperature read command 0x07. The second is a read, reading 3 consecutive bytes, where the first two contain the temperature data. Since the MLX90614 address is 0, the final code is as follows:
 
 ```c
 #include <stdio.h>
@@ -185,12 +200,12 @@ close(fd);
 
 #define DEV_I2C "/dev/i2c-1"
 
-//计算mlx9614实际温度值
+// Calculate the actual temperature value of MLX90614
 uint16_t mlx_data_transform(uint8_t Data[3])
 {
     uint16_t temp;
-    temp = (Data[1] << 8) + Data[0]; // 高位与低位结合
-    temp = temp * 2 - 27315;         // 将数据扩大100倍
+    temp = (Data[1] << 8) + Data[0]; // Combine high and low bytes
+    temp = temp * 2 - 27315;         // Scale the data by 100
     return temp;
 }
 
@@ -235,11 +250,12 @@ int main()
 }
 ```
 
-我将代码写在文件`i2c.c`内，想将其编译成名为`exe`的可执行文件，只需要执行下面这一句
+I saved the code in the file `i2c.c`. To compile it into an executable named `exe`, just run:
+
 ```bash
 gcc i2c.c -o exe
 ```
 
-执行结果如下，显示我周围环境的温度是30左右，手靠近后上升到34:
+The execution result is as follows, showing the ambient temperature around 30, and it rises to 34 when a hand approaches:
 
-![测试结果](./img/i2c/code_i2c_test.png)
+![Test Result](./img/i2c/code_i2c_test.png)

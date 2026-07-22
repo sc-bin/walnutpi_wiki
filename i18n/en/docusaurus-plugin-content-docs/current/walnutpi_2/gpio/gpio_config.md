@@ -2,67 +2,67 @@
 sidebar_position: 3
 ---
 
-# 切换GPIO功能
+# Switch GPIO Function
 
-有些引脚上带有**I2C, UART, SPI**等功能，需要使用`set-device`指令来将设置启用，然后才能使用Python或C对其进行嵌入式编程应用。
+Some pins carry functions such as **I2C, UART, SPI**, etc. You need to use the `set-device` command to enable the configuration before you can use Python or C for embedded programming applications.
 
-`set-device`的工作原理是基于linux提供的**device tree overlay**功能，我们已经把 “将xx引脚配置为spi并启用对应驱动” 之类的信息写成配置文件(.dtb)中。这条指令会控制系统在开机时加载哪些配置文件(.dtb)。
+The working principle of `set-device` is based on Linux's **device tree overlay** feature. We have written information such as "configure pin xx as SPI and enable the corresponding driver" into configuration files (.dtb). This command controls which configuration files (.dtb) the system loads at boot.
 
-注意，有些驱动是互斥的。比如启用3.5寸屏时会占用spi1，就不能同时使用spidev1.0驱动。如果将核桃派2b的38/40引脚配置为串口4，那这两个引脚就不能使用硬件pwm功能。
+Note that some drivers are mutually exclusive. For example, enabling the 3.5-inch display occupies SPI1, so you cannot simultaneously use the spidev1.0 driver. If you configure pins 38/40 of the Walnut Pi 2B as UART4, then these two pins cannot be used for hardware PWM.
 
-比如**PI13**引脚可以被设置为**pwm3**或是**uart4_txd**，但如果你将其设置为了**uart4_txd**，就无法使用**pwm3**功能。
+For example, pin **PI13** can be set as **pwm3** or **uart4_txd**. If you set it as **uart4_txd**, you cannot use the **pwm3** function.
 
 
-## 查看GPIO设备状态
+## View GPIO Device Status
 
-可通过下面指令查看当前所有GPIO设备状态：
+Use the following command to view the status of all GPIO devices:
 
 ```bash
 set-device status
 ```
-- 状态为**off**，则该项不生效
-- 状态为**enable**，则会设置对应引脚，并使能对应驱动。
+- Status **off**: The item is not active
+- Status **enable**: The corresponding pin will be configured and the driver will be enabled.
 
 ![gpio_config1](./img/gpio_config/gpio_config1.png)
 
-## GPIO设备使能
+## Enable GPIO Device
 
-通过下面指令使能某项GPIO设备：
+Use the following command to enable a GPIO device:
 
 ```bash
 sudo set-device enable xx
 ```
 
-例：使能 **uart4**
+Example: Enable **uart4**
 
 ```bash
 sudo set-device enable uart4
 ```
 
-使能后需要重启开发板生效：
+After enabling, a restart is required to take effect:
 
 ```bash
 sudo reboot
 ```
 
-再次执行上面命令后使用`set-device status`命令可以看到uart4设备已被使能。
+After running the above commands again, use the `set-device status` command to see that the uart4 device has been enabled.
 
 ![gpio_config2](./img/gpio_config/gpio_config2.png)
 
-运行命令`gpio pins`后，也可看到核桃派2b的对应引脚被切换为对应工作模式
+After running the `gpio pins` command, you can also see that the corresponding pin of the Walnut Pi 2B has been switched to the corresponding operating mode.
 
 ![gpio_pins_uart4](./img/gpio_config/gpio_pins_uart4.png)
 
 
-## GPIO设备禁用
+## Disable GPIO Device
 
-通过下面指令禁用某项GPIO设备：
+Use the following command to disable a GPIO device:
 
 ```bash
 sudo set-device disable xx
 ```
 
-使能后需要重启开发板生效：
+After disabling, a restart is required to take effect:
 
 ```bash
 sudo reboot
