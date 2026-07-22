@@ -2,63 +2,62 @@
 sidebar_position: 7
 ---
 
-# 摄像头监控
+# Camera Surveillance
 
-Home Assistant集成了**MJPEG IP Camera**集成，可以跟前面核桃派USB摄像头使用方法对接起来，实现在Home Assistant界面监控。
+Home Assistant integrates the **MJPEG IP Camera** integration, which can interface with the WalnutPi USB camera usage methods introduced earlier, enabling surveillance monitoring from the Home Assistant interface.
 
 ![ip_camera](./img/ip_camera/ip_camera0.png)
 
-核桃派USB摄像头使用教程请看前面[USB摄像头章节内容](../os_software/usb_cam.md) , 这里不再重复。
+For the WalnutPi USB camera tutorial, see the previous [USB Camera section](../os_software/usb_cam.md) — not repeated here.
 
-按上面教程启动摄像头并测试通过后接下来在Home Assistat添加该设备：
+After following the above tutorial to start the camera and testing it successfully, next add the device in Home Assistant:
 
-打开**配置**  -- **添加集成** :
+Open **Configuration** -- **Add Integration**:
 
 ![ip_camera](./img/ip_camera/ip_camera1.png)
 
-在弹出对话框搜索 **MJPEG** 关键词，然后选择下方**MJPEG IP Camera** :
+In the popup dialog, search for the keyword **MJPEG**, then select **MJPEG IP Camera** below:
 
 ![ip_camera](./img/ip_camera/ip_camera2.png)
 
-接下来填写摄像头信息：
+Next, fill in the camera information:
 
-- `名称`: 自定义；
-- `MJPEG URL`: 填写连接USB摄像头的IP地址加字符，[核桃派IP地址获取](../os_software/ip_get.md)， 例： http://192.168.1.11:8080/?action=stream。如果USB摄像头连接到Home Assistant主机上的话，可以直接用127.0.0.1 （本机IP） 。
+- `Name`: Custom;
+- `MJPEG URL`: Enter the IP address of the USB camera plus the string. [Get WalnutPi IP Address](../os_software/ip_get.md), e.g.: http://192.168.1.11:8080/?action=stream. If the USB camera is connected to the Home Assistant host itself, you can directly use 127.0.0.1 (localhost IP).
 
 ![ip_camera](./img/ip_camera/ip_camera3.png)
 
-完成后可以看到集成栏多了MMJPEG IP Camera:
+After completion, you can see MJPEG IP Camera added in the integrations list:
 
 ![ip_camera](./img/ip_camera/ip_camera4.png)
 
-打开设备点击下方这个小圆圈可以看到摄像头监控画面：
+Open the device and click the small circle below to view the camera surveillance feed:
 
 ![ip_camera](./img/ip_camera/ip_camera5.png)
 
 ![ip_camera](./img/ip_camera/ip_camera6.png)
 
-可添加至首页仪表盘：
+It can be added to the homepage dashboard:
 
 ![ip_camera](./img/ip_camera/ip_camera7.png)
 
 ![ip_camera](./img/ip_camera/ip_camera8.png)
 
-添加后发现仪表盘的监控画面没有即时刷新，按下面方法配置一下即可：
+After adding, you may find that the dashboard surveillance feed does not update in real time. Configure as follows to fix this:
 
-点击右上角小铅笔按钮进入卡片编辑：
+Click the small pencil button in the upper-right corner to enter card editing:
 
 ![ip_camera](./img/ip_camera/ip_camera9.png)
 
-点击监控画面左下角**编辑**：
+Click **Edit** in the lower-left corner of the surveillance feed:
 
 ![ip_camera](./img/ip_camera/ip_camera10.png)
 
-相机视图模式选择：live（直播）：
+Select camera view mode: live:
 
 ![ip_camera](./img/ip_camera/ip_camera11.png)
 
-完成返回后刷新一下网页，即可看到相机画面实时刷新：
+After completing and returning, refresh the webpage and you will see the camera feed updating in real time:
 
 ![ip_camera](./img/ip_camera/ip_camera12.png)
-
 

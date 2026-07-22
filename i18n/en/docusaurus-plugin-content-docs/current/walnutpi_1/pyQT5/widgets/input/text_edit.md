@@ -2,19 +2,20 @@
 sidebar_position: 1
 ---
 
-# TextEdit（多行文本框）
+# TextEdit (Multi-Line Text Box)
 
-## 介绍
+## Introduction
 
-多行文本框允许用于输入多行文本。
+A multi-line text box allows the user to input multiple lines of text.
 
 ![TextEdit1](./img/TextEdit/TextEdit1.png)
 
-双击可以添加文本框预显示内容，拖动边缘可以缩放。还有字体大小、其它属性右边属性栏都可以设置。
+Double-click to add preset display content, and drag the edges to resize it. Font size and other properties can be configured in the property panel on the right.
 
 ![TextEdit2](./img/TextEdit/TextEdit2.png)
 
-该窗口生成的py代码如下：
+The generated Python code for this window is as follows:
+
 ```python
 # -*- coding: utf-8 -*-
 
@@ -48,7 +49,7 @@ class Ui_MainWindow(object):
 
 ```
 
-其中跟单行文本相关的代码如下：
+The code related to the multi-line text box is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -60,32 +61,33 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         ...
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(170, 100, 104, 71)) #文本框的x坐标、y坐标、宽度、高度；
-        self.textEdit.setObjectName("textEdit") #设置多行文本框对象名称，非显示名称。
+        self.textEdit.setGeometry(QtCore.QRect(170, 100, 104, 71)) # x, y, width, height of the text box
+        self.textEdit.setObjectName("textEdit") # Set the text box object name (internal, not display name)
 
 ```
-## QTextEdit对象
 
-|  常用方法 |  说明 |
+## QTextEdit Object
+
+|  Common Methods |  Description |
 |  :---:  | --- | 
-| setPlainText()  |  设置文本框内容  | 
-| toPlainText()  |  获取文本框内容  | 
-| clear()  |  清除文本框内容 | 
-| setTextColor()  |  设置文本颜色。如参数：QtGui.QColor(255,0,0)表示红色 | 
-| setTextBackgroundColor()  |  设置文本背景颜色。如参数：QtGui.QColor(255,0,0)表示红色 | 
-| setWordWrapMode()  |  设置为自动换行 | 
+| setPlainText()  |  Set the text box content  | 
+| toPlainText()  |  Get the text box content  | 
+| clear()  |  Clear the text box content | 
+| setTextColor()  |  Set text color. E.g.: QtGui.QColor(255,0,0) for red | 
+| setTextBackgroundColor()  |  Set text background color. E.g.: QtGui.QColor(255,0,0) for red | 
+| setWordWrapMode()  |  Enable automatic word wrapping | 
 
 
-## 示例
+## Example
 
-**例：在多行文本框输入指定内容然后点击按钮在终端打印出来。**
+**Example: Enter content in a multi-line text box, then click a button to print it to the terminal.**
 
-由于多行文本框没有确认输入信号，**Enter**键用于换行，所以这里可以结合[**按钮**](../buttons/push_button.md)来实现点击按钮将多行文本框内容打印出来。
+Since a multi-line text box has no confirm input signal (the **Enter** key is used for line breaks), you can combine it with a [**button**](../buttons/push_button.md) to implement printing the multi-line text box content on button click.
 
 ![TextEdit3](./img/TextEdit/TextEdit3.png)
 
 
-完整代码如下：
+Here's the complete code:
 
 ```python
 
@@ -116,48 +118,48 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.pushButton.clicked.connect(self.fun) # 按钮信号和槽定义
+        self.pushButton.clicked.connect(self.fun) # Button signal-slot definition
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "确认"))
+        self.pushButton.setText(_translate("MainWindow", "Confirm"))
 
-    #执行函数
+    # Execute function
     def fun(self):
-        print(self.textEdit.toPlainText()) #打印多行文本框信息
+        print(self.textEdit.toPlainText()) # Print multi-line text box content
 
 #################
-#   主程序代码   #
+#   Main Code    #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+# [Optional] Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+# [Optional] Fix display issues on 2K+ resolution monitors
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Main program entry — build and display the window
 app = QtWidgets.QApplication(sys.argv)
-MainWindow = QtWidgets.QMainWindow() #构建窗口对象
-ui = Ui_MainWindow() #构建pyQT5设计的窗口对象
-ui.setupUi(MainWindow) #初始化窗口
-MainWindow.show() #显示窗口
+MainWindow = QtWidgets.QMainWindow() # Create window object
+ui = Ui_MainWindow() # Create PyQt5-designed window object
+ui.setupUi(MainWindow) # Initialize window
+MainWindow.show() # Show window
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+# [Recommended] Allow Ctrl+C to interrupt the window from terminal for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit the process when the window is closed
 
 ```
 
-运行代码，在多行文本框输入信息并按下**确认**按钮，可以看到终端打印出文本框的信息。
+Run the code. Enter text in the multi-line text box and click the **Confirm** button. You'll see the terminal print the content of the text box.
 
 ![LineEdit4](./img/TextEdit/TextEdit4.png)

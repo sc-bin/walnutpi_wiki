@@ -6,125 +6,125 @@ sidebar_position: 50
 
 ## 2025-3-3
 
-- 新增 [使用SD卡自动烧录镜像到EMMC功能](./getting_start/os-install.md#使用sd卡自动烧录镜像推荐)。
-- 新增 [闪存EMMC使用教程](./os_software/emmc.md)。
-- 新增 [设备地图功能](./os_software/map_device.md)。
+- Added [Auto-Flashing Image to EMMC via SD Card](./getting_start/os-install.md#auto-flashing-image-to-emmc-via-sd-card-recommended).
+- Added [EMMC Flash Usage Guide](./os_software/emmc.md).
+- Added [Device Map Feature](./os_software/map_device.md).
 
 ## 2024-7-23
 
-- 核桃派OS（Debian12）v2.4.0版本发布，适配EMMC。
+- WalnutPi OS (Debian 12) v2.4.0 released, with EMMC support.
 
-- 新增 **核桃派介绍：** 
+- Added **WalnutPi Introduction:**
 
-    - [产品参数](./intro/hw-parameter.md)
+    - [Product Specifications](./intro/hw-parameter.md)
 
-- 新增 **开箱指南--系统镜像烧录：** 
+- Added **Getting Started - System Image Flashing:**
 
-    - [EMMC烧绿教程](./getting_start/os-install.md#emmc烧录)
+    - [EMMC Flashing Guide](./getting_start/os-install.md#emmc-flashing)
 
-- 新增 **核桃派系统使用--预装软件：** 
+- Added **WalnutPi System Usage - Pre-installed Software:**
 
-    - [btop系统监控软件](./os_software/software.md#btop)
+    - [btop System Monitoring Tool](./os_software/software.md#btop)
 
-- 新增 [社区用户开源项目分享](./diy.md)
+- Added [Community Open Source Projects](./diy.md)
 
 ## 2024-6-13
 
-- 核桃派1B Android镜像正式发布。
+- WalnutPi 1B Android image officially released.
 
-- 增加 [Android系统使用教程](./android/burn.md)
+- Added [Android System Tutorial](./android/burn.md)
 
 
 ## 2024-5-31
 
-- 更新 [GPIO应用](./gpio/gpio_intro.md) 和 [C嵌入式编程](./c/c_run.md) 整章内容。
+- Updated [GPIO Application](./gpio/gpio_intro.md) and [C Embedded Programming](./c/c_run.md) entire chapters.
 
-（从核桃派OS v2.3版本开始，GPIO弃用wiringpi的引脚编号，改为使用更直观的排针编号来指代引脚。）
+(Starting from WalnutPi OS v2.3, GPIO replaces WiringPi pin numbering with more intuitive header pin numbering.)
 
-- 增加 [OpenCV教程](./opencv/intro.md)
+- Added [OpenCV Tutorial](./opencv/intro.md)
 
 
 ## 2024-4-11
 
-- 新增 **核桃派系统使用：** 
+- Added **WalnutPi System Usage:**
 
-    - [开机LOGO](./os_software/boot_logo.md)
-    - [开机自动运行脚本](./os_software/auto_run.md)
+    - [Boot LOGO](./os_software/boot_logo.md)
+    - [Auto-Run Script on Boot](./os_software/auto_run.md)
 
 ## 2024-3-25
 
-- 新增 **开箱指南:** 
+- Added **Getting Started:**
 
-    - [核桃派ZeroW配件组装](./getting_start/zerow-peripherals.md)
+    - [WalnutPi ZeroW Peripheral Assembly](./getting_start/zerow-peripherals.md)
 
 ## 2024-3-13
 
-- 新增 **Home Assistant教程:** 
+- Added **Home Assistant Tutorial:**
 
-    - [接入苹果HomeKit](./home_assistant/homekit.md) 
+    - [Connect to Apple HomeKit](./home_assistant/homekit.md)
 
 ## 2024-3-12
 
-- 增加 [Home Assistant教程](./home_assistant/intro.md)
+- Added [Home Assistant Tutorial](./home_assistant/intro.md)
 
 ## 2024-1-4
 
-- 新增 **核桃派系统使用：** 
+- Added **WalnutPi System Usage:**
 
-    - [系统在线升级（OTA）](./os_software/os_intro.md#系统在线升级ota)
-    - [HDMI音频](./os_software/audio.md#hdmi音频)
-    - [config.txt](./os_software/config.txt.md) 配置文件介绍
+    - [Online System Upgrade (OTA)](./os_software/os_intro.md#online-system-upgrade-ota)
+    - [HDMI Audio](./os_software/audio.md#hdmi-audio)
+    - [config.txt](./os_software/config.txt.md) Configuration File Introduction
 
-- 新增 **Linux系统编译：** 
+- Added **Linux System Build:**
 
-    - [在开发板上编译驱动](./linux_build/compile_driver.md) 
+    - [Compiling Drivers on the Board](./linux_build/compile_driver.md)
 
 ## 2023-11-27
 
-- 增加 [目录](./directory.md)
-- 增加 [资料下载](./intro/download.md) 
+- Added [Table of Contents](./directory.md)
+- Added [Downloads](./intro/download.md)
 
 ## 2023-11-2
 
-- 增加 **C嵌入式编程**  ：
+- Added **C Embedded Programming:**
     - [I2C](./c/i2c.md)
     - [SPI](./c/spi.md)
-    - [UART(串口)](./c/uart.md)
+    - [UART (Serial)](./c/uart.md)
 
 ## 2023-10-23
 
-- 增加 **pyQT5** ：
+- Added **pyQT5:**
 
-    - [绘图教程](./pyQT5/paint/paint_intro.md)
+    - [Drawing Tutorial](./pyQT5/paint/paint_intro.md)
 
 ## 2023-10-20
 
-- 增加[pyQT5教程](./pyQT5/pyqt5_intro)（请使用v1.2以上核桃派系统版本）。
+- Added [pyQT5 Tutorial](./pyQT5/pyqt5_intro) (Requires WalnutPi OS v1.2 or above).
 
 ## 2023-10-16
 
-- 重构文档目录 ;
-- 增加 **GPIO应用** ：
+- Restructured document directory;
+- Added **GPIO Application:**
 
-    - [GPIO介绍](./gpio/gpio_intro.md)
-    - [GPIO指令操作](./gpio/gpio_command.md)
-    - [GPIO设备配置](./gpio/gpio_config.md)
+    - [GPIO Introduction](./gpio/gpio_intro.md)
+    - [GPIO Command Operations](./gpio/gpio_command.md)
+    - [GPIO Device Configuration](./gpio/gpio_config.md)
 
 ## 2023-10-11
 
-- 增加 **常见设备使用 / 核桃派3.5寸显示屏** ：
+- Added **Common Device Usage / WalnutPi 3.5-inch Display:**
 
-    - [在树莓派上使用](./os_software/3.5_LCD#在树莓派上使用)
+    - [Using on Raspberry Pi](./os_software/3.5_LCD#using-on-raspberry-pi)
 
 ## 2023-10-9
 
-- 增加 **Python嵌入式编程 / 传感器** 例程：
+- Added **Python Embedded Programming / Sensor** Examples:
 
-    - [HC-SR04超声波测距](./python/sensor/hcsr04.md)
-    - [BMP280大气压强](./python/sensor/bmp280.md)
-    - [MPU6050六轴加速度计](./python/sensor/mpu6050.md)
-    - [VL53L1X激光测距](./python/sensor/vl53l1x.md)
-    - [MLX90614红外测温](./python/sensor/mlx90614.md)
+    - [HC-SR04 Ultrasonic Distance Measurement](./python/sensor/hcsr04.md)
+    - [BMP280 Barometric Pressure](./python/sensor/bmp280.md)
+    - [MPU6050 6-Axis Accelerometer](./python/sensor/mpu6050.md)
+    - [VL53L1X Laser Distance Measurement](./python/sensor/vl53l1x.md)
+    - [MLX90614 Infrared Thermometry](./python/sensor/mlx90614.md)
 
 ## 2023-9-19
 

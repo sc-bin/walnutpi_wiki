@@ -2,54 +2,59 @@
 sidebar_position: 45
 ---
 
-# U盘挂载
+# USB Drive Mounting
 
-将U盘插入核桃派其中一个USB口。
+Insert the USB drive into one of the WalnutPi's USB ports.
 
 ![usb_disk1](./img/usb_disk/usb_disk1.png)
 
-## 带桌面系统
+## Desktop System
 
-桌面系统跟我们Windows电脑操作类似，插入U盘后可以看到桌面中出现一个透明的U盘图标。
+On the desktop system, operation is similar to a Windows computer. After inserting the USB drive, a transparent USB drive icon will appear on the desktop.
 
 ![usb_disk2](./img/usb_disk/usb_disk2.png)
 
-直接鼠标双击即可挂载并打开U盘。可以看到U盘位于 `/media/pi/` 目录下：
+Double-click directly to mount and open the USB drive. You can see that the USB drive is located under the `/media/pi/` directory:
 
 ![usb_disk3](./img/usb_disk/usb_disk3.png)
 
-## 无桌面系统
+## Non-Desktop System
 
-无桌面系统下可以使用命令来挂载U盘。**（此方法同样适合带桌面系统）**
+On the non-desktop system, you can use commands to mount the USB drive. **(This method also works for the desktop system.)**
 
-插入U盘后，先查看U盘信息：
+After inserting the USB drive, first check the USB drive information:
+
 ```bash
 sudo fdisk -l
 ```
 ![usb_disk4](./img/usb_disk/usb_disk4.png)
 
-这里使用的是一个4G容量的U盘，从上图可以看到设备为：`/dev/sda1` 。
+This example uses a 4GB USB drive. From the image above, you can see the device is: `/dev/sda1`.
 
-知道U盘设备名称后我们可以通过**mount**指令来挂载U盘，通常挂载到`/media`或者`/mnt`目录下：
+Once you know the USB drive's device name, you can use the **mount** command to mount it, usually under the `/media` or `/mnt` directory:
 
-先在`/media`创建一个孔文件夹，名称自己定义，这里用“udisk”。
+First, create an empty folder under `/media`. Name it as you like; here we use "udisk":
+
 ```bash
 sudo mkdir udisk
 ```
 
-挂载U盘：
+Mount the USB drive:
+
 ```bash
 sudo mount /dev/sda1 /media/udisk
 ```
 
-挂载成功后通过"**ls**"命令可以看到U盘里面的文件内容。说明已经挂载成功。
+After successful mounting, use the "**ls**" command to see the file contents of the USB drive, indicating a successful mount.
+
 ```bash
 ls /media/udisk
 ```
 
 ![usb_disk5](./img/usb_disk/usb_disk5.png)
 
-可以通过下面指令卸载U盘：
+You can unmount the USB drive using the following command:
+
 ```bash
 sudo umount /media/udisk
 ```

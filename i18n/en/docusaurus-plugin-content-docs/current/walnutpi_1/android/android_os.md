@@ -2,127 +2,123 @@
 sidebar_position: 3
 ---
 
-# 系统使用
+# System Usage
 
-这节我们来讲解核桃派1B Android TV系统的常用功能。
+This section explains the common functions of the WalnutPi 1B Android TV system.
 
-## 红外遥控器 （推荐）
+## IR Remote Control (Recommended)
 
-核桃派1B板载红外接收头，可以使用Android TV盒子通用遥控器控制。[点击购买>>](https://item.taobao.com/item.htm?id=822980807230)
+WalnutPi 1B has an onboard IR receiver, and can be controlled using a universal Android TV box remote control. [Click to purchase >>](https://item.taobao.com/item.htm?id=822980807230)
 
-接收成功蓝灯会闪烁一下。
+The blue LED will blink once when a signal is received successfully.
 
 ![android_os](./img/android_os/android_os1.png)
 
-## USB键盘鼠标
+## USB Keyboard and Mouse
 
-可以插入USB无线或有线鼠标对Android 系统进行操作。实测有部分无线鼠标不支持，下面这款支持的。
+You can connect a USB wireless or wired mouse to operate the Android system. In practice, some wireless mice are not supported — the model below is supported.
 
 ![android_os](./img/android_os/android_os2.png)
 
-插入后会界面显示出鼠标。键盘按下触发后蓝灯会闪烁一下。
+After plugging in, the mouse cursor will appear on the screen. When the keyboard is triggered, the blue LED will blink once.
 
 ![android_os](./img/android_os/android_os3.png)
 
-也可以使用蓝牙键鼠：
+Bluetooth keyboard and mouse can also be used:
 
 
-## 语音设置
+## Language Settings
 
-开机后语言默认是英文的，我们可以通过下面方式设置为中文或其它语言。
+The default language after boot is English. You can set it to Chinese or other languages using the following method.
 
 ![android_os](./img/android_os/android_os4.png)
 
 ![android_os](./img/android_os/android_os5.png)
 
 
-## 联网
+## Connecting to the Internet
 
-核桃派支持WiFi(2.4G和5G双频) 和 百兆以太网连接到互联网。
+WalnutPi supports WiFi (2.4G and 5G dual-band) and 100M Ethernet for internet connectivity.
 
 ### WiFi
 
-点击 `设置`：
+Click `Settings`:
 
 ![android_os](./img/android_os/android_os6.png)
 
-在弹出右边栏选择**网络和互联网**:
+In the sidebar that appears, select **Network & Internet**:
 
 ![android_os](./img/android_os/android_os7.png)
 
-选择搜索到的WiFi SSID然后按提示输入密码连接即可：
+Select the discovered WiFi SSID and follow the prompts to enter the password to connect:
 
 ![android_os](./img/android_os/android_os8.png)
 
-### 以太网
+### Ethernet
 
-直接将网线插入核桃派以太网口即可，连接后网口指示灯会亮起来。
+Simply plug the Ethernet cable into the WalnutPi's Ethernet port. After connection, the network port indicator light will turn on.
 
 ![android_os](./img/android_os/android_os9.png)
 
-## 蓝牙设备连接
+## Connecting Bluetooth Devices
 
-核桃派Android系统可以通过下面方式连接各类蓝牙设备，如蓝牙键鼠、蓝牙音响等。
+The WalnutPi Android system can connect to various Bluetooth devices such as Bluetooth keyboards, mice, Bluetooth speakers, etc.
 
-点击 `设置`：
+Click `Settings`:
 
 ![android_os](./img/android_os/android_os6.png)
 
-在弹出右边栏选择**蓝牙**:
+In the sidebar that appears, select **Bluetooth**:
 
 ![android_os](./img/android_os/android_os10.png)
 
-点击：**与新设备配对** 搜索和配对蓝牙设备即可：
+Click **Pair new device** to search for and pair Bluetooth devices:
 
 ![android_os](./img/android_os/android_os11.png)
 
-## U盘文件传输
+## USB Flash Drive File Transfer
 
-核桃派Android系统支持U盘即插即用。可用于apk安装文件、照片视频等文件的拷贝。
+The WalnutPi Android system supports plug-and-play USB flash drives. You can use them for copying APK installation files, photos, videos, and other files.
 
-插入U盘：
+Insert a USB flash drive:
 
 ![android_os](./img/android_os/android_os12.png)
 
-即可在桌面看到U盘图标：
+You will see the USB drive icon on the desktop:
 
 ![android_os](./img/android_os/android_os12_2.png)
 
-也可以提供给下面方式打开，点击：文件管理
+You can also open it using the following method. Click: File Manager
 
 ![android_os](./img/android_os/android_os13.png)
 
-选择新弹出的USB设备：
+Select the newly detected USB device:
 
 ![android_os](./img/android_os/android_os14.png)
 
-点击进入即可看到U盘文件，其它文件夹内容是首次插入核桃派Android系统自动生成的，可以忽略。
+Click to enter and you will see the files on the USB drive. The other folder contents are automatically generated when the USB drive is first inserted into the WalnutPi Android system and can be ignored.
 
 ![android_os](./img/android_os/android_os15.png)
 
 
-## 取消屏保待机
+## Disabling Screen Saver
 
-核桃派安卓系统没任何操作半小时后会进入屏保状态导致无法操作。可以通过以下方式关闭屏保。
+If there is no operation for half an hour, the WalnutPi Android system will enter screen saver mode, making it impossible to operate. You can disable the screen saver using the following method.
 
-点击 `设置`：
+Click `Settings`:
 
 ![android_os](./img/android_os/android_os6.png)
 
-点击 `设备偏好设置`：
+Click `Device Preferences`:
 
 ![android_os](./img/android_os/android_os17.png)
 
-点击 `屏保`：
+Click `Screen saver`:
 
 ![android_os](./img/android_os/android_os18.png)
 
-将屏保启动时间设置为**永不**即可。
+Set the screen saver start time to **Never**.
 
 ![android_os](./img/android_os/android_os19.png)
 
-更多其它功能用户可以自行研究测试。
-
-
-
-
+Users can explore and test more features on their own.

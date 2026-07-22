@@ -2,9 +2,9 @@
 sidebar_position: 42
 ---
 
-# 主控ID号
+# SoC Chip ID
 
-核桃派1B的主控是全志H616/H618，每个芯片的chipid都是唯一的，用户可以通过下面指令获取chipid来区分不同开发板。
+The WalnutPi 1B uses the Allwinner H616/H618 SoC. Each chip has a unique chipid. Users can obtain the chipid using the following command to distinguish different boards.
 
 ```bash
 cat /sys/class/sunxi_info/sys_info | grep "chipid"

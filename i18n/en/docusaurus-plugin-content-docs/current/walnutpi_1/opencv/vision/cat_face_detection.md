@@ -2,124 +2,124 @@
 sidebar_position: 5
 ---
 
-# 猫脸检测
+# Cat Face Detection
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像中猫脸检测。
+This section teaches how to use OpenCV to detect cat faces in an image.
 
-## 实验目的
+## Experiment Objective
 
-检测图像中的猫脸并画矩形框显示。
+Detect cat faces in an image and draw rectangular boxes for display.
 
-## 实验讲解
+## Experiment Explanation
 
-这里前面介绍过的级联分类器使用方法，本节使用正面猫脸检测级联分类器 `haarcascade_frontalcatface.xml` ，代码编写流程如下：
+Using the cascade classifier method introduced earlier, this section uses the frontal cat face detection cascade classifier `haarcascade_frontalcatface.xml`. The code flow is as follows:
 
 ```mermaid
 graph TD
-    读取图像-->加载级联分类器-->分类器识别指定目标-->画框-->显示图像;
+    Read image-->Load cascade classifier-->Classifier recognizes the specified target-->Draw boxes-->Display image;
 ```
 
 <br></br>
 
-## 参考代码
+## Reference Code
 
-参考代码如下:
+The reference code is as follows:
 
 ```python
 '''
-实验名称：猫脸检测
-实验平台：核桃派1B
+Experiment Name: Cat Face Detection
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 
-img = cv2.imread('cat.jpg') #读取图像
+img = cv2.imread('cat.jpg') # Read the image
 
-#加载猫脸检测级联分离器，注意路径不能含有中文字符
+# Load the cat face detection cascade classifier; note: the path must not contain Chinese characters
 catFaceCascade = cv2.CascadeClassifier('data/haarcascade_frontalcatface.xml')
 
-#检测出所有猫脸
+# Detect all cat faces
 catFaces = catFaceCascade.detectMultiScale(img, 1.15)
 
-#遍历所有结果
+# Iterate over all results
 for (x, y, w, h) in catFaces:
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) #画框
+    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) # Draw a box
     
-cv2.imshow('result', img) #显示图像
+cv2.imshow('result', img) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口    
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window    
 
 ```
 
-## 实验结果
+## Experiment Results
 
-在核桃派运行上面代码，实验结果如下：
+Run the above code on the WalnutPi; the experiment results are as follows:
 
 ![cat_face_detection](./img/cat_face_detection/cat_face_detection1.png) 
 
-## 使用USB摄像头识别
+## Using a USB Camera for Recognition
 
-结合前面USB摄像头使用方法可以通过USB摄像头实时识别，参考代码如下：
+Combined with the USB camera usage method introduced earlier, you can perform real-time recognition via a USB camera. The reference code is as follows:
 
-### 参考代码
+### Reference Code
 
 ```python
 '''
-实验名称：猫脸检测（使用USB摄像头）
-实验平台：核桃派1B
+Experiment Name: Cat Face Detection (Using a USB Camera)
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2, time
 
-#加载猫脸检测级联分离器，注意路径不能含有中文字符
+# Load the cat face detection cascade classifier; note: the path must not contain Chinese characters
 catFaceCascade = cv2.CascadeClassifier('data/haarcascade_frontalcatface.xml')
 
-cam = cv2.VideoCapture(1) # 打开USB摄像头
+cam = cv2.VideoCapture(1) # Open the USB camera
 
-#降低分辨率能提高识别速度,可以设置为480x320或320x240
-cam.set(3,480) # 设置采集图像宽为480
-cam.set(4,320) # 设置采集图像高为320
+# Lowering the resolution can improve recognition speed; you can set it to 480×320 or 320×240
+cam.set(3,480) # Set the captured image width to 480
+cam.set(4,320) # Set the captured image height to 320
  
-#计算FPS（每秒帧率参数）
+# Calculate FPS (frames per second parameter)
 start = 0
 end = 0
 
 while True:
     
-    start = time.time() #记录开始时间
+    start = time.time() # Record the start time
     
-    retval, img = cam.read() # 从摄像头中实时读取图像
+    retval, img = cam.read() # Read images from the camera in real time
 
-    #检测出所有猫脸
+    # Detect all cat faces
     catFaces = catFaceCascade.detectMultiScale(img, 1.15)
 
-    #遍历所有结果
+    # Iterate over all results
     for (x, y, w, h) in catFaces:
-        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) #画框
+        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) # Draw a box
             
-    end = time.time() #记录结束时间
+    end = time.time() # Record the end time
     
-    #计算FPS(每秒帧率),结果取整数
+    # Calculate FPS (frames per second), round to integer
     fps = round(1/(end-start))
     print('FPS: ', fps)
     
-    #图像上写字符
+    # Write text on the image
     cv2.putText(img, "FPS: "+ str(fps), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 5)
     
-    cv2.imshow('result', img) #显示图像
+    cv2.imshow('result', img) # Display the image
     
-    key = cv2.waitKey(1) # 窗口的图像刷新时间为1毫秒，防止阻塞    
-    if key == 32: # 如果按下空格键，打断退出
+    key = cv2.waitKey(1) # The window image refresh interval is 1 millisecond to prevent blocking    
+    if key == 32: # If the spacebar is pressed, break out
         break
     
-cam.release() # 关闭摄像头
-cv2.destroyAllWindows() # 销毁显示摄像头视频的窗口
+cam.release() # Close the camera
+cv2.destroyAllWindows() # Destroy the window displaying the camera video
 
 ```
 
-### 实验结果
+### Experiment Results
 
 ![cat_face_detection](./img/cat_face_detection/cat_face_detection2.png) 

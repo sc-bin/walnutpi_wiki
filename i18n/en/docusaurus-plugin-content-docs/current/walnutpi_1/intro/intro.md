@@ -2,47 +2,47 @@
 sidebar_position: 1
 ---
 
-# 核桃派简介
+# WalnutPi Introduction
 
 ![walnutpi](./img/intro/walnutpi.png)
 
-## 核桃派是什么
+## What is WalnutPi
 
-核桃派（WalnutPi）设计、研发和制造均来源于中国，其定位是一款高性价比而且功能齐全的卡片电脑（SBC），尺寸兼容树莓派。是一款性能非常强大的Linux开发板，你可以使用它上网、玩游戏、学习编程和创造自己的电子产品等。
+WalnutPi is designed, developed, and manufactured in China. It is positioned as a cost-effective and full-featured single-board computer (SBC) with dimensions compatible with Raspberry Pi. It is a very powerful Linux development board that you can use for web browsing, gaming, learning programming, and creating your own electronic projects.
 
-**愿景：每个人都可以通过数字化技术来实现自己的创意**
+**Vision: Everyone can realize their creativity through digital technology**
 
-**使命：让数字化技术变得简单**
+**Mission: Make digital technology simple**
 
-**目标：打造方便、便宜、好玩的Linux开发板**
+**Goal: Create a convenient, affordable, and fun Linux development board**
 
-### QQ群
+### QQ Group
 
-核桃派开源互助群:  **677173708**
+WalnutPi Open Source Support Group: **677173708**
 
 ![qq_group](./img/intro/qq_group.jpg)
 
-### 论坛
+### Forum
 
-- [https://forum.walnutpi.com](https://forum.walnutpi.com/) 
+- [https://forum.walnutpi.com](https://forum.walnutpi.com/)
 
-核桃派和Linux相关技术交流分享。
+WalnutPi and Linux-related technical discussion and sharing.
 
-### Github
+### GitHub
 
-- [https://www.github.com/walnutpi](https://www.github.com/walnutpi/) 
+- [https://www.github.com/walnutpi](https://www.github.com/walnutpi/)
 
-包含核桃派Linux内核代码、镜像编译和相关软件应用等开源代码。
+Contains open-source code for WalnutPi Linux kernel, image builds, and related software applications.
 
-## 联系我们
+## Contact Us
 
-### 邮箱
+### Email
 - walnutpi@qq.com
 
-### 开源合作
-- 15920954663（微信同号）
+### Open Source Collaboration
+- 18123953882 (same as WeChat)
 
-### 微信公众号
-- 最新动态发布
+### Official WeChat Account
+- Latest news and updates
 
 ![wechat_official](./img/intro/wechat_official.jpg)

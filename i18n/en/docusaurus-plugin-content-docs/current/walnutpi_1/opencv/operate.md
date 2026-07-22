@@ -2,164 +2,164 @@
 sidebar_position: 3
 ---
 
-# 图像基本操作
+# Basic Image Operations
 
-上一节我们在核桃派上成功安装OpenCV后，这节来学习通过Python编程OpenCV库来实现一些图像的基本操作，如：打开（读取）图像、显示图像、保存图像和获取图像属性信息等。
+After successfully installing OpenCV on the WalnutPi in the previous section, this section will teach you how to implement some basic image operations using Python programming with the OpenCV library, such as: opening (reading) images, displaying images, saving images, and obtaining image property information.
 
-## 读取图像
+## Reading Images
 
 ![operate](./img/operate/operate1.png) 
 
-使用OpenCV库读取一张图片非常简单，使用imread()函数。函数说明如下：
+Using the OpenCV library to read an image is very simple — just use the `imread()` function. The function is described as follows:
 
-### imread() 使用方法
+### imread() Usage
 
 ```python
 img = cv2.imread(filename, flags)
 ```
-读取一张图片：
-- `filename` ：图片名称（含路径），不支持中文路径。
-- `flags` ：颜色类型。默认1。
-    - `1` ：彩色。
-    - `0` ：灰度图像。
+To read an image:
+- `filename`: Image name (including path), does not support paths containing Chinese characters.
+- `flags`: Color type. Default is `1`.
+    - `1`: Color.
+    - `0`: Grayscale image.
 
 <br></br>
 
-参考代码如下：
+Reference code is as follows:
 
 ```python
 '''
-实验名称：读取图像
-实验平台：核桃派1B
+Experiment Name: Reading an Image
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg
-print(img) # 打印图像信息
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg from the current directory
+print(img) # Print image information
 
 ```
 
-通过核桃派终端运行或者核桃派Thonny IDE运行上面代码，可以看到图像信息被打印出来。**可以看到打印出来的是图像每个像素的RGB值信息，后续教程会讲解。**
+Run the above code via the WalnutPi terminal or WalnutPi Thonny IDE, and you can see the image information printed out. **You can see that what is printed is the RGB value information of each pixel of the image, which will be explained in subsequent tutorials.**
 
 ![operate](./img/operate/operate2.png) 
 
-## 显示图像
+## Displaying Images
 
-这里显示图像是指使用opencv库将图像显示出来，更直观的观察实验结果，在今后的实验中经常使用。
+Displaying images here refers to using the OpenCV library to show images, allowing for more intuitive observation of experimental results. This is frequently used in future experiments.
 
-### imshow() 使用方法
+### imshow() Usage
 
 ```python
 cv2.imshow(winname, mat)
 ```
-读取一张图片：
-- `winname` ：窗口名称，不支持中文。
-- `mat` ：要显示的图像。
+To display an image:
+- `winname`: Window name, does not support Chinese characters.
+- `mat`: The image to be displayed.
 
 <br></br>
 
-我们这里演示读取图片lenna.jpg，再通过imshow显示出来。参考代码如下：
+Here we demonstrate reading the image `lenna.jpg` and then displaying it via `imshow()`. The reference code is as follows:
 
 ```python
 '''
-实验名称：显示图像
-实验平台：核桃派1B
+Experiment Name: Displaying an Image
+Experiment Platform: WalnutPi 1B
 '''
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg
-cv2.imshow('lenna', img) # 显示照片
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg from the current directory
+cv2.imshow('lenna', img) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-代码运行结果如下，弹出了一个**linna**名称窗口，显示了相关图片，窗口下方有x,y坐标和RGB色彩值，这些在后面章节内容会讲述。
+The code execution result is as follows: a window named **lenna** pops up displaying the relevant image. Below the window are the x,y coordinates and RGB color values, which will be discussed in later chapters.
 
 ![operate](./img/operate/operate3.png) 
 
-## 保存图像
+## Saving Images
 
-将指定图像保存使用imwrite()方法。
+To save a specified image, use the `imwrite()` method.
 
-### imwrite() 使用方法
+### imwrite() Usage
 
 ```python
 cv2.imwrite(filename, img)
 ```
-读取一张图片：
-- `filename` ：保存图像的路径。
-- `img` ：要保存的图像。
+To save an image:
+- `filename`: The path to save the image.
+- `img`: The image to be saved.
 
 <br></br>
 
-我们这里演示读取图片lenna.jpg，再保存成名称为lenna2.jpg。参考代码如下：
+Here we demonstrate reading the image `lenna.jpg` and then saving it as `lenna2.jpg`. The reference code is as follows:
 
 ```python
 '''
-实验名称：保存图像
-实验平台：核桃派1B
+Experiment Name: Saving an Image
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg
-cv2.imwrite('lenna2.jpg', img) # 保存新图片名称为leanna2.jpg
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg from the current directory
+cv2.imwrite('lenna2.jpg', img) # Save a new image named lenna2.jpg
 
 ```
 
-代码运行结果如下，当前目录下多了一张名称为 linna2 的图片：
+The code execution result is as follows: an additional image named `lenna2` appears in the current directory:
 
 ![operate](./img/operate/operate4.png) 
 
-## 获取图像属性信息
+## Obtaining Image Property Information
 
-我们可以通过图片属性查看到图片的信息，常用的比如尺寸分辨率，色彩类型等，如下图。
+We can view image information through image properties, commonly including size, resolution, color type, etc., as shown below.
 
 ![operate](./img/operate/operate5.png) 
 
-而这些信息都可以使用OpenCV库函数来获取。这个可以直接对读取图像返回的对象image进行操作。
+All of this information can be obtained using OpenCV library functions. This can be done by directly operating on the image object returned by reading the image.
 
 ```python
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg from the current directory
 
-img.shape # 返回图片形状，像素列数，像素行数 ，通道数量（灰度图像通道数量为1）的数组。
+img.shape # Returns the image shape — an array of pixel columns, pixel rows, and number of channels (1 for grayscale images).
 
-img.size  # 返回图片像素数量，即：像素列数 x 像素行数 x 通道数量
+img.size  # Returns the number of image pixels, i.e.: pixel columns × pixel rows × number of channels
 
-img.dtype # 图像数据类型
+img.dtype # Image data type
 ```
 
 <br></br>
 
-我们通过下面代码来获取彩色图像和灰度的信息：
+Let's use the following code to obtain information about color and grayscale images:
 
 ```python
 '''
-实验名称：获取图像属性信息
-实验平台：核桃派1B
+Experiment Name: Obtaining Image Property Information
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg
-print('彩色图像: ')
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg from the current directory
+print('Color image: ')
 print('shape: ', img.shape)
 print('size: ', img.size)
 print('dtype: ', img.dtype)
 
-img = cv2.imread("lenna.jpg", 0) # 读取并转换成灰度图像
-print('灰度图像: ')
+img = cv2.imread("lenna.jpg", 0) # Read and convert to grayscale image
+print('Grayscale image: ')
 print('shape: ', img.shape)
 print('size: ', img.size)
 print('dtype: ', img.dtype)
 
 ```
 
-在核桃派运行上面代码，可以看到输出结果如下：
+Run the above code on the WalnutPi, and you can see the output results as follows:
 
 ![operate](./img/operate/operate6.png) 
 
-彩色图像是3通道，即RGB888。而灰度图像只有1个通道。
+A color image has 3 channels, i.e., RGB888. A grayscale image has only 1 channel.

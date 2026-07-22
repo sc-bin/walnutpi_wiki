@@ -2,33 +2,32 @@
 sidebar_position: 1
 ---
 
-# OpenCV简介
+# Introduction to OpenCV
 
 ![intro](./img/intro/intro1.png)
 
-OpenCV是一个基于Apache2.0许可（开源）发行的跨平台计算机视觉和机器学习软件库，可以运行在Linux、Windows、Android和Mac OS操作系统上。 它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。
+OpenCV is a cross-platform computer vision and machine learning software library released under the Apache 2.0 license (open source). It can run on Linux, Windows, Android, and macOS operating systems. It is lightweight and efficient — built from a series of C functions and a small number of C++ classes, while also providing interfaces for Python, Ruby, MATLAB, and other languages, implementing many common algorithms in image processing and computer vision.
 
-本教程基于核桃派开发板，使用OpenCV + Python开发，可以轻松实现图像处理以及视觉识别功能。从而应用到商用和工业项目中去。
+This tutorial is based on the WalnutPi development board, using OpenCV + Python development to easily implement image processing and visual recognition functions for commercial and industrial projects.
 
 ![intro](./img/intro/intro1_1.png)
 
-## 官方网站
+## Official Website
 
 https://www.opencv.org/
 
 ![intro](./img/intro/intro2.jpg)
 
-## OpenCV Python库文档
+## OpenCV Python Library Documentation
 
 https://docs.opencv.org/4.9.0/
 
-可通过右边搜索功能搜索各类库说明。
+You can search for various library descriptions using the search function on the right side.
 
 ![intro](./img/intro/intro3.png)
 
-## 本教程源代码下载
+## Source Code Download for This Tutorial
 
-请到 [核桃派资料下载](../intro/download.md) 下载。代码位于以下路径：
+Please go to [WalnutPi Resource Download](../intro/download.md) to download. The code is located in the following path:
 
 ![intro](./img/intro/intro4.png)
-

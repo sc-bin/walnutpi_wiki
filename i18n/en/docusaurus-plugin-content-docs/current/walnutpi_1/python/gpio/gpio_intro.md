@@ -2,28 +2,28 @@
 sidebar_position: 2
 ---
 
-# GPIO介绍
+# GPIO Introduction
 
-在开始学习之前，我们详细介绍一下核桃派的 GPIO 口，也就是前面提到的40P GPIO，核桃派已经是一个很棒的卡片电脑，但 GPIO 的设计让用户使用核桃派进行各类 DIY 电子设计变得更容易，让你拥使用一个强大的单片机开发板一样的体验。
+Before we begin learning, let's take a detailed look at the WalnutPi's GPIO — that is, the 40-pin GPIO header mentioned earlier. The WalnutPi is already a great single-board computer, but the GPIO design makes it easier for users to do various DIY electronics projects, giving you an experience comparable to a powerful microcontroller development board.
 
 ![gpio](./img/gpio_intro/gpio.png)
 
-下面是核桃派GPIO的引脚图：
+Below is the WalnutPi GPIO pinout diagram:
 ![pinout](./img/gpio_intro/pinout.png)
 
-从上面表格和图例可以看到， GPIO和传统的单片机开发相似，除了普通IO口外，也有I2C、串口（UART）、SPI等总线接口，在今后的实验中你可以看到，用python来编程让入门核桃派变得非常容易，我们只需要熟悉 python 库的对象函数和用法，便可以轻松玩转核桃派嵌入式编程。
+From the table and diagram above, you can see that GPIO is similar to traditional microcontroller development. In addition to regular IO pins, there are also bus interfaces such as I2C, UART, SPI, etc. As you will see in future experiments, programming with Python makes getting started with the WalnutPi very easy — we just need to be familiar with Python library object functions and usage to easily master WalnutPi embedded programming.
 
-我们可以在终端通过python指令查看引脚编号。
-在终端输入python进入Python交互，然后输入：
+We can check pin names using Python commands in the terminal.
+Enter `python` in the terminal to enter Python interactive mode, then type:
 ```python
 import board
 ```
-再输入：
+Then type:
 ```python
 board.
 ```
-按键盘Tab键即可补全看到所有核桃派Python库引脚名称。
+Press the Tab key to autocomplete and see all WalnutPi Python library pin names.
 
 ![blinka_gpio](./img/gpio_intro/blinka_gpio.png)
 
-这在后面的实验会用到。
+This will be useful in later experiments.

@@ -2,36 +2,36 @@
 sidebar_position: 4
 ---
 
-# 打造TV盒子
+# Building a TV Box
 
-由于核桃派Android系统是Android TV版本，因此我们可以通过安装应用来打造自己的TV盒子。这里使用当贝盒子市场APP来实现。在当贝市场下可以安装银河奇异果，酷猫，央视TV等各类影音APP。
+Since the WalnutPi Android system is an Android TV version, you can build your own TV box by installing apps. This guide uses the Dangbei Market app. Through Dangbei Market, you can install various video and entertainment apps.
 
-当贝安装包位于镜像目录下的**常用安卓应用软件**文件夹内：
+The Dangbei installation package is located in the **常用安卓应用软件** (Common Android Apps) folder inside the image directory:
 
 ![tv_box](./img/tv_box/tv_box1.png)
 
-可以使用U盘拷贝该应用，然后在核桃派开发板Android系统里面安装。教程: [U盘传输文件](./android_os.md#u盘文件传输)
+You can copy the app using a USB flash drive, then install it on the WalnutPi's Android system. Tutorial: [USB Flash Drive File Transfer](./android_os.md#usb-flash-drive-file-transfer)
 
-点击应用：
+Click the app:
 
 ![tv_box](./img/tv_box/tv_box2.png)
 
-如果弹出下面提示的话全部勾选允许即可:
+If the following prompt appears, check all and allow:
 
 ![tv_box](./img/tv_box/tv_box3.png)
 
-然后点击安装：
+Then click Install:
 
 ![tv_box](./img/tv_box/tv_box4.png)
 
-安装完成后在桌面出现了**当贝市场**的应用图标：
+After installation, the **Dangbei Market** app icon will appear on the desktop:
 
 ![tv_box](./img/tv_box/tv_box5.png)
 
-确保核桃派已经连接到互联网。参考教程: [联网](./android_os.md#联网)
+Make sure the WalnutPi is connected to the internet. Refer to: [Connecting to the Internet](./android_os.md#connecting-to-the-internet)
 
-然后打开当贝市场：
+Then open Dangbei Market:
 
 ![tv_box](./img/tv_box/tv_box6.png)
 
-声音支持HDMI音频和3.5mm Audio音频输出。
+Audio is supported via both HDMI audio and 3.5mm Audio jack output.

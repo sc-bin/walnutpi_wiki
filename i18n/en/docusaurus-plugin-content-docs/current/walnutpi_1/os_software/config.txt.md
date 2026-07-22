@@ -4,76 +4,81 @@ sidebar_position: 60
 
 # config.txt
 
-**config.txt主要用于配置核桃派的部分功能。**
+**config.txt is primarily used to configure certain features of the WalnutPi.**
 
-sd卡有两个分区，config.txt存放在第一个分区内。在核桃派开发板上，可以在`/boot`路径下访问config.txt。如果用读卡器在Windows电脑上读取sd卡，由于分区2是windows无法识别的ext4格式，系统会弹出sd卡损坏的报错，请无视他。
+The SD card has two partitions. config.txt is stored in the first partition. On the WalnutPi board, config.txt can be accessed under the `/boot` path. If you use a card reader to read the SD card on a Windows computer, the system will report SD card corruption for partition 2 (which is in ext4 format, unrecognized by Windows). Please ignore this warning.
 
-![u盘](./img/config_txt/windows_path.png)
+![USB drive](./img/config_txt/windows_path.png)
 
-![u盘](./img/config_txt/config_txt2.png)
+![USB drive](./img/config_txt/config_txt2.png)
 
-## 开机LOGO
+## Boot LOGO
 
-默认关闭，需要开启和使用参考教程：[开机LOGO](./boot_logo.md) 章节内容。
+Disabled by default. For enabling and usage, refer to: [Boot LOGO](./boot_logo.md).
 ```
 bootlogo = false
 ```
 
-## 是否在显示器（hdmi或lcd屏）上开启控制台终端
-`console_display`, 默认是开启。如果选择关闭，则在开机信息输出完之后，不会再有那个要求输入账号密码登陆，给你敲命令行的终端。
+## Enable Console Terminal on Display (HDMI or LCD)
 
-典型应用场景：编写了一个qt程序让他显示到fb，并设置开机自启动。如果显示器上的终端没有关闭，你在键盘上的所有输入都会同时被qt窗口以及终端接收。而且终端还会输出一些东西到显示器上。
+`console_display` is enabled by default. If disabled, after boot messages finish, there will no longer be a terminal prompting for username and password or accepting command input.
 
-- 开启
+Typical application scenario: You have written a Qt program displayed on fb and set it to auto-start on boot. If the terminal on the display is not disabled, all keyboard input will be received by both the Qt window and the terminal. Additionally, the terminal may output content onto the display.
+
+- Enable
 ```
 console_display=enable
 ```
-- 关闭
+- Disable
 ```
 console_display=disable
 ```
 
-## 设置串口终端位置
-`console_uart`，默认是uart0作为串口终端，可以设置到其他串口。
+## Set Serial Terminal Location
 
-uboot的信息固定从uart0输出。
+`console_uart` defaults to uart0 as the serial terminal. It can be set to other serial ports.
 
-- 设置到串口2
+U-Boot information is always output from uart0.
+
+- Set to UART2
 ```
 console_uart=uart2
 ```
 
 
-## 是否在显示器上输出开机信息
-`display_bootinfo`,默认为是。如果关闭，则开机时的那堆信息不会输出到显示器上
+## Output Boot Messages on Display
 
-- 开启
+`display_bootinfo` defaults to enabled. If disabled, the boot messages will not be output to the display.
+
+- Enable
 ```
 display_bootinfo=enable
 ```
-- 关闭
+- Disable
 ```
 display_bootinfo=disable
 ```
 
-## 内核日志可输出等级
-`printk_level`,默认是3。驱动输出信息时都会带一个等级数字，如果数字小于这个变量设置值的，就会被直接输出到终端。
+## Kernel Log Output Level
 
-| 数字 | 含义 |
+`printk_level` defaults to 3. Driver output messages come with a level number. If the number is lower than this variable's value, it will be output directly to the terminal.
+
+| Number | Meaning |
 | - | - |
-| 0 | 系统无法使用 
-| 1 | 必须立即采取行动
-| 2 | 紧急
-| 3 | 错误
-| 4 | 警告
-| 5 | 正常但重要
-| 6 | 信息
-| 7 | 调试信息 
+| 0 | System Unusable |
+| 1 | Action Required Immediately |
+| 2 | Emergency |
+| 3 | Error |
+| 4 | Warning |
+| 5 | Normal but Important |
+| 6 | Informational |
+| 7 | Debug Information |
 
 
-## 启用设备树插件
-`overlay_prefix`,指定设备树文件的前缀，默认是`sun50i-h616`
+## Enable Device Tree Overlays
 
-`overlays`, 该变量指示linux内核启动时会启用哪些设备树插件，例如当 overlays=spi1 ，则系统会加载/boot/overlays路径下的 sun50i-h616-spi1.dtbo 这个设备树文件
+`overlay_prefix` specifies the prefix of the device tree files. The default is `sun50i-h616`.
 
-我们提供了一个set-device指令，会扫描/boot/overlays路径下所有设备树文件，并一键控制启用与关闭 ---> [set-device](../gpio/gpio_config)
+`overlays` indicates which device tree overlays the Linux kernel will enable during boot. For example, when overlays=spi1, the system will load the sun50i-h616-spi1.dtbo device tree file from the /boot/overlays path.
+
+We provide a set-device command that scans all device tree files under the /boot/overlays path and allows enabling or disabling them with a single command ---> [set-device](../gpio/gpio_config)

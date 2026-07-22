@@ -2,34 +2,34 @@
 sidebar_position: 2
 ---
 
-# 画笔和画刷设置
+# Pen and Brush Configuration
 
-上一节我们学会了基本的图形画法，这一节我们来学习画笔和画刷设置。
+In the previous section, we learned the basic methods of drawing shapes. In this section, we'll learn about pen and brush configuration.
 
-## 画笔对象（QPen）
+## Pen Object (QPen)
 
-画笔主要用来设置形状线条的粗细，颜色，样式等。
+The pen is primarily used to configure the thickness, color, style, etc., of shape outlines.
 
-|  常用画笔方法 |  说明 |
+|  Common Pen Methods |  Description |
 |  :---:  | --- | 
-| setColor()  |  设置画笔颜色  | 
-| setWidth()  |  设置画笔宽度  | 
-| setStyle()  |  设置样式：<br></br>● Qt.SolidLine: 普通直线  | 
+| setColor()  |  Set the pen color  | 
+| setWidth()  |  Set the pen width  | 
+| setStyle()  |  Set the style:<br></br>● Qt.SolidLine: Regular solid line  | 
 
-## 画刷对象（QBrush）
+## Brush Object (QBrush)
 
-画刷主要用来给几何图形填充颜色。
+The brush is primarily used to fill geometric shapes with color.
 
-|  常用画刷方法 |  说明 |
+|  Common Brush Methods |  Description |
 |  :---:  | --- | 
-| setColor()  |  设置画刷颜色  |
-| setStyle()  |  设置样式：<br></br>● Qt.SolidPattern: 纯色填充  |  
+| setColor()  |  Set the brush color  |
+| setStyle()  |  Set the style:<br></br>● Qt.SolidPattern: Solid fill  |  
 
-## 使用示例
+## Example
 
-**例：给上一节画形状中的所有形状线宽度改成5，矩形填充红色，圆形填充蓝色。**
+**Example: Change the line width of all shapes from the previous section to 5, fill the rectangle with red, and fill the circle with blue.**
 
-实现代码如下：
+Here's the implementation code:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -45,99 +45,102 @@ from PyQt5.QtWidgets import QWidget
 class Window(QWidget):
     
     def __init__(self):
-        super().__init__() #同时执行父对象QWidget的初始化程序
-        self.setWindowTitle("WalnutPi Paint") # 设置窗口标题
-        self.resize(480,320) # 设置窗口大小
+        super().__init__() # Execute the parent QWidget's __init__ as well
+        self.setWindowTitle("WalnutPi Paint") # Set window title
+        self.resize(480,320) # Set window size
         
-        #窗口背景颜色设置
+        # Window background color setting
         self.setObjectName("Paint_Window")
-        self.setStyleSheet("#Paint_Window{background-color: black}") #黑色
+        self.setStyleSheet("#Paint_Window{background-color: black}") # Black
 
     def paintEvent(self,event):
         
-        painter=QPainter(self) # 创建绘图对象
+        painter=QPainter(self) # Create drawing object
         
-        #画笔设置：
+        # Pen configuration:
         pen = QPen()
-        pen.setColor(Qt.green) #绿色
-        pen.setWidth(5) #宽度5
+        pen.setColor(Qt.green) # Green
+        pen.setWidth(5) # Width 5
         painter.setPen(pen)
         
-        #画刷设置
+        # Brush configuration
         brush = QBrush()
-        brush.setColor(Qt.red) #红色
-        brush.setStyle(Qt.SolidPattern) #填充
+        brush.setColor(Qt.red) # Red
+        brush.setStyle(Qt.SolidPattern) # Fill
         painter.setBrush(brush) 
         
-        painter.drawPoint(10,10) #画点
+        painter.drawPoint(10,10) # Draw point
         
-        painter.drawLine(20, 10, 80, 10) #画线
+        painter.drawLine(20, 10, 80, 10) # Draw line
         
-        painter.drawRect(100, 10, 80, 40) #画矩形
+        painter.drawRect(100, 10, 80, 40) # Draw rectangle
         
-        #画刷重新设置，蓝色
+        # Reconfigure brush, blue
         brush.setColor(Qt.blue)
         painter.setBrush(brush) 
-        painter.drawEllipse(200, 10, 50, 50) #画圆
+        painter.drawEllipse(200, 10, 50, 50) # Draw circle
         
 
 #################
-#   主程序代码   #
+#   Main Code    #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+# [Optional] Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+# [Optional] Fix display issues on 2K+ resolution monitors
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Main program entry — build and display the window
 app = QtWidgets.QApplication(sys.argv)
-window = Window() #构建窗口对象
-window.show() #显示窗口
-#window.showFullScreen() #全屏显示窗口
+window = Window() # Create window object
+window.show() # Show window
+#window.showFullScreen() # Full-screen display
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+# [Recommended] Allow Ctrl+C to interrupt the window from terminal for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit the process when the window is closed
 
 ```
 
-这里代码和之前区别主要是加入了画笔设置和画刷设置：
+The main difference from the previous code is the addition of pen and brush configuration:
+
 ```python
 
     def paintEvent(self,event):
 
         ...
 
-        #画笔设置：
+        # Pen configuration:
         pen = QPen()
-        pen.setColor(Qt.green) #绿色
-        pen.setWidth(5) #宽度5
+        pen.setColor(Qt.green) # Green
+        pen.setWidth(5) # Width 5
         painter.setPen(pen)
         
-        #画刷设置
+        # Brush configuration
         brush = QBrush()
-        brush.setColor(Qt.red) #红色
-        brush.setStyle(Qt.SolidPattern) #填充
+        brush.setColor(Qt.red) # Red
+        brush.setStyle(Qt.SolidPattern) # Fill
         painter.setBrush(brush) 
 ```
 
-另外画刷初始化设置是红色，因此画完矩形后画圆前需要重新设置一下：
+Additionally, the brush was initially set to red, so before drawing the circle after the rectangle, it needs to be reconfigured:
+
 ```python
     ...
-        #画刷重新设置，蓝色
+        # Reconfigure brush, blue
         brush.setColor(Qt.blue)
         painter.setBrush(brush) 
-        painter.drawEllipse(200, 10, 50, 50) #画圆
+        painter.drawEllipse(200, 10, 50, 50) # Draw circle
 ```
 
-运行结果如下：
+The result is as follows:
+
 ![pen_brush1](./img/qpen_qbrush/pen_brush1.png)

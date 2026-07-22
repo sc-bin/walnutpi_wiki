@@ -2,127 +2,167 @@
 sidebar_position: 5
 ---
 
-# 系统镜像烧录
+# System Image Flashing
 
-- **视频教程**
+- **Video Tutorial**
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1203172875&bvid=BV12F4m1N7Jz&cid=1508551068&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
 <br></br>
 <br></br>
 
-WalnutPi OS是一款基于Debian的免费操作系统，针对核桃派硬件进行了优化，是在核桃派上正常使用的推荐操作系统。
+WalnutPi OS is a free operating system based on Debian, optimized for WalnutPi hardware, and is the recommended operating system for normal use on WalnutPi.
 
-核桃派的操作系统是安装到SD卡上的，目前提供2个镜像，分别是定制版Debian和无桌面版本。
+WalnutPi's operating system is installed on an SD card. Currently, two images are available: a customized Debian desktop version and a server version without a desktop.
 
-- 桌面版（desketop版）核桃派定制版Debian经过魔改后，体验更像Windows，系统预装丰富的应用软件，开机即用。包含C、Python编程软件、谷歌浏览器、LibreOffice办公（兼容Office）、图片查看器、VLC媒体播放器、截图软件等，务求让大家降低使用门槛。
+- **Desktop Version**: WalnutPi's customized Debian has been heavily modified to provide an experience closer to Windows. The system comes pre-installed with rich application software, ready to use out of the box. It includes C and Python programming software, Google Chrome browser, LibreOffice (compatible with Microsoft Office), image viewer, VLC media player, screenshot tool, etc., aiming to lower the entry barrier for everyone.
 
-- 无桌面版（server版）使用终端方式交互，好处是更快的启动速度，更少的内存占用，功耗低，特别适合熟悉Linux指令的用户。你甚至可以用它来部署一个小型服务器。
+- **Server Version (no desktop)**: Uses terminal-based interaction. The advantages are faster boot speed, lower memory usage, and low power consumption, making it especially suitable for users familiar with Linux commands. You can even use it to deploy a small server.
 
 <br></br>
 
-- `普通用户（默认）` 账号：pi ; 密码：pi
-- `管理员账户` 账号：root ; 密码：root
+- `Normal User (default)` Username: pi ; Password: pi
+- `Administrator Account` Username: root ; Password: root
 
-## 镜像下载地址：
+## Image Download
 
-- 百度网盘链接：https://pan.baidu.com/s/1-ytTK-KI1RP2KsoZpjFSrA?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk Link: https://pan.baidu.com/s/1-ytTK-KI1RP2KsoZpjFSrA?pwd=WPKJ
+- Extraction Code: **WPKJ**
 
-更新说明可以看里面的**说明文档.txt**。觉得百度网盘下载慢的话可以到QQ群文件下载：677173708
+For update notes, refer to the **说明文档.txt** file inside. If Baidu Netdisk downloads are slow, you can download from the QQ group files: 677173708
 
 ![0](./img/os-install/0.png)
 
 
-## SD启动卡烧录
+## SD Boot Card Flashing
 
-### 使用rufus烧录（推荐）
+### Using rufus (Recommended)
 
-镜像下载完后我们还需要一个镜像烧录软件，这里推荐轻量级镜像烧录软件rufus。下载地址：https://rufus.ie/zh/#google_vignette
+After downloading the image, we also need an image flashing tool. The lightweight tool rufus is recommended. Download link: https://rufus.ie/zh/#google_vignette
 
 ![9](./img/os-install/9.png)
 
-下载后直接打开软件，选择U盘盘符和要烧写的镜像即可：
+After downloading, open the software directly, select the USB drive letter and the image to flash:
 
 ![10](./img/os-install/10.png)
 
 
-### 使用balenaEtcher烧录
+### Using balenaEtcher
 
-如果上面rufus软件无法烧录，也可使用balenaEtcher试试。**balenaEtcher**下载： [https://etcher.balena.io/#download-etcher](https://etcher.balena.io/#download-etcher/)
+If rufus cannot flash the image, you can try balenaEtcher. **balenaEtcher** download: [https://etcher.balena.io/#download-etcher](https://etcher.balena.io/#download-etcher/)
 
 ![1](./img/os-install/1.png)
 
-根据自己电脑的操作系统选择对应软件下载。Windows用户默认选择第一个下载安装。
+Choose the corresponding software based on your computer's operating system. Windows users should select the first option for download and installation by default.
 
 ![2](./img/os-install/2.png)
 
-安装完成后打开软件，出现以下界面：
+After installation, open the software and the following interface will appear:
 
 ![3](./img/os-install/3.png)
 
-我们将MicroSD卡通过读卡器接入电脑 (推荐容量16G以上，闪迪class10牌子)。
+Insert the MicroSD card into the computer via a card reader (capacity of 16GB or above recommended, SanDisk Class 10 brand).
 
 ![3_1](./img/os-install/3_1.png)
 
-回到刚刚镜像烧录软件，点击Select image 选择之前下载的系统镜像文件, 网盘下载的是压缩文件，先解压出来img文件再选择。
+Go back to the flashing software, click "Select image" to choose the previously downloaded system image file. If the file downloaded from Netdisk is compressed, extract it first to get the .img file before selecting.
 
 ![4](./img/os-install/4.png)
 
-然后在Select Drive选择SD卡 U盘对应的盘符，如果出现提示要格式化U盘直接点取消即可，因为烧录软件会格式化SD卡。
+Then in "Select Drive," choose the drive letter corresponding to the SD card / USB drive. If prompted to format the drive, simply click Cancel — the flashing software will format the SD card itself.
 
 ![4_1](./img/os-install/4_1.png)
 
 ![5](./img/os-install/5.png)
 
-点击 Flash 开始烧写镜像，烧录过程会有进度提示：
+Click "Flash" to start writing the image. The flashing process will show progress:
 
 ![6](./img/os-install/6.png)
 
-烧写完成后如下图所示：
+Once flashing is complete, it will look like this:
 
 ![7](./img/os-install/7.png)
 
-烧录完成后会发现Windows只会显示一个100M的盘符，属于正常现象，里面放置了一些核桃派配置文件。
+After flashing is complete, Windows will only show a 100MB partition. This is normal; it contains some WalnutPi configuration files.
 
 ![8](./img/os-install/8.png)
 
-## EMMC烧录
+## EMMC Flashing
 
-核桃派CM1计算模块提供EMMC版本，核桃派提供3种烧录方式供用户选择。
+The following tutorial applies to WalnutPi 1st generation hardware with EMMC (CM1 module).
 
-:::tip 提示
-**EMMC仅支持2024-7-12（V2.4.0）以上版本镜像。**当SD卡和EMMC同时带有操作系统时候，主控芯片会从SD卡启动系统。
+:::tip Note
+**The following features require WalnutPi 1st generation image version 2025-3-4 (V2.5.0) or above.** When both the SD card and EMMC have an operating system, the main chip will boot from the SD card.
 :::
 
-### 使用带系统SD卡烧录
 
-此方式烧录时间比较快。
+### Automatic SD Card Flashing (Recommended)
 
-通过SD卡启动一个核桃派Debian系统，然后将核桃派镜像通过U盘或网络挂载方式挂载到该系统。
+WalnutPi 2B provides a ready-made image system that can automatically flash to EMMC. Download link:
+
+- Baidu Netdisk Link: https://pan.baidu.com/s/18GAIaxmyDuodkoGfJS21Hg?pwd=WPKJ
+- Extraction Code: **WPKJ**
+
+It contains the WalnutPi Debian image, including both desktop and server versions.
+
+![emmc_burn](./img/os-install/emmc_burn0.png)
+
+Use the [SD Boot Card Flashing](#sd-boot-card-flashing) method above to flash this image to an SD card. After flashing, insert it into WalnutPi.
+
+You can view the flashing progress in the following 3 ways:
+
+**1. Connect an HDMI Display (1080P resolution recommended)**
+
+After the system boots, it will automatically display the flashing progress:
+
+![emmc_burn](./img/os-install/emmc_burn1.png)
+
+After flashing is complete, it will look like this:
+
+![emmc_burn](./img/os-install/emmc_burn2.png)
+
+**2. Serial Terminal**
+
+You can also view the flashing progress via the serial terminal:
+
+![emmc_burn](./img/os-install/emmc_burn3.png)
+
+**3. LED Blue Light**
+
+The LED blue light flashes during flashing and turns off when flashing is complete.
+
+![emmc_burn](./img/os-install/emmc_burn4.png)
+
+
+After flashing is complete, power off, remove the SD card, and power on again to boot the system from EMMC.
+
+
+### Manual Flashing in WalnutPi Debian System
+
+In addition to the above method, you can also boot a WalnutPi Debian system from an SD card, then mount the WalnutPi image via USB drive or network for manual flashing.
 
 ![emmc](./img/os-install/10_2.png)
 
 
-也可以先将镜像压缩成了zip格式，再通过U盘连接核桃派，然后通过`uzip`指令解压镜像以节省拷贝时间。
+You can also compress the image into zip format, connect it to WalnutPi via USB drive, and then decompress the image using the `unzip` command to save copying time.
 
 ![emmc](./img/os-install/11.png)
 
-解压到当前目录：
+Extract to current directory:
 ```bash
 unzip xxx.zip
 ```
 
-:::tip 提示
+:::tip Note
 
-也可以解压到指定目录下，下面指令表示将zip文件解压到/home/pi目录：
+You can also extract to a specified directory. The following command extracts the zip file to the /home/pi directory:
 ```bash
-unzip xxx.zip /home/pi
+unzip xxx.zip -d /home/pi
 ```
 :::
 
 
-然后通过下面指令即可将img镜像文件烧录到核桃派EMMC：
+Then use the following command to flash the img image file to WalnutPi EMMC:
 
 ```bash
 sudo set-emmc burn xxx.img
@@ -130,129 +170,110 @@ sudo set-emmc burn xxx.img
 
 ![emmc](./img/os-install/12.png)
 
-烧录完成后关机，拔掉SD镜像卡，上电系统正常启动说明系统已经烧录到EMMC并且工作正常。
+After flashing is complete, power off, remove the SD card, and if the system boots normally when powered on, it means the system has been flashed to EMMC and is working correctly.
 
-**除了烧录，核桃派 `set-emmc` 指令还提供格式化EMMC功能：**
+### USB Flashing (Requires a Blank SD Card)
 
-快速格式化（推荐）：
+This method takes longer for flashing.
 
-```bash
-sudo set-emmc earse-quick
-```
-
-完全格式化（速度会很慢）：
-
-```bash
-sudo set-emmc earse-overwrite
-```
-
-
-### USB烧录（需要一张空白SD卡）
-
-此方式烧录时间比较长。
-
-烧录资料包的U盘镜像使用[rufus](#使用rufus烧录推荐)工具烧录到SD卡。
+Use the [rufus](#using-rufus-recommended) tool to flash the USB image from the flashing package to an SD card.
 
 ![emmc](./img/os-install/13.png)
 
 ![emmc](./img/os-install/14.png)
 
-将SD卡插入核桃派，使用TYPE-C线通过USB口连接到电脑。
+Insert the SD card into WalnutPi, and connect to the computer via the USB port using a Type-C cable.
 
 ![emmc](./img/os-install/15.png)
 
-这时候电脑会弹出一个约150M容量的U盘（EMMC的一个分区）。
+At this point, the computer will show a USB drive of about 150MB capacity (a partition of the EMMC).
 
 ![emmc](./img/os-install/16.png)
 
-然后使用[rufus] (#使用rufus烧录推荐)工具将 核桃派系统镜像烧录到这个U盘即可。**这个烧录方式有点慢，请耐心等待。**
+Then use the [rufus](#using-rufus-recommended) tool to flash the WalnutPi system image to this USB drive. **This flashing method is somewhat slow — please be patient.**
 
 ![emmc](./img/os-install/17.png)
 
-烧录完成后断电，拔掉SD卡，上电系统正常启动说明系统已经烧录到EMMC并且工作正常。
+After flashing is complete, power off, remove the SD card, and if the system boots normally when powered on, it means the system has been flashed to EMMC and is working correctly.
 
-:::tip 提示
-刷过U盘启动卡的SD卡再次插入电脑可能无法识别，这时候可以打开**计算机管理--磁盘管理**找到SD卡容量的那个盘符，点击**右键--更改驱动器号**，按提示重新分别驱动盘符即可。
+:::tip Note
+An SD card that has been used as a boot card may not be recognized when reinserted into a computer. In this case, open **Computer Management → Disk Management**, find the partition matching the SD card capacity, right-click and select **Change Drive Letter and Paths**, and reassign a drive letter as prompted.
 ![emmc](./img/os-install/17_2.png)
 :::
 
-### USB烧录（无需SD卡）
+### USB Flashing (No SD Card Required)
 
-此方法适合没有SD卡用户。烧录时间比较长。
+This method is suitable for users without an SD card. Flashing takes quite a long time.
 
-#### 安装驱动
+#### Install Driver
 
-**按着CM1 EMMC版本模块IO扩展板的BOOT键不放，插入USB连接到电脑。** 
+**Press and hold the BOOT button on the CM1 EMMC version module's IO expansion board, then connect USB to the computer.**
 
 ![emmc](./img/os-install/18.png)
 
-可以看到设备管理器出现下面的设备。
+The following device will appear in Device Manager.
 
 ![emmc](./img/os-install/19.png)
 
-打开资料包的zadig软件：
+Open the zadig software from the package:
 
 ![emmc](./img/os-install/20.png)
 
-勾选选项 `OPTIONS->list all devices` ,显示所有usb设备。
+Check the option `OPTIONS → list all devices` to show all USB devices.
 
 ![emmc](./img/os-install/21.png)
 
-在下拉列表找到id为**1f3a efe8**的设备选中它：
+In the dropdown list, find the device with ID **1f3a efe8** and select it:
 
 ![emmc](./img/os-install/22.png)
 
 ![emmc](./img/os-install/23.png)
 
-然后勾选右边Edit（表示编辑名称），将左边名称改成下面名称，务必改对否则后面烧录软件无法识别。
+Then check "Edit" on the right (to edit the name), and change the name on the left to the following. Make sure to enter it correctly, otherwise the flashing software will not recognize it later.
 
 ```bash
 Allwinner SoC in FEL mode
 ```
-改完后可以取消勾选edit
+After editing, you can uncheck "Edit."
 
 ![emmc](./img/os-install/24.png)
 
 ![emmc](./img/os-install/25.png)
 
-修改设备驱动，确保这个框内是**WinUSB**，然后点击`Replace Driver`按钮安装驱动:
+Modify the device driver, ensure this box shows **WinUSB**, then click the `Replace Driver` button to install the driver:
 
 ![emmc](./img/os-install/26.png)
 
-等待一会，后提示安装完成：
+Wait a moment, and a prompt will appear indicating installation is complete:
 
 ![emmc](./img/os-install/27.png)
 
 ![emmc](./img/os-install/28.png)
 
-可以在设备管理器看到驱动变化：
+You can see the driver change in Device Manager:
 
 ![emmc](./img/os-install/29.png)
 
-#### 烧录
+#### Flashing
 
-烧录使用sunxi-fel.exe工具，注意这是个命令行工具，windows上需要在**cmd**或**powershell**窗口中运行。
+For flashing, use the sunxi-fel.exe tool. Note that this is a command-line tool and must be run in a **cmd** or **powershell** window on Windows.
 
-在软件当前窗口右键，点击在终端打开：
+Right-click in the current window of the software and select "Open in Terminal":
 
 ![emmc](./img/os-install/30.png)
 
-在打开终端输入下面命令：
+Enter the following command in the opened terminal:
 
 ```bash
 .\sunxi-fel.exe uboot walnutpi-udisk.bin
 ```
 
-执行后电脑会弹出一个约150M容量的U盘（EMMC的一个分区）。
+After execution, the computer will show a USB drive of about 150MB capacity (a partition of the EMMC).
 
 ![emmc](./img/os-install/16.png)
 
-然后使用[rufus] (#使用rufus烧录推荐)工具将 核桃派系统镜像烧录到这个U盘即可。**这个烧录方式有点慢，请耐心等待。**
+Then use the [rufus](#using-rufus-recommended) tool to flash the WalnutPi system image to this USB drive. **This flashing method is somewhat slow — please be patient.**
 
 ![emmc](./img/os-install/17.png)
 
-烧录完成后断电，重新上电系统正常启动说明系统已经烧录到EMMC并且工作正常。
-
-
-
-
+After flashing is complete, power off, then power on again. If the system boots normally, it means the system has been flashed to EMMC and is working correctly.

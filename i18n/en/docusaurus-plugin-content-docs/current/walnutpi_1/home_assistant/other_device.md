@@ -2,43 +2,43 @@
 sidebar_position: 9
 ---
 
-# 加入市面上产品
+# Adding Commercial Products
 
-## 小米温湿度计
+## Xiaomi Temperature and Humidity Sensor
 
-下面是几款市面上的小米温湿度计。
+Below are several commercially available Xiaomi temperature and humidity sensors.
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_1.png)
 <br></br>
 
-这类温湿度计通过蓝牙广播方式广播温湿度、电池电量等信息，无需连接。可以被核桃派Home Assistant主机直接发现。
+These types of temperature/humidity sensors broadcast information such as temperature, humidity, and battery level via Bluetooth broadcasting without requiring a connection. They can be directly discovered by the WalnutPi Home Assistant host.
 
-将小米温湿度计靠近核桃派Home Assistant主机：
+Bring the Xiaomi temperature/humidity sensor close to the WalnutPi Home Assistant host:
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_2.png)
 <br></br>
 
-点击 **配置** -- **添加集成** ， 在弹出窗口搜索 **xiaomi**：
+Click **Configuration** -- **Add Integration**, and search for **xiaomi** in the popup window:
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_3.png)
 <br></br>
 
-选择xiaomi BLE ：
+Select Xiaomi BLE:
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_4.png)
 <br></br>
 
-可以看到出现了一个设备，点击提交。
+You can see that a device has appeared — click Submit.
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_5.png)
 <br></br>
 
-在集成里面看到了小米BLE集成。
+The Xiaomi BLE integration now appears in the integrations list.
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_6.png)
 <br></br>
 
-点击进去可以看到相关设备和实体，然后点击**设备**，可以看数据信息：
+Click into it to see the associated devices and entities, then click **Devices** to view the data information:
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_7.png)
 
@@ -46,7 +46,7 @@ sidebar_position: 9
 
 <br></br>
 
-可以添加到首页仪表盘：
+It can be added to the homepage dashboard:
 
 ![xiaomi](./img/other_device/xiaomi/xiaomi_temp_humi_9.png)
 

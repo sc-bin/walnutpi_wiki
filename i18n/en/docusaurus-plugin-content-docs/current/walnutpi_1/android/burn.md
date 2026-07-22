@@ -2,83 +2,79 @@
 sidebar_position: 1
 ---
 
-# 镜像烧录
+# Image Flashing
 
-核桃派1B Android使用的是Android TV系统。已经对核桃派1B硬件进行了适配。用户烧录该系统可以安装各类安卓APP或者打造TV机顶盒子。
+WalnutPi 1B Android uses the Android TV system, which has been adapted for WalnutPi 1B hardware. After flashing this system, you can install various Android APPs or build a TV set-top box.
 
-核桃派1B 1G版本（H616）基于Android 10 , 2G/4G（H618）版本基于Android 12。系统和相关软件区别不大。
+WalnutPi 1B 1G version (H616) is based on Android 10, while the 2G/4G version (H618) is based on Android 12. There is little difference in the system and related software.
 
-:::danger 警告
-核桃派H616和H618版本Android镜像烧错无法开机。请注意区分。
-:::
+::::danger Warning
+Flashing the wrong Android image for H616 vs H618 will prevent booting. Please make sure to distinguish between them.
+::::
 
-## 镜像下载地址：
+## Image Download:
 
-- 百度网盘链接：https://pan.baidu.com/s/1-ytTK-KI1RP2KsoZpjFSrA?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk: https://pan.baidu.com/s/1-ytTK-KI1RP2KsoZpjFSrA?pwd=WPKJ
+- Extraction code: **WPKJ**
 
-打开Android文件夹，镜像更新说明可以看里面的**说明文档.txt**。觉得百度网盘下载慢的话可以到QQ群文件下载：677173708
+Open the Android folder. Image update notes can be found in the **说明文档.txt** file inside. If the Baidu Netdisk download is too slow, you can download from QQ group files: 677173708
 
-**（下载后将压缩包解压,得到img镜像文件待使用）**
+**(After downloading, extract the archive to get the .img image file for use)**
 
 ![burn](./img/burn/burn1.png)
 
-## SD启动卡烧录
+## SD Boot Card Flashing
 
-### 使用 PhoenixCard 烧录
+### Using PhoenixCard
 
-镜像下载完后我们还需要一个镜像烧录软件，使用PhoenixCard。软件位于核桃派Android镜像资料包下烧录工具文件夹里面：
+After downloading the image, you also need a flashing tool — PhoenixCard. The software is located in the "Flasher Tools" folder inside the WalnutPi Android image package:
 
-**（下载后需要解压得到文件夹）**
+**(Download and extract to get the folder)**
 
 ![burn](./img/burn/burn2.png)
 
-进去文件夹，打开下图所示软件：
+Enter the folder and open the software shown below:
 
 ![burn](./img/burn/burn3.png)
 
-插入SD卡到电脑：
+Insert the SD card into the computer:
 
 ![burn](./img/burn/burn4.png)
 
 
-按下面步骤开始烧录：
+Follow these steps to start flashing:
 
-1、选择要烧录的镜像；
-
-2、启动卡；
-
-3、选择插入的SD卡盘符；
-
-4、点击烧卡开始烧录。
+1. Select the image to flash;
+2. Choose "Boot Card";
+3. Select the inserted SD card drive letter;
+4. Click "Burn" to start flashing.
 
 ![burn](./img/burn/burn5.png)
 
-烧录过程中进度条可能不动，需要等待几分钟左右，请耐心等待，烧录完成后如下图所示：
+The progress bar may not move during the flashing process — you need to wait a few minutes. Please be patient. When flashing is complete, it will look like the image below:
 
 ![burn](./img/burn/burn6.png)
 
-在我的电脑回出现一个100多M的盘符。那是核桃派 Android系统的一些配置文件。
+A 100+ MB drive letter will appear in My Computer. This contains some configuration files for the WalnutPi Android system.
 
 ![burn](./img/burn/burn7.png)
 
-文件里面的bootlogao.bmp文件为开机LOGO，足以BMP格式图片，最大支持1280x720分辨率。用户可以自行替换。
+The `bootlogao.bmp` file inside is the boot logo. It must be in BMP format and supports a maximum resolution of 1280x720. Users can replace it with their own.
 
 ![burn](./img/burn/burn8.png)
 
-## EMMC烧录
+## EMMC Flashing
 
-下载EMMC版本镜像，解压得到img文件。
+Download the EMMC version image and extract it to get the .img file.
 
 ![burn](./img/burn/burn9.png)
 
-使用上面 [烧录教程](#sd启动卡烧录) 烧录到SD卡。区别是要选`量产卡`，其它流程一样。
+Follow the [flashing tutorial above](#sd-boot-card-flashing) to flash to the SD card. The difference is that you need to select "Mass Production Card"; the rest of the process is the same.
 
 ![burn](./img/burn/burn10.png)
 
-烧录完成后将SD卡插入核桃派EMMC版本硬件，插上HDMI显示器，上电，可以看到烧录进度。
+After flashing is complete, insert the SD card into the WalnutPi EMMC version hardware, connect an HDMI display, and power on. You will see the flashing progress.
 
 ![burn](./img/burn/burn11.png)
 
-进度条跑完后表示烧录完成，断电拔掉SD卡，重新上电，能进入安卓系统说明EMMC系统烧写正常。
-
+When the progress bar finishes, flashing is complete. Power off, remove the SD card, and power on again. If it boots into the Android system, the EMMC system has been flashed successfully.

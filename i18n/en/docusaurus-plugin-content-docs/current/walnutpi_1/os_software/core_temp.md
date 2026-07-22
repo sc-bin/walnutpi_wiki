@@ -2,72 +2,77 @@
 sidebar_position: 21
 ---
 
-# 主控温度信息
+# CPU Temperature Information
 
-核桃派1B的H616/H618主控内置4个温度传感器，分别是：
-- `sensor0`: CPU温度
-- `sensor1`: GPU温度
-- `sensor2`: VE(Video Encoding)温度
-- `sensor3`: DDR温度
+The WalnutPi 1B's H616/H618 SoC features 4 built-in temperature sensors:
 
-:::tip 提示
-下面命令获取的温度数据值需要除以1000。
-:::
+- `sensor0`: CPU Temperature
+- `sensor1`: GPU Temperature
+- `sensor2`: VE (Video Encoding) Temperature
+- `sensor3`: DDR Temperature
 
-## CPU温度信息
+::::tip Note
+The temperature values obtained from the commands below need to be divided by 1000.
+::::
 
-查看传感器类型指令：
+## CPU Temperature
+
+Command to check sensor type:
 
 ```bash
 cat /sys/class/thermal/thermal_zone0/type
 ```
 
-查看温度信息指令：
+Command to check temperature:
+
 ```bash
 cat /sys/class/thermal/thermal_zone0/temp
 ```
 
 ![core_temp1](./img/core_temp/core_temp1.png)
 
-## GPU温度信息
+## GPU Temperature
 
-查看传感器类型指令：
+Command to check sensor type:
 
 ```bash
 cat /sys/class/thermal/thermal_zone1/type
 ```
 
-查看温度信息指令：
+Command to check temperature:
+
 ```bash
 cat /sys/class/thermal/thermal_zone1/temp
 ```
 
 ![core_temp2](./img/core_temp/core_temp2.png)
 
-## VE(Video Encoidng)温度信息
+## VE (Video Encoding) Temperature
 
-查看传感器类型指令：
+Command to check sensor type:
 
 ```bash
 cat /sys/class/thermal/thermal_zone2/type
 ```
 
-查看温度信息指令：
+Command to check temperature:
+
 ```bash
 cat /sys/class/thermal/thermal_zone2/temp
 ```
 
 ![core_temp3](./img/core_temp/core_temp3.png)
 
-## DDR温度信息
+## DDR Temperature
 
-查看传感器类型指令：
+Command to check sensor type:
 
 ```bash
 cat /sys/class/thermal/thermal_zone3/type
 ```
 
-查看温度信息指令：
+Command to check temperature:
+
 ```bash
 cat /sys/class/thermal/thermal_zone3/temp
 ```

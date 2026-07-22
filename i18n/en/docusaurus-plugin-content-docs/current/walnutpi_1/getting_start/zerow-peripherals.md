@@ -2,147 +2,145 @@
 sidebar_position: 4
 ---
 
-# 核桃派ZeroW配件组装
+# WalnutPi ZeroW Peripheral Assembly
 
-- **视频教程**
+- **Video Tutorial**
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1053217345&bvid=BV19H4y1K7wd&cid=1507941927&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
 <br></br>
 <br></br>
 
-在上一节了解过核桃派的硬件后，我们对核桃派有了一定的认识。但单独一个核桃派板子是无法工作的，它要求有一些必须的外设，如电源、键盘鼠标、显示器等。这节我们就来做详细的介绍核桃派ZeroW配件组装。
+After learning about WalnutPi's hardware in the previous section, we have a basic understanding of it. However, a single WalnutPi board cannot work on its own — it requires some essential peripherals, such as a power supply, keyboard, mouse, display, etc. In this section, we will introduce the WalnutPi ZeroW peripheral assembly in detail.
 
-核桃派ZeroW搭配扩展板和1.54寸LCD，有多种使用场景。
+WalnutPi ZeroW, when paired with an expansion board and a 1.54-inch LCD, supports multiple usage scenarios.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals1.jpg)
 
-## 40P彩色排针
+## 40-Pin Color Header
 
-核桃派ZeroW出厂默认不焊接40P排针，用户自己焊接时候需要注意这个排针是有方向的，不能搞错。焊接方向如下：
+By default, WalnutPi ZeroW does not come with the 40-pin header soldered. Users need to pay attention to the orientation when soldering it themselves — it cannot be reversed. The soldering direction is as follows:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals1_1.png)
 
-## 散热片
+## Heat Sink
 
-散热片能帮助核桃派CPU散热，特别在高温的环境下实现稳定工作，安装也是很简单，撕开导热贴，粘在主控上即可。由于散热片具有导电性，注意安装过程中不要与电路板其它元件（电容、电阻）接触到，避免发生短路。（ZeroW体积小，建议加装散热片辅助散热）
+The heat sink helps cool the WalnutPi CPU, ensuring stable operation especially in high-temperature environments. Installation is also simple: peel off the thermal pad and stick it onto the SoC. Since the heat sink is conductive, be careful not to let it touch other components on the circuit board (capacitors, resistors) during installation to avoid short circuits. (ZeroW is compact, so adding a heat sink for auxiliary cooling is recommended.)
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals2.png)
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals3.png)
 
-## 亚克力
+## Acrylic
 
-亚克力的底板的作用是避免PCB底部跟其它金属物体接触短路，避免刮花桌面，同时底部产生了空间也提升了散热效果。
+The acrylic base plate prevents the bottom of the PCB from short-circuiting with other metal objects, protects the desktop from scratches, and the space created underneath also improves heat dissipation.
 
-核桃派ZeroW亚克力底板安装方法非常简单，撕掉亚克力保护膜，中间嵌套铜柱，上下两端分别用M2.5螺丝拧紧即可。
+Installing the WalnutPi ZeroW acrylic base plate is very simple: peel off the acrylic protective film, insert copper standoffs in the middle, and tighten both top and bottom with M2.5 screws.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals4.png)
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals5.png)
 
-## ZeroW扩展板
+## ZeroW Expansion Board
 
-核桃派ZeroW扩展板，通过24P-0.5mm排线与核桃派ZeroW主板连接，引出了USB2.0 x 2 、百兆以太网 、音频、红外接收、调试串口、5V和3.3V电源输出功能。
+The WalnutPi ZeroW expansion board connects to the WalnutPi ZeroW mainboard via a 24-pin 0.5mm FFC cable, providing USB 2.0 x2, 100Mbps Ethernet, audio, IR receiver, debug serial port, and 5V/3.3V power output.
 
-使用长度20mm的单通螺柱跟长度6mm的双通螺柱按下图方式连接：
+Connect using 20mm single-threaded standoffs and 6mm double-threaded standoffs as shown below:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals6.png)
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals7.png)
 
-使用排线连接ZeroW和扩展板，注意排线金手指接触面朝下插入：
+Use the FFC cable to connect ZeroW and the expansion board. Note that the gold finger contact side should face downward when inserting:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals8.png)
 
-然后上下方均使用M2.5螺丝固定ZeroW和亚克力底板即可。
+Then use M2.5 screws to secure both the ZeroW and the acrylic base plate from above and below.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals9.png)
 
-## 1.54寸LCD
+## 1.54-inch LCD
 
-1.54寸LCD直接按下图方向插入接口。为了方便拔插可以不接铜柱。
+Insert the 1.54-inch LCD directly into the interface as shown below. For easier insertion and removal, you can skip the standoffs.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals10.png)
 
-如果需要固定的用户可以使用配套的12mm长度单通铜柱固定：
+If you need to secure it, use the included 12mm single-threaded copper standoffs:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals11.png)
 
-插入1.54寸LCD，顶部再用M2.5螺丝固定即可：
+Insert the 1.54-inch LCD and secure the top with M2.5 screws:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals12.png)
 
 
-## MicroSD卡
+## MicroSD Card
 
-MicroSD卡需要预先拷贝操作系统的，那会在下一节系统和软件展开讲解，这里只介绍安装方法。推荐使用16G以上的MicroSD卡。
+The MicroSD card needs to have the operating system copied onto it in advance. This will be covered in detail in the next section on system and software. Here we only introduce the installation method. A MicroSD card of 16GB or larger is recommended.
 
-将MicroSD卡按下图所示轻轻插入到底。核桃派ZeroW的MicroSD卡槽属于拔插式，不带自弹功能。
+Gently insert the MicroSD card all the way in as shown below. WalnutPi ZeroW's MicroSD card slot is a push-pull type without a self-eject mechanism.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals13.png)
 
-如果你需要去除 SD 卡，往外拔出即可。
-:::danger 注意
+If you need to remove the SD card, simply pull it outward.
+:::danger Caution
 
-请勿在通电情况下拔插 SD 卡。
+Do not insert or remove the SD card while the device is powered on.
 
 :::
 
-## USB拓展坞
+## USB Hub
 
-核桃派ZeroW 2路type-c均支持USB拓展坞拓展：方便接入USB摄像头、USB键盘鼠标等设备：
+Both Type-C ports on WalnutPi ZeroW support USB hub expansion, making it convenient to connect USB cameras, USB keyboards, mice, and other devices:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals14.png)
 
 
-:::tip 提示
-USB 拓展坞只测试支持拓展USB功能。像一些type-c转HDMI功能由于驱动问题无法使用。
+:::tip Note
+USB hubs are only tested to support USB expansion. Some Type-C to HDMI features may not work due to driver issues.
 :::
 
 
-## 键盘和鼠标
+## Keyboard and Mouse
 
-核桃派支持有线键鼠和无线键鼠。
+WalnutPi supports both wired and wireless keyboards and mice.
 
 ![keyboard_mouse1](./img/hw-peripherals/keyboard_mouse1.png)
 
-**有线键鼠**
+**Wired Keyboard & Mouse**
 
 ![keyboard_mouse1](./img/hw-peripherals/keyboard_mouse2.png)
 
-**无线键鼠**
+**Wireless Keyboard & Mouse**
 
-将键盘和鼠标连接到扩展板USB口。有线和无线 USB 键鼠安装方法一样。正常情况下USB的拔插不需要太用力，否则可能是插反了。检查USB方向是否正确。
+Connect the keyboard and mouse to the expansion board USB port. The installation method for wired and wireless USB keyboards and mice is the same. Under normal circumstances, plugging and unplugging USB devices should not require much force — if it feels difficult, the connector may be upside down. Check that the USB orientation is correct.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals15.png)
 
-## 显示器
+## Display
 
-一般的电脑显示屏或电视机都带有HDMI接口。
+Most computer monitors or TVs come with an HDMI port.
 
 ![hdmi1](./img/hw-peripherals/hdmi1.png)
 
-使用microHDMI转HDMI数据线可以直接将核桃派视频信号显示出来。
+Using a micro-HDMI to HDMI cable, you can directly output WalnutPi's video signal to a display.
 
 ![hdmi2](./img/hw-peripherals/hdmi2.png)
 
-将microHDMI线较小的一端连接到核桃派（靠近陶瓷天线那个小端口），另一端连接到显示器，如果你的显示器有多个输入端口，可能还需要进
-行一个输入端口切换的操作，具体视你显示器情况而定。
+Connect the smaller end of the micro-HDMI cable to WalnutPi (the small port near the ceramic antenna), and the other end to the display. If your display has multiple input ports, you may need to switch input sources — this depends on your specific display.
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals16.png)
 
 
-## 网线
+## Ethernet Cable
 
-要把核桃派和网络连接起来， 可以通过以太网或者 WiFi 无线连接。通常用WiFi，核桃派的 WiFi 支持 5G 信号连接，这里主要说一下网线的连接方法。把它
-插进以太网口，塑料夹子朝下，直到你听到咔哒声。 网线的另一端通常以相同的方式连接到路由器、 网络集线器或交换机上的任意空闲端口。如果您需要移除网线，只需将塑料夹向内挤压到插头处，然后轻轻将电缆滑出即可。（以太网口在扩展板，属于百兆网口）
+To connect WalnutPi to a network, you can use either Ethernet or WiFi wireless. WiFi is commonly used, and WalnutPi's WiFi supports 5G connections. Here we mainly explain how to connect the Ethernet cable. Insert it into the Ethernet port with the plastic clip facing down until you hear a click. The other end of the cable is typically connected in the same way to any available port on a router, network hub, or switch. If you need to remove the cable, simply squeeze the plastic clip inward toward the plug and gently slide the cable out. (The Ethernet port is on the expansion board and is a 100Mbps port.)
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals17.png)
 
-## 音频
+## Audio
 
-核桃派扩展板上有标准的3.5mm音频输出接口，可以通过连接耳机或扬声器设备实现音频播放。
+The WalnutPi expansion board has a standard 3.5mm audio output jack. You can connect headphones or speaker devices for audio playback.
 
 ![audio1](./img/hw-peripherals/audio1.png)
 
@@ -151,16 +149,16 @@ USB 拓展坞只测试支持拓展USB功能。像一些type-c转HDMI功能由于
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals18.png)
 
 
-## 电源连接
+## Power Connection
 
-核桃派ZeroW对电源的要求是：5V 1A以上的Type-C接口电源。
+The power requirement for WalnutPi ZeroW is: a Type-C power supply of 5V 1A or above.
 
 ![power](./img/hw-peripherals/power1.png)
 
-连接电源通常是最后的操作，接通电源后意味着我们准备开始使用。将电源的Type-C端连接到核桃派。如果线材上有开关，记得将开关打开。
+Connecting power is usually the final step — once powered on, it means we are ready to start using it. Connect the Type-C end of the power supply to WalnutPi. If the cable has a switch, remember to turn the switch on.
 
-核桃派ZeroW 2个TYPE-C均可以作为供电口，通常使用右边那个：
+Both Type-C ports on WalnutPi ZeroW can be used as power input. The right-side port is typically used:
 
 ![zerow-peripherals](./img/zerow-peripherals/zerow-peripherals19.png)
 
-至此，核桃派ZeroW外设配件组装完成。
+At this point, the WalnutPi ZeroW peripheral assembly is complete.

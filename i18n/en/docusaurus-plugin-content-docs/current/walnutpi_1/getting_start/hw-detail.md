@@ -2,97 +2,97 @@
 sidebar_position: 2
 ---
 
-# 硬件详解
+# Hardware Details
 
-对核桃派1B各部分硬件详细讲解。ZeroW、CM1、BOX功能类似。
+A detailed explanation of each hardware component of WalnutPi 1B. ZeroW, CM1, and BOX have similar functions.
 
 
 ## CPU
 
-跟普通电脑一样，核桃派硬件是由众多组件组成，每个组件都为其整体运行扮演重要角色，首先来看看CPU。核桃派1B使用全志H616/H618 四核高性能Cortex-A53处理器，主频可达1.5GHz。
+Like an ordinary computer, WalnutPi hardware consists of many components, each playing an important role in its overall operation. Let's start with the CPU. WalnutPi 1B uses an Allwinner H616/H618 quad-core high-performance Cortex-A53 processor with a clock speed of up to 1.5GHz.
 
-**全志H616和H618硬件和Linux驱动完全兼容，跑分性能基本无差异。**
+**The Allwinner H616 and H618 are fully hardware and Linux driver compatible, with essentially no difference in benchmark performance.**
 
 ![cpu](./img/hw-detail/cpu.png)
 
 
-## RAM(内存)
+## RAM (Memory)
 
-在 CPU 旁边有2个黑色矩形芯片（下图所示）。这就是核桃派的随机存储器（RAM），也就是我们常说的内存。
+Next to the CPU are 2 black rectangular chips (shown below). This is WalnutPi's Random Access Memory (RAM), commonly referred to as memory.
 
-当你使用核桃派时，RAM在保持你的使用和运行，只有当你保存相关文件时才会保存到 microSD 卡。这些组件在一起形成核桃派的易失性和非易失性记忆：RAM 是掉电不保存，而 microSD 卡是掉电保存的。
+When you use WalnutPi, RAM keeps your work running, and files are only saved to the microSD card when you explicitly save them. These components together form WalnutPi's volatile and non-volatile memory: RAM loses data when powered off, while the microSD card retains data when powered off.
 
-**核桃派1B当前提供1GB内存版本（由2片512MB DD3组成），2G/4G版本则使用单片LPDDR4。而H616/H618内存访问速度大约1000Mbps，并没达到两者的峰值速度，因此速度一样。**
+**WalnutPi 1B currently offers a 1GB RAM version (composed of 2 x 512MB DDR3), while the 2G/4G versions use a single LPDDR4 chip. Since the H616/H618 memory access speed is approximately 1000Mbps, which does not reach the peak speed of either type, performance is the same.**
 ![ram](./img/hw-detail/ram.png)
 
 
-## WiFi和蓝牙
+## WiFi and Bluetooth
 
-在核桃派的左上角，你会发现一个金属屏蔽罩。这是无线模块，实际由两部分组成，分别是 WiFi 和蓝牙。WiFi用于连接到无线网络；而蓝牙则可以用于连接外设比如蓝牙键盘鼠标，也可以向附近的传感器或智能手机等设备发送数据。
+In the upper left corner of WalnutPi, you will find a metal shield. This is the wireless module, which actually consists of two parts: WiFi and Bluetooth. WiFi is used to connect to wireless networks; Bluetooth can be used to connect to peripherals such as Bluetooth keyboards and mice, and can also send data to nearby sensors or devices like smartphones.
 
-核桃派1B无线模块支持双频WiFi(2.4G和5G)以及蓝牙5.0。
+WalnutPi 1B's wireless module supports dual-band WiFi (2.4G and 5G) and Bluetooth 5.0.
 ![ram](./img/hw-detail/wireless.png)
 
 
 ## USB
 
-核桃派有4个标准 USB 2.0接口。其中3个以USB-A母座接口引出（如下图），还有1个位于供电接口的type-c(可以通过type-c拓展坞拓展引出)，这些可以连接各种USB外围设备，包括键盘、鼠标、USB摄像头、U盘等。
+WalnutPi has 4 standard USB 2.0 ports. Three of them are exposed as USB-A female connectors (as shown below), and one is on the Type-C power port (which can be expanded via a Type-C hub). These can connect to various USB peripherals, including keyboards, mice, USB cameras, USB drives, etc.
 
 ![ram](./img/hw-detail/usb.png)
 
 
-## 以太网
+## Ethernet
 
-核桃派板载百兆以太网口，你可以用一根网线将核桃派连接到有线计算机网络（路由器 LAN 网口）。如果仔细观察以太网端口，您会在底部看到两个发光二极管（LED）,这些是状态 LED，让您知道该网络连接正在工作。通常情况下绿灯常亮表示连接成功，橙灯闪烁表示正在传输数据。
+WalnutPi has an onboard 100Mbps Ethernet port. You can connect WalnutPi to a wired computer network (router LAN port) using an Ethernet cable. If you look closely at the Ethernet port, you'll see two Light Emitting Diodes (LEDs) at the bottom. These are status LEDs that let you know the network connection is working. Typically, a solid green light indicates a successful connection, and a flashing amber light indicates data transmission.
 
 ![ram](./img/hw-detail/ethernet.png)
 
 
-## 音频接口
+## Audio Interface
 
-核桃派有1个标准的3.5mm音频接口，也就是常见的耳机插孔。可以用于连接耳机或扬声器得到更强大的声音。
+WalnutPi has a standard 3.5mm audio jack, which is the common headphone jack. It can be used to connect headphones or speakers for more powerful sound.
 
 ![ram](./img/hw-detail/audio.png)
 
 
 ## HDMI
 
-核桃派拥有1个高清多媒体接口(HDMI 2.0)端口，支持4K@60fps。板载microHDMI接口，通常情况下你需要使用microHDMI转标准HDMI线缆连接到显示器。
+WalnutPi has a High-Definition Multimedia Interface (HDMI 2.0) port, supporting 4K@60fps. The onboard micro-HDMI port typically requires a micro-HDMI to standard HDMI cable to connect to a display.
 
 ![ram](./img/hw-detail/hdmi.png)
 
-## 红外接收器
+## IR Receiver
 
-核桃派板载红外接收头1个。
+WalnutPi has one onboard infrared receiver.
 ![ir](./img/hw-detail/ir.png)
 
 
-## 按键和LED
+## Buttons and LED
 
-核桃派板载可编程按键和LED各1个。
+WalnutPi has one onboard programmable button and one LED.
 ![ram](./img/hw-detail/key_led.png)
 
 
-## MicroSD卡槽
+## MicroSD Card Slot
 
-microSD卡连接器在核桃派的背部。这是核桃派的存储：插入这里的 microSD卡包含核桃派派所有保存的文件、所有安装的软件和运行的操作系统。
+The microSD card connector is on the back of WalnutPi. This is WalnutPi's storage: the microSD card inserted here contains all of WalnutPi's saved files, all installed software, and the running operating system.
 
 ![ram](./img/hw-detail/sd.png)
 
 ## GPIO
 
-核桃派上方有个40P金属引脚（排针），分成两行，每行20个排针。这是GPIO(通用输入/输出)排针，这些引脚用于连接LED、按钮到传感器、操纵杆和脉搏率监控器等其他硬件进行通信。也就是我们常说的单片机IO口。
+On the top side of WalnutPi, there are 40-pin metal headers arranged in two rows of 20 pins each. This is the GPIO (General Purpose Input/Output) header. These pins are used to connect and communicate with other hardware, from LEDs and buttons to sensors, joysticks, and pulse rate monitors — essentially what we commonly refer to as microcontroller I/O pins.
 
-核桃派使用彩色40P排针，方便接线，避免误接短路。
+WalnutPi uses color-coded 40-pin headers for easy wiring and to prevent misconnection and short circuits.
 ![ram](./img/hw-detail/gpio.png)
 
-## 串口调试口
+## Debug Serial Port
 
-核桃派引出了串口调试口，可以通过USB转TTL串口工具连接，使用putty等工具查看调试信息或登录系统控制台。
+WalnutPi exposes a debug serial port. You can connect via a USB-to-TTL serial tool and use tools like PuTTY to view debug information or log into the system console.
 ![ram](./img/hw-detail/debug.png)
 
-## 电源管理
+## Power Management
 
-在核桃派方的Type-C 母座上方看到一个小芯片， 这是电源处理芯片（PMC），可以处理将Type-C端口输入的电源转换为核桃派工作需要的电源。核桃派1B要求电源输入5V，电流3A以上。
+Above the Type-C female connector on WalnutPi, you can see a small chip. This is the Power Management Chip (PMC), which converts the power input from the Type-C port into the power WalnutPi needs to operate. WalnutPi 1B requires a power input of 5V and a current of 3A or above.
 
 ![ram](./img/hw-detail/pmc.png)

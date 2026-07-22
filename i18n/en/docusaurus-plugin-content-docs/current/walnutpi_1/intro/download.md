@@ -2,66 +2,65 @@
 sidebar_position: 3
 ---
 
-# 资料下载
+# Downloads
 
-## 系统镜像
+## System Images
 
-当前核桃派提供核桃派OS（Debian12）、Ubuntn22.04、 Home Assistant、Android TV镜像，本教程主要基于核桃派OS（Debian12），也是我们推荐使用的镜像，分桌面版（Desktop版）和非桌面版（Server版）， 提供以下多种下载方式。
+WalnutPi currently provides WalnutPi OS (Debian 12), Ubuntu 22.04, Home Assistant, and Android TV images. This tutorial is primarily based on WalnutPi OS (Debian 12), which is our recommended image. It comes in Desktop version and Server (non-desktop) version. The following download methods are available.
 
-### 百度网盘
+### Baidu Netdisk
 
-- 百度网盘链接：https://pan.baidu.com/s/1-ytTK-KI1RP2KsoZpjFSrA?pwd=WPKJ
-- 提取码：**WPKJ**
+- Baidu Netdisk Link: https://pan.baidu.com/s/1-ytTK-KI1RP2KsoZpjFSrA?pwd=WPKJ
+- Extraction Code: **WPKJ**
 
-### QQ群文件
+### QQ Group Files
 
-核桃派开源互助群:  **677173708**
+WalnutPi Open Source Support Group: **677173708**
 
-:::tip 提示
-在Q群将群文件转发给自己设备或其它QQ即可高速下载。
+:::tip Note
+In the QQ group, forwarding group files to your own device or another QQ account enables high-speed downloads.
 :::
 
 ![download](./img/download/download1.png)
 
 ### GitHub
 
-海外地区用户可以使用此方式下载：
+Users in overseas regions can use this method to download:
 
 https://github.com/walnutpi/walnutpi-build/releases
 
 ![download](./img/download/download2.png)
 
 
-## 在线教程配套资料包
+## Tutorial Resource Package
 
-核桃派教程配套软件、例程源代码、原理图、芯片手册等。
+WalnutPi tutorial companion software, example source code, schematics, chip datasheets, etc.
 
-### 百度网盘下载
+### Baidu Netdisk Download
 
-- 百度网盘链接：https://pan.baidu.com/s/1Wu5De2rlShyz3wBCtZshPA?pwd=WPKJ 
-- 提取码：**WPKJ**
+- Baidu Netdisk Link: https://pan.baidu.com/s/1Wu5De2rlShyz3wBCtZshPA?pwd=WPKJ
+- Extraction Code: **WPKJ**
 
 ![download](./img/download/download3.png)
 
-### 海外地区下载
+### Overseas Download
 
-- [点击下载](https://walnutpi-1258570164.cos.ap-guangzhou.myqcloud.com/%E6%A0%B8%E6%A1%83%E6%B4%BE%E9%85%8D%E5%A5%97%E8%B5%84%E6%96%99%E5%8C%85%E4%B8%8B%E8%BD%BD/WalnutPi_1_Resources_2024-7-23.rar)
+- [Click to download](https://walnutpi-1258570164.cos.ap-guangzhou.myqcloud.com/%E6%A0%B8%E6%A1%83%E6%B4%BE%E9%85%8D%E5%A5%97%E8%B5%84%E6%96%99%E5%8C%85%E4%B8%8B%E8%BD%BD/WalnutPi_1_Resources_2024-7-23.rar)
 
-### 资料包介绍
+### Package Contents
 
-- **开发工具软件**
+- **Development Tools**
 
-开发软件、上位机、相关驱动。
+Development software, host tools, related drivers.
 
-- **教程代码**
+- **Tutorial Code**
 
-本在线教程的源代码。
+Source code for this online tutorial.
 
-- **原理图和功能图**
+- **Schematics & Diagrams**
 
-开发板原理图和接口说明。
+Development board schematics and interface documentation.
 
-- **芯片手册**
+- **Chip Datasheets**
 
-主要IC手册等。
-
+Key IC datasheets, etc.

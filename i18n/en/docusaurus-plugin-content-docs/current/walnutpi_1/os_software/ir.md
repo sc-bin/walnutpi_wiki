@@ -2,31 +2,31 @@
 sidebar_position: 44
 ---
 
-# 红外接收头
+# IR Receiver
 
-核桃派板载1个红外接收头。
+The WalnutPi has one onboard IR receiver.
 
 ![ir1](./img/ir/ir1.png)
 
-核桃派系统预装了**ir-keytable**软件，可用于查看红外设备和测试红外接收解码。
+The WalnutPi system comes pre-installed with the **ir-keytable** software, which can be used to view IR device information and test IR reception and decoding.
 
-## 查看设备信息
+## Viewing Device Information
 
-终端输入下面指令即可查看红外设备信息：
+Enter the following command in the terminal to view IR device information:
 
 ```bash
 ir-keytable
 ```
 ![ir2](./img/ir/ir2.png)
 
-## 红外接收测试
+## IR Reception Test
 
-首先你需要一个常用的遥控器，这里使用这种，比较容易买到。
+First, you need a common remote control. The one shown below is used here as it is easy to purchase.
 
 ![ir3](./img/ir/ir3.png)
 
 
-在终端输入下面命令，等待红外遥控信号：
+Enter the following command in the terminal and wait for IR remote signals:
 
 ```bash
 sudo ir-keytable -c -p NEC -t
@@ -34,10 +34,10 @@ sudo ir-keytable -c -p NEC -t
 
 ![ir4](./img/ir/ir4.png)
 
-用遥控器对着红外接收头，任意按下按键：
+Point the remote control at the IR receiver and press any button:
 
 ![ir5](./img/ir/ir5.png)
 
-可以在终端看到读取到的红外编码：
+You can see the received IR code in the terminal:
 
 ![ir6](./img/ir/ir6.png)

@@ -2,62 +2,60 @@
 sidebar_position: 11
 ---
 
-# EMMC闪存
+# EMMC Flash Storage
 
-:::tip 提示
-核桃派1代镜像V2.5.0以上版本才有此功能。
-:::
+::::tip Note
+This feature is only available in WalnutPi Gen 1 images V2.5.0 and above.
+::::
 
-核桃派2B可选配带EMMC闪存版本，默认标配32GB容量。传输速度比SD卡要快很多。可用于安装核桃派系统或当作硬盘盘符使用。
+The WalnutPi 2B can be configured with an EMMC flash storage version, with a default capacity of 32GB. The transfer speed is much faster than an SD card. It can be used to install the WalnutPi system or as a storage drive.
 
 ![emmc](./img/emmc/emmc0.png)
 
-## EMMC作为系统启动盘
+## EMMC as System Boot Drive
 
-将核桃派OS烧录到EMMC并启动。参考教程：[EMMC烧录镜像方法](../getting_start/os-install.md#emmc烧录)
+Flash the WalnutPi OS to EMMC and boot from it. Refer to: [EMMC Image Flashing Method](../getting_start/os-install.md#emmc-flashing)
 
-## EMMC作为硬盘使用
+## EMMC as a Storage Drive
 
-当核桃派2B通过SD卡系统启动时，可以将EMMC设置为硬盘使用，相当于拥有一个容量为32GB的硬盘。
+When the WalnutPi 2B boots from an SD card, you can set the EMMC to be used as a storage drive, effectively giving you a 32GB hard drive.
 
-核桃派系统自带快速设置指令，指令如下：
+The WalnutPi system includes a quick setup command:
 
 ```bash
 sudo set-emmc to_disk
 ```
 
-:::danger 警告
-该指令表示将emmc配置成硬盘。会格式化EMMC，清除所有内容。如有重要文件请提前做好备份。
-:::
+::::danger Warning
+This command configures the EMMC as a disk drive. It will format the EMMC and erase all content. Please back up important files beforehand.
+::::
 
-运行后弹出提示框，按“y”键继续：
+After running, a prompt will appear. Press "y" to continue:
 
 ![emmc](./img/emmc/emmc1.png)
 
-设置成功如下图所示：
+A successful setup looks like the following:
 
 ![emmc](./img/emmc/emmc2.png)
 
-可以在桌面看到出现了一个约32G容量的盘符。
+You will see a ~32GB drive appear on the desktop.
 
 ![emmc](./img/emmc/emmc3.png)
 
-双击即可挂载使用。出现提示框输入password为系统密码，即 `pi`。
+Double-click to mount and use it. A prompt will ask for the password, which is the system password, i.e., `pi`.
 
 ![emmc](./img/emmc/emmc4.png)
 
-## EMMC格式化
+## EMMC Formatting
 
-快速格式化（推荐）：
+Quick format (recommended):
 
 ```bash
 sudo set-emmc erase-quick
 ```
 
-完全格式化（速度会很慢）：
+Full format (will be very slow):
 
 ```bash
 sudo set-emmc erase-overwrite
 ```
-
-

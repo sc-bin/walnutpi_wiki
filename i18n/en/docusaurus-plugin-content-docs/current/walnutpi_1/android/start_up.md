@@ -2,22 +2,22 @@
 sidebar_position: 2
 ---
 
-# 开机
+# Booting Up
 
-在上一节系统镜像烧录完成后MicroSD卡里面就带有核桃派Android系统了，将它插入核桃派背面的SD卡槽，连接好HDMI显示器，上电后可以看到操作系统正常启动即可。
+After completing the system image flashing in the previous section, the MicroSD card now contains the WalnutPi Android system. Insert it into the SD card slot on the back of the WalnutPi, connect an HDMI display, and power on. You should then see the operating system boot up normally.
 
-## HDMI显示器方式登录
+## Login via HDMI Display
 
-系统正常启动蓝灯会常亮。启动成功后显示Android TV版桌面。
+When the system boots up normally, the blue LED will stay solid on. After a successful boot, the Android TV desktop will be displayed.
 
 ![start_up](./img/start_up/start_up1.png)
 
-:::tip 提示
+::::tip Note
 
-当蓝灯常亮而HDMI无显示时请更换一个HDMI显示器测试，依然无效可以使用下面串口终端方式查看系统启动信息。
+If the blue LED is solid on but HDMI has no display, try a different HDMI monitor. If it still doesn't work, you can use the serial terminal method below to check the system boot information.
 
-::: 
+:::: 
 
-## 串口终端方式登录
+## Login via Serial Terminal
 
-如果你没有显示器，可以使用USB转TTL工具连接到核桃派的调试串口使用串口终端方式登录。具体参考：[调试串口打开终端](../os_software/terminal#调试串口打开终端) 章节内容。
+If you don't have a monitor, you can use a USB-to-TTL adapter to connect to the WalnutPi's debug serial port and log in via a serial terminal. For details, refer to: [Open Terminal via Debug Serial Port](../os_software/terminal#open-terminal-via-debug-serial-port).

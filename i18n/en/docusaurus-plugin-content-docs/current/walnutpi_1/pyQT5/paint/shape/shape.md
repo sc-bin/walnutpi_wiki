@@ -2,57 +2,57 @@
 sidebar_position: 1
 ---
 
-# 画形状
+# Drawing Shapes
 
-本节我们来学习一下使用Qpainter对象下面的画图函数来学习pyQT5绘图功能。
+In this section, we'll learn about PyQt5 drawing features using the drawing functions under the QPainter object.
 
-## 函数介绍
+## Function Introduction
 
-### 画点
+### Drawing a Point
 
 ```python
 drawPoint(x, y)
 ```
-画点。
-- `x` : 横坐标；
-- `y` : 纵坐标；
+Draw a point.
+- `x` : X-coordinate
+- `y` : Y-coordinate
 
-### 画直线
+### Drawing a Line
 
 ```python
 drawLine(x0, y0, x1, y1)
 ```
-画直线。
-- `x0, y0` : 起点坐标；
-- `x1, y1` : 终点坐标；
+Draw a straight line.
+- `x0, y0` : Starting coordinates
+- `x1, y1` : Ending coordinates
 
-### 画矩形
+### Drawing a Rectangle
 
 ```python
-drawLine(x, y, width, height)
+drawRect(x, y, width, height)
 ```
-画矩形。
-- `x, y` : 起点坐标；
-- `width` : 矩形宽度；
-- `height` : 矩形高度；
+Draw a rectangle.
+- `x, y` : Starting coordinates
+- `width` : Rectangle width
+- `height` : Rectangle height
 
-### 画椭圆（圆）
+### Drawing an Ellipse (Circle)
 
 ```python
 drawEllipse(x, y, width, height)
 ```
-画椭圆。
-- `x, y` : 起点坐标；
-- `width` : 椭圆宽度；
-- `height` : 椭圆高度；
+Draw an ellipse.
+- `x, y` : Starting coordinates
+- `width` : Ellipse width
+- `height` : Ellipse height
 
-**当椭圆的width=height时，即画圆，width=height=圆的直径。**
+**When the ellipse's width equals height, it becomes a circle, where width = height = diameter of the circle.**
 
-## 编程方法
+## Programming Method
 
-我们通过代码来实现画点、线、矩形和圆：
+Let's implement code to draw points, lines, rectangles, and circles:
 
-我们先运行一下最终代码再来讲解：
+We'll run the final code first, then explain:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -68,110 +68,112 @@ from PyQt5.QtWidgets import QWidget
 class Window(QWidget):
     
     def __init__(self):
-        super().__init__() #同时执行父对象QWidget的初始化程序
-        self.setWindowTitle("WalnutPi Paint") # 设置窗口标题
-        self.resize(480,320) # 设置窗口大小
+        super().__init__() # Execute the parent QWidget's __init__ as well
+        self.setWindowTitle("WalnutPi Paint") # Set window title
+        self.resize(480,320) # Set window size
         
-        #窗口背景颜色设置
+        # Window background color setting
         self.setObjectName("Paint_Window")
-        self.setStyleSheet("#Paint_Window{background-color: black}") #黑色
+        self.setStyleSheet("#Paint_Window{background-color: black}") # Black
 
     def paintEvent(self,event):
         
-        painter=QPainter(self) # 创建绘图对象
-        painter.setPen(Qt.green) # 设置画笔,绿色
+        painter=QPainter(self) # Create drawing object
+        painter.setPen(Qt.green) # Set pen, green
         
-        #画点
+        # Draw point
         painter.drawPoint(10,10) 
         
-        #画线
+        # Draw line
         painter.drawLine(20, 10, 80, 10)
         
-        #画矩形
+        # Draw rectangle
         painter.drawRect(100, 10, 80, 40) 
         
-        #画圆
+        # Draw circle
         painter.drawEllipse(200, 10, 50, 50)
         
         
 #################
-#   主程序代码   #
+#   Main Code    #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+# [Optional] Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+# [Optional] Fix display issues on 2K+ resolution monitors
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Main program entry — build and display the window
 app = QtWidgets.QApplication(sys.argv)
-window = Window() #构建窗口对象
-window.show() #显示窗口
-#window.showFullScreen() #全屏显示窗口
+window = Window() # Create window object
+window.show() # Show window
+#window.showFullScreen() # Full-screen display
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+# [Recommended] Allow Ctrl+C to interrupt the window from terminal for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit the process when the window is closed
 
 ```
 
-运行代码，可以看到窗口如下：
+Run the code and you'll see the window as follows:
+
 ![shape1](./img/shape/shape1.png)
 
 
 <br></br>
 
-接下来我们来看看代码的实现原理：
+Now let's examine how the code works:
 
-主程序入口代码跟以往类似，新建了一个窗口：
+The main program entry code is similar to before — it creates a window:
 
 ```python
-#主程序入口，构建窗口并显示
+# Main program entry — build and display the window
 app = QtWidgets.QApplication(sys.argv)
-window = Window() #构建窗口对象
-window.show() #显示窗口
+window = Window() # Create window object
+window.show() # Show window
 ```
 
-新建的窗口初始化了窗口标题和大小，同时设置了背景颜色为黑色，方便观察结果。
+The newly created window initializes the window title and size, and also sets the background color to black for better visibility of the result:
+
 ```python
 class Window(QWidget):
     
     def __init__(self):
-        super().__init__() #同时执行父对象QWidget的初始化程序
-        self.setWindowTitle("WalnutPi Paint") # 设置窗口标题
-        self.resize(480,320) # 设置窗口大小
+        super().__init__() # Execute the parent QWidget's __init__ as well
+        self.setWindowTitle("WalnutPi Paint") # Set window title
+        self.resize(480,320) # Set window size
         
-        #窗口背景颜色设置
+        # Window background color setting
         self.setObjectName("Paint_Window")
-        self.setStyleSheet("#Paint_Window{background-color: black}") #黑色
+        self.setStyleSheet("#Paint_Window{background-color: black}") # Black
 ```
 
-**def paintEvent(self,event):**是固定格式，窗口构建后会自动执行这个函数，所以QPainter对象初始化画图函数都放里面。
+**def paintEvent(self,event):** is a fixed-form method — it is automatically called after the window is constructed. So all QPainter object initialization and drawing functions are placed inside it:
 
 ```python
     def paintEvent(self,event):
         
-        painter=QPainter(self) # 创建绘图对象
-        painter.setPen(Qt.green) # 设置画笔,绿色
+        painter=QPainter(self) # Create drawing object
+        painter.setPen(Qt.green) # Set pen, green
         
-        #画点
+        # Draw point
         painter.drawPoint(10,10) 
         
-        #画线
+        # Draw line
         painter.drawLine(20, 10, 80, 10)
         
-        #画矩形
+        # Draw rectangle
         painter.drawRect(100, 10, 80, 40) 
         
-        #画圆
+        # Draw circle
         painter.drawEllipse(200, 10, 50, 50)
 ```
 

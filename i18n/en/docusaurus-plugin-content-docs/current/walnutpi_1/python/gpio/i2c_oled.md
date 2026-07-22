@@ -2,255 +2,255 @@
 sidebar_position: 7
 ---
 
-# I2C（OLED显示屏）
+# I2C (OLED Display)
 
-## 前言
-在前面我们学习了不少输入输出设备，比如LED灯也算是输出设备，因为它们确切地告诉了我们硬件的状态。只是相对于只有亮灭的LED而言，oled显示屏可以显示更多的信息，体验更好。本章节OLED显示屏的学习，实际上是为了学习使用核桃派的I2C的总线接口，因为核桃派通过I2C总线与OLED显示屏通讯的。
+## Introduction
+Previously, we learned about various input/output devices. For example, an LED can also be considered an output device because it clearly tells us the hardware status. However, compared to an LED that only has on/off states, an OLED display can show much more information, providing a better experience. The study of the OLED display in this chapter is actually to learn how to use the WalnutPi's I2C bus interface, because the WalnutPi communicates with the OLED display via the I2C bus.
 
-## 实验目的
-学习使用核桃派的I2C总线编程和OLED显示屏使用。
+## Objective
+Learn to program the WalnutPi's I2C bus and use an OLED display.
 
-## 实验讲解
+## Explanation
 
-**什么是I2C？**
-I2C是用于设备之间通信的双线协议，在物理层面，它由2条线组成：SCL和SDA，分别是时钟线和数据线。也就是说不同设备间通过这两根线就可以进行通信。
+**What is I2C?**
+I2C is a two-wire protocol for communication between devices. At the physical level, it consists of 2 lines: SCL and SDA, the clock line and data line respectively. This means that different devices can communicate using just these two lines.
 
-**什么是OLED显示屏？**
-OLED的特性是自己发光，不像TFT LCD需要背光，因此可视度和亮度均高，其次是电压需求低且省电效率高，加上反应快、重量轻、厚度薄，构造简单，成本低等特点。简单来说跟传统液晶的区别就是里面像素的材料是由一个个发光二极管组成，因为密度不高导致像素分辨率低，所以早期一般用作户外LED广告牌。随着技术的成熟，使得集成度越来越高。小屏也可以制作出较高的分辨率。本实验使用的oled驱动芯片型号是常见的ssd1306，市面上也比较容易买到。
+**What is an OLED Display?**
+OLEDs emit light on their own, unlike TFT LCDs which require a backlight. This results in high visibility and brightness. Additionally, they require low voltage, are power-efficient, have fast response times, are lightweight and thin, have a simple structure, and are low-cost. In simple terms, the difference from traditional LCDs is that the pixel material is composed of individual light-emitting diodes. Because of low density, early OLEDs had low pixel resolution and were mainly used for outdoor LED billboards. As technology matured, integration became increasingly higher. Small screens can now achieve relatively high resolutions. The OLED driver chip used in this experiment is the common SSD1306, which is widely available on the market.
 
-规格： 0.9寸/128*64分辨率/黑底白字（3.3V供电）。
- 
-![i2c_oled1](./img/i2c_oled/i2c_oled1.png) 
+Specifications: 0.91 inch / 128×64 resolution / black background with white text (3.3V power supply).
+
+![i2c_oled1](./img/i2c_oled/i2c_oled1.png)
 
 
-核桃派的GPIO有引出2路I2C串口，分别是I2C1和I2C2，如下图：
+The WalnutPi's GPIO brings out two I2C interfaces — I2C1 and I2C2, as shown below:
 
-![i2c_oled2](./img/i2c_oled/i2c_oled2.png) 
+![i2c_oled2](./img/i2c_oled/i2c_oled2.png)
 
-本实验我们使用I2C1连接OLED屏，连线如下：
+In this experiment, we use I2C1 to connect the OLED display. The wiring is as follows:
 
-![i2c_oled3](./img/i2c_oled/i2c_oled3.png) 
+![i2c_oled3](./img/i2c_oled/i2c_oled3.png)
 
-## I2C对象
+## The I2C Object
 
-一般来说I2C通讯速率不高，所以我们可以使用CircuitPython的软件模拟I2C，对象说明如下：
+Generally, I2C communication speeds are not high, so we can use CircuitPython's software-simulated I2C. The object description is as follows:
 
-### 构造函数
+### Constructor
 ```python
 i2c=busio.I2C(scl,sda,frequency=100000,timeout=255)
 ```
-构建软件I2C对象。
-- `scl` :时钟引脚；
-- `sda` :数据引脚；
-- `frequency` :通讯频率，即速度；
-- `timeout` :超时时间。
+Constructs a software I2C object.
+- `scl` : Clock pin;
+- `sda` : Data pin;
+- `frequency` : Communication frequency (speed);
+- `timeout` : Timeout period.
 
-### 使用方法
+### Methods
 ```python
 i2c.scan()
 ```
-扫描I2C总线的设备。返回地址，如：0x3c；
+Scans for devices on the I2C bus. Returns an address, e.g.: 0x3c;
 
 <br></br>
 
 ```python
 i2c.readfrom(address,buffer)
 ```
-从指定地址读数据。
-- `address` ：读取字符数量。
-- `buffer` ：数据内容。
+Reads data from a specified address.
+- `address` : Number of characters to read.
+- `buffer` : Data content.
 
 <br></br>
 
 ```python
 i2c.writeto(address,buffer)
 ```
-从指定地址写数据。
-- `address` ：读取字符数量。
-- `buffer` ：数据内容。
+Writes data to a specified address.
+- `address` : Number of characters to write.
+- `buffer` : Data content.
 
 <br></br>
 
 ```python
 i2c.deinit()
 ```
-注销I2C对象。
+Deinitializes the I2C object.
 
 <br></br>
 
-更多I2C用法，请看官方文档：https://docs.circuitpython.org/ 下搜索 **"busio.I2C"**。
+For more I2C usage, refer to the official documentation at https://docs.circuitpython.org/ and search for **"busio.I2C"**.
 
-## SSD1306_I2C对象
+## The SSD1306_I2C Object
 
-除了前面的I2C外，控制OLED屏还需要OLED相关的python库，这些库Blinka项目已经写好，并以py文件方式给出，我们只需要把相关文件和主函数代码文件在同一目录下即可。
+In addition to the I2C object above, controlling the OLED display also requires OLED-related Python libraries. These libraries have already been written by the Blinka project and are provided as `.py` files. We only need to place the relevant files in the same directory as the main function code.
 
-### 构造函数
+### Constructor
 
 ```python
 display = adafruit_ssd1306.SSD1306_I2C(width, height, i2c, addr=0x3C)
 ```
-构建SSD1306驱动的OLED显示对象。
-- `width` : OLED宽分辨率；
-- `height` :OLED高分辨率；
-- `i2c` :初始化好的I2C对象；
-- `addr` : OLED的I2C地址，不同厂家不一样，这里用的屏地址是0x3C。
+Constructs an SSD1306-driven OLED display object.
+- `width` : OLED width resolution;
+- `height` : OLED height resolution;
+- `i2c` : Initialized I2C object;
+- `addr` : OLED I2C address. Different manufacturers may differ; the display used here has address 0x3C.
 
-### 使用方法
+### Methods
 
 ```python
 display.fill(value)
 ```
-清屏。
-- `value` : 颜色。
-    - `0` : 黑屏
-    - `1` : 白色
+Clears the screen.
+- `value` : Color.
+    - `0` : Black screen
+    - `1` : White
 
 <br></br>
 
 ```python
 display.show()
 ```
-显示刷新。新增显示内容后需要执行此指令才能显示。
+Refresh the display. This command must be executed after adding new display content.
 
 <br></br>
 
 ```python
 display.pixel(x,y,color)
 ```
-画点。
-- `x` : 横坐标。
-- `y` : 纵坐标。
-- `color` : 颜色：
-    - `1` : 白色
-    - `2` : 黑色
+Draws a pixel.
+- `x` : Horizontal coordinate.
+- `y` : Vertical coordinate.
+- `color` : Color:
+    - `1` : White
+    - `2` : Black
 
 <br></br>
 
 ```python
 display.hline(x,y,width,color)
 ```
-画横线。
-- `x` : 横坐标。
-- `y` : 纵坐标。
-- `width` : 长度。
-- `color` : 颜色：
-    - `1` : 白色
-    - `2` : 黑色
+Draws a horizontal line.
+- `x` : Horizontal coordinate.
+- `y` : Vertical coordinate.
+- `width` : Length.
+- `color` : Color:
+    - `1` : White
+    - `2` : Black
 
 <br></br>
 
 ```python
 display.rect(x,y,width,height,color,fill=false)
 ```
-画矩形。
-- `x` : 横坐标。
-- `y` : 纵坐标。
-- `width` : 长度。
-- `height` : 高度。
-- `color` : 颜色：
-    - `1` : 白色
-    - `2` : 黑色
-- `fill` : 是否填充。
-    - `false` : 不填充
-    - `true` : 填充
+Draws a rectangle.
+- `x` : Horizontal coordinate.
+- `y` : Vertical coordinate.
+- `width` : Length.
+- `height` : Height.
+- `color` : Color:
+    - `1` : White
+    - `2` : Black
+- `fill` : Whether to fill.
+    - `false` : No fill
+    - `true` : Fill
 
 <br></br>
 
 ```python
 display.circle(center_x,center_y,radius,color)
 ```
-画圆形。
-- `center_x` : 圆心横坐标。
-- `center_y` : 圆心纵坐标。
-- `radius` : 半径。
-- `color` : 颜色：
-    - `1` : 白色
-    - `2` : 黑色
+Draws a circle.
+- `center_x` : X-coordinate of center.
+- `center_y` : Y-coordinate of center.
+- `radius` : Radius.
+- `color` : Color:
+    - `1` : White
+    - `2` : Black
 
 <br></br>
 
 ```python
-display.text(string,x,y,font_name=’font5*8.bin’,size=1)
+display.text(string,x,y,font_name='font5*8.bin',size=1)
 ```
-将字符写在指定为位置。
-- `string` : 字符。
-- `x` : 起始横坐标。
-- `y` : 起始纵坐标。
-- `font_name` : 字体。
-- `size` : 尺寸。
+Writes characters at a specified position.
+- `string` : Characters.
+- `x` : Starting horizontal coordinate.
+- `y` : Starting vertical coordinate.
+- `font_name` : Font.
+- `size` : Size.
 
-更多使用方法请看官方文档：
+For more usage methods, refer to the official documentation:
 https://circuitpython.readthedocs.io/projects/framebuf/en/latest/api.html
 
-学习了I2C、OLED对象用法后我们通过编程流程图来理顺一下思路：
+After learning the I2C and OLED object usage, let's organize the approach with a programming flowchart:
 
 ```mermaid
 graph TD
-    导入I2C和OLED模块-->构建I2C和OLED对象-->画点,线,矩形,圆,字符;
+    Import I2C and OLED modules --> Construct I2C and OLED objects --> Draw points, lines, rectangles, circles, characters;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：I2C（OLED显示屏）
-实验平台：核桃派
+Experiment Name: I2C (OLED Display)
+Experiment Platform: WalnutPi
 '''
 
-#导入相关模块
+# Import related modules
 import time,board,busio
 from digitalio import DigitalInOut
 import adafruit_ssd1306
 
 
-#构建I2C对象
+# Construct I2C object
 i2c = busio.I2C(board.SCL1, board.SDA1)
 
-#构建oled对象,配套的OLED地址为0x3C
+# Construct OLED object; the display's address is 0x3C
 display = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C)
 
-#清屏
+# Clear screen
 display.fill(0)
 display.show()
 
-#画点(x,y,color)
+# Draw pixel (x, y, color)
 display.pixel(5, 5, 1)
 
-#画线(x, y, width, color)
+# Draw line (x, y, width, color)
 display.hline(5,10,20,1)
 
-#画矩形(x, y, width, height, color, *, fill=False)
+# Draw rectangle (x, y, width, height, color, *, fill=False)
 display.rect(5, 15, 20, 10, 1)
 
-#画圆
+# Draw circle
 display.circle(50, 15, 10, 1)
 
-#字符
+# Text
 display.text("Hello WalnutPi!", 5, 40, 1,font_name='font5x8.bin')
 
-#窗口打印
+# Refresh display
 display.show()
 print('Done!')
 ```
 
-## 实验结果
+## Result
 
-将OLED显示屏按下面方式接到核桃派GPIO：
+Connect the OLED display to the WalnutPi GPIO as follows:
 
-![i2c_oled3](./img/i2c_oled/i2c_oled3.png) 
+![i2c_oled3](./img/i2c_oled/i2c_oled3.png)
 
-由于OLED代码依赖其它py库，所以需要将整个文件夹文件上传到核桃派：
+Since the OLED code depends on other `.py` library files, you need to upload the entire folder to the WalnutPi:
 
-![i2c_oled4](./img/i2c_oled/i2c_oled4.png) 
+![i2c_oled4](./img/i2c_oled/i2c_oled4.png)
 
-发送成功后需要打开远程目录（核桃派）的main.py来运行，因为运行会导入文件夹里面的其它文件，因此这类型代码在电脑本地运行是无效的。
+After successful transfer, you need to open the remote directory (WalnutPi) and run `main.py`, because running it will import other files in the folder. Therefore, running this type of code locally on a PC is ineffective.
 
-![i2c_oled5](./img/i2c_oled/i2c_oled5.png) 
+![i2c_oled5](./img/i2c_oled/i2c_oled5.png)
 
-然后使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../python_run.md)
+Then use Thonny to remotely run the above Python code on the WalnutPi. For instructions on running Python code on the WalnutPi, please refer to: [Running Python Code](../python_run.md)
 
-![i2c_oled6](./img/i2c_oled/i2c_oled6.png) 
+![i2c_oled6](./img/i2c_oled/i2c_oled6.png)
 
-运行后可以看到OLED显示相关内容：
+After running, you can see the OLED displaying the relevant content:
 
-![i2c_oled7](./img/i2c_oled/i2c_oled7.png) 
+![i2c_oled7](./img/i2c_oled/i2c_oled7.png)

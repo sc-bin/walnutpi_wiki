@@ -2,90 +2,90 @@
 sidebar_position: 2
 ---
 
-# 预装软件
+# Pre-installed Software
 
-核桃派系统预装了一些应用，方便用户使用。本节来简单介绍一下相关软件。软件位于开始菜单栏。
+The WalnutPi system comes pre-installed with some applications for user convenience. This section briefly introduces the relevant software. Applications are located in the Start Menu.
 
-## 编程开发
+## Programming & Development
 
 ![develop](./img/software/develop.png)
 
 ### Geany
-Geany是一个小巧的集成开发环境，是免费的自由软件。核桃派的C编程将会用到Geany。
+Geany is a compact integrated development environment and free open-source software. WalnutPi's C programming tutorials will use Geany.
 
 ### Thonny
-Thonny是一个轻量级的Python IDE。主要做Python编程开发。核桃派的Python嵌入式编程内容主要用到Thonny。Thonny还可以用来给连接到核桃派的MicroPython硬件（pyboard、ESP32等）进行开发。
+Thonny is a lightweight Python IDE, primarily used for Python programming and development. The WalnutPi Python embedded programming content mainly uses Thonny. Thonny can also be used to develop for MicroPython hardware (pyboard, ESP32, etc.) connected to the WalnutPi.
 
-## 互联网
+## Internet
 
 ![internet](./img/software/internet.png)
 
-### chromium浏览器
-谷歌迷你浏览器，用于上网浏览网页，也是核桃派系统默认浏览器。
+### Chromium Browser
+A mini version of Google Chrome for web browsing, and the default browser of the WalnutPi system.
 
 ### VNC Viewer
-VNC客户端，可以远程到装有VNC服务器的电脑桌面。
+A VNC client that can remotely connect to the desktop of a computer running a VNC server.
 
-## 办公
+## Office
 
 ![office](./img/software/office.png)
 
 ### LibreOffice
-这是一款开源的offcie软件，可以在Linux系统下打开和编辑word、excel、PPT等相关文件。
+An open-source office suite that can open and edit Word, Excel, PPT, and other related files on Linux systems.
 
 
-## 图形
+## Graphics
 
 ![picture](./img/software/picture.png)
 
-### Ristretto图片查看器
-Ristretto图片查看器可以用于打开常见的jpg、png文件。
+### Ristretto Image Viewer
+Ristretto Image Viewer can be used to open common jpg and png files.
 
-## 多媒体
+## Multimedia
 
 ![media](./img/software/media.png)
 
-### PulseAudio音量控制
-调节3.5mm音频输出口音量。
+### PulseAudio Volume Control
+Adjusts the volume of the 3.5mm audio output jack.
 
-### VLC媒体播放器
-用于播放MP3、MP4等多媒体文件。
+### VLC Media Player
+Used to play MP3, MP4, and other multimedia files.
 
 
-## 附件
+## Accessories
 
 ![attachment](./img/software/attachment.png)
 
-### 截图
-截图软件。
+### Screenshot
+Screenshot software.
 
-### Mousepad文本
-一款轻量级的文本编辑器。
+### Mousepad Text
+A lightweight text editor.
 
-### Galculator计算器
-计算器
+### Galculator
+Calculator.
 
-## 系统
+## System
 
 ![system](./img/software/system.png)
 
-### 任务管理器
-查看系统CPU、内存使用情况以及打开的进程。
+### Task Manager
+View system CPU and memory usage as well as running processes.
 
-### Xfce终端
-核桃派系统默认终端。
+### Xfce Terminal
+The default terminal of the WalnutPi system.
 
 ### btop
 
-核桃派OS v2.4.0版本起增加了btop系统监控软件。相比于任务管理器拥有更完整的系统信息，而且桌面板和无桌面版系统都可以使用。
+Starting from WalnutPi OS v2.4.0, the btop system monitoring tool has been added. Compared to the Task Manager, it provides more complete system information and can be used on both desktop and non-desktop systems.
 
-桌面版系统运行指令：
+Desktop system command:
 
 ```bash
 btop
 ```
 
-Sever（无桌面版）系统运行指令：
+Server (non-desktop) system command:
 
 ```bash
 btop --utf-force

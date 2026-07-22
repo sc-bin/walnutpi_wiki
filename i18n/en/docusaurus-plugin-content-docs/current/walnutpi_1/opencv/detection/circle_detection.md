@@ -2,85 +2,85 @@
 sidebar_position: 4
 ---
 
-# 圆形检测
+# Circle Detection
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像中的圆形进行检测。
+This section teaches how to use OpenCV to detect circles in an image.
 
-## 实验目的
+## Experiment Objective
 
-检测图像中的线段并画图显示。
+Detect circles in an image and draw them for display.
 
-## 实验讲解
+## Experiment Explanation
 
-OpenCV Python库提供了HoughCircles()函数用于检测图像中的圆形。
+The OpenCV Python library provides the `HoughCircles()` function for detecting circles in an image.
 
-### HoughCircles() 使用方法
+### HoughCircles() Usage
 
 ```python
 circles = cv2.HoughCircles(image, method, dp, minDist, param1, param2, minRadius, maxRadius)
 ```
-圆形检测。返回circles为多个圆形数组（圆心坐标 + 半径）。例：[[x0,y0,r0],[x1,y1,r1]]
-- `iamge` ：原始图像。
-- `method` ：检测方法，默认使用cv2.HOUGH_GRADIENT。
-- `dp` ：累加器分辨率设置，通常为1。
-- `minDist` ：圆心之间最小间距。
-- `param1` ：Canny边缘检测最大阈值（可选）。
-- `param2` ：值越大，检测到的圆越小，越精确（可选）。
-- `minRadius` ：检测圆的最小半径（可选）。
-- `maxRadius` ：检测圆的最大半径（可选）。
+Circle detection. Returns `circles` as an array of multiple circles (center coordinates + radius). Example: `[[x0,y0,r0],[x1,y1,r1]]`
+- `image`: Original image.
+- `method`: Detection method; defaults to `cv2.HOUGH_GRADIENT`.
+- `dp`: Accumulator resolution setting, usually 1.
+- `minDist`: Minimum distance between circle centers.
+- `param1`: Maximum threshold for Canny edge detection (optional).
+- `param2`: The larger the value, the smaller and more precise the detected circles (optional).
+- `minRadius`: Minimum radius of detected circles (optional).
+- `maxRadius`: Maximum radius of detected circles (optional).
 
-读取图像，转化为灰度图，然后进行圆形检测。代码编写流程如下：
+Read the image, convert it to a grayscale image, and then perform circle detection. The code flow is as follows:
 
 ```mermaid
 graph TD
-    读取图像-->转成灰度图-->圆形检测-->显示图像;
+    Read image-->Convert to grayscale-->Circle detection-->Display image;
 ```
 
 <br></br>
 
-参考代码如下:
+The reference code is as follows:
 
 ```python
 '''
-实验名称：圆形检测
-实验平台：核桃派1B
+Experiment Name: Circle Detection
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 import numpy as np
 
-img0 = cv2.imread('circle.jpg') #读取图像
-cv2.imshow('circle2', img0) #显示原图像
+img0 = cv2.imread('circle.jpg') # Read the image
+cv2.imshow('circle2', img0) # Display the original image
 
-#将彩色图像转化为灰度图像（单通道）
+# Convert the color image to a grayscale image (single channel)
 img1 = cv2.cvtColor(img0, cv2.COLOR_BGR2GRAY)
-#cv2.imshow('gray', img1) #显示图像
+#cv2.imshow('gray', img1) # Display the image
 
-#检测圆形
+# Detect circles
 circles = cv2.HoughCircles(img1, cv2.HOUGH_GRADIENT, 1, 50, 100, 20)
 
-#将所有坐标和半信息取整数
+# Convert all coordinate and radius information to integers
 circles = np.uint(np.around(circles))
 
-print(circles) #打印线段信息
+print(circles) # Print circle information
 
-#在原始图像画圆
+# Draw circles on the original image
 for c in circles[0]:    
     x, y, r = c
-    cv2.circle(img0, (x, y), 2, (0,255,0), 3) #画圆心
-    cv2.circle(img0, (x, y), r, (0,255,0), 3) #画圆环
+    cv2.circle(img0, (x, y), 2, (0,255,0), 3) # Draw the center point
+    cv2.circle(img0, (x, y), r, (0,255,0), 3) # Draw the circle outline
 
-cv2.imshow('result', img0) #显示图像
+cv2.imshow('result', img0) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-## 实验结果
+## Experiment Results
 
-在核桃派运行上面代码，实验结果如下, 可以看到圆形物体被检测出来：
+Run the above code on the WalnutPi; the experiment results are as follows. You can see that the circular objects are detected:
 
 ![circle_detection](./img/circle_detection/circle_detection1.png)

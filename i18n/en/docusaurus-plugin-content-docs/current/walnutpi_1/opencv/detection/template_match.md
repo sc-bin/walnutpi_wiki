@@ -2,187 +2,187 @@
 sidebar_position: 5
 ---
 
-# 模板匹配
+# Template Matching
 
-## 前言
+## Introduction
 
-模板匹配是指在图像中找到指定目标物体（或图像），原理是通过目标图像在原始图像上逐个位置进行对比匹配，从而找到目标物体（或图像）在图像上的位置。
+Template matching refers to finding a specified target object (or image) within an image. The principle is to compare and match the target image against the original image at each position sequentially, thereby finding the position of the target object (or image) within the image.
 
 ![template_match](./img/template_match/template_match1.png)
 
-## 实验目的
+## Experiment Objective
 
-通过模板匹配找到图片中指定图像（物体）。本实验实现在下面图片中找出数字2。
+Use template matching to find a specified image (object) within an image. This experiment aims to find the digit "2" in the following image.
 
 ![template_match](./img/template_match/template_match2.jpg)
 
-在上图截取了数字2作为模板图片。
+A cropped image of the digit "2" from the above image is used as the template image.
 
 ![template_match](./img/template_match/template_match3.png)
 
 
-## 实验讲解
+## Experiment Explanation
 
-OpenCV Python库提供了matchTemplate()函数用于模板匹配。实际应用有单目标匹配和多目标匹配，单目标匹配表示只找一个最接近的，多目标匹配表示在图像中找到多个近似的物体（或图像）。
+The OpenCV Python library provides the `matchTemplate()` function for template matching. Practical applications include single-target matching and multi-target matching. Single-target matching finds only the closest match, while multi-target matching finds multiple approximate objects (or images) in an image.
 
-### HoughCircles() 使用方法
+### matchTemplate() Usage
 
 ```python
 result = cv2.matchTemplate(image, templ, method, mask)
 ```
-模板匹配。返回result为二维数组。可通过代码print查看。
-- `iamge` ：原始图像。
-- `templ` ：模板图像，尺寸必须小于或等于原始图像。
-- `method` ：匹配方法。
-    - `cv2.TM_SQDIFF` ：0, 差值平方和匹配（平方差匹配），匹配程度越高，计算结果越小，完全匹配结果为0。
-    - `cv2.TM_SQDIFF_NORMED` ：1, 标准差值平方和匹配（标准平方差匹配），匹配程度越高，计算结果越小，完全匹配结果为0。
-    - `cv2.TM_CCORR` ：2, 相关匹配，匹配程度越高，计算结果越大。
-    - `cv2.TM_CCORR_NORMED` ：3, 标准相关匹配，匹配程度越高，计算结果越大。
-    - `cv2.TM_CCOEFF` ：4, 相关系数匹配，计算结果为-1~1的浮点数。1表示完全匹配，0表示完全不匹配，-1表示模板和原图亮度相反。
-    - `cv2.TM_CCOEFF_NORMED` ：5, 标准相关系数匹配，计算结果为-1~1的浮点数。1表示完全匹配，0表示完全不匹配，-1表示模板和原图亮度相反。
-- `mask` ：掩膜（可选参数），建议使用默认值。
+Template matching. Returns `result` as a two-dimensional array, which can be viewed by printing with code.
+- `image`: Original image.
+- `templ`: Template image; its size must be smaller than or equal to the original image.
+- `method`: Matching method.
+    - `cv2.TM_SQDIFF`: 0, Sum of Squared Differences matching (SSD matching). The higher the match, the smaller the result. A perfect match results in 0.
+    - `cv2.TM_SQDIFF_NORMED`: 1, Normalized Sum of Squared Differences matching. The higher the match, the smaller the result. A perfect match results in 0.
+    - `cv2.TM_CCORR`: 2, Correlation matching. The higher the match, the larger the result.
+    - `cv2.TM_CCORR_NORMED`: 3, Normalized correlation matching. The higher the match, the larger the result.
+    - `cv2.TM_CCOEFF`: 4, Correlation coefficient matching. The result is a floating-point number between -1 and 1. 1 indicates a perfect match, 0 indicates no match, -1 indicates the template and original image have opposite brightness.
+    - `cv2.TM_CCOEFF_NORMED`: 5, Normalized correlation coefficient matching. The result is a floating-point number between -1 and 1. 1 indicates a perfect match, 0 indicates no match, -1 indicates the template and original image have opposite brightness.
+- `mask`: Mask (optional parameter); it is recommended to use the default value.
  
-## 单目标匹配
+## Single-Target Matching
 
-单目标匹配只寻找一个最优结果。
+Single-target matching finds only one optimal result.
 
-matchTemplate()计算结果是一个二维数组，单目标匹配通过minMaxLoc()函数来解析这个数组坐标值。
+The `matchTemplate()` calculation result is a two-dimensional array. Single-target matching parses this array's coordinate values using the `minMaxLoc()` function.
 
 ```python
 minValue, maxValue, minLoc, maxLoc = cv2.minMaxLoc(src, mask)
 ```
-参数说明：
-- `src` ：matchTemplate()计算结果。
-- `mask` ：掩膜（可选参数），建议使用默认值。
+Parameter descriptions:
+- `src`: Calculation result from `matchTemplate()`.
+- `mask`: Mask (optional parameter); it is recommended to use the default value.
 
-返回结果：
-- `minValue` ：数组中最小值。
-- `maxValue` ：数组中最大值。
-- `minLoc` ：最小值坐标，格式为(x,y)。
-- `maxLoc` ：最大值坐标，格式为(x,y)。
+Return values:
+- `minValue`: Minimum value in the array.
+- `maxValue`: Maximum value in the array.
+- `minLoc`: Coordinates of the minimum value, in the format (x, y).
+- `maxLoc`: Coordinates of the maximum value, in the format (x, y).
 
-以`cv2.TM_SQDIFF_NORMED`标准平方差匹配为例，计算结果越小，匹配程度越高，因此minValue为匹配最优结果，minLoc为匹配区域左上角坐标，尺寸和模板尺寸一致。
+Using `cv2.TM_SQDIFF_NORMED` normalized squared differences matching as an example: the smaller the result, the higher the match. Therefore, `minValue` is the best matching result, and `minLoc` is the upper-left corner coordinate of the matching region, which has the same size as the template.
 
 
-单目标匹配代码编写流程如下：
+The single-target matching code flow is as follows:
 
 ```mermaid
 graph TD
-    读取原始图像-->读取模板图像-->进行单目标匹配-->显示结果图像;
+    Read original image-->Read template image-->Perform single-target matching-->Display result image;
 ```
 
 <br></br>
 
-### 参考代码
+### Reference Code
 
-参考代码如下:
+The reference code is as follows:
 
 ```python
 '''
-实验名称：模板匹配(单目标)
-实验平台：核桃派1B
+Experiment Name: Template Matching (Single Target)
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 import numpy as np
 
-img = cv2.imread('number.jpg') #读取原始图像
-temp = cv2.imread('2.jpg') #读取模板图像
+img = cv2.imread('number.jpg') # Read the original image
+temp = cv2.imread('2.jpg') # Read the template image
 
-h, w, c = temp.shape #获取模板图像信息，高、宽、通道数
+h, w, c = temp.shape # Get template image information: height, width, number of channels
 
-#使用标准平方差方式匹配，结果越小，匹配度越大
+# Use normalized squared differences matching; the smaller the result, the higher the match
 result = cv2.matchTemplate(img, temp, cv2.TM_SQDIFF_NORMED)
 
-print(result) #打印结果
+print(result) # Print the result
 
-#单目标匹配计算,最小值minValue为匹配结果，minLoc为匹配结果左上角坐标
+# Single-target matching calculation: minValue is the matching result, minLoc is the upper-left corner coordinate of the match
 minValue, maxValue, minLoc, maxLoc = cv2.minMaxLoc(result)
 
-#画矩形用于展示
-p1 = minLoc #矩形左上角坐标
-p2 = (p1[0] + w, p1[1] + h) #矩形右下角坐标
+# Draw a rectangle for display
+p1 = minLoc # Upper-left corner coordinate of the rectangle
+p2 = (p1[0] + w, p1[1] + h) # Lower-right corner coordinate of the rectangle
 cv2.rectangle(img, p1, p2, (0, 0, 255),2)
 
-cv2.imshow('result', img) #显示图像
+cv2.imshow('result', img) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-### 实验结果
+### Experiment Results
 
-在核桃派运行上面代码，实验结果如下, 可以看到数字2模板图片被检测出来，结果只有1个（单目标）：
+Run the above code on the WalnutPi; the experiment results are as follows. You can see that the digit "2" template image is detected, and there is only one result (single target):
 
 ![template_match](./img/template_match/template_match4.png)
 
-通过打印匹配结果可以看到matchTemplate()函数返回结果本质是一堆数字，再通过minMaxLoc()函数找到这个结果里面的最小值。
+By printing the matching result, you can see that the `matchTemplate()` function's return result is essentially a bunch of numbers, and the `minMaxLoc()` function then finds the minimum value within this result.
 
 ![template_match](./img/template_match/template_match5.png)
 
 
 
-## 多目标匹配
+## Multi-Target Matching
 
-多目标匹配可根据指定参数（识别值）寻找多个结果。
+Multi-target matching can find multiple results based on a specified parameter (recognition value).
 
-matchTemplate()计算结果是一个二维数组，多目标匹配可以通过这个结果每一组数据里面的相关系数跟设定值来判断目标是否匹配。
+The `matchTemplate()` calculation result is a two-dimensional array. Multi-target matching determines whether a target matches by comparing the correlation coefficient in each set of data from this result with a set value.
 
-这里使用`cv2.TM_CCORR_NORMED`标准相关匹配，计算结果越大，匹配程度越高。代码编写流程如下：
+Here, we use `cv2.TM_CCORR_NORMED` normalized correlation matching: the larger the result, the higher the match. The code flow is as follows:
 
 ```mermaid
 graph TD
-    读取原始图像-->读取模板图像-->进行多目标匹配-->显示结果图像;
+    Read original image-->Read template image-->Perform multi-target matching-->Display result image;
 ```
 
 <br></br>
 
-### 参考代码
+### Reference Code
 
-参考代码如下:
+The reference code is as follows:
 
 ```python
 '''
-实验名称：模板匹配(多目标)
-实验平台：核桃派1B
+Experiment Name: Template Matching (Multi Target)
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 import numpy as np
 
-img = cv2.imread('number.jpg') #读取原始图像
-temp = cv2.imread('2.jpg') #读取模板图像
+img = cv2.imread('number.jpg') # Read the original image
+temp = cv2.imread('2.jpg') # Read the template image
 
-h, w, c = temp.shape #获取模板图像信息，高、宽、通道数
+h, w, c = temp.shape # Get template image information: height, width, number of channels
 
-#使用标准相关匹配，结果越大，匹配度越大
+# Use normalized correlation matching; the larger the result, the higher the match
 result = cv2.matchTemplate(img, temp, cv2.TM_CCORR_NORMED)
 
-print(result) #打印结果
+print(result) # Print the result
 
-#计算匹配结果并画矩形
-num = 0 #用于计算匹配结果数量
-for y in range(len(result)): #遍历每行
-    for x in range(len(result[y])): #遍历每列
+# Calculate matching results and draw rectangles
+num = 0 # Used to count the number of matching results
+for y in range(len(result)): # Iterate over each row
+    for x in range(len(result[y])): # Iterate over each column
         
-        if result[y][x] > 0.999: #可修改(需要小于1)，数值越大，匹配度精度高，得到的结果减少。
+        if result[y][x] > 0.999: # Can be modified (must be less than 1); the larger the value, the higher the precision, and the fewer results obtained.
             
-            cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255),2) #画矩形
+            cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255),2) # Draw a rectangle
             
             num = num + 1 
 
-print(num)  #计算匹配结果，可通过修改参数为0.9, 0.999观察数量。
+print(num)  # Calculate the number of matching results; you can observe the count by modifying the parameter to 0.9 or 0.999.
 
-cv2.imshow('result', img) #显示结果图像
+cv2.imshow('result', img) # Display the result image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-### 实验结果
+### Experiment Results
 
-在核桃派运行上面代码，实验结果如下, 可以看到数字2模板图片被检测出来：
+Run the above code on the WalnutPi; the experiment results are as follows. You can see that the digit "2" template image is detected:
 
 ![template_match](./img/template_match/template_match6.png)

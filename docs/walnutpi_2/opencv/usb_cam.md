@@ -4,8 +4,6 @@ sidebar_position: 8
 
 # USB摄像头使用
 
-# USB摄像头使用
-
 摄像头相当于OpenCV的眼睛，有了摄像头，就可以实时处理摄像头采集的视频流和图片，在上面实现图像处理和机器视觉算法。
 
 核桃派系统内置USB摄像头驱动。市面上大部分USB CAM都可以使用，这里使用下面这款讲解：[**点击购买->**](https://item.taobao.com/item.htm?spm=a213gs.success.result.1.6c854831c6UKif&id=740242931183) 

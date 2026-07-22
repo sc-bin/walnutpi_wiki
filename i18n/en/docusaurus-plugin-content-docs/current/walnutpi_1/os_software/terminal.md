@@ -2,120 +2,128 @@
 sidebar_position: 3
 ---
 
-# 终端和常用命令
+# Terminal & Common Commands
 
-- **视频教程**
+- **Video Tutorial**
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1703287790&bvid=BV1xT42127X3&cid=1510989358&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
 <br></br>
 <br></br>
 
-## 桌面系统打开终端
-终端（Termianal）要追溯到早期的计算机时代，那时候还没有可视化桌面，很多计算机操作都是通过终端命令完成。 到现在我们依然很多场合和调试会用到，掌握 linux 常用终端命令，能让你的开发工作事半功倍。**（无桌面系统启动后就只显示这个终端）**
+## Opening Terminal in Desktop System
 
-在启动栏中点击第3项 **“终端”** 按钮即可打开终端。**浏览器、文件管理器、终端**
+The Terminal dates back to the early days of computing, when there were no visual desktops and many computer operations were performed through terminal commands. Even today, we use terminals in many scenarios and for debugging. Mastering common Linux terminal commands can make your development work much more efficient. **(The non-desktop system only displays this terminal after booting.)**
+
+Click the third item **"Terminal"** in the Launch Bar to open the terminal. Items are: **Browser, File Manager, Terminal**
+
 ![terminal](./img/terminal/terminal.png)
 
-在终端中首先看到的是提示符，它正在等待您的指示。 提示运行如下：
+The first thing you see in the terminal is the prompt, waiting for your instructions. The prompt appears as follows:
 
 <font color='#06fe00'>pi@WalnutPi</font>:~$
 
-pi 表示用户名; 
+pi indicates the username; 
 
-@后面的 WalnutPi 表示主机名; 
+@ followed by WalnutPi indicates the hostname; 
 
-~后面表示当前目录; 
+~ indicates the current directory; 
 
-**$**表示非特权用户。
+**$** indicates a non-privileged user.
 
-我们来简单测试一下终端，在终端输入 ls ,按回车，可以看到列出了当前目录下的文件和文件夹名称（**无桌面系统pi目录下默认没有文件**）：
+Let's do a simple terminal test. Enter `ls` in the terminal and press Enter. You will see a listing of files and folder names in the current directory (**the non-desktop system has no files in the pi directory by default**):
+
 ```bash
 ls
 ```
 ![ls](./img/terminal/ls.png)
 
-输入 cd Desktop ,按回车，可以看到提示当前目录变成了 Desktop（桌面下）。
+Enter `cd Desktop` and press Enter. You will see the prompt change, indicating the current directory is now Desktop.
+
 ```bash
 cd Desktop
 ```
 ![cd](./img/terminal/cd.png)
 
-## 调试串口打开终端
+## Opening Terminal via Debug Serial Port
 
-通过核桃派预留的串口终端排针通过USB转TTL工具连接到电脑，然后使用putty这类终端软件登录 ：
+Connect to the computer using a USB-to-TTL adapter via the serial terminal header pins reserved on the WalnutPi, then log in using terminal software such as PuTTY:
 
-:::tip 提示
+::::tip Note
 
-当系统无法正常启动时可以使用此功能观察启动信息。注意TX,RX是交叉接线，有电平切换功能的USB TTL工具需要将电平切换到3.3V。
+When the system fails to boot normally, you can use this feature to observe boot messages. Note that TX and RX are cross-wired, and USB TTL tools with voltage switching functionality must be set to 3.3V.
 
-:::
+::::
 
 ![debug1](./img/terminal/debug1.png)
 
-:::tip 提示
+::::tip Note
 
-如果你使用的ZeroW，可以通过接扩展板的调试串口，或者通过修改config.txt文件调试串口号实现使用40P排针上的uart2来实现终端信息输出。
-[config.txt设置调试串口教程](../os_software/config.txt#设置串口终端位置)
+If you are using a ZeroW, you can connect via the expansion board's debug serial port, or modify the config.txt file to change the debug serial port number, enabling terminal output via uart2 on the 40-pin header.
+[config.txt Debug Serial Port Settings Tutorial](../os_software/config.txt#set-serial-terminal-location)
 
-:::
+::::
 
-在设备管理器可以看到设备的COM号：
+In Device Manager, you can see the device's COM port number:
 
 ![debug2](./img/terminal/debug2.png)
 
-打开putty软件:
+Open PuTTY:
 
 ![debug3](./img/terminal/debug3.png)
 
-输入刚刚查看到自己电脑的COM号，然后波特率是：115200，点击open:
+Enter the COM port number you found for your computer, set the baud rate to 115200, and click Open:
 
 ![debug4](./img/terminal/debug4.png)
 
-然后出现账号密码输入提示，普通用户账户密码都输入"pi"即可。**如果没出现可以按一下键盘回车键试试**。登录成功就就出现核桃派终端相关信息。
+Then a username and password prompt will appear. Enter "pi" for both the regular user account and password. **If nothing appears, try pressing the Enter key.** After successful login, the WalnutPi terminal information will be displayed.
 
 ![debug5](./img/terminal/debug5.png)
 
-## 用户切换
-核桃派系统预设2个用户。分别是：
-- **普通账户(桌面系统默认启动)** 用户名：pi 密码：pi
-- **管理员** 用户名：root 密码：root
+## User Switching
 
-有些终端命令需要通过管理员才可以执行，我们可以在终端通过 **sudo + 指令** 来执行。如果想直接在终端切换成管理员账户可以使用 su 指令来实现。
+The WalnutPi system has 2 preset users:
 
-**切换为管理员：**在终端输入su，按回车，然后在弹出的Password:后面输入密码 **root**,（密码不会显示，注意大小写），再按回车当前终端即可进入管理员用户。
+- **Regular Account (default for desktop system)** Username: pi Password: pi
+- **Administrator** Username: root Password: root
+
+Some terminal commands require administrator privileges to execute. You can run them using **sudo + command** in the terminal. To directly switch to the administrator account in the terminal, use the `su` command.
+
+**Switch to administrator:** Enter `su` in the terminal, press Enter, and then at the Password: prompt enter the password **root** (the password is not displayed, mind the case). Press Enter again, and the current terminal session will switch to the administrator user.
+
 ```bash
 su
 ```
 ![usr1](./img/terminal/usr1.png)
 
-**切换为普通用户：**在终端输入su加用户名按回车即可，如切换为pi用户可输入下面命令：
+**Switch to regular user:** Enter `su` followed by the username and press Enter. For example, to switch to the pi user, enter:
+
 ```bash
 su pi
 ```
 ![usr2](./img/terminal/usr2.png)
 
-## 常用Linux命令
+## Common Linux Commands
 
-|  编号 | 命令 | 命令长称 | 功能 |  
+|  No. | Command | Full Name | Function |  
 |  :---:  | :---:  | ---  | ---  |
-| 1  | ls | list | 列出当前目录下的文件 |
-| 2  | pwd | print working directory | 输出当前目录 |
-| 3  | cd | change directory | 改变目录 |
-| 4  | mkdir | make directory | 新建目录 |
-| 5  | cat | concatenate | 显示或连接文件内容 |
-| 6  | rm | remove | 删除文件 |
-| 7  | rmdir | remove directory | 删除目录 |
-| 8  | mv | move | 移动/重命名文件或目录 |
-| 9  | cp | copy | 复制文件或目录 |
-| 10  | echo |   | 显示在终端输入内容 |
-| 11  | date |  | 读取系统日期和时间 |
-| 12  | grep | global search regular <br></br> expression and print | 全面搜索正则表达式并打印 |
-| 13  | man | manual  | 显示命令使用手册 |
-| 14  | sudo | super user do | 以root权限执行 |
-| 15  | chomod | change mode | 改变文件读写权限 |
-| 16  | ./program |   | 运行program程序 |
-| 17  | apt | advance package tool | 安装/删除软件包 |
-| 18  | exit |  | 退出 |
-| 19  | reboot |   | 重启 |
-| 20 | poweroff |  | 关机 |
+| 1  | ls | list | List files in the current directory |
+| 2  | pwd | print working directory | Output current directory |
+| 3  | cd | change directory | Change directory |
+| 4  | mkdir | make directory | Create a new directory |
+| 5  | cat | concatenate | Display or concatenate file contents |
+| 6  | rm | remove | Delete files |
+| 7  | rmdir | remove directory | Delete directories |
+| 8  | mv | move | Move/rename files or directories |
+| 9  | cp | copy | Copy files or directories |
+| 10  | echo |   | Display input content in terminal |
+| 11  | date |  | Read system date and time |
+| 12  | grep | global search regular <br></br> expression and print | Search regular expressions comprehensively and print |
+| 13  | man | manual  | Display command manual |
+| 14  | sudo | super user do | Execute with root privileges |
+| 15  | chmod | change mode | Change file read/write permissions |
+| 16  | ./program |   | Run the program |
+| 17  | apt | advance package tool | Install/remove software packages |
+| 18  | exit |  | Exit |
+| 19  | reboot |   | Restart |
+| 20 | poweroff |  | Shutdown |

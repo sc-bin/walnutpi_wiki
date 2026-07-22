@@ -2,68 +2,65 @@
 sidebar_position: 2
 ---
 
-# Home Assistant安装
+# Installing Home Assistant
 
-开始使用Home Assistant的第一步就是将它安装到设备上，本章提供多种安装方法供用户选择。
+The first step to using Home Assistant is to install it on your device. This chapter provides multiple installation methods for users to choose from.
 
-镜像、安装包和相关资料下载：
+Image, installation package and related materials download:
 
-- 百度网盘下载
+- Baidu Netdisk Download
 
-百度网盘链接：https://pan.baidu.com/s/1g069bvqYN0xQDPcXTzelaA?pwd=WPKJ
+Baidu Netdisk link: https://pan.baidu.com/s/1g069bvqYN0xQDPcXTzelaA?pwd=WPKJ
 
-提取码：**WPKJ**
+Extraction code: **WPKJ**
 
-- QQ群文件下载
+- QQ Group File Download
 
-核桃派开源互助群:  **677173708**
+WalnutPi Open Source Support Group: **677173708**
 
-:::tip 提示
-在Q群将群文件转发给自己设备或其它QQ即可高速下载。
-:::
+::::tip Note
+Forward the group files to your own device or another QQ account in the group for high-speed downloads.
+::::
 
-## 用核桃派开发板DIY
+## DIY with WalnutPi Development Board
 
-核桃派是一款迷你低成本的单板计算机，对于已经购买核桃派1B等Linux开发板用户可以在核桃派系统上自行安装Home Assistant。
+WalnutPi is a mini, low-cost single-board computer. For users who have already purchased WalnutPi 1B or other Linux development boards, you can install Home Assistant on your WalnutPi system.
 
+### Using Image Installation
 
-### 使用镜像安装
+WalnutPi officially provides images pre-installed with Home Assistant, fully adapted for all WalnutPi Linux development boards. Simply flash the image and power on to get started. Refer to the [**System Image Flashing**](../getting_start/os-install.md#using-rufus-to-flash-recommended) section for flashing methods.
 
-核桃派官方提供预装Home Assitant的镜像，已适配所有核桃派Linux开发板，用户烧录镜像后上电启动即可。镜像烧录方法参考：[**系统镜像烧录**](../getting_start/os-install.md#使用rufus烧录推荐) 章节内容。
+The WalnutPi 1B 2G/4G RAM version can use the Home Assistant Desktop or Server edition image; the 1G version has limited memory and can only use the Home Assistant Server edition image. **It is recommended to use the 2G/4G version — having a desktop environment makes initial configuration easier for beginners.**
 
+### Using Package Installation
 
-核桃派1B 2G/4G内存版本可使用Home Assistant Desktop版或Serve版镜像；1G版本内存有限，只能使用Home Assistant Serve版镜像；**推荐使用2G/4G版本开发板，带桌面新手配置起来会更方便。**
+For users who are already using WalnutPi and want to keep their existing operating system and configuration, you can install using the official WalnutPi installation package. This primarily involves installing Docker and the Home Assistant image. Ensure your device is connected to the internet during the installation process.
 
-
-### 使用软件包安装
-
-对于正在使用核桃派并且想保留现有操作系统和配置的用户可以使用核桃派官方提供的安装包安装。主要是安装docker和home assistant镜像, 保证在安装过程中已经连接互联网。
-
-将资料包的安装包使用U盘拷贝到核桃派：
+Copy the installation package from the materials to your WalnutPi using a USB drive:
 
 ![install](./img/install/install1.png)
 
 ![install](./img/install/install2.png)
 
-拷贝完成后在核桃派开发板这个安装包文件夹里面新建一个终端：
+After copying, open a terminal inside the installation package folder on the WalnutPi development board:
 
 ![install](./img/install/install3.png)
 
-#### 安装Docker
+#### Installing Docker
 
-解压docker安装包：
+Extract the Docker installation package:
 
 ```bash
 unzip docker-ce_25.zip
 ```
 
-进入文件夹：
+Enter the folder:
 
 ```bash
 cd docker-ce_25
 ```
 
-安装所有包：
+Install all packages:
 
 ```bash
 sudo apt install -y ./*
@@ -71,9 +68,9 @@ sudo apt install -y ./*
 
 ![install](./img/install/install4.png)
 
-#### 安装Home Assistant
+#### Installing Home Assistant
 
-安装前置软件：
+Install prerequisite software:
 
 ```bash
 sudo apt update
@@ -83,34 +80,35 @@ sudo apt update
 sudo apt install apparmor cifs-utils curl dbus jq libglib2.0-bin lsb-release network-manager nfs-common systemd-journal-remote systemd-resolved udisks2 wget -y
 ```
 
-**重启**，因为systemd-resolved这个软件在安装时会修改网络配置：
+**Reboot**, because the systemd-resolved package modifies network configuration during installation:
 
 ```bash
 sudo reboot
 ```
 
-重启完成后再次打开安装包文件夹，在homeassistant离线安装包目录下打开终端：
+After the reboot, open the installation package folder again and open a terminal in the homeassistant offline installation package directory:
 
 ![install](./img/install/install5.png)
 
-使用下面指令安装，不同版本文件名可能不一样，（输入文件名前面几个字符后可使用tab补全）：
+Use the following command to install. The filename may vary by version (you can type the first few characters and use Tab to auto-complete):
+
 ```bash
 sudo apt install ./homeassistant-supervised-offline_20240311_arm64.deb
 ```
 
-安装过程大概20分钟。
+The installation process takes approximately 20 minutes.
 
 ![install](./img/install/install6.png)
 
 <br></br>
 
-- **安装Home Assistant LED状态指示灯（可选）**
+- **Install Home Assistant LED Status Indicator (Optional)**
 
-安装后核桃派开发板启动后LED蓝灯闪烁，等待Home Assistant准备就绪后常亮。方便观察Home Assistant主机工作状态，有需要用户可以安装。
+After installation, the blue LED on the WalnutPi board will blink during startup and remain solid once Home Assistant is ready, making it easy to observe the Home Assistant host's working status. Users who need this can install it.
 
 ![install](./img/install/install7.png)
 
-安装指令：
+Installation command:
 
 ```bash
 sudo apt install ./hass-status-led.deb
@@ -118,29 +116,28 @@ sudo apt install ./hass-status-led.deb
 
 <br></br>
 
-- **安装开发板按键长按关机功能（可选）**
+- **Install Long-Press Button Shutdown Function (Optional)**
 
-安装后长按核桃派1B上按键6秒，LED闪烁，开发板执行安全关机。因为直接断电开发板可能会丢失数据，有需要用户可以安装。
+After installation, press and hold the button on the WalnutPi 1B for 6 seconds — the LED will blink and the development board will perform a safe shutdown. Since directly cutting power may cause data loss, users who need this can install it.
 
 ![install](./img/install/install8.png)
 
-安装指令：
+Installation command:
 
 ```bash
 sudo apt install ./powerdown-key_walnutpi1b.deb
 ```
 <br></br>
 
-
-**安装完成后务必重启核桃派开发板：**
+**After installation, be sure to reboot the WalnutPi development board:**
 
 ```bash
 sudo reboot
 ```
 <br></br>
 
-:::danger 警告
-在核桃派**桌面版系统**使用Home Assistant需要将Blue man蓝牙应用关闭，并取消开机启动。因为这个应用会跟Home Assistant调用蓝牙冲突，导致内存持续泄漏。（自行安装方式需要执行这个操作，Home Assistant镜像出厂默认已关闭。）
+::::danger Warning
+When using Home Assistant on the WalnutPi **Desktop Edition system**, you need to close the BlueMan Bluetooth application and disable it from starting at boot. This application conflicts with Home Assistant's Bluetooth calls, causing continuous memory leaks. (This operation is required for manual installation; Home Assistant images have this disabled by default at the factory.)
 
 ![install](./img/install/install14.png)
 
@@ -148,6 +145,6 @@ sudo reboot
 
 ![install](./img/install/install16.png)
 
-:::
+::::
 
-安装完成后下一节开始初始化配置。
+After installation is complete, proceed to the next section for initial configuration.

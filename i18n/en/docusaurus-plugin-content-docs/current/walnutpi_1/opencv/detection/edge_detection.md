@@ -2,68 +2,68 @@
 sidebar_position: 2
 ---
 
-# 边缘检测
+# Edge Detection
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像进行边缘检测功能，使用Canny边缘检测算法，相对于前面轮廓检测，这里只需要简单几行代码便可实现。
+This section teaches how to use OpenCV for image edge detection using the Canny edge detection algorithm. Compared to the previous contour detection, this can be achieved with just a few lines of code.
 
-## 实验目的
+## Experiment Objective
 
-图像边缘检测并显示。
+Detect image edges and display them.
 
-## 实验讲解
+## Experiment Explanation
 
-OpenCV Python库提供了Canny()函数实现边缘检测功能。
+The OpenCV Python library provides the `Canny()` function for edge detection.
 
-### Canny() 使用方法
+### Canny() Usage
 
 ```python
 edges = cv2.Canny(image, threshold1, threshold2, apertureSize, L2gradient)
 ```
 
-Canny边缘检测。返回edges为二值图像。
-- `iamge` ：原始图像。
-- `threshold1` ：计算使用的第1个阈值，通常是最小阈值。
-- `threshold2` ：计算使用的第2个阈值，通常是最大阈值。
+Canny edge detection. Returns `edges` as a binary image.
+- `image`: Original image.
+- `threshold1`: The first threshold used for computation, usually the minimum threshold.
+- `threshold2`: The second threshold used for computation, usually the maximum threshold.
 
-从上面可知道Canny方法使用非常简单，我们只需要根据需求设定好合适的阈值即可，我们可以使用2组阈值来对比实验。代码编写流程如下：
+From the above, we can see that the Canny method is very simple to use. We just need to set appropriate thresholds according to our needs. We can use two sets of thresholds for comparison experiments. The code flow is as follows:
 
 ```mermaid
 graph TD
-    读取图像-->使用2组阈值进行边缘检测-->显示图像;
+    Read image-->Perform edge detection with two sets of thresholds-->Display images;
 ```
 
 <br></br>
 
-参考代码如下:
+The reference code is as follows:
 
 ```python
 '''
-实验名称：边缘检测
-实验平台：核桃派1B
+Experiment Name: Edge Detection
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 
-img = cv2.imread('lenna.jpg') #读取图像，原图观察用
-cv2.imshow('lenna', img) #显示原图像
+img = cv2.imread('lenna.jpg') # Read the image for original observation
+cv2.imshow('lenna', img) # Display the original image
 
-#第1组阈值边缘检测
+# First set of threshold edge detection
 e1 = cv2.Canny(img, 20, 60)
-cv2.imshow('e1', e1) #显示原图像
+cv2.imshow('e1', e1) # Display the image
 
-#第2组阈值边缘检测
+# Second set of threshold edge detection
 e2 = cv2.Canny(img, 200, 400)
-cv2.imshow('e2', e2) #显示原图像
+cv2.imshow('e2', e2) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-## 实验结果
+## Experiment Results
 
-在核桃派运行上面代码，可以2组阈值的边缘检测结果如下图，不同阈值会导致检测的细节程度不一样：
+Run the above code on the WalnutPi, and you can see the edge detection results for the two sets of thresholds shown below. Different thresholds result in different levels of detail in the detection:
 
 ![edge_detection](./img/edge_detection/edge_detection1.png)

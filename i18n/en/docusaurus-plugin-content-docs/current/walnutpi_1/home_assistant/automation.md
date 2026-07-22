@@ -2,23 +2,23 @@
 sidebar_position: 8
 ---
 
-# 自动化
+# Automation
 
-在前面我们新增了很多设备和实体，本节的自动化功能，就是实现这些设备、实体和事件之间的联动。
+In the previous sections, we added many devices and entities. The Automation feature in this section is used to create coordinated actions between these devices, entities, and events.
 
-自动化由3个关键组件组成：
+Automations consist of three key components:
 
-1. 触发器 - 启动自动化的事件。例如，当太阳落山或运动传感器被激活时。
-2. 条件 - 操作必须满足的可选测试可以运行。例如，如果有人在家。
-3. 操作 - - 与设备交互。例如开灯。
+1. Triggers - Events that start an automation. For example, when the sun sets or a motion sensor is activated.
+2. Conditions - Optional tests that must be met for actions to run. For example, if someone is home.
+3. Actions - Interactions with devices. For example, turning on a light.
 
-## 按键和LED
+## Button and LED
 
-在MQTT集成里面我们新增了LED和按键实体，他们都是使用Home Assistant界面控制的，这里我们就通过添加一个自动化，实现核桃派1B开发板上按键按下改变LED亮灭状态，来学习Home Assistant的自动化使用。
+In the MQTT integration, we added LED and button entities, both controlled through the Home Assistant interface. Here, we will add an automation so that pressing the button on the WalnutPi 1B development board toggles the LED on and off, as a way to learn how to use Home Assistant automations.
 
-LED和按键实体添加教程参考教程：[LED](../home_assistant/mqtt/device_entity/led.md) 和 [按键](../home_assistant/mqtt/device_entity/key.md) ，这里不再重复。
+For LED and button entity addition tutorials, refer to: [LED](../home_assistant/mqtt/device_entity/led.md) and [Button](../home_assistant/mqtt/device_entity/key.md) — not repeated here.
 
-将上面例程的LED和按键代码拷贝到核桃派1B开发板， 可以在终端使用下面指令同时运行2个代码，将实体注册到Home Assistant：
+Copy the LED and button code from the above examples to the WalnutPi 1B development board. You can use the following command in the terminal to run both scripts simultaneously and register the entities with Home Assistant:
 
 ```bash
 sudo python led.py & sudo python key.py
@@ -26,93 +26,93 @@ sudo python led.py & sudo python key.py
 
 ![automation](./img/automation/automation1.png)
 
-更多python脚本代码运行方法可以参考教程：[运行Python代码](../python/python_run.md)
+For more methods of running Python scripts, refer to the tutorial: [Running Python Code](../python/python_run.md)
 
-运行代码成功后打开Home Assistant MQTT设备，可以看到新增的2个实体：
+After successfully running the code, open the Home Assistant MQTT device section — you can see the 2 newly added entities:
 
 ![automation](./img/automation/automation2.png)
 
-接下来开始设置自动化，点击**配置--自动化与场景**：
+Next, let's set up the automation. Click **Configuration -- Automations & Scenes**:
 
 ![automation](./img/automation/automation3_1.png)
 <br></br>
 
-然后点击右下角`创建自动化`：
+Then click `Create Automation` in the lower-right corner:
 
 ![automation](./img/automation/automation3_2.png)
 <br></br>
 
-点击 **创建新的自动化**：
+Click **Create New Automation**:
 
 ![automation](./img/automation/automation4.png)
 <br></br>
 
-点击 **添加触发器** ，选择 **其它触发器**：（因为Home Assistant的设备触发器不支持按键设备，所以我们可以使用MQTT消息来触发。）
+Click **Add Trigger**, then select **Other Triggers**: (Because Home Assistant's device triggers do not support button devices, we can use MQTT messages to trigger.)
 
 ![automation](./img/automation/automation5.png)
 <br></br>
 
-搜索 “mqtt” ， 然后点击 **+** 新增：
+Search for "mqtt", then click **+** to add:
 
 ![automation](./img/automation/automation6.png)
 <br></br>
 
-在弹出的窗口填写MQTT主题和消息，从[按键](../home_assistant/mqtt/device_entity/key.md)实验中可以看到核桃派1B按键按下时候发布的主题和代码如下：
+In the popup window, fill in the MQTT topic and message. From the [Button](../home_assistant/mqtt/device_entity/key.md) experiment, you can see the topic and message published when the WalnutPi 1B button is pressed:
 
 ![automation](./img/automation/automation7.png)
 <br></br>
 
-MQTT主题：
+MQTT Topic:
 ```
 1b_key/event/state
 ```
-MQTT消息：
+MQTT Message:
 ```
 {"event_type":"press"}
 ```
 
-将上面的主题和消息填写到触发器中：
+Fill in the above topic and message into the trigger:
 
 ![automation](./img/automation/automation8.png)
 <br></br>
 
-在下方**就执行**栏点击`添加动作` ，选择**灯光**：
+In the **Then Do** section below, click `Add Action`, then select **Light**:
 
 ![automation](./img/automation/automation9.png)
 <br></br>
 
-选择 **切换** ， 表示每按一次按键LED亮灭状态就切换改变一次：
+Select **Toggle**, which means each button press will toggle the LED state (on/off):
 
 ![automation](./img/automation/automation10.png)
 <br></br>
 
-然后点击 `+选择实体`：
+Then click `+ Choose Entity`:
 
 ![automation](./img/automation/automation11.png)
 <br></br>
 
-自动识别出来LED实体，点击选中：
+The LED entity will be automatically recognized — click to select it:
 
 ![automation](./img/automation/automation12.png)
 <br></br>
 
-点击右下角 `保存`：
+Click `Save` in the lower-right corner:
 
 ![automation](./img/automation/automation13.png)
 <br></br>
 
-在弹出窗口输入刚创建这个自动化的名称，内容自定义即可：
+In the popup window, enter a name for the newly created automation — the content is customizable:
 
 ![automation](./img/automation/automation14.png)
 <br></br>
 
-返回自动化主界面，可以看到多了刚刚创建的“自动化”：
+Returning to the automations main page, you can see the newly created "automation":
 
 ![automation](./img/automation/automation15.png)
 <br></br>
 
 
-依次按下核桃派1B上的按键KEY，可以发现LED蓝灯的亮灭状态会改变，实现了开关灯自动化功能：
+Press the KEY button on the WalnutPi 1B. You will find that the LED's on/off state changes, implementing the light-switch automation:
 
 ![automation](./img/automation/automation16.png)
 <br></br>

@@ -2,19 +2,20 @@
 sidebar_position: 3
 ---
 
-# Label（标签）
+# Label
 
-## 介绍
+## Introduction
 
-标签控件是一款只能显示预设的文本内容而不能编辑的控件。
+The Label widget is a widget that can only display preset text content and cannot be edited.
 
 ![Label1](./img/Label/Label1.png)
 
-双击可以修改标签文本，拖动边缘可以放大缩小标签。还有字体大小、对齐方式等可以通过右边属性栏都可以设置。
+Double-click to modify the label text, and drag the edges to resize it. Font size, alignment, and other settings can all be configured in the property panel on the right.
 
 ![Label2](./img/Label/Label2.png)
 
-该窗口生成的py代码如下：
+The generated Python code for this window is as follows:
+
 ```python
 
 # -*- coding: utf-8 -*-
@@ -52,11 +53,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "我是标签"))
+        self.label.setText(_translate("MainWindow", "I am a label"))
 
 ```
 
-其中跟标签相关的代码如下：
+The code related to the label is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -75,11 +76,11 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label") #设置标签对象名称，非显示名称。
+        self.label.setObjectName("label") # Set label object name (internal, not display name)
 
 
     def retranslateUi(self, MainWindow):
         ...
-        self.label.setText(_translate("MainWindow", "我是标签")) #显示内容为“我是标签”
+        self.label.setText(_translate("MainWindow", "I am a label")) # Display content is "I am a label"
 
 ```

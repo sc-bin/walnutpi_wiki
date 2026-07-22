@@ -2,15 +2,15 @@
 sidebar_position: 4
 ---
 
-# 代码编写和运行
+# Writing and Running Code
 
-## 核桃派本地
+## Local on WalnutPi
 
-在上一节我们通过Qt Designer设计了ui窗口并转换成了Python代码，由于是Python编程，因此我们可以在核桃派开发板打开Python代码进行编程。
+In the previous section, we designed a UI window using Qt Designer and converted it into Python code. Since it's Python programming, we can open the Python code on the WalnutPi board and program directly.
 
-在核桃派上推荐使用Thonny来打开编写Python文件, 使用请参考：[**Thonny IDE**](../python/python_run#thonny-ide)。
+On the WalnutPi, we recommend using Thonny to open and edit Python files. For instructions, see: [**Thonny IDE**](../python/python_run#thonny-ide).
 
-打开上一节生成的window.py文件，在代码后面添加下方程序入口代码, 添加后完整代码如下：
+Open the window.py file generated in the previous section and add the following program entry code at the end. The complete code after adding is as follows:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -50,109 +50,112 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Hello WalnutPi"))
 
 #################
-#   主程序代码   #
+#   Main Code    #
 #################
 import sys
 
-#【可选代码】允许Thonny远程运行
+# [Optional] Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 
-#【可选代码】解决2K以上分辨率显示器显示缺失问题
+# [Optional] Fix display issues on 2K+ resolution monitors
 QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
-#主程序入口，构建窗口并显示
+# Main program entry — build and display the window
 app = QtWidgets.QApplication(sys.argv)
-MainWindow = QtWidgets.QMainWindow() #构建窗口对象
-ui = Ui_MainWindow() #构建pyQT5设计的窗口对象
-ui.setupUi(MainWindow) #初始化窗口
-MainWindow.show() #显示窗口
+MainWindow = QtWidgets.QMainWindow() # Create window object
+ui = Ui_MainWindow() # Create PyQt5-designed window object
+ui.setupUi(MainWindow) # Initialize window
+MainWindow.show() # Show window
 
-#【建议代码】允许终端通过ctrl+c中断窗口，方便调试
+# [Recommended] Allow Ctrl+C to interrupt the window from terminal for easier debugging
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 timer = QtCore.QTimer()
 timer.start(100)  # You may change this if you wish.
 timer.timeout.connect(lambda: None)  # Let the interpreter run each 100 ms
 
-sys.exit(app.exec_()) #程序关闭时退出进程
+sys.exit(app.exec_()) # Exit the process when the window is closed
 
 ```
 
-在核桃派桌面的Thonny点击运行，可以看到弹出了我们上一节设计的第一个窗口。（终端警告提示可以忽略）
+Click "Run" in Thonny on the WalnutPi desktop — you'll see the first window we designed in the previous section pop up. (Terminal warnings can be ignored.)
 
 ![code_run1](./img/code_run/code_run1.png)
 
-也可以在终端通过python指令运行修改好的window.py文件，效果一样。
+You can also run the modified window.py file from the terminal using the `python` command — the effect is the same.
 
 ![code_run2](./img/code_run/code_run2.png)
 
-点击关闭窗口可以关掉进程，如果是无关闭按钮的窗口可以通过终端按 Ctrl+C 组合键打断窗口进程。
+Click the close button on the window to terminate the process. For windows without a close button, you can press Ctrl+C in the terminal to interrupt the window process.
 
-:::tip 提示
+:::tip Tip
 
-由于pyQT5夸代码平台兼容。所以在Windows本地的操作跟上面内容完全一样。
+Since PyQt5 is cross-platform, the operations on Windows are exactly the same as described above.
 
 :::
 
-## Thonny远程开发（基于Windows）
+## Thonny Remote Development (Based on Windows)
 
-上面使用核桃派系统里面的Thonny IDE编程，同样我们可以使用Windows上的Thonny IDE远程到核桃派进行Python编程。核桃派系统出厂已经预装ssh服务，可以通过ssh远程控制。这个方法适合使用自己电脑远程开发。远程方法参考Python嵌入式编程里面：[Thonny远程](../python/python_run#thonny-远程连接基于windows) 内容，这里不再重复。
+Above we used the Thonny IDE within the WalnutPi system. Similarly, we can use the Thonny IDE on Windows to remotely connect to the WalnutPi for Python programming. The WalnutPi factory system already has SSH pre-installed, allowing SSH-based remote control. This method is suitable for developing remotely from your own computer. For the remote method, refer to Python Embedded Programming: [Thonny Remote](../python/python_run#thonny-remote-connection-based-on-windows). No need to repeat here.
 
-需要注意的是Thonny远程时务必加入下面代码才可正常运行：
+Note that when using Thonny remotely, you must add the following code for it to work properly:
 
 ```python
-# 允许Thonny远程运行
+# Allow Thonny remote execution
 import os
 os.environ["DISPLAY"] = ":0.0"
 ```
 
-远程打开核桃派的window.py文件（上面完整的代码），点击运行：
+Remotely open the WalnutPi's window.py file (the complete code above) and click Run:
 
 ![code_run3](./img/code_run/code_run3.png)
 
-在核桃派开发板的桌面就弹出了该窗口。
+The window will pop up on the WalnutPi board's desktop.
 
 ![code_run4](./img/code_run/code_run4.png)
 
-通过在Thonny主菜单**运行--中断** 或在下方终端按ctrl+c 即可退出窗口程序。
+To exit the window program, use **Run > Interrupt** from the Thonny main menu or press Ctrl+C in the lower terminal.
 
 ![code_run5](./img/code_run/code_run5.png)
 
 
-## 通过3.5寸LCD显示
+## Displaying on a 3.5-inch LCD
 
-上面方法既可通过核桃派HDMI显示器显示，也可以通过3.5寸LCD显示。3.5寸显示屏使用说明：[3.5寸触摸显示屏](../os_software/3.5_LCD.md)
+The methods above can display on either the WalnutPi HDMI monitor or the 3.5-inch LCD. For instructions on using the 3.5-inch display, see: [3.5-inch Touch Display](../os_software/3.5_LCD.md)
 
 ![code_run6](./img/code_run/code_run6.png)
 
-## 无桌面系统运行pyQT5说明
+## Running PyQt5 Without a Desktop Environment
 
-无桌面系统需要开启进入**可使用鼠标的xterm终端**，才能进入QT调试模式。
+For a non-desktop system, you need to enable the **mouse-enabled xterm terminal** to enter QT debugging mode.
 
 ```bash
 sudo systemctl enable lightdm.service
 ```
 
-执行完需要重启生效：
+After running, reboot for the changes to take effect:
+
 ```bash
 sudo reboot
 ```
 
-重启后自动登录pi，命令在左上角，可以看到鼠标，如下图：
+After reboot, it will auto-login as pi. The command prompt is in the upper-left corner and you can see the mouse cursor, as shown below:
 
 ![code_run7](./img/code_run/code_run7.png)
 
-这时候就可以本地或远程运行pyQT5的python文件代码：
+At this point, you can run PyQt5 Python code locally or remotely:
 
 ![code_run8](./img/code_run/code_run8.png)
 
-下面指令可以退出此功能：
+The following command exits this functionality:
+
 ```bash
 sudo systemctl disable lightdm.service
 ```
 
-也是要重启生效，就返回普通终端模式了：
+Also requires a reboot to take effect, returning to normal terminal mode:
+
 ```bash
 sudo reboot
 ```

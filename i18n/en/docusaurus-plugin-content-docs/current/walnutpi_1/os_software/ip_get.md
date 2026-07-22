@@ -2,28 +2,30 @@
 sidebar_position: 7
 ---
 
-# IP地址获取
+# Obtaining IP Address
 
-## WiFi IP地址
+## WiFi IP Address
 
-WiFi模块硬件位置, 通过WiFi无线连接到路由器（支持2.4G、5G信号）：
+WiFi module hardware location. Connect wirelessly to a router via WiFi (supports 2.4G and 5G signals):
 
 ![ip_get1](./img/ip_get/ip_get1.png)
 
-通过以下命令可以获取核桃派所有网络IP地址，**wlan0**为WiFi无线卡名称，连接成功可以看到其IP地址。
+Use the following command to get all network IP addresses of the WalnutPi. **wlan0** is the WiFi card name. Once connected, you can see its IP address.
+
 ```bash
 sudo ifconfig
 ```
 
 ![ip_get2](./img/ip_get/ip_get2.png)
 
-## 以太网IP地址
+## Ethernet IP Address
 
-以太网模块硬件位置，通过网线连接到路由器：
+Ethernet module hardware location. Connect to a router via an Ethernet cable:
 
 ![ip_get3](./img/ip_get/ip_get3.png)
 
-通过以下命令可以获取核桃派所有网络IP地址，**eth0**为以太网卡名称，连接成功可以看到其IP地址。
+Use the following command to get all network IP addresses of the WalnutPi. **eth0** is the Ethernet card name. Once connected, you can see its IP address.
+
 ```bash
 sudo ifconfig
 ```

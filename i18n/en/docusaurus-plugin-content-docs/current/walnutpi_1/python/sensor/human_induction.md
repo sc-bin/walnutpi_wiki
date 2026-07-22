@@ -2,118 +2,118 @@
 sidebar_position: 1
 ---
 
-# 人体感应传感器
+# PIR Motion Sensor
 
-## 前言
-人体感应传感器，在室内安防应用非常普遍，其原理是由探测元件将探测到人体的红外辐射转变成微弱的电压信号，经过放大后输出。为了提高探测器的探测灵敏度以增大探测距离，一般在探测器的前方装设一个塑料的菲涅尔透镜，它和放大电路相配合，可将信号放大 70dB 以上，这样就可以测出 5~10 米范围内人的行动。
+## Introduction
+PIR (Passive Infrared) motion sensors are widely used in indoor security applications. Their working principle is that the detection element converts detected infrared radiation from the human body into a weak voltage signal, which is amplified and then output. To improve detection sensitivity and increase detection distance, a plastic Fresnel lens is generally installed in front of the detector. Together with the amplification circuit, this can amplify the signal by more than 70dB, enabling detection of human movement within a range of 5–10 meters.
 
-## 实验目的
-通过python编程来检测人体感应模块，当有人出现时候蓝色指示灯点亮（没人时候熄灭）。
+## Objective
+Use Python programming to detect the PIR sensor module. When a person is detected, the blue indicator LED lights up (and turns off when no one is present).
 
-## 实验讲解
+## Explanation
 
-下图是一款常用的人体感应传感器模块，主要有供电引脚和信号输出引脚（供电电压一般为3.3V，具体以厂家参数为准）。
+The image below shows a commonly used PIR sensor module, which mainly has power pins and a signal output pin (the supply voltage is generally 3.3V, depending on the manufacturer's specifications).
 
-![human_induction1](./img/human_induction/human_induction1.png) 
+![human_induction1](./img/human_induction/human_induction1.png)
 
-这款模块通电后，当检测到有人时候，传感器信号输出引脚输出高电平并持续3-5秒。
+When this module is powered on and detects a person, the sensor's signal output pin outputs a HIGH level for 3-5 seconds.
 
-![human_induction2](./img/human_induction/human_induction2.png) 
+![human_induction2](./img/human_induction/human_induction2.png)
 
-所以这款传感器跟前面gpio章节按键的操作方式类似，只需要将模块信号引脚连接到核桃派，然后核桃派检测引脚电平变化即可。核桃派跟人体红外感应传感器的连线方式如下：
+So this sensor is similar to how the button operated in the previous GPIO chapter — simply connect the module's signal pin to the WalnutPi, and the WalnutPi can detect pin level changes. The wiring between the WalnutPi and the PIR sensor is as follows:
 
-![human_induction3](./img/human_induction/human_induction3.png) 
+![human_induction3](./img/human_induction/human_induction3.png)
 
-## digitalio对象
+## The digitalio Object
 
-在CircuitPython中可以直接使用 digitalio（数字 IO）模块编程实现IO输入从而实现按键的输入电平检测。具体介绍如下：
+In CircuitPython, you can directly use the digitalio (Digital IO) module for IO programming to detect input levels. Details are as follows:
 
-### 构造函数
+### Constructor
 ```python
 human=digitalio.DigitalInOut(pin)
 ```
-参数说明：
-- `pin` 开发板引脚编号。例：board.PC8
+Parameter description:
+- `pin` Board pin number. Example: board.PC8
 
-### 使用方法
+### Methods
 ```python
 human.direction = value
 ```
-引脚定义输入/输出。value匹配值如下：
-- `digitalio.Direction.INPUT` ：输入。
-- `digitalio.Direction.OUTPUT` ：输出。
+Define pin as input/output. Possible `value` values:
+- `digitalio.Direction.INPUT` : Input.
+- `digitalio.Direction.OUTPUT` : Output.
 
 <br></br>
 
 ```python
 human.pull = value
 ```
-设置上下拉电阻。value匹配值如下：
-- `digitalio.Pull.UP` :上拉。  
-- `digitalio.Pull.DOWN` :下拉。  
+Set pull-up/pull-down resistor. Possible `value` values:
+- `digitalio.Pull.UP` : Pull-up.
+- `digitalio.Pull.DOWN` : Pull-down.
 
 <br></br>
 
 ```python
 value = human.value
 ```
-按键输入返回值。value返回值如下：
-- `True` 或 `1` ：高电平。
-- `False` 或 `0` ：低电平。
+Button input return value. Possible return values:
+- `True` or `1` : HIGH.
+- `False` or `0` : LOW.
 
 <br></br>
 
-代码编写流程如下：
+The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    导入digitalio相关模块-->构建人体感应和led对象-->检测信号输入电平-->高电平点亮LED,低电平熄灭-->检测信号输入电平;
+    Import digitalio-related modules --> Construct PIR and LED objects --> Detect signal input level --> HIGH lights LED, LOW turns off LED --> Detect signal input level;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：人体红外感应传感器
-实验平台：核桃派1B
+Experiment Name: PIR Motion Sensor
+Experiment Platform: WalnutPi 1B
 '''
 
-#导入相关模块
+# Import related modules
 import time,board
 from digitalio import DigitalInOut, Direction, Pull
 
-# 初始化人体红外感应传感器对象，引脚为PC8.
-human = DigitalInOut(board.PC8) #定义引脚编号
-human.direction = Direction.INPUT #IO为输入
+# Initialize PIR sensor object, using pin PC8.
+human = DigitalInOut(board.PC8) # Define pin number
+human.direction = Direction.INPUT # IO as input
 
-#构建LED对象和初始化
-led = DigitalInOut(board.LED) #定义引脚编号
-led.direction = Direction.OUTPUT  #IO为输出
+# Construct and initialize LED object
+led = DigitalInOut(board.LED) # Define pin number
+led.direction = Direction.OUTPUT  # IO as output
 
 while True:
 
-    if human.value == 1: #有人
-        
-        led.value = 1 #点亮LED
+    if human.value == 1: # Person detected
 
-    else: #没人
-        
-        led.value = 0 #关闭LED
+        led.value = 1 # Turn on LED
 
-    time.sleep(0.5) #检测周期0.5秒
+    else: # No person detected
+
+        led.value = 0 # Turn off LED
+
+    time.sleep(0.5) # 0.5-second detection cycle
 ```
 
-## 实验结果
+## Result
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../python_run.md)
+Use Thonny to remotely run the above Python code on the WalnutPi. For instructions on running Python code on the WalnutPi, please refer to: [Running Python Code](../python_run.md)
 
-![human_induction4](./img/human_induction/human_induction4.png) 
+![human_induction4](./img/human_induction/human_induction4.png)
 
-当传感器检测到有人时候，蓝灯亮。
+When the sensor detects a person, the blue LED lights up.
 
-![human_induction5](./img/human_induction/human_induction5.png) 
+![human_induction5](./img/human_induction/human_induction5.png)
 
-没人时候蓝灯熄灭。
+When no one is present, the blue LED turns off.
 
-![human_induction6](./img/human_induction/human_induction6.png) 
+![human_induction6](./img/human_induction/human_induction6.png)
 

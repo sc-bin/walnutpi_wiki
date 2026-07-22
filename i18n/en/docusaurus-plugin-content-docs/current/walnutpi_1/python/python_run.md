@@ -2,250 +2,255 @@
 sidebar_position: 1
 ---
 
-# 运行Python代码
+# Running Python Code
 
-本节主要讲解如何在核桃派进行Python编程和运行Python代码。如果你完全没学习过Python，可以先到这个网站学习一下。
-- Python基础教程： [https://www.runoob.com/python/python-tutorial.html](https://www.runoob.com/python/python-tutorial.html) 
+This section explains how to do Python programming and run Python code on the WalnutPi. If you have never learned Python, you can first visit the following website to learn the basics:
+- Python Basics Tutorial: [https://www.runoob.com/python/python-tutorial.html](https://www.runoob.com/python/python-tutorial.html)
 
-## 终端运行Python
-我们先来看看如何使用最原始的方式来写python代码和运行python程序，也就是用到核桃派的终端来操作。这个方法同样适合无桌面操作系统。
+## Running Python in Terminal
 
-打开核桃派终端,使用nano编辑器新建一个python文件：
+Let's first look at how to write and run Python code using the most basic method — the WalnutPi terminal. This method also works for headless (no desktop) systems.
+
+Open the WalnutPi terminal and use the nano editor to create a new Python file:
 ```bash
 nano hello_walnutpi.py
 ```
 ![terminal1](./img/python_run/terminal1.png)
 
-进入编辑界面，输入最简单的python代码
+Enter the editing interface and type the simplest Python code:
 ```python
 print('hello walnutpi!')
 ```
 ![terminal2](./img/python_run/terminal2.png)
 
-按 **Ctrl+X** 退出，提示是否保存。
+Press **Ctrl+X** to exit, and you will be prompted whether to save.
 
 ![terminal3](./img/python_run/terminal3.png)
 
-按 **Y** 弹出要保存的文件名，这里默认即可，按回车确认。
+Press **Y** to choose a filename to save. Keep the default and press Enter to confirm.
 
 ![terminal4](./img/python_run/terminal4.png)
 
-使用 **ls** 命令查看到当前目录已经增加了**hello_walnutpi.py**文件。
+Use the **ls** command to see that the **hello_walnutpi.py** file has been added to the current directory.
 
 ![terminal5](./img/python_run/terminal5.png)
 
-通过python指令可以直接运行Python文件。可以看到代码正常运行，打印了“hello walnutpi!”信息！
+You can directly run a Python file using the `python` command. You can see the code runs successfully and prints "hello walnutpi!"
+
 ```bash
 python hello_walnutpi
 ```
 ![terminal6](./img/python_run/terminal6.png)
 
-你也可以直接在终端输入python命令，能看到当前python版本和进入python交互模式。
+You can also type `python` directly in the terminal to see the current Python version and enter Python interactive mode.
 
 ![terminal7](./img/python_run/terminal7.png)
 
-按**Ctrl+Z**或**Ctrl+C**可以退出。
+Press **Ctrl+Z** or **Ctrl+C** to exit.
 
 ![terminal8](./img/python_run/terminal8.png)
 
 ## Thonny IDE
-如果你使用的是核桃派带桌面版操作系统，那么可以直接使用系统自带的Thonny IDE进行编程，非常方便。需要给核桃派通过HDMI连接到显示器和接入键盘鼠标。
 
-打开**菜单--开发--Thonny** 
+If you are using the WalnutPi desktop version OS, you can directly use the built-in Thonny IDE for programming, which is very convenient. You need to connect the WalnutPi to a monitor via HDMI and connect a keyboard and mouse.
 
-首次运行会提示选择语言，点击“Let's go!” 进入：
+Open **Menu → Development → Thonny**
+
+On first run, you will be prompted to select a language. Click "Let's go!" to enter:
 
 ![thonny1](./img/python_run/thonny1.png)
 
-进入后先把文件目录调出来方便查看，点击**视图-文件**：
+Once inside, bring up the file directory for easier viewing. Click **View → Files**:
 
 ![thonny10](./img/python_run/thonny10.png)
 
-可以看到IDE左边多了一个当前系统的文件目录：
+You can see a file directory of the current system added to the left side of the IDE:
 
 ![thonny11](./img/python_run/thonny11.png)
 
-接下来新建一个文件：
+Next, create a new file:
 
 ![thonny2](./img/python_run/thonny2.png)
 
-在编辑区输入：
+Type in the editing area:
 ```python
 print('hello walnutpi!')
 ```
-然后保存。
+Then save.
 
 ![thonny3](./img/python_run/thonny3.png)
 
-点击绿色按钮 “运行” ，可以看到python代码被直接运行：
+Click the green "Run" button, and the Python code will be executed directly:
 
 ![thonny12](./img/python_run/thonny12.png)
 
-
-当然你也可以直接在Thonny 下方python终端进行python指令交互：
+Of course, you can also interact with Python directly in the Python terminal at the bottom of Thonny:
 
 ![thonny13](./img/python_run/thonny13.png)
 
-可以在Thonny菜单栏 **工具--选项**勾选**在编辑器中使用Tab键补全**功能，方便开发。
+You can enable **Tab key autocompletion in the editor** via the Thonny menu bar **Tools → Options** for easier development.
 
 ![thonny14](./img/python_run/thonny14.png)
 
-下方在输入**led.**后按键盘tab键补全：
+Below, after typing **led.**, press the Tab key to autocomplete:
 
 ![thonny15](./img/python_run/thonny15.png)
 
-## Thonny 远程连接（基于Windows）
-上面使用核桃派系统里面的Thonny IDE编程，同样我们可以使用Windows上的Thonny IDE远程到核桃派进行Python编程。核桃派系统出厂已经预装ssh服务，可以通过ssh远程控制。这个方法适合使用自己电脑远程开发。
+## Thonny Remote Connection (Windows-based)
 
-:::tip 提示
+Above, we used Thonny IDE on the WalnutPi system. Similarly, we can use Thonny IDE on Windows to remotely connect to the WalnutPi for Python programming. The WalnutPi system comes pre-installed with an SSH server, allowing remote control via SSH. This method is suitable for remote development using your own computer.
 
-只做Python编程而又习惯使用PC的用户推荐这种方式。也是本章教程主要使用的。
+::::tip Note
 
-:::
+This method is recommended for users who only do Python programming and are accustomed to using a PC. It is also the primary method used in this tutorial chapter.
 
-Thonny ide Windows版本下载地址：https://thonny.org/ 
+::::
 
-下载安装完成后打开Thonny。首先还是点击 **视图 -- 文件** 将文件目录调出来。
+Thonny IDE Windows version download link: https://thonny.org/
+
+After downloading and installing, open Thonny. First, click **View → Files** to bring up the file directory.
 
 ![win_thonny1](./img/python_run/win_thonny1.png)
 ![win_thonny2](./img/python_run/win_thonny2.png)
 
-接下来通过ssh方式连接核桃派，点击 **运行 -- 配置解析器** ：
+Next, connect to the WalnutPi via SSH. Click **Run → Configure Interpreter**:
 
 ![win_thonny3](./img/python_run/win_thonny3.png)
 
-在弹出的配置界面按下图配置：
-1. 选择远程Python 3（SSH）
-2. 核桃派IP地址
-3. 核桃派用户名，这里写**pi**
-4. 默认password方式即可
-5. 这里写**Python3** ，注意首字母大写，因为核桃派python3（首字母小写）有些文件权限无法使用，而Python3(首字母大小)是已经设置好权限的。
+In the popup configuration interface, configure as shown below:
+1. Select **Remote Python 3 (SSH)**
+2. WalnutPi IP address
+3. WalnutPi username, enter **pi**
+4. Use the default password authentication
+5. Enter **Python3** here (note the capitalization). This is because WalnutPi's `python3` (lowercase) has some file permission issues, while `Python3` (uppercase first letter) has been pre-configured with the correct permissions.
 
 ![win_thonny4](./img/python_run/win_thonny4.png)
 
-配置完后点**运行 -- 停止/重启后端进程** 即可开始连接：
+After configuration, click **Run → Stop/Restart Backend** to initiate the connection:
 
 ![win_thonny5](./img/python_run/win_thonny5.png)
 
-输入密码 **pi** :
+Enter the password **pi**:
 
 ![win_thonny6](./img/python_run/win_thonny6.png)
 
-等待Thonny左下方会出现核桃派的文件系统目录说明连接成功：
+Wait until the WalnutPi file system directory appears at the bottom left of Thonny, indicating a successful connection:
 
 ![win_thonny7](./img/python_run/win_thonny7.png)
 
-在Python终端可以直接使用Python指令（相当于在核桃派开发板上操作）：
+You can use Python commands directly in the Python terminal (equivalent to operating on the WalnutPi board):
 
 ![win_thonny7_1](./img/python_run/win_thonny7_1.png)
 
-然后我们可以打开windows本地py文件或者核桃派py文件，编写完代码后直接点**运行**按钮即可运行python代码。
+You can then open a local Windows `.py` file or a WalnutPi `.py` file, write the code, and click the **Run** button to execute the Python code.
 
 ![win_thonny8](./img/python_run/win_thonny8.png)
 
-可通过代码栏上方文件标题来区分本地或远程文件：
+You can distinguish local vs. remote files by the title bar above the code area:
 
-- [ hello.py ] 带“**[ ]**”表示核桃派开发板文件（远程文件）；
+- [ hello.py ] with "**[ ]**" indicates a WalnutPi board file (remote file);
 
-- hello2.py 不带“**[ ]**”表示Windows文件（本地文件）。
+- hello2.py without "**[ ]**" indicates a Windows file (local file).
 
 ![win_thonny9](./img/python_run/win_thonny9.png)
 
-可以在左侧文件目录通过**右键**上传/下载文件实现核桃派和Windows本地文件互传。
+You can upload/download files by **right-clicking** in the left file directory to transfer between WalnutPi and Windows.
+
 ![win_thonny10](./img/python_run/win_thonny10.png)
 ![win_thonny11](./img/python_run/win_thonny11.png)
 
-可以在Thonny菜单栏 **工具--选项**勾选**在编辑器中使用Tab键补全**功能，方便开发。**补全内容为解释器连接的设备，这里远程那么补全的就是核桃派上的Python库**
+You can enable **Tab key autocompletion in the editor** via the Thonny menu bar **Tools → Options** for easier development. **The autocompletion content is from the device connected to the interpreter — in the case of remote connection, it will autocomplete from the WalnutPi's Python libraries.**
 
 ![thonny14](./img/python_run/thonny14.png)
 
-下方在输入**led.**后按键盘tab键补全：
+Below, after typing **led.**, press the Tab key to autocomplete:
 
 ![thonny15](./img/python_run/thonny15.png)
 
 
-## VSCode 远程连接（基于Windows）
+## VSCode Remote Connection (Windows-based)
 
-上面用到的Thonny主要是用于Python编程，有些小伙伴或许习惯使用VS Code，这里介绍一下VS Code如何远程。VS Code的好处是方便多种语言编程。
-:::danger 注意
+Thonny, used above, is mainly for Python programming. Some users may prefer VS Code, so here's how to set up remote development with VS Code. The advantage of VS Code is its convenience for multi-language programming.
 
-VS Code远程方式会占用核桃派较多的内存，使用这个方式不建议核桃派再跑其它占内存的应用软件。
+::::danger Warning
 
-:::
+The VS Code remote method consumes a considerable amount of the WalnutPi's memory. It is not recommended to run other memory-intensive applications on the WalnutPi when using this method.
 
-先安装VS Code,下载地址： https://code.visualstudio.com/download
+::::
 
-安装完成后在VS Code插件栏搜索 **ssh** 插件并安装：
+First, install VS Code. Download: https://code.visualstudio.com/download
+
+After installation, search for the **ssh** extension in the VS Code extensions panel and install it:
 
 ![vscode1](./img/python_run/vscode1.png)
 
-插件安装完成后在左侧打开，按右边 **+** 按钮新建一个远程连接：
+After the extension is installed, open it on the left and click the **+** button on the right to create a new remote connection:
 
 ![vscode2](./img/python_run/vscode2.png)
 
-在弹出的栏输入：**pi@192.168.2.180**。pi为核桃派默认用户群，后面是IP地址，可以使用"sudo ifconfig"查看核桃派的IP地址。
+In the popup box, enter: **pi@192.168.2.180**. `pi` is the default WalnutPi username, and the part after `@` is the IP address. You can use "sudo ifconfig" to find the WalnutPi's IP address.
 
 ![vscode3](./img/python_run/vscode3.png)
 
-接下来选择信息保存到哪个文件，默认选第一个即可：
+Next, choose where to save the information. The default first option is fine:
 
 ![vscode4](./img/python_run/vscode4.png)
 
-然后点右下角 “Connect” 按钮：
+Then click the "Connect" button at the bottom right:
 
 ![vscode5](./img/python_run/vscode5.png)
 
-接下来在上方选择“Linux”：
+Next, select "Linux" from the top:
 
 ![vscode6](./img/python_run/vscode6.png)
 
-选“Continue”:
+Select "Continue":
 
 ![vscode7](./img/python_run/vscode7.png)
 
-输入核桃派pi用户密码：**pi**
+Enter the WalnutPi `pi` user password: **pi**
 
 ![vscode8](./img/python_run/vscode8.png)
 
-等待连接，直到左下角出现核桃派IP地址即可：
+Wait for the connection until the WalnutPi IP address appears at the bottom left:
 
 ![vscode9](./img/python_run/vscode9.png)
 
-点击下图1位置查看文件按钮，然后点击图2打开文件夹按钮，图3可以输出自己想要的路径，这里直接默认 /home/pi 即可，点确定。
+Click position 1 in the image below to view files, then click position 2 to open a folder. At position 3, you can enter your desired path — the default /home/pi is fine. Click OK.
 
 ![vscode10](./img/python_run/vscode10.png)
 
-勾选信用:
+Check the trust option:
 
 ![vscode11](./img/python_run/vscode11.png)
 
-打开后可以看到左边已经出现核桃派的目录，你可以下载核桃派开发板文件或上传文件。右边为文档编辑区。
+After opening, you can see the WalnutPi directory on the left. You can download files from the WalnutPi board or upload files. The right side is the document editing area.
 
 ![vscode12](./img/python_run/vscode12.png)
 
-我们可以新建一个核桃派终端，方便指令进行一些操作：
+You can create a new WalnutPi terminal for easy command operations:
 
 ![vscode13](./img/python_run/vscode13.png)
 
-可以看到下方出现熟悉的终端。
+You can see the familiar terminal appear at the bottom.
 ![vscode14](./img/python_run/vscode14.png)
 
 
-在VSCode的远程终端跟核桃派本地终端一样，直接使用。编辑好python代码，然后直接使用 **python xx.py** 命令即可运行python程序。
+The VS Code remote terminal works just like the WalnutPi local terminal. Edit your Python code, then use the **python xx.py** command to run the Python program.
 
 ![vscode15](./img/python_run/vscode15.png)
 
-登录过的IP和账号会被记录，再次登录直接在远程管理器打开即可：
+Logged-in IPs and accounts are saved, so next time you can simply open them in the remote manager:
 
 ![vscode16](./img/python_run/vscode16.png)
 
-## 无法ssh远程解决办法
+## Troubleshooting: Cannot Connect via SSH
 
-有一个使用场景是当使用thonny 或 vscode 远程过一个核桃派，然后核桃派更新了镜像或更换SD卡，那么需要删除电脑ssh的密钥信息才能重新连接。
+One common scenario: if you have previously used Thonny or VSCode to remotely connect to a WalnutPi, and then the WalnutPi has been re-imaged or its SD card replaced, you need to delete the SSH key information on your computer to reconnect.
 
-windows 用户该文件位于 **C:\Users\【username】\ .ssh\known_hosts** 
+For Windows users, this file is located at **C:\Users\[username]\.ssh\known_hosts**
 
-打开后找到当前核桃派的IP，把IP和密钥信息删除即可。
+Open the file, find the current WalnutPi IP, and delete the IP and its key information.
 
 ![ssh_error1](./img/python_run/ssh_error1.png)
 

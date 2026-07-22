@@ -92,59 +92,59 @@
     "description": "The generated-index page description for category PyQt5 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.控件": {
-    "message": "控件",
+    "message": "Widgets",
     "description": "The label for category 控件 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.控件.link.generated-index.description": {
-    "message": "PyQt5常用控件使用方法",
+    "message": "PyQt5 Common Widget Usage",
     "description": "The generated-index page description for category 控件 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.按钮类": {
-    "message": "按钮类",
+    "message": "Button Widgets",
     "description": "The label for category 按钮类 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.按钮类.link.generated-index.description": {
-    "message": "按钮类控件",
+    "message": "Button Widgets",
     "description": "The generated-index page description for category 按钮类 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.显示控件": {
-    "message": "显示控件",
+    "message": "Display Widgets",
     "description": "The label for category 显示控件 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.显示控件.link.generated-index.description": {
-    "message": "显示类控件",
+    "message": "Display Widgets",
     "description": "The generated-index page description for category 显示控件 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.输入控件": {
-    "message": "输入控件",
+    "message": "Input Widgets",
     "description": "The label for category 输入控件 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.输入控件.link.generated-index.description": {
-    "message": "输入类控件",
+    "message": "Input Widgets",
     "description": "The generated-index page description for category 输入控件 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.绘图": {
-    "message": "绘图",
+    "message": "Drawing",
     "description": "The label for category 绘图 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.绘图.link.generated-index.description": {
-    "message": "OpenCV绘制图形",
+    "message": "Drawing shapes with OpenCV",
     "description": "The generated-index page description for category 绘图 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.绘制形状": {
-    "message": "绘制形状",
+    "message": "Drawing Shapes",
     "description": "The label for category 绘制形状 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.绘制形状.link.generated-index.description": {
-    "message": "绘制形状",
+    "message": "Drawing Shapes",
     "description": "The generated-index page description for category 绘制形状 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.绘制文本": {
-    "message": "绘制文本",
+    "message": "Drawing Text",
     "description": "The label for category 绘制文本 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.绘制文本.link.generated-index.description": {
-    "message": "绘制文本",
+    "message": "Drawing Text",
     "description": "The generated-index page description for category 绘制文本 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.OpenCV": {
@@ -156,43 +156,43 @@
     "description": "The generated-index page description for category OpenCV in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.图像处理": {
-    "message": "图像处理",
+    "message": "Image Processing",
     "description": "The label for category 图像处理 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.图像处理.link.generated-index.description": {
-    "message": "常用的图像处理教程",
+    "message": "Commonly used image processing tutorials",
     "description": "The generated-index page description for category 图像处理 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.图像检测": {
-    "message": "图像检测",
+    "message": "Image Detection",
     "description": "The label for category 图像检测 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.图像检测.link.generated-index.description": {
-    "message": "OpenCV非常重要的功能，包括对图像中的图形、轮廓、边缘等对象进行检测",
+    "message": "A very important OpenCV feature, including detecting shapes, contours, edges and other objects in images",
     "description": "The generated-index page description for category 图像检测 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.视觉识别": {
-    "message": "视觉识别",
+    "message": "Vision Recognition",
     "description": "The label for category 视觉识别 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.视觉识别.link.generated-index.description": {
-    "message": "OpenCV视觉识别应用",
+    "message": "OpenCV Vision Recognition Applications",
     "description": "The generated-index page description for category 视觉识别 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.MQTT集成": {
-    "message": "MQTT集成",
+    "message": "MQTT Integration",
     "description": "The label for category MQTT集成 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.MQTT集成.link.generated-index.description": {
-    "message": "Home Assistant MQTT集成应用",
+    "message": "Home Assistant MQTT Integration Applications",
     "description": "The generated-index page description for category MQTT集成 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.添加MQTT设备和实体": {
-    "message": "添加MQTT设备和实体",
+    "message": "Adding MQTT Devices and Entities",
     "description": "The label for category 添加MQTT设备和实体 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.添加MQTT设备和实体.link.generated-index.description": {
-    "message": "添加各类MQTT设备和实体",
+    "message": "Adding Various MQTT Devices and Entities",
     "description": "The generated-index page description for category 添加MQTT设备和实体 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Linux系统编译": {
@@ -216,7 +216,7 @@
     "description": "The label for category 核桃派PicoW介绍 in sidebar newSidebar"
   },
   "sidebar.newSidebar.category.核桃派PicoW介绍.link.generated-index.description": {
-    "message": "硬件和相关资源介绍",
+    "message": "Hardware and related resource introduction",
     "description": "The generated-index page description for category 核桃派PicoW介绍 in sidebar newSidebar"
   },
   "sidebar.newSidebar.category.开发环境搭建": {
@@ -272,7 +272,7 @@
     "description": "The label for category 核桃派1代介绍 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.核桃派1代介绍.link.generated-index.description": {
-    "message": "核桃派介绍、资料下载和社区",
+    "message": "WalnutPi Introduction, Downloads and Community",
     "description": "The generated-index page description for category 核桃派1代介绍 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Home Assistant 智能家居": {
@@ -280,7 +280,7 @@
     "description": "The label for category Home Assistant 智能家居 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Home Assistant 智能家居.link.generated-index.description": {
-    "message": "在核桃派上使用Home Assistant",
+    "message": "Using Home Assistant on WalnutPi",
     "description": "The generated-index page description for category Home Assistant 智能家居 in sidebar tutorialSidebar"
   },
   "sidebar.wpi2Sidebar.category.核桃派2代介绍": {
@@ -288,7 +288,7 @@
     "description": "The label for category 核桃派2代介绍 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.核桃派2代介绍.link.generated-index.description": {
-    "message": "核桃派介绍、资料下载和社区",
+    "message": "WalnutPi Introduction, Downloads and Community",
     "description": "The generated-index page description for category 核桃派2代介绍 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.开箱指南": {
@@ -296,7 +296,7 @@
     "description": "The label for category 开箱指南 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.开箱指南.link.generated-index.description": {
-    "message": "开始使用你的核桃派。",
+    "message": "Start using your WalnutPi.",
     "description": "The generated-index page description for category 开箱指南 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.核桃派系统使用": {
@@ -304,7 +304,7 @@
     "description": "The label for category 核桃派系统使用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.核桃派系统使用.link.generated-index.description": {
-    "message": "核桃派系统配置和使用",
+    "message": "WalnutPi System Configuration and Usage",
     "description": "The generated-index page description for category 核桃派系统使用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.GPIO应用": {
@@ -312,7 +312,7 @@
     "description": "The label for category GPIO应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.GPIO应用.link.generated-index.description": {
-    "message": "核桃派40Pin GPIO详细介绍",
+    "message": "WalnutPi 40Pin GPIO Detailed Introduction",
     "description": "The generated-index page description for category GPIO应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.Python嵌入式编程": {
@@ -320,47 +320,47 @@
     "description": "The label for category Python嵌入式编程 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.Python嵌入式编程.link.generated-index.description": {
-    "message": "使用Python控制GPIO、传感器、网络编程等应用",
+    "message": "Using Python to control GPIO, sensors, network programming, etc.",
     "description": "The generated-index page description for category Python嵌入式编程 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.GPIO基础实验": {
-    "message": "GPIO基础实验",
+    "message": "GPIO Basic Experiments",
     "description": "The label for category GPIO基础实验 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.GPIO基础实验.link.generated-index.description": {
-    "message": "GPIO基础实验",
+    "message": "GPIO Basic Experiments",
     "description": "The generated-index page description for category GPIO基础实验 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.传感器": {
-    "message": "传感器",
+    "message": "Sensors",
     "description": "The label for category 传感器 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.传感器.link.generated-index.description": {
-    "message": "核桃派传感器应用",
+    "message": "WalnutPi Sensor Applications",
     "description": "The generated-index page description for category 传感器 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.拓展模块": {
-    "message": "拓展模块",
+    "message": "Expansion Modules",
     "description": "The label for category 拓展模块 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.拓展模块.link.generated-index.description": {
-    "message": "各类拓展模块使用",
+    "message": "Usage of Various Expansion Modules",
     "description": "The generated-index page description for category 拓展模块 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.网络应用": {
-    "message": "网络应用",
+    "message": "Network Applications",
     "description": "The label for category 网络应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.网络应用.link.generated-index.description": {
-    "message": "Socket、MQTT等常用网络编程应用",
+    "message": "Common network programming applications such as Socket, MQTT",
     "description": "The generated-index page description for category 网络应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.其它使用技巧": {
-    "message": "其它使用技巧",
+    "message": "Other Tips and Tricks",
     "description": "The label for category 其它使用技巧 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.其它使用技巧.link.generated-index.description": {
-    "message": "核桃派Python编程的一些常用技巧和功能",
+    "message": "Common tips and features for WalnutPi Python programming",
     "description": "The generated-index page description for category 其它使用技巧 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.C嵌入式编程": {
@@ -368,7 +368,7 @@
     "description": "The label for category C嵌入式编程 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.C嵌入式编程.link.generated-index.description": {
-    "message": "核桃派C语言嵌入式编程（适用于核桃派OS v2.3以上版本）",
+    "message": "WalnutPi C Language Embedded Programming (for WalnutPi OS v2.3+)",
     "description": "The generated-index page description for category C嵌入式编程 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.PyQt5": {
@@ -376,63 +376,63 @@
     "description": "The label for category PyQt5 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.PyQt5.link.generated-index.description": {
-    "message": "在核桃派上使用PyQt5开发GUI",
+    "message": "Developing GUI with PyQt5 on WalnutPi",
     "description": "The generated-index page description for category PyQt5 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.控件": {
-    "message": "控件",
+    "message": "Widgets",
     "description": "The label for category 控件 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.控件.link.generated-index.description": {
-    "message": "PyQt5常用控件使用方法",
+    "message": "PyQt5 Common Widget Usage",
     "description": "The generated-index page description for category 控件 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.按钮类": {
-    "message": "按钮类",
+    "message": "Button Widgets",
     "description": "The label for category 按钮类 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.按钮类.link.generated-index.description": {
-    "message": "按钮类控件",
+    "message": "Button Widgets",
     "description": "The generated-index page description for category 按钮类 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.显示控件": {
-    "message": "显示控件",
+    "message": "Display Widgets",
     "description": "The label for category 显示控件 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.显示控件.link.generated-index.description": {
-    "message": "显示类控件",
+    "message": "Display Widgets",
     "description": "The generated-index page description for category 显示控件 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.输入控件": {
-    "message": "输入控件",
+    "message": "Input Widgets",
     "description": "The label for category 输入控件 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.输入控件.link.generated-index.description": {
-    "message": "输入类控件",
+    "message": "Input Widgets",
     "description": "The generated-index page description for category 输入控件 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.绘图": {
-    "message": "绘图",
+    "message": "Drawing",
     "description": "The label for category 绘图 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.绘图.link.generated-index.description": {
-    "message": "OpenCV绘制图形",
+    "message": "Drawing shapes with OpenCV",
     "description": "The generated-index page description for category 绘图 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.绘制形状": {
-    "message": "绘制形状",
+    "message": "Drawing Shapes",
     "description": "The label for category 绘制形状 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.绘制形状.link.generated-index.description": {
-    "message": "绘制形状",
+    "message": "Drawing Shapes",
     "description": "The generated-index page description for category 绘制形状 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.绘制文本": {
-    "message": "绘制文本",
+    "message": "Drawing Text",
     "description": "The label for category 绘制文本 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.绘制文本.link.generated-index.description": {
-    "message": "绘制文本",
+    "message": "Drawing Text",
     "description": "The generated-index page description for category 绘制文本 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.OpenCV": {
@@ -440,31 +440,31 @@
     "description": "The label for category OpenCV in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.OpenCV.link.generated-index.description": {
-    "message": "在核桃派上使用OpenCV",
+    "message": "Using OpenCV on WalnutPi",
     "description": "The generated-index page description for category OpenCV in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.图像处理": {
-    "message": "图像处理",
+    "message": "Image Processing",
     "description": "The label for category 图像处理 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.图像处理.link.generated-index.description": {
-    "message": "常用的图像处理教程",
+    "message": "Commonly used image processing tutorials",
     "description": "The generated-index page description for category 图像处理 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.图像检测": {
-    "message": "图像检测",
+    "message": "Image Detection",
     "description": "The label for category 图像检测 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.图像检测.link.generated-index.description": {
-    "message": "OpenCV非常重要的功能，包括对图像中的图形、轮廓、边缘等对象进行检测",
+    "message": "A very important OpenCV feature, including detecting shapes, contours, edges and other objects in images",
     "description": "The generated-index page description for category 图像检测 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.视觉识别": {
-    "message": "视觉识别",
+    "message": "Vision Recognition",
     "description": "The label for category 视觉识别 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.视觉识别.link.generated-index.description": {
-    "message": "OpenCV视觉识别应用",
+    "message": "OpenCV Vision Recognition Applications",
     "description": "The generated-index page description for category 视觉识别 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.Home Assistant 智能家居": {
@@ -472,23 +472,23 @@
     "description": "The label for category Home Assistant 智能家居 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.Home Assistant 智能家居.link.generated-index.description": {
-    "message": "在核桃派上使用Home Assistant",
+    "message": "Using Home Assistant on WalnutPi",
     "description": "The generated-index page description for category Home Assistant 智能家居 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.MQTT集成": {
-    "message": "MQTT集成",
+    "message": "MQTT Integration",
     "description": "The label for category MQTT集成 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.MQTT集成.link.generated-index.description": {
-    "message": "Home Assistant MQTT集成应用",
+    "message": "Home Assistant MQTT Integration Applications",
     "description": "The generated-index page description for category MQTT集成 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.添加MQTT设备和实体": {
-    "message": "添加MQTT设备和实体",
+    "message": "Adding MQTT Devices and Entities",
     "description": "The label for category 添加MQTT设备和实体 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.添加MQTT设备和实体.link.generated-index.description": {
-    "message": "添加各类MQTT设备和实体",
+    "message": "Adding Various MQTT Devices and Entities",
     "description": "The generated-index page description for category 添加MQTT设备和实体 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.NPU应用": {
@@ -496,15 +496,31 @@
     "description": "The label for category NPU应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.NPU应用.link.generated-index.description": {
-    "message": "在核桃派上使用开发NPU",
+    "message": "Developing NPU on WalnutPi",
     "description": "The generated-index page description for category NPU应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.YOLO应用": {
-    "message": "YOLO应用",
+    "message": "YOLO Applications",
     "description": "The label for category YOLO应用 in sidebar wpi2Sidebar"
   },
   "sidebar.wpi2Sidebar.category.YOLO应用.link.generated-index.description": {
-    "message": "在核桃派上跑YOLO",
+    "message": "Running YOLO on WalnutPi",
     "description": "The generated-index page description for category YOLO应用 in sidebar wpi2Sidebar"
+  },
+  "sidebar.wpi2Sidebar.category.显示屏": {
+    "message": "Display",
+    "description": "The label for category 显示屏 in sidebar wpi2Sidebar"
+  },
+  "sidebar.wpi2Sidebar.category.显示屏.link.generated-index.description": {
+    "message": "WalnutPi Display",
+    "description": "The generated-index page description for category 显示屏 in sidebar wpi2Sidebar"
+  },
+  "sidebar.wpi2Sidebar.category.Android系统使用": {
+    "message": "Android System Usage",
+    "description": "The label for category Android系统使用 in sidebar wpi2Sidebar"
+  },
+  "sidebar.wpi2Sidebar.category.Android系统使用.link.generated-index.description": {
+    "message": " ",
+    "description": "The generated-index page description for category Android系统使用 in sidebar wpi2Sidebar"
   }
 }

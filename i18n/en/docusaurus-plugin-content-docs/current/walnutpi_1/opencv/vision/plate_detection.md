@@ -2,114 +2,114 @@
 sidebar_position: 6
 ---
 
-# 车牌检测
+# License Plate Detection
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像车牌位置检测（非识别）。
+This section teaches how to use OpenCV to detect the position of license plates in an image (detection only, not recognition).
 
-## 实验目的
+## Experiment Objective
 
-检测图像中的车牌位置画矩形框显示。
+Detect license plate positions in an image and draw rectangular boxes for display.
 
-## 实验讲解
+## Experiment Explanation
 
-这里前面介绍过的级联分类器使用方法，本节使用车牌检测级联分类器 `haarcascade_russian_plate_number.xml` ，代码编写流程如下：
+Using the cascade classifier method introduced earlier, this section uses the license plate detection cascade classifier `haarcascade_russian_plate_number.xml`. The code flow is as follows:
 
 ```mermaid
 graph TD
-    读取图像-->加载级联分类器-->分类器识别指定目标-->画框-->显示图像;
+    Read image-->Load cascade classifier-->Classifier recognizes the specified target-->Draw boxes-->Display image;
 ```
 
 <br></br>
 
-## 参考代码
+## Reference Code
 
-参考代码如下:
+The reference code is as follows:
 
 ```python
 import cv2
 
-img = cv2.imread('car.png') #读取图像
+img = cv2.imread('car.png') # Read the image
 
-#加载车牌检测级联分离器，注意路径不能含有中文字符
+# Load the license plate detection cascade classifier; note: the path must not contain Chinese characters
 plateFaceCascade = cv2.CascadeClassifier('data/haarcascade_russian_plate_number.xml')
 
-#检测出所有车牌
+# Detect all license plates
 plates = plateFaceCascade.detectMultiScale(img, 1.15)
 
-#遍历所有结果
+# Iterate over all results
 for (x, y, w, h) in plates:
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) #画框
+    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) # Draw a box
     
-cv2.imshow('result', img) #显示图像
+cv2.imshow('result', img) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口    
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window    
 
 ```
 
-## 实验结果
+## Experiment Results
 
-在核桃派运行上面代码，实验结果如下：
+Run the above code on the WalnutPi; the experiment results are as follows:
 
 ![plate_detection](./img/plate_detection/plate_detection1.png) 
 
-## 使用USB摄像头识别
+## Using a USB Camera for Recognition
 
-结合前面USB摄像头使用方法可以通过USB摄像头实时识别，参考代码如下：
+Combined with the USB camera usage method introduced earlier, you can perform real-time recognition via a USB camera. The reference code is as follows:
 
-### 参考代码
+### Reference Code
 
 ```python
 import cv2, time
 
-#加载车牌检测级联分离器，注意路径不能含有中文字符
+# Load the license plate detection cascade classifier; note: the path must not contain Chinese characters
 plateFaceCascade = cv2.CascadeClassifier('data/haarcascade_russian_plate_number.xml')
 
-cam = cv2.VideoCapture(1) # 打开USB摄像头
+cam = cv2.VideoCapture(1) # Open the USB camera
 
-#降低分辨率能提高识别速度,可以设置为480x320或320x240
-cam.set(3,480) # 设置采集图像宽为480
-cam.set(4,320) # 设置采集图像高为320
+# Lowering the resolution can improve recognition speed; you can set it to 480×320 or 320×240
+cam.set(3,480) # Set the captured image width to 480
+cam.set(4,320) # Set the captured image height to 320
  
-#计算FPS（每秒帧率参数）
+# Calculate FPS (frames per second parameter)
 start = 0
 end = 0
 
 while True:
     
-    start = time.time() #记录开始时间
+    start = time.time() # Record the start time
     
-    retval, img = cam.read() # 从摄像头中实时读取图像
+    retval, img = cam.read() # Read images from the camera in real time
 
-    #检测出所有车牌
+    # Detect all license plates
     plates = plateFaceCascade.detectMultiScale(img, 1.15)
 
-    #遍历所有结果
+    # Iterate over all results
     for (x, y, w, h) in plates:
-        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) #画框
+        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3) # Draw a box
             
-    end = time.time() #记录结束时间
+    end = time.time() # Record the end time
     
-    #计算FPS(每秒帧率),结果取整数
+    # Calculate FPS (frames per second), round to integer
     fps = round(1/(end-start))
     print('FPS: ', fps)
     
-    #图像上写字符
+    # Write text on the image
     cv2.putText(img, "FPS: "+ str(fps), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 5)
     
-    cv2.imshow('result', img) #显示图像
+    cv2.imshow('result', img) # Display the image
     
-    key = cv2.waitKey(1) # 窗口的图像刷新时间为1毫秒，防止阻塞    
-    if key == 32: # 如果按下空格键，打断退出
+    key = cv2.waitKey(1) # The window image refresh interval is 1 millisecond to prevent blocking    
+    if key == 32: # If the spacebar is pressed, break out
         break
     
-cam.release() # 关闭摄像头
-cv2.destroyAllWindows() # 销毁显示摄像头视频的窗口
+cam.release() # Close the camera
+cv2.destroyAllWindows() # Destroy the window displaying the camera video
 
 ```
 
-### 实验结果
+### Experiment Results
 
 ![plate_detection](./img/plate_detection/plate_detection2.png) 

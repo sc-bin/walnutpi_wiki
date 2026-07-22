@@ -2,134 +2,134 @@
 sidebar_position: 6
 ---
 
-# UART（串口通讯）
+# UART (Serial Communication)
 
-## 前言
-串口是应用广泛的通讯接口，很多工控产品、无线透传模块都是使用串口来收发指令和传输数据，这样用户就可以在无须考虑底层实现原理的前提下将各类串口功能模块灵活应用起来。你也可以可以通过串口跟其它开发通讯实现数据交互，如STM32、ESP32、Arudio等。
+## Introduction
+Serial communication is a widely used communication interface. Many industrial control products and wireless transparent transmission modules use serial ports to send/receive commands and transfer data. This allows users to flexibly apply various serial function modules without needing to understand the underlying principles. You can also communicate with other development boards such as STM32, ESP32, Arduino, etc., via serial for data exchange.
 
-## 实验目的
-编程实现串口收发数据。
+## Objective
+Program UART data transmission and reception.
 
-## 实验讲解
+## Explanation
 
-核桃派的GPIO有引出串口，8、10引脚，uart2。
-![uart1](./img/uart/uart1.png) 
+The WalnutPi's GPIO header brings out a serial port on pins 8 and 10 — UART2.
+![uart1](./img/uart/uart1.png)
 
-## Serial对象
+## The Serial Object
 
-核桃派串口通讯可以使用linux系统自带的Serial标准库编程。具体介绍如下：
+WalnutPi serial communication can be programmed using the Linux system's built-in `serial` standard library. Details are as follows:
 
-### 构造函数
+### Constructor
 ```python
-serial.Serial(“dev”,baudrate)
+serial.Serial("dev",baudrate)
 ```
-构建UART对象
-- `”dev”` :设备号，核桃派的uart2是”/dev/ttyS2”；
-- `baudrate` :串口波特率，可以设置为常用的9600、115200等。
+Constructs a UART object.
+- `"dev"` : Device node. WalnutPi's UART2 is "/dev/ttyS2";
+- `baudrate` : Serial baud rate, can be set to commonly used values like 9600, 115200, etc.
 
-### 使用方法
+### Methods
 ```python
 Serial.inWaiting()
 ```
-返回串口接收并存放在缓冲区的字符个数，int型。可以用来判断是否有接收到数据。
+Returns the number of characters received and stored in the buffer, as an int. Can be used to check if data has been received.
 
 <br></br>
 
 ```python
 Serial.read(num)
 ```
-读取数据，返回字节字符串。
-- `num` ：读取字符数量。
+Reads data, returns a byte string.
+- `num` : Number of characters to read.
 
 <br></br>
 
 ```python
 Serial.write(b'str')
 ```
-发送数据，要求格式为字节字符串。
-- `b'str'` ：发送内容。
+Sends data. The format must be a byte string.
+- `b'str'` : Content to send.
 
 <br></br>
 
-更多Serial的python用法，请看官方文档：
+For more Serial Python usage, refer to the official documentation:
 https://pyserial.readthedocs.io/en/latest/pyserial_api.html#module-serial
 
-了解了UART对象用法后，我们可以用一个USB转TTL工具，配合电脑上位机【串口助手】来跟核桃派进行串口通信。这类工具大同小异，**需要注意的是如果带3.3V和5V电平切换的，需要将跳线帽打到3.3V，因为核桃派的GPIO电平是3.3V的。**
+After understanding the UART object usage, we can use a USB-to-TTL adapter together with a PC host [Serial Assistant] to communicate with the WalnutPi via serial. These tools are similar; **the important thing to note is: if the adapter supports 3.3V/5V level switching, set the jumper cap to 3.3V, because the WalnutPi's GPIO level is 3.3V.**
 
-![uart2](./img/uart/uart2.png) 
+![uart2](./img/uart/uart2.png)
 
-本实验我们使用UART2，也就是TX2(PI5)和RX2(PI6)，接线示意图如下：**（3.3V可以不用接）**
+In this experiment, we use UART2 — TX2(PI5) and RX2(PI6). The wiring diagram is as follows: **(The 3.3V line can be left unconnected)**
 
-![uart3](./img/uart/uart3.png) 
+![uart3](./img/uart/uart3.png)
 
 
-在本实验中我们可以先初始化串口，然后给串口发去一条信息，这样PC机的串口助手就会在接收区显示出来，然后进入循环，当核桃派检测到有数据可以接收时候就将数据接收并打印，并通过终端打印显示。代码编写流程图如下：
+In this experiment, we first initialize the serial port, then send a message via serial. The PC's serial assistant will display this message in its receive area. Then we enter a loop: when the WalnutPi detects data to receive, it receives and prints the data through the terminal. The code writing flow is as follows:
 
 ```mermaid
 graph TD
-    导入Serial模块-->构建串口对象-->发送信息-->判断是否有信息--是-->接收并在终端打印-->判断是否有信息;
-    判断是否有信息--否-->判断是否有信息;
+    Import Serial module --> Construct serial object --> Send message --> Check for data -- Yes --> Receive and print in terminal --> Check for data;
+    Check for data -- No --> Check for data;
 ```
 
-## 参考代码
+## Reference Code
 
 ```python
 '''
-实验名称：UART(串口通讯)
-实验平台：核桃派
+Experiment Name: UART (Serial Communication)
+Experiment Platform: WalnutPi
 '''
 
-#导入相关模块
+# Import related modules
 import serial,time
 
-# 配置串口
+# Configure serial port
 com = serial.Serial("/dev/ttyS2", 115200)
 
-#发送提示字符
+# Send a test message
 com.write(b'Hello WalnutPi!')
 
 while True:
 
-    # 获得接收缓冲区字符个数 int
+    # Get the number of characters in the receive buffer (int)
     count = com.inWaiting()
-    
-    if count != 0: #收到数据
-        
-        # 读取内容并打印
+
+    if count != 0: # Data received
+
+        # Read content and print
         recv = com.read(count)
         print(recv)
-        
-        #发回数据
+
+        # Send data back
         com.write(recv)
-        
-        # 清空接收缓冲区
+
+        # Clear the receive buffer
         com.flushInput()
-        
-    # 延时100ms,接收间隔
+
+    # 100ms delay for receive interval
     time.sleep(0.1)
 ```
 
-## 实验结果
+## Result
 
-使用USB转TTL工具链接核桃派和电脑。
+Connect the WalnutPi to the computer using a USB-to-TTL adapter.
 
-![uart5](./img/uart/uart5.png) 
+![uart5](./img/uart/uart5.png)
 
-电脑打开串口助手，选择USB转TTL对应的COM，波特率115200。点击打开，等待接收数据：
+Open the Serial Assistant on the PC, select the COM port corresponding to the USB-to-TTL adapter, set the baud rate to 115200. Click Open and wait to receive data:
 
-![uart6](./img/uart/uart6.png) 
+![uart6](./img/uart/uart6.png)
 
-这里使用Thonny远程核桃派运行以上Python代码，关于核桃派运行python代码方法请参考： [运行Python代码](../python_run.md)
+Use Thonny to remotely run the above Python code on the WalnutPi. For instructions on running Python code on the WalnutPi, please refer to: [Running Python Code](../python_run.md)
 
-![uart4](./img/uart/uart4.png) 
+![uart4](./img/uart/uart4.png)
 
-运行后可以看到电脑串口助手接收到信息：
+After running, you can see that the PC's Serial Assistant has received the message:
 
-![uart7](./img/uart/uart7.png) 
+![uart7](./img/uart/uart7.png)
 
-在串口助手发送栏输入信息，点击发送，可以看到thonny下方终端打印接收到的数据（核桃派开发板接收到的数据）：
+Enter a message in the Serial Assistant's send bar, click Send, and you can see the received data printed in the Thonny terminal at the bottom (data received by the WalnutPi board):
 
-![uart8](./img/uart/uart8.png) 
+![uart8](./img/uart/uart8.png)
 
 
-串口数据收发应用非常广泛，除了本例程跟电脑通讯外，还可以跟其它单片机开发板或者串口模块设备通讯。
+Serial data transmission and reception is widely used. Besides communicating with a PC as in this routine, you can also communicate with other microcontroller development boards or serial module devices.

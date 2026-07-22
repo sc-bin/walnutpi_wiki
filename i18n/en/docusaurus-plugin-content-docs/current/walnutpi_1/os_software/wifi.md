@@ -2,29 +2,29 @@
 sidebar_position: 4
 ---
 
-# WiFi连接
+# WiFi Connection
 
-- **视频教程**
+- **Video Tutorial**
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1303287491&bvid=BV16M4m1D7D4&cid=1511170283&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
 <br></br>
 <br></br>
 
-系统运行后我们最想做的应该是连接到互联网了，以太网的话直接插入网线即可联网。除此之外核桃派板载双频WiFi模块，支持连接2.4G、5G WiFi网络。
+After the system is up and running, the first thing you'll probably want to do is connect to the internet. For Ethernet, simply plug in an Ethernet cable to get online. Additionally, the WalnutPi has an onboard dual-band WiFi module supporting both 2.4G and 5G WiFi networks.
 
-## 桌面按钮连接
+## Desktop Button Connection
 
-带桌面系统可以直接点击右下角网络按钮，选择**可用网络**，选择自己的WiFi输入账号密码即可连接。
+On the desktop system, simply click the network button at the bottom right, select **Available Networks**, choose your WiFi network, and enter the password to connect.
 
 ![wifi1](./img/wifi/wifi1.png)
 
 
-## 指令连接（无桌面系统）
+## Command-Line Connection (Non-Desktop System)
 
-通过指令连接WiFi适用于**无桌面版系统**或只使用终端登录系统的场景。方法如下：
+Connecting to WiFi via command line is suitable for **non-desktop systems** or scenarios where only terminal login is available. Here's how:
 
-先通过下面命令来获取当前可连接WiFi SSID：
+First, use the following command to get available WiFi SSIDs:
 
 ```bash
 nmcli dev wifi
@@ -33,29 +33,27 @@ nmcli dev wifi
 ![wifi2](./img/wifi/wifi2.png)
 
 
-:::danger 警告
+::::danger Warning
 
-务必先执行上方 **nmcli dev wifi** 指令获取WiFi信息后才能进行下一步开始连接。
+Be sure to run the **nmcli dev wifi** command above to get WiFi information before proceeding with the next step to connect.
 
-:::
+::::
 <br></br>
 
-按**Ctrl+C或Ctrl+Z**中断上面指令。
+Press **Ctrl+C or Ctrl+Z** to interrupt the above command.
 
-接下来通过下面指令连接指定的WiFi(需要加sudo管理员权限)。下方 "walnutpi" 为wifi账号，"88888888" 为密码。你需要替换成你自己的WiFi账号密码。
+Then use the following command to connect to the specified WiFi (requires sudo administrator privileges). Below, "walnutpi" is the WiFi SSID and "88888888" is the password. Replace them with your own WiFi credentials.
+
 ```bash
 sudo nmcli dev wifi connect walnutpi password 12345678
 ```
 <br></br>
 
-连接成功后可以使用下面指令查看wifi连接情况，有IP地址说明连接成功。
+After successful connection, use the following command to check the WiFi connection status. An IP address indicates a successful connection.
+
 ```bash
 sudo ifconfig
 ```
-wlan0表示WiFi连接，下方有IP地址，eth0则表示以太网口连接。
+wlan0 indicates the WiFi connection, with the IP address below. eth0 indicates the Ethernet connection.
 
 ![wifi3](./img/wifi/wifi3.png)
-
-
-
-

@@ -2,73 +2,73 @@
 sidebar_position: 2
 ---
 
-# 翻转
+# Flip
 
-## 前言
+## Introduction
 
-本节学习使用OpenCV对图像进行翻转功能，支持沿X轴翻转或沿Y轴翻转，实现镜像功能。
+This section teaches how to use OpenCV to flip images, supporting flipping along the X-axis or Y-axis to achieve mirroring functionality.
 
-## 实验目的
+## Experiment Objective
 
-对图像进行翻转并显示。
+Flip an image and display it.
 
-## 实验讲解
+## Experiment Explanation
 
-OpenCV Python库提供了flip()函数实现图像翻转功能。
+The OpenCV Python library provides the `flip()` function for image flipping.
 
-### flip() 使用方法
+### flip() Usage
 
 ```python
 img = cv2.flip(src, flipCode)
 ```
 
-图像缩放。
-- `src` ：原始图像。
-- `flipCode` ：翻转类型。
-    - `0` ：沿X轴翻转。
-    - `1` ：沿Y轴翻转。
-    - `-1` ：同时沿X和Y轴翻转。
+Image flipping.
+- `src`: Original image.
+- `flipCode`: Flip type.
+    - `0`: Flip along the X-axis.
+    - `1`: Flip along the Y-axis.
+    - `-1`: Flip along both the X and Y axes simultaneously.
 
-本节我们将图片分别进行3种翻转方式并显示出来，代码编写流程如下：
+In this section, we will apply all three flip modes to an image and display the results. The code flow is as follows:
 
 ```mermaid
 graph TD
-    打开图像-->翻转图像-->显示图像;
+    Open image-->Flip image-->Display images;
 ```
 
 <br></br>
 
-参考代码如下:
+The reference code is as follows:
 
 
 ```python
 '''
-实验名称：图像翻转
-实验平台：核桃派1B
+Experiment Name: Image Flip
+Experiment Platform: WalnutPi 1B
 '''
 
 import cv2
 
-img = cv2.imread("lenna.jpg") # 读取当前目录下的图像lenna.jpg,
-cv2.imshow('lenna', img) #显示图像
+img = cv2.imread("lenna.jpg") # Read the image lenna.jpg from the current directory
+cv2.imshow('lenna', img) # Display the image
 
-img1 = cv2.flip(img, 0) #沿X轴翻转
-cv2.imshow('X', img1) #显示图像
+img1 = cv2.flip(img, 0) # Flip along the X-axis
+cv2.imshow('X', img1) # Display the image
 
-img2 = cv2.flip(img, 1) #沿Y轴翻转
-cv2.imshow('Y', img2) #显示图像
+img2 = cv2.flip(img, 1) # Flip along the Y-axis
+cv2.imshow('Y', img2) # Display the image
 
-img3 = cv2.flip(img, -1) #同时沿X和Y轴翻转
-cv2.imshow('X & Y', img3) #显示图像
+img3 = cv2.flip(img, -1) # Flip along both X and Y axes
+cv2.imshow('X & Y', img3) # Display the image
 
-cv2.waitKey() #等待键盘任意按键按下
-cv2.destroyAllWindows() #关闭窗口
+cv2.waitKey() # Wait for any keyboard key to be pressed
+cv2.destroyAllWindows() # Close the window
 
 ```
 
-## 实验结果
+## Experiment Results
 
-在核桃派运行上面代码，可以看到实验结果如下图 (多个窗口可能会出现重叠，使用鼠标拖动一下)：
+Run the above code on the WalnutPi; the experiment results are as shown below (multiple windows may overlap — use the mouse to drag them apart):
 
 ![flip](./img/flip/flip1.png)
 
